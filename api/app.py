@@ -19,6 +19,7 @@ def create_rec():
         'song': request.json['song'],
         'artist': request.json['artist'],
         'user': request.json['user'],
+        'imageURL': request.json['imageURL']
             })
     
     print('succesfully added')
@@ -35,6 +36,7 @@ def get_recs():
             'song': doc['song'],
             'artist': doc['artist'],
             'user': doc['user'],
+            'imageURL': doc['imageURL'],
         })
     return {'recs': recs}
 

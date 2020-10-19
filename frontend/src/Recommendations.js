@@ -12,13 +12,15 @@ import {Rec} from './Rec'
         <div>
             <h3> Listen to recommenadations!</h3>
             <div>{props.recs && <Rec rec={props.recs[index]}></Rec>}</div>
-        <button onClick={()=> {
-            let set = Math.floor(Math.random() * props.recs.length);
-           setIndex(set);
-        }
+        <button onClick={()=> { 
+            const currIndex = (index == props.recs.length - 1)? 0 : index + 1;
+        
+     setIndex(currIndex)}
+    
+        
         }>Next Rec</button>
         <div>{<button onClick={()=> {
-setIndex(0);
+            setIndex(0);
         }}> Refresh</button>}</div>
         </div>
         
