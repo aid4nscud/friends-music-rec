@@ -1,35 +1,75 @@
 import React, { useEffect, useState } from "react";
-import {Recommendations} from './Recommendations.js'
-import './App.css'
+import axios from "axios";
+import { Recommendations } from "./Recommendations.js";
+import "./App.css";
 import { MakeRec } from "./MakeRec.js";
+import { getInfo } from "./Spotify.js";
 
-const api_key = '1d0967220509f44910198c1d77d0f67b'
+const info = getInfo();
+const clientID = info.client_id;
+const clientSecret = info.client_secret;
 
-function App() {
- 
-  const [recs, setRecs] = useState(null)
+function App(props) {
+  const [recs, setRecs] = useState(null);
+  const [token, setToken] = useState(null);
+  const [results, setResults] = useState(null);
 
-  
-  
- useEffect(() => {
+  useEffect(() => {
+    fetch("/get_recs")
+      .then((res) => res.json())
+      .then((parsedJSON) => {
+        if(parsedJSON['recs'].length > 0){ 
+        console.log(parsedJSON)
+        setRecs(parsedJSON["recs"]);
+        console.log(recs);}
+        else {
+          console.log('nothing yet')
+        }
+       
+      });
+  }, [results]);
 
-    fetch('/get_recs').then(res => res.json()).then(parsedJSON => {
-      console.log(parsedJSON['recs']) //not working for some reason, the api is returning a Flask Response Object not the json I want.
-      setRecs(parsedJSON['recs'])
-      console.log(recs)
+
+
+  const search = (query, limit=8) => {
+
+    let url = "https://api.spotify.com/v1/search?q=" + query + "&type=track&limit="+limit;
+    console.log(url);
+
+axios("https://accounts.spotify.com/api/token", {
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+        Authorization: "Basic " + btoa(clientID + ":" + clientSecret),
+      },
+      data: "grant_type=client_credentials",
+      method: "POST",
+    }).then((tokenResponse) => {
+      console.log(tokenResponse);
+      setToken(tokenResponse.data.access_token);
+
+      axios(url, {
+        headers: {
+          Authorization: "Bearer " + tokenResponse.data.access_token,
+        },
+        method: "GET",
+      }).then((searchResponse) => {
+        let results = searchResponse.data['tracks']['items']
+        let arr = []
+        results.forEach(item => arr.push(item))
+        console.log(arr)
+        setResults(arr);
+      });
+    
       
-
     });
-  },[])
+  }
+    
 
   return (
     <div className="App">
-      
-     
-    <MakeRec></MakeRec>
-      
-    <Recommendations  recs = {recs}></Recommendations>
-    
+      <MakeRec token = {token} search = {search} setResults ={setResults} results={results}></MakeRec>
+
+    {recs != null && <Recommendations recs={recs}></Recommendations>}
     </div>
   );
 }

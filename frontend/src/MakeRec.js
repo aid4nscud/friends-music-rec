@@ -1,81 +1,38 @@
 import { useState } from "react";
-import React from "react";
 
-export const MakeRec = () => {
+import React from "react";
+import { SearchResult } from "./SearchResult";
+
+export const MakeRec = (props) => {
   const [imageURL, setImageURL] = useState(null);
   const [message, setMessage] = useState(null);
   const [songValue, setSongValue] = useState("");
   const [artistValue, setArtistValue] = useState("");
   const [userValue, setUserValue] = useState("");
 
-  const [artist, setArtist] = useState('');
-  const [song, setSong] = useState(null)
-
-  const api_key = "1d0967220509f44910198c1d77d0f67b";
-
-  const searchRec = () => {
-    const url =
-      "http://ws.audioscrobbler.com/2.0/?method=track.getInfo&api_key=" +
-      api_key +
-      "&artist=" +
-      artistValue +
-      "&track=" +
-      songValue +
-      "&format=json";
-
-    fetch(url)
-      .then((response) => response.json())
-      .then((res) => {
-       console.log(res)
-        const albumPicURL = res["track"]["album"]["image"][2]["#text"];
-        setArtist(res["track"]["artist"]["name"]);
-        setSong(res['track']['name'])
-        
-
-        if (albumPicURL != null) {
-          setImageURL(albumPicURL);
-        }
-      });
-
-      
+  const createRec = (searchChoice) => {
     
-    // if (artist != '') {
-    //   const url2 =
-    //     "http://ws.audioscrobbler.com/2.0/?method=artist.getinfo&artist=" +
-    //     artist +
-    //     "&api_key=" +
-    //     api_key +
-    //     "&format=json";
-
-    //   fetch(url2)
-    //     .then((response) => response.json())
-    //     .then((res) => {
-         
-    //       console.log(res);
-    //     });
-    // }
-  };
-
-  const createRec = (e) => {
-    if ((songValue, artistValue, userValue !== "")) {
       const rec = {
-        song: songValue,
-        artist: artistValue,
-        user: userValue,
-        imageURL: imageURL,
+        song: searchChoice.song,
+        artist: searchChoice.artist,
+        user: searchChoice.user,
+        imageURL: searchChoice.imageURL,
       };
       fetch("/create_rec", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(rec),
       });
-    } else {
-      console.log("inputs are invalid");
-    }
-  };
+
+      props.setResults([])
+   
+  }
+  
 
   return (
     <div>
+      <h3>Search for a song to recommend :)</h3>
+
       <form onSubmit={createRec}>
         <input
           placeholder="song"
@@ -102,30 +59,29 @@ export const MakeRec = () => {
             }}
           ></input>
         )}
-
-        {
-          (songValue,
-          artistValue,
-          userValue != "" && imageURL != null && (
-            <button type="submit">Make Recommendation</button>
-          ))
-        }
       </form>
 
       <button
         onClick={() => {
-          if ((songValue, artistValue != "")) {
-            searchRec();
-          }
+          props.search(songValue + " " + artistValue);
         }}
       >
         Search Song
       </button>
 
-      <h3>{message}</h3>
+      {props.results && (
+        <div>
+          {props.results.map((item) => {
+            return <SearchResult create={createRec} id={item['id']} imageURL={item["album"]['images'][1]['url']} song={item['name']} artist={item["album"]["artists"]['0']['name']} />
+            
+          })}
+        </div>
+      )}
 
       <img src={imageURL} />
-      {imageURL && song != null && <h2>{song + ' by: ' + artist}</h2>}
+      {imageURL && songValue != null && (
+        <h2>{songValue + " by: " + artistValue}</h2>
+      )}
     </div>
   );
 };

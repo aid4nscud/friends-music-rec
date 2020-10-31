@@ -1,0 +1,19 @@
+.search-result {
+   
+    
+
+    width: 25rem;
+    display: inline-block;
+    padding: 2rem;
+
+
+}
+.search-result:hover {
+    border-top-style: solid;
+    border-bottom-style: solid;
+    border-left-style: solid;
+    border-right-style: solid;
+    border-radius: 30px;
+   
+    
+}
