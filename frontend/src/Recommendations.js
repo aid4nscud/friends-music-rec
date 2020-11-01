@@ -5,37 +5,26 @@ import { Rec } from "./Rec";
 export const Recommendations = (props) => {
   const [index, setIndex] = useState(0);
 
+  const nextRec = () => {
+    {
+      const currIndex = index == props.recs.length - 1 ? 0 : index + 1;
+
+      setIndex(currIndex);
+    }
+  }
   return (
     <div>
       <h3> Listen to recommenadations!</h3>
-      {props.recs !== null && 
+      {props.recs !== null && (
         <Rec
-          imageURL={props.recs[index].imageURL}
+          images={props.recs[index].images}
           song={props.recs[index].song}
           artist={props.recs[index].artist}
+          uri={props.recs[index].uri}
+          nextRec={nextRec}
         ></Rec>
-      }
-      <button
-        onClick={() => {
-          const currIndex = index == props.recs.length - 1 ? 0 : index + 1;
-
-          setIndex(currIndex);
-        }}
-      >
-        Next Rec
-      </button>
-      <div>
-        {
-          <button
-            onClick={() => {
-              setIndex(0);
-            }}
-          >
-            {" "}
-            Refresh
-          </button>
-        }
-      </div>
+      )}
+    
     </div>
   );
 };

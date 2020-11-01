@@ -1,24 +1,20 @@
-import React from 'react'
-import './SearchResult.css'
+import React from "react";
+import "./SearchResult.css";
 
 export const SearchResult = (props) => {
-const handleClick = (e) => {
-    let obj = {
-        song: props.song,
-        artist: props.artist,
-        user: null,
-        imageURL: props.imageURL
-    }
-    props.create(obj)
-    console.log('rec created')
-    
-}
-    return (
-        <div onClick={handleClick} className='search-result'>
-            <p>{'Song: ' + props.song}</p>
-            <img src={props.imageURL}/>
-            <p>{' By: ' + props.artist}</p>   
-            
-        </div>
-    )
-}
+  const handleClick = (e) => {
+    props.setQueued(props.info);
+
+    console.log("rec in queue");
+  };
+  return (
+    <div onClick={handleClick} className="search-result">
+      <div className="wrapper">
+        <p>{"Song: " + props.info.song}</p>
+        <img src={props.info.images[2]['url']} />
+        <p>{" By: " + props.info.artist}</p>
+      </div>
+      <b>{'Popularity: ' + props.info.popularity}</b>
+    </div>
+  );
+};
