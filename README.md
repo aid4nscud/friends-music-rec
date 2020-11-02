@@ -14,4 +14,4 @@ MVP FEATURES:
 
 - Login/Register a User
 - User is presented with recommendations and can interact with them
-- User can search any song and recommend it
+- User can search any song and recommend it. ---- (COMPLETED)
