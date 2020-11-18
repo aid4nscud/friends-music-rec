@@ -1,9 +1,13 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { Link, Route, Switch } from "react-router-dom";
 import { Recommendations } from "./Recommendations.js";
 import "./App.css";
 import { MakeRec } from "./MakeRec.js";
 import { getInfo } from "./Spotify.js";
+import { Login } from "./Login.js";
+import {Register} from './Register'
+
 
 const info = getInfo();
 const clientID = info.client_id;
@@ -12,26 +16,27 @@ const clientSecret = info.client_secret;
 const removeDuplicates = (recs) => {
   let unique = [];
 
-  recs.forEach(rec => {
-   
-      let bool= true;
-      unique.forEach(r => {
-        if(r["album"]["artists"]["0"]["name"] == rec["album"]["artists"]["0"]["name"]){
-          bool = false;
-        }
-      })
-
-      if(bool == true){
-        unique.push(rec)
+  recs.forEach((rec) => {
+    let bool = true;
+    unique.forEach((r) => {
+      if (
+        r["album"]["artists"]["0"]["name"] ==
+        rec["album"]["artists"]["0"]["name"]
+      ) {
+        bool = false;
       }
-      
+    });
+
+    if (bool == true) {
+      unique.push(rec);
     }
-  )
-  console.log(unique)
+  });
+  console.log(unique);
 
-return unique
+  return unique;
+};
 
-}
+
 
 function App(props) {
   const [recs, setRecs] = useState(null);
@@ -50,6 +55,8 @@ function App(props) {
         }
       });
   }, [results]);
+
+
 
   const search = (query, limit = 8) => {
     let url =
@@ -70,7 +77,7 @@ function App(props) {
     }).then((tokenResponse) => {
       console.log(tokenResponse);
       setToken(tokenResponse.data.access_token);
-  //using that token response to request the track information
+      //using that token response to request the track information
       axios(url, {
         headers: {
           Authorization: "Bearer " + tokenResponse.data.access_token,
@@ -81,25 +88,61 @@ function App(props) {
         let arr = [];
         results.forEach((item) => arr.push(item));
         console.log(arr);
-  //created track objects from the json response and added them to an array
+        //created track objects from the json response and added them to an array
         const set = removeDuplicates(arr);
-        console.log(set)
-        setResults(set)
-        alert(JSON.stringify(results[0]['album']['images']))
+        console.log(set);
+        setResults(set);
+        alert(JSON.stringify(results[0]["album"]["images"]));
       });
     });
   };
 
   return (
-    <div className="App" >
-      <MakeRec
-        token={token}
-        search={search}
-        setResults={setResults}
-        results={results}
-      ></MakeRec>
+    <div>
+      <div className="App"></div>
 
-      {recs != null && <Recommendations recs={recs}></Recommendations>}
+      <nav>
+        <ul>
+          <li><Link to='/'>Home</Link></li>
+          <li>
+            <Link to="/login">Login</Link>
+          </li>
+          <li><Link to='/register'>Register</Link></li>
+          <li>
+            <Link to="/listen">
+             Listen!
+            </Link>
+          </li>
+          <li>
+            <Link to="/recommend">
+              Recommend!
+            </Link>
+          </li>
+        </ul>
+      </nav>
+
+      {/* Route components are rendered if the path prop matches the current URL */}
+      
+      <Route path="/">
+        SLAPSW4P
+      </Route>
+      <Route path="/login">
+        <Login/>
+      </Route>
+      <Route path="/register">
+        <Register/>
+      </Route>
+      <Route path="/listen">
+        {recs != null && <Recommendations token={token} setToken={setToken} recs={recs}></Recommendations>}
+      </Route>
+      <Route path="/recommend">
+        <MakeRec
+          token={token}
+          search={search}
+          setResults={setResults}
+          results={results}
+        ></MakeRec>
+      </Route>
     </div>
   );
 }

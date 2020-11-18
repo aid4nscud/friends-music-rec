@@ -11,7 +11,7 @@ export const SearchResult = (props) => {
     <div onClick={handleClick} className="search-result">
       <div className="wrapper">
         <p>{"Song: " + props.info.song}</p>
-        <img src={props.info.images[2]['url']} />
+        <img src={props.info.images[1]['url']} />
         <p>{" By: " + props.info.artist}</p>
       </div>
       <b>{'Popularity: ' + props.info.popularity}</b>

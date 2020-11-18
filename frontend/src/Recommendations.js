@@ -17,6 +17,8 @@ export const Recommendations = (props) => {
       <h3> Listen to recommenadations!</h3>
       {props.recs !== null && (
         <Rec
+        token={props.token}
+        setToken={props.setToken}
           images={props.recs[index].images}
           song={props.recs[index].song}
           artist={props.recs[index].artist}

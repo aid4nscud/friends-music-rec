@@ -1,21 +1,21 @@
 from flask import Flask, request, jsonify
 from pymongo import MongoClient
-
-
-
+import os
+import datetime
 
 
 app = Flask(__name__)
+app.config['SECRET_KEY'] = os.urandom(24)
 client = MongoClient(port=27017)
 db = client.prototype
-
-
+users = db.users
+recommendations = db.recommendations
 
 
 
 @app.route('/create_rec', methods={"POST"})
 def create_rec():
-    db.recommendations.insert({
+    recommendations.insert({
         'song': request.json['song'],
         'artist': request.json['artist'],
         'user': request.json['user'],
@@ -43,10 +43,41 @@ def get_recs():
     return {'recs': recs}
 
 
+@app.route('/login', methods={'POST'})
+def login():
+    message = ''
+    req = request.json
+    username = req['username']
+    password = req['password']
+    creds = users.find_one({'username': username})
+    if(creds):
+        if(creds['password'] == password):
+            message = 'successful login'
+        else:
+            message = 'wrong password'
+    else:
+        message = 'invalid username'
+    return {'message': message}
+
+
+
+
+@app.route('/register', methods={'POST'})
+def register():
     
+    
+    username = request.json['username']
+    email = request.json['email']
+    password = request.json['password']
+
+    users.insert({
+        'email': email,
+        'username': username,
+        'password': password,
+            })
+    
+    return {'message': 'account created successfully'}
     
 
-   
-
     
-        
+
