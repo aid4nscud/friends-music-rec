@@ -65,18 +65,28 @@ def login():
 @app.route('/register', methods={'POST'})
 def register():
     
+    message = ''
     
     username = request.json['username']
     email = request.json['email']
     password = request.json['password']
 
-    users.insert({
+    username_exists = users.find_one({'username': username})
+    email_exists = users.find_one({'email': email})
+
+    if(not username_exists and not email_exists):
+        users.insert({
         'email': email,
         'username': username,
         'password': password,
             })
+        message = 'account succesfully created'
+    else:
+        message = 'that username or email is already in use'
+
+   
     
-    return {'message': 'account created successfully'}
+    return {'message': message}
     
 
     
