@@ -5,21 +5,19 @@ import { SearchResult } from "./SearchResult";
 
 export const MakeRec = (props) => {
   const [images, setImages] = useState(null);
-  const [songValue, setSongValue] = useState("");
-  const [artistValue, setArtistValue] = useState("");
+  const [inputValue, setInputValue] = useState("");
   const [userValue, setUserValue] = useState("");
   const [queued, setQueued] = useState(null);
 
   const cleanup = () => {
-    setSongValue("");
-    setArtistValue("");
+    setInputValue("");
     setUserValue("");
     setQueued(null);
     props.setResults([]);
   };
 
   const createRec = () => {
-    alert(queued.uri);
+
     const rec = {
       song: queued.song,
       artist: queued.artist,
@@ -44,19 +42,13 @@ export const MakeRec = (props) => {
       <form onSubmit={createRec}>
         <input
           placeholder="song"
-          value={songValue}
+          value={inputValue}
           onChange={(e) => {
-            setSongValue(e.target.value);
+            setInputValue(e.target.value);
           }}
         ></input>
 
-        <input
-          placeholder="artist"
-          value={artistValue}
-          onChange={(e) => {
-            setArtistValue(e.target.value);
-          }}
-        ></input>
+      
 
         {images && (
           <input
@@ -71,7 +63,7 @@ export const MakeRec = (props) => {
 
       <button
         onClick={() => {
-          props.search(songValue + " " + artistValue);
+          props.search(inputValue);
         }}
       >
         Search Song
@@ -114,8 +106,8 @@ export const MakeRec = (props) => {
       )}
 
       {images && <img src={images[1]["url"]} />}
-      {images && songValue != null && (
-        <h2>{songValue + " by: " + artistValue}</h2>
+      {images && inputValue != null && (
+        <h2>{inputValue + " by: " }</h2>
       )}
     </div>
   );

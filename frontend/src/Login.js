@@ -1,20 +1,46 @@
 import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
+import auth from "./auth";
 
-export const Login = () => {
+
+
+export const Login = (props) => {
   const [username, setUsername] = useState(null);
   const [password, setPassword] = useState(null);
+  const [warning, setWarning] = useState(null);
+  const history = useHistory();
 
-  const login = (username, password) => {
+  const login = async ( username, password) => {
+    
 
     const creds = {
       username: username,
       password: password,
     };
+    
     fetch("/login", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(creds),
-    }).then(res => res.json()).then((parsed) => alert(parsed.message));
+    }).then(res => res.json()).then((parsed) => {
+      
+      if(parsed.message == 'successful login'){
+        auth.login(()=> {
+          history.push('/app')
+  
+        });
+        
+        
+      }
+      else{
+        setWarning(parsed.message);
+
+      }
+    }
+      
+    );
+   
+    
   };
 
   return (
@@ -23,7 +49,7 @@ export const Login = () => {
       <p>This page is where the user can sign in or sign up using one of the forms below</p>
       <form
         onSubmit={(e) => {
-         
+         e.preventDefault();
           if(username, password !== null){
             login(username, password);
           }
@@ -48,6 +74,7 @@ export const Login = () => {
         ></input>
         <button type="submit"> Login </button>
       </form>
+      {warning && <h3>{warning}</h3>}
     </div>
   );
 };
