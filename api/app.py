@@ -2,6 +2,7 @@ from flask import Flask, request, jsonify
 from pymongo import MongoClient
 import os
 import datetime
+import jwt
 
 
 app = Flask(__name__)
@@ -10,6 +11,48 @@ client = MongoClient(port=27017)
 db = client.prototype
 users = db.users
 recommendations = db.recommendations
+
+
+def encodeAuthToken(user_id):
+    try:
+        payload = {
+            'iat': datetime.datetime.utcnow(),
+            'user': user_id,
+        }
+        token = jwt.encode(payload, 'super-secret-key', algorithm='HS256')
+        return token
+    except Exception as e:
+        print (e)
+        return e
+
+
+def decodeAuthToken(token):
+    try:
+        payload = jwt.decode(token, 'super-secret-key', algorithms=['HS256'])
+        return payload
+    except jwt.ExpiredSignatureError:
+        return 'Signature expired. Login please'
+    except jwt.InvalidTokenError:
+        return 'Nice try, invalid token. Login please'
+
+@app.route('/auth_decode', methods={"GET"})
+def check_token():
+    error = ''
+    auth_header = request.headers.get('Authorization')
+    if auth_header:
+        token = bytes(auth_header.split(" ")[1], 'UTF-8') # Parses out the "Bearer" portion
+    else:
+        token = ''
+
+    if token:
+        decoded = decodeAuthToken(token)
+        if not isinstance(decoded, str):
+            return decoded
+        else:
+            error = 'problem decoding token'
+            return {'error': error}
+
+
 
 
 
@@ -45,19 +88,22 @@ def get_recs():
 
 @app.route('/login', methods={'POST'})
 def login():
-    message = ''
+    error = ''
     req = request.json
     username = req['username']
     password = req['password']
     creds = users.find_one({'username': username})
     if(creds):
         if(creds['password'] == password):
-            message = 'successful login'
+            token = encodeAuthToken(username).decode('UTF-8')
+            return {'token': token}
         else:
-            message = 'wrong password'
+            error = 'Wrong Password'
+            return {'error': error}
     else:
-        message = 'invalid username'
-    return {'message': message}
+        error = 'Invalid Username'
+        return {'error': error}
+    
 
 
 

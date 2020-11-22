@@ -23,8 +23,13 @@ export const Login = (props) => {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(creds),
     }).then(res => res.json()).then((parsed) => {
+
+      console.log(parsed)
       
-      if(parsed.message == 'successful login'){
+      if(parsed.token){
+        const cookie = 'token=' + parsed['token'] + '; max-age=' + 120
+        document.cookie = cookie
+        console.log(document.cookie)
         auth.login(()=> {
           history.push('/app')
   
@@ -33,7 +38,7 @@ export const Login = (props) => {
         
       }
       else{
-        setWarning(parsed.message);
+        setWarning(parsed['error']);
 
       }
     }
