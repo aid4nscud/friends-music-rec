@@ -17,14 +17,14 @@ export const Recommendations = (props) => {
       <h3> Listen to recommenadations!</h3>
       {props.recs !== null && (
         <Rec
-        token={props.token}
-        setToken={props.setToken}
+        spotifyToken={props.spotifyToken}
+        setSpotifyToken={props.setSpotifyToken}
           images={props.recs[index].images}
           song={props.recs[index].song}
           artist={props.recs[index].artist}
           uri={props.recs[index].uri}
           nextRec={nextRec}
-        ></Rec>
+        />
       )}
     
     </div>

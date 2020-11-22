@@ -12,7 +12,7 @@ export const Rec = (props) => {
 
   let url = "https://open.spotify.com/embed/track/" + uriCode;
   useEffect(() => {
-    if (props.token == null) {
+    if (props.spotifyToken == null) {
       let url = 'https://api.spotify.com/v1/tracks/'+ uriCode
 
       console.log(url);
@@ -27,7 +27,7 @@ export const Rec = (props) => {
         method: "POST",
       }).then((tokenResponse) => {
         console.log(tokenResponse);
-        props.setToken(tokenResponse.data.access_token);
+        props.setSpotifyToken(tokenResponse.data.access_token);
         //using that token response to request the track information
         axios(url, {
           headers: {
@@ -48,7 +48,7 @@ export const Rec = (props) => {
 
      axios(url, {
       headers: {
-        Authorization: "Bearer " + props.token,
+        Authorization: "Bearer " + props.spotifyToken,
       },
       method: "GET",
     }).then((trackResult) => {

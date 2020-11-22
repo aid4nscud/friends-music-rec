@@ -27,7 +27,7 @@ export const Login = (props) => {
       console.log(parsed)
       
       if(parsed.token){
-        const cookie = 'token=' + parsed['token'] + '; max-age=' + 120
+        const cookie = 'token=' + parsed['token'] + '; max-age=' + 30*24*60*60
         document.cookie = cookie
         console.log(document.cookie)
         auth.login(()=> {

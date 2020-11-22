@@ -35,7 +35,7 @@ const removeDuplicates = (recs) => {
 
 export const AppLayout = (props) => {
   const [recs, setRecs] = useState(null);
-  const [token, setToken] = useState(null);
+  const [spotifyToken, setSpotifyToken] = useState(null);
   const [results, setResults] = useState(null);
   const history = useHistory();
 
@@ -73,7 +73,7 @@ export const AppLayout = (props) => {
       method: "POST",
     }).then((tokenResponse) => {
       console.log(tokenResponse);
-      setToken(tokenResponse.data.access_token);
+      setSpotifyToken(tokenResponse.data.access_token);
       //using that token response to request the track information
       axios(url, {
         headers: {
@@ -95,14 +95,14 @@ export const AppLayout = (props) => {
   return (
     <div>
         <MakeRec
-              token={token}
+              
               search={search}
               setResults={setResults}
               results={results}
             />
         <Recommendations
-                token={token}
-                setToken={setToken}
+                spotifyToken={spotifyToken}
+                setSpotifyToken={setSpotifyToken}
                 recs={recs}
               />
         
