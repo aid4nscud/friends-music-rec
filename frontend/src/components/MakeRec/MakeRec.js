@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 import React from "react";
-import { SearchResult } from "./SearchResult";
+import { SearchResult } from "../SearchResult/SearchResult";
 
 export const MakeRec = (props) => {
   const [images, setImages] = useState(null);

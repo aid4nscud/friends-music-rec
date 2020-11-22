@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { Route, Redirect } from "react-router-dom";
-import auth from "./auth";
+import auth from "../utils/auth";
 import axios from "axios";
-import { getCookie } from "./auth";
+import { getCookie } from "../utils/auth";
 
 export const AuthRoute = ({ component: Component, ...rest }) => {
   const [ load, setLoad] = useState(0)

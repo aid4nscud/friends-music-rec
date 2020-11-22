@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./Recommendations.css";
-import { Rec } from "./Rec";
+import { Rec } from "../Rec/Rec";
 
 export const Recommendations = (props) => {
   const [index, setIndex] = useState(0);

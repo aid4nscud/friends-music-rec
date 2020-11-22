@@ -1,9 +1,9 @@
 import React, {useState, useEffect} from "react";
 import axios from 'axios'
-import auth from "./auth";
-import {getInfo} from './Spotify'
-import { MakeRec } from "./MakeRec.js";
-import { Recommendations } from "./Recommendations";
+import auth from "../../utils/auth";
+import {getInfo} from '../../utils/Spotify'
+import { MakeRec } from "../MakeRec/MakeRec.js";
+import { Recommendations } from "../Recommendations/Recommendations";
 import { useHistory } from "react-router-dom";
 
 const info = getInfo();

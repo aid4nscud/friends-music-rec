@@ -2,11 +2,11 @@ import React from "react";
 
 import { Route, useHistory } from "react-router-dom";
 import "./App.css";
-import { getCookie } from "./auth";
-import { Login } from "./Login.js";
-import { Register } from "./Register";
-import { AuthRoute } from "./AuthRoute";
-import { AppLayout } from "./AppLayout.js";
+import { getCookie } from "../../utils/auth";
+import { Login } from "../Login/Login.js";
+import { Register } from "../Register/Register";
+import { AuthRoute } from "../AuthRoute";
+import { AppLayout } from "../AppLayout/AppLayout.js";
 
 function App() {
   const history = useHistory();
