@@ -127,12 +127,13 @@ def register():
         'password': password,
             })
         message = 'account succesfully created'
+        return {'success': message}
+
     else:
         message = 'that username or email is already in use'
+        return {'error': message}
 
-   
-    
-    return {'message': message}
+
     
 
     

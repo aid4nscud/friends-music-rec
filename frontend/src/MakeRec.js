@@ -105,7 +105,7 @@ export const MakeRec = (props) => {
         </div>
       )}
 
-      {images && <img src={images[1]["url"]} />}
+      {images && <img alt={'bruh'} src={images[1]["url"]} />}
       {images && inputValue != null && (
         <h2>{inputValue + " by: " }</h2>
       )}

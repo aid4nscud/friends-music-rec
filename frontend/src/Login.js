@@ -24,12 +24,12 @@ export const Login = (props) => {
       body: JSON.stringify(creds),
     }).then(res => res.json()).then((parsed) => {
 
-      console.log(parsed)
+      
       
       if(parsed.token){
-        const cookie = 'token=' + parsed['token'] + '; max-age=' + 30*24*60*60
+        const cookie = 'token=' + parsed['token'] + '; max-age=' + 30*24*60*60 + '; SameSite=Strict'
         document.cookie = cookie
-        console.log(document.cookie)
+       
         auth.login(()=> {
           history.push('/app')
   
@@ -80,6 +80,13 @@ export const Login = (props) => {
         <button type="submit"> Login </button>
       </form>
       {warning && <h3>{warning}</h3>}
+      <div className='sign-up'>
+      <h2>Don't have an account yet?</h2>
+      <button onClick={()=> {
+        history.push('/register')
+      }}>Sign up!</button>
+      </div>
+      
     </div>
   );
 };

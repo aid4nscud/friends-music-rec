@@ -1,10 +1,14 @@
+
 import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
+import auth from './auth'
 
 
 export const Register = () => {
   const [email, setEmail] = useState(null);
   const [username, setUsername] = useState(null);
   const [password, setPassword] = useState(null);
+  const history = useHistory();
 
   const register = (email, username, password) => {
       const user = {
@@ -16,15 +20,55 @@ export const Register = () => {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(user),
-      }).then(res => res.json()).then((parsed) => alert(parsed.message));
-    };
+      }).then(res => res.json()).then((parsed) => {
+        if(parsed.success){
+          setTimeout(2);
+          const creds = {
+            username: username,
+            password: password,
+          };
+          
+          fetch("/login", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(creds),
+          }).then(res => res.json()).then((parsed) => {
+      
+           
+            
+            if(parsed.token){
+              const cookie = 'token=' + parsed['token'] + '; max-age=' + 30*24*60*60
+              document.cookie = cookie
+              
+              auth.login(()=> {
+                history.push('/app')
+        
+              });
+              
+              
+            }
+            else{
+              alert(parsed.error);
+      
+            }
+          
+          
+        })
+      }
+      })
+    }
+    
+          
+      
+    
+  
  
 
   return (
     <div>
       <h1>Register</h1>
       <form onSubmit={(e) => {
-         
+         e.preventDefault();
           if(email,username, password !== null){
           register(email, username, password)
           }

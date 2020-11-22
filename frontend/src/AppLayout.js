@@ -17,18 +17,18 @@ const removeDuplicates = (recs) => {
     let bool = true;
     unique.forEach((r) => {
       if (
-        r["album"]["artists"]["0"]["name"] ==
+        r["album"]["artists"]["0"]["name"] ===
         rec["album"]["artists"]["0"]["name"]
       ) {
         bool = false;
       }
     });
 
-    if (bool == true) {
+    if (bool === true) {
       unique.push(rec);
     }
   });
-  console.log(unique);
+  
 
   return unique;
 };
@@ -40,16 +40,16 @@ export const AppLayout = (props) => {
   const history = useHistory();
 
 
+
+
   useEffect(() => {
     fetch("/get_recs")
       .then((res) => res.json())
       .then((parsedJSON) => {
         if (parsedJSON["recs"].length > 0) {
           setRecs(parsedJSON["recs"]);
-          console.log(recs);
-        } else {
-          console.log("nothing yet");
-        }
+          
+        } 
       });
   }, [results]);
 
@@ -61,7 +61,7 @@ export const AppLayout = (props) => {
       query +
       "&type=track&market=US&limit=" +
       limit;
-    console.log(url);
+    
 
     //getting token for client-credentials flow authorization from Spotify
     axios("https://accounts.spotify.com/api/token", {
@@ -72,7 +72,7 @@ export const AppLayout = (props) => {
       data: "grant_type=client_credentials",
       method: "POST",
     }).then((tokenResponse) => {
-      console.log(tokenResponse);
+      
       setSpotifyToken(tokenResponse.data.access_token);
       //using that token response to request the track information
       axios(url, {
@@ -84,16 +84,17 @@ export const AppLayout = (props) => {
         let results = searchResponse.data["tracks"]["items"];
         let arr = [];
         results.forEach((item) => arr.push(item));
-        console.log(arr);
+        
         //created track objects from the json response and added them to an array
         const set = removeDuplicates(arr);
-        console.log(set);
+      
         setResults(set);
       });
     });
   };
   return (
     <div>
+      
         <MakeRec
               
               search={search}

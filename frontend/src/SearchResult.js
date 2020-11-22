@@ -8,10 +8,10 @@ export const SearchResult = (props) => {
     console.log("rec in queue");
   };
   return (
-    <div onClick={handleClick} className="search-result">
+    <div key={props.info.id}onClick={handleClick} className="search-result">
       <div className="wrapper">
         <p>{"Song: " + props.info.song}</p>
-        <img src={props.info.images[1]['url']} />
+        <img alt={props.info.song}src={props.info.images[1]['url']} />
         <p>{" By: " + props.info.artist}</p>
       </div>
       <b>{'Popularity: ' + props.info.popularity}</b>

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Route, Redirect } from "react-router-dom";
 import auth from "./auth";
 import axios from "axios";
