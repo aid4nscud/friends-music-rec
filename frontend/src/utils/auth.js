@@ -15,6 +15,7 @@ export const getCookie = (name) => {
 class Auth {
     constructor(){
         this.authenticated = false;
+        this.user = null
     }
     
     login(cb){
@@ -24,6 +25,7 @@ class Auth {
     }
 
     logout(cb){
+        this.setUser(null)
         this.authenticated = false;
         document.cookie = "token= ; expires = Thu, 01 Jan 1970 00:00:00 GMT"
         cb();
@@ -36,6 +38,14 @@ class Auth {
 
     isAuthenticated(){
         return this.authenticated;
+    }
+
+    setUser(user){
+        this.user = user
+
+    }
+    getUser(){
+        return this.user
     }
 
 

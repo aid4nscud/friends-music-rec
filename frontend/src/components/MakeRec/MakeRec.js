@@ -1,4 +1,5 @@
 import { useState } from "react";
+import auth from '../../utils/auth'
 
 import React from "react";
 import { SearchResult } from "../SearchResult/SearchResult";
@@ -17,11 +18,12 @@ export const MakeRec = (props) => {
   };
 
   const createRec = () => {
+    const recommender = auth.getUser();
 
     const rec = {
       song: queued.song,
       artist: queued.artist,
-      user: queued.user,
+      user: recommender,
       images: queued.images,
       uri: queued.uri,
     };
@@ -86,7 +88,6 @@ export const MakeRec = (props) => {
               id: item["id"],
               images: item["album"]["images"],
               song: item["name"],
-              user: null,
               artist: item["album"]["artists"]["0"]["name"],
               popularity: item["popularity"],
               uri: item["uri"],

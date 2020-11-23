@@ -5,6 +5,7 @@ import {getInfo} from '../../utils/Spotify'
 import { MakeRec } from "../MakeRec/MakeRec.js";
 import { Recommendations } from "../Recommendations/Recommendations";
 import { useHistory } from "react-router-dom";
+import { Profile } from "../Profile/Profile";
 
 const info = getInfo();
 const clientID = info.client_id;
@@ -94,6 +95,8 @@ export const AppLayout = (props) => {
   };
   return (
     <div>
+
+      <Profile />
       
         <MakeRec
               

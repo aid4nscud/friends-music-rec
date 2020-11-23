@@ -86,7 +86,7 @@ def get_recs():
     return {'recs': recs}
 
 
-@app.route('/login', methods={'POST'})
+@app.route('/api/login', methods={'POST'})
 def login():
     error = ''
     req = request.json
@@ -108,7 +108,7 @@ def login():
 
 
 
-@app.route('/register', methods={'POST'})
+@app.route('/api/register', methods={'POST'})
 def register():
     
     message = ''

@@ -2,7 +2,7 @@ import React from "react";
 
 
 
-export const Rec = (props) => {
+export const FeedRec = (props) => {
   
   let uri = props.uri;
   let uriCode = uri.substr(14);
@@ -19,6 +19,7 @@ export const Rec = (props) => {
         allowtransparency="true"
         allow="encrypted-media"
       ></iframe>
+      <h3>{'Recommended to you by '+ props.user}</h3>
 
       <button onClick={props.nextRec}>Next</button>
     </div>

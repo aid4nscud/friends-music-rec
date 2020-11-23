@@ -16,7 +16,7 @@ export const Register = () => {
           username: username,
           password: password
       }
-      fetch("/register", {
+      fetch("/api/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(user),
@@ -28,7 +28,7 @@ export const Register = () => {
             password: password,
           };
           
-          fetch("/login", {
+          fetch("/api/login", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(creds),

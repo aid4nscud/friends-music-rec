@@ -11,24 +11,39 @@ export const AuthRoute = ({ component: Component, ...rest }) => {
     <Route
       {...rest}
       render={ () => {
-        if(auth.isAuthenticated()){
-          return <Component/>
-        }
-        else if(getCookie('token')!== null){
+        // if(auth.isAuthenticated()){
+        //   return <Component/>
+        // }
+        if(getCookie('token')!== null){
           let token = getCookie('token')
-          axios("/auth_decode", {
-            headers: {
-              Authorization: "Bearer " + token,
-            },
-            method: "GET",
-          }).then((res) => {
-            if (res.data["user"]) {
-              auth.setAuthenticated(true);
-              setLoad(load+1) //FORCES REACT TO RERENDER PAGE 
-            } else {
-              return <Redirect to="/" />;
-            }
-          })
+
+          if(auth.getUser()===null){
+            axios("/auth_decode", {
+              headers: {
+                Authorization: "Bearer " + token,
+              },
+              method: "GET",
+            }).then((res) => {
+              if (res.data["user"]) {
+                
+                  auth.setUser(res.data['user'])
+                  auth.setAuthenticated(true);
+                  setLoad(load+1)
+                  //FORCES REACT TO RERENDER PAGE 
+              } else {
+                return <Redirect to='/'/>
+              }
+            })
+          }
+          else if(load===0){
+            auth.setAuthenticated(true);
+            setLoad(load+1)
+          }
+          else if(load !== 0){
+            return <Component/>
+          }
+
+          
 
         }
         else {

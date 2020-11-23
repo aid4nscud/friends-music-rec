@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./Recommendations.css";
-import { Rec } from "../Rec/Rec";
+import { FeedRec } from "../FeedRec/FeedRec";
 
 export const Recommendations = (props) => {
   const [index, setIndex] = useState(0);
@@ -16,7 +16,8 @@ export const Recommendations = (props) => {
     <div>
       <h3> Listen to recommenadations!</h3>
       {props.recs !== null && (
-        <Rec
+        <FeedRec
+        user={props.recs[index].user}
         spotifyToken={props.spotifyToken}
         setSpotifyToken={props.setSpotifyToken}
           images={props.recs[index].images}
