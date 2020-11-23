@@ -1,20 +1,66 @@
 import { useState } from "react";
 import auth from "../../utils/auth";
-
+import {getInfo} from '../../utils/Spotify'
 import React from "react";
+import axios from 'axios'
 import { SearchResult } from "../SearchResult/SearchResult";
+
+
+
+const info = getInfo();
+const clientID = info.client_id;
+const clientSecret = info.client_secret;
+
+
 
 export const MakeRec = (props) => {
   const [images, setImages] = useState(null);
   const [inputValue, setInputValue] = useState("");
   const [userValue, setUserValue] = useState("");
   const [queued, setQueued] = useState(null);
+  const [results, setResults] = useState(null);
 
   const cleanup = () => {
     setInputValue("");
     setUserValue("");
     setQueued(null);
-    props.setResults([]);
+    setResults([]);
+  };
+
+  const search = (query, limit = 8) => {
+    let url =
+      "https://api.spotify.com/v1/search?q=" +
+      query +
+      "&type=track&market=US&limit=" +
+      limit;
+
+    //getting token for client-credentials flow authorization from Spotify
+    axios("https://accounts.spotify.com/api/token", {
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+        Authorization: "Basic " + btoa(clientID + ":" + clientSecret),
+      },
+      data: "grant_type=client_credentials",
+      method: "POST",
+    }).then((tokenResponse) => {
+      props.setSpotifyToken(tokenResponse.data.access_token);
+      //using that token response to request the track information
+      axios(url, {
+        headers: {
+          Authorization: "Bearer " + tokenResponse.data.access_token,
+        },
+        method: "GET",
+      }).then((searchResponse) => {
+        let results = searchResponse.data["tracks"]["items"];
+        let arr = [];
+        results.forEach((item) => arr.push(item));
+
+        //created track objects from the json response and added them to an array
+        const set = removeDuplicates(arr);
+
+        setResults(set);
+      });
+    });
   };
 
   const createRec = () => {
@@ -39,11 +85,11 @@ export const MakeRec = (props) => {
 
   return (
     <div className="make-rec">
-      <h2>Search for a song to recommend :)</h2>
+      <h2>Recommend a good song!</h2>
 
       <form onSubmit={createRec}>
         <input
-          placeholder="song"
+          placeholder="Search Song"
           value={inputValue}
           onChange={(e) => {
             setInputValue(e.target.value);
@@ -63,7 +109,7 @@ export const MakeRec = (props) => {
 
       <button
         onClick={() => {
-          props.search(inputValue);
+          search(inputValue);
         }}
       >
         Search Song
@@ -79,9 +125,9 @@ export const MakeRec = (props) => {
         </div>
       )}
 
-      {props.results && (
+      {results && (
         <div>
-          {props.results.map((item) => {
+          {results.map((item) => {
             const info = {
               id: item["id"],
               images: item["album"]["images"],
@@ -93,7 +139,7 @@ export const MakeRec = (props) => {
 
             return (
               <SearchResult
-                setResults={props.setResults}
+                setResults={setResults}
                 setQueued={setQueued}
                 create={createRec}
                 info={info}
@@ -107,4 +153,28 @@ export const MakeRec = (props) => {
       {images && inputValue != null && <h2>{inputValue + " by: "}</h2>}
     </div>
   );
+};
+
+
+
+const removeDuplicates = (recs) => {
+  let unique = [];
+
+  recs.forEach((rec) => {
+    let bool = true;
+    unique.forEach((r) => {
+      if (
+        r["album"]["artists"]["0"]["name"] ===
+        rec["album"]["artists"]["0"]["name"]
+      ) {
+        bool = false;
+      }
+    });
+
+    if (bool === true) {
+      unique.push(rec);
+    }
+  });
+
+  return unique;
 };

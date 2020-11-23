@@ -31,9 +31,9 @@ def decodeAuthToken(token):
         payload = jwt.decode(token, 'super-secret-key', algorithms=['HS256'])
         return payload
     except jwt.ExpiredSignatureError:
-        return 'Signature expired. Login please'
+        return jwt.ExpiredSignatureError
     except jwt.InvalidTokenError:
-        return 'Nice try, invalid token. Login please'
+        return jwt.InvalidTokenError
 
 @app.route('/auth_decode', methods={"GET"})
 def check_token():
@@ -73,8 +73,6 @@ def create_rec():
 
 @app.route('/get_feed_recs/<user>', methods={"GET"})
 def get_feed_recs(user):
-    test = user
-    print(test)
     recs = []
     for doc in db.recommendations.find():
         if(doc['user'] != user):

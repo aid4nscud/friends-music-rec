@@ -1,13 +1,27 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./Recommendations.css";
 import { FeedRec } from "../FeedRec/FeedRec";
+import auth from '../../utils/auth'
 
 export const Recommendations = (props) => {
   const [index, setIndex] = useState(0);
+  const [recs, setRecs] = useState(null);
+
+  useEffect(() => {
+    const user = auth.getUser();
+    const url = "/get_feed_recs/" + user;
+    fetch(url)
+      .then((res) => res.json())
+      .then((parsedJSON) => {
+        if (parsedJSON["recs"].length > 0) {
+          setRecs(parsedJSON["recs"]);
+        }
+      });
+  }, []);
 
   const nextRec = () => {
     {
-      const currIndex = index == props.recs.length - 1 ? 0 : index + 1;
+      const currIndex = index == recs.length - 1 ? 0 : index + 1;
 
       setIndex(currIndex);
     }
@@ -15,15 +29,15 @@ export const Recommendations = (props) => {
   return (
     <div className="recommendations">
       <h2> Listen to recommendations!</h2>
-      {props.recs !== null && (
+      {recs !== null && (
         <FeedRec
-          user={props.recs[index].user}
+          user={recs[index].user}
           spotifyToken={props.spotifyToken}
           setSpotifyToken={props.setSpotifyToken}
-          images={props.recs[index].images}
-          song={props.recs[index].song}
-          artist={props.recs[index].artist}
-          uri={props.recs[index].uri}
+          images={recs[index].images}
+          song={recs[index].song}
+          artist={recs[index].artist}
+          uri={recs[index].uri}
           nextRec={nextRec}
         />
       )}
