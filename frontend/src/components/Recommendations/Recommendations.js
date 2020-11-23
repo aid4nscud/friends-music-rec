@@ -11,15 +11,15 @@ export const Recommendations = (props) => {
 
       setIndex(currIndex);
     }
-  }
+  };
   return (
-    <div>
-      <h3> Listen to recommenadations!</h3>
+    <div className="recommendations">
+      <h2> Listen to recommendations!</h2>
       {props.recs !== null && (
         <FeedRec
-        user={props.recs[index].user}
-        spotifyToken={props.spotifyToken}
-        setSpotifyToken={props.setSpotifyToken}
+          user={props.recs[index].user}
+          spotifyToken={props.spotifyToken}
+          setSpotifyToken={props.setSpotifyToken}
           images={props.recs[index].images}
           song={props.recs[index].song}
           artist={props.recs[index].artist}
@@ -27,7 +27,6 @@ export const Recommendations = (props) => {
           nextRec={nextRec}
         />
       )}
-    
     </div>
   );
 };

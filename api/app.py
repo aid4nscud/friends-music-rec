@@ -71,18 +71,38 @@ def create_rec():
     
     
 
-@app.route('/get_recs', methods={"GET"})
-def get_recs():
+@app.route('/get_feed_recs/<user>', methods={"GET"})
+def get_feed_recs(user):
+    test = user
+    print(test)
     recs = []
     for doc in db.recommendations.find():
+        if(doc['user'] != user):
+            recs.append({
+                '_id': str(doc['_id']),
+                'song': doc['song'],
+                'artist': doc['artist'],
+                'user': doc['user'],
+                'images': doc['images'],
+                'uri': doc['uri']
+            })
+
+    return {'recs': recs}
+
+@app.route('/get_user_recs/<user>', methods={"GET"})
+def get__user_recs(user):
+    recs = []
+    arr = db.recommendations.find({'user': user})
+    for doc in arr:
         recs.append({
-            '_id': str(doc['_id']),
-            'song': doc['song'],
-            'artist': doc['artist'],
-            'user': doc['user'],
-            'images': doc['images'],
-            'uri': doc['uri']
-        })
+                '_id': str(doc['_id']),
+                'song': doc['song'],
+                'artist': doc['artist'],
+                'user': doc['user'],
+                'images': doc['images'],
+                'uri': doc['uri']
+            })
+
     return {'recs': recs}
 
 

@@ -1,7 +1,7 @@
-import React, {useState, useEffect} from "react";
-import axios from 'axios'
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import auth from "../../utils/auth";
-import {getInfo} from '../../utils/Spotify'
+import { getInfo } from "../../utils/Spotify";
 import { MakeRec } from "../MakeRec/MakeRec.js";
 import { Recommendations } from "../Recommendations/Recommendations";
 import { useHistory } from "react-router-dom";
@@ -29,7 +29,6 @@ const removeDuplicates = (recs) => {
       unique.push(rec);
     }
   });
-  
 
   return unique;
 };
@@ -40,21 +39,17 @@ export const AppLayout = (props) => {
   const [results, setResults] = useState(null);
   const history = useHistory();
 
-
-
-
   useEffect(() => {
-    fetch("/get_recs")
+    const user = auth.getUser();
+    const url = "/get_feed_recs/" + user;
+    fetch(url)
       .then((res) => res.json())
       .then((parsedJSON) => {
         if (parsedJSON["recs"].length > 0) {
           setRecs(parsedJSON["recs"]);
-          
-        } 
+        }
       });
   }, [results]);
-
-
 
   const search = (query, limit = 8) => {
     let url =
@@ -62,7 +57,6 @@ export const AppLayout = (props) => {
       query +
       "&type=track&market=US&limit=" +
       limit;
-    
 
     //getting token for client-credentials flow authorization from Spotify
     axios("https://accounts.spotify.com/api/token", {
@@ -73,7 +67,6 @@ export const AppLayout = (props) => {
       data: "grant_type=client_credentials",
       method: "POST",
     }).then((tokenResponse) => {
-      
       setSpotifyToken(tokenResponse.data.access_token);
       //using that token response to request the track information
       axios(url, {
@@ -85,37 +78,35 @@ export const AppLayout = (props) => {
         let results = searchResponse.data["tracks"]["items"];
         let arr = [];
         results.forEach((item) => arr.push(item));
-        
+
         //created track objects from the json response and added them to an array
         const set = removeDuplicates(arr);
-      
+
         setResults(set);
       });
     });
   };
   return (
-    <div>
+    <div className="app-layout">
+      <button
+        onClick={() => {
+          auth.logout(() => {
+            history.push("/");
+          });
+        }}
+      >
+        Logout
+      </button>
 
       <Profile />
-      
-        <MakeRec
-              
-              search={search}
-              setResults={setResults}
-              results={results}
-            />
-        <Recommendations
-                spotifyToken={spotifyToken}
-                setSpotifyToken={setSpotifyToken}
-                recs={recs}
-              />
-        
 
-      <button onClick={()=> {
-          auth.logout(()=> {
-              history.push('/')
-          })
-      }}>Logout</button>
+      
+      <Recommendations
+        spotifyToken={spotifyToken}
+        setSpotifyToken={setSpotifyToken}
+        recs={recs}
+      />
+      <MakeRec search={search} setResults={setResults} results={results} />
     </div>
   );
 };

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import auth from "../../utils/auth";
+import './Login.css'
 
 
 
@@ -79,7 +80,7 @@ export const Login = (props) => {
         ></input>
         <button type="submit"> Login </button>
       </form>
-      {warning && <h3>{warning}</h3>}
+      {warning && <h3 className='warning'>{warning}</h3>}
       <div className='sign-up'>
       <h2>Don't have an account yet?</h2>
       <button onClick={()=> {

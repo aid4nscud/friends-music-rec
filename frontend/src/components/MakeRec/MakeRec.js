@@ -1,5 +1,5 @@
 import { useState } from "react";
-import auth from '../../utils/auth'
+import auth from "../../utils/auth";
 
 import React from "react";
 import { SearchResult } from "../SearchResult/SearchResult";
@@ -38,8 +38,8 @@ export const MakeRec = (props) => {
   };
 
   return (
-    <div>
-      <h3>Search for a song to recommend :)</h3>
+    <div className="make-rec">
+      <h2>Search for a song to recommend :)</h2>
 
       <form onSubmit={createRec}>
         <input
@@ -49,8 +49,6 @@ export const MakeRec = (props) => {
             setInputValue(e.target.value);
           }}
         ></input>
-
-      
 
         {images && (
           <input
@@ -92,9 +90,8 @@ export const MakeRec = (props) => {
               popularity: item["popularity"],
               uri: item["uri"],
             };
-            
+
             return (
-  
               <SearchResult
                 setResults={props.setResults}
                 setQueued={setQueued}
@@ -106,14 +103,8 @@ export const MakeRec = (props) => {
         </div>
       )}
 
-      {images && <img alt={'bruh'} src={images[1]["url"]} />}
-      {images && inputValue != null && (
-        <h2>{inputValue + " by: " }</h2>
-      )}
+      {images && <img alt={"bruh"} src={images[1]["url"]} />}
+      {images && inputValue != null && <h2>{inputValue + " by: "}</h2>}
     </div>
   );
 };
-
-
-
-

@@ -1,30 +1,35 @@
 import React, { useEffect, useState } from "react";
-import auth from '../../utils/auth'
-import {UserRec} from '../UserRec/UserRec'
+import auth from "../../utils/auth";
+import { UserRec } from "../UserRec/UserRec";
 
 export const Profile = () => {
-    const [userRecs, setUserRecs] = useState(null)
+  const [userRecs, setUserRecs] = useState(null);
 
-    useEffect(()=> {
-//GETS THE RECOMMENDATIONS MADE BY THE USER AND SETS THE STATE 
-    },[])
+  useEffect(() => {
+    const user = auth.getUser();
+    const url = "/get_user_recs/" + user;
+    fetch(url)
+      .then((res) => res.json())
+      .then((parsedJSON) => {
+        if (parsedJSON["recs"].length > 0) {
+          setUserRecs(parsedJSON["recs"]);
+        }
+      });
+  }, []);
 
-    const user = auth.getUser()
+  const user = auth.getUser();
 
-    return (<div>
-        <h1>{'Welcome to your profile '+ user}</h1>
+  return (
+    <div>
+      <h1>{"Welcome to your profile " + user}</h1>
+      <h3>Your Song Recommendations</h3>
 
-        {userRecs!==null && userRecs.map(rec=> {
-           return <UserRec
-            song={rec.song}
-            artist={rec.artist}
-            image={rec.image}
-            
-            />
+      {userRecs !== null &&
+        userRecs.map((rec) => {
+          return (
+            <UserRec song={rec.song} artist={rec.artist} images={rec.images} />
+          );
         })}
-
-
-    </div>)
-}
-
-
+    </div>
+  );
+};
