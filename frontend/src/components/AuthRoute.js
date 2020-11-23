@@ -11,9 +11,7 @@ export const AuthRoute = ({ component: Component, ...rest }) => {
     <Route
       {...rest}
       render={ () => {
-        // if(auth.isAuthenticated()){
-        //   return <Component/>
-        // }
+  
         if(getCookie('token')!== null){
           let token = getCookie('token')
 
