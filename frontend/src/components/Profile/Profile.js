@@ -22,7 +22,7 @@ export const Profile = () => {
   return (
     <div>
       <h1>{"Welcome to your profile " + user}</h1>
-      <h3>Your Song Recommendations</h3>
+      {userRecs !== null ? <h3>Your Song Recommendations</h3> : <h3>Once you make a recommendation, find it here!</h3>}
 
       {userRecs !== null &&
         userRecs.map((rec) => {

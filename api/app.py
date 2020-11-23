@@ -3,6 +3,10 @@ from pymongo import MongoClient
 import os
 import datetime
 import jwt
+import string
+import secrets
+alphabet = string.ascii_letters + string.digits
+password = ''.join(secrets.choice(alphabet) for i in range(8))
 
 
 app = Flask(__name__)
@@ -19,7 +23,7 @@ def encodeAuthToken(user_id):
             'iat': datetime.datetime.utcnow(),
             'user': user_id,
         }
-        token = jwt.encode(payload, 'super-secret-key', algorithm='HS256')
+        token = jwt.encode(payload, password, algorithm='HS256')
         return token
     except Exception as e:
         print (e)
@@ -28,7 +32,7 @@ def encodeAuthToken(user_id):
 
 def decodeAuthToken(token):
     try:
-        payload = jwt.decode(token, 'super-secret-key', algorithms=['HS256'])
+        payload = jwt.decode(token, password, algorithms=['HS256'])
         return payload
     except jwt.ExpiredSignatureError:
         return jwt.ExpiredSignatureError

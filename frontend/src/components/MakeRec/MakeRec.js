@@ -120,7 +120,7 @@ export const MakeRec = (props) => {
           <p>{queued.song}</p>
           <img src={queued.images[1]["url"]} />
           <p>{queued.artist}</p>
-          <p>{"Popularity: " + queued.popularity}</p>
+          <p>{"Song Popularity: " + queued.popularity}</p>
           <button onClick={createRec}>Make Recommendation</button>
         </div>
       )}

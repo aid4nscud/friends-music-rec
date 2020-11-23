@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import auth from '../../utils/auth'
+import './Register.css'
 
 
 export const Register = () => {
@@ -65,7 +66,7 @@ export const Register = () => {
  
 
   return (
-    <div>
+    <div className='register'>
       <h1>Register</h1>
       <form onSubmit={(e) => {
          e.preventDefault();
@@ -76,7 +77,7 @@ export const Register = () => {
               alert('All fields must be filled out')
           }
           
-          }}>
+          }} className='register-form'>
         <input
           onChange={(e) => {
             setEmail(e.target.value);

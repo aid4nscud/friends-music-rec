@@ -50,7 +50,7 @@ export const Login = (props) => {
   };
 
   return (
-    <div>
+    <div className='login'>
       <h1>Login</h1>
       <p>This page is where the user can sign in or sign up using one of the forms below</p>
       <form
@@ -64,6 +64,7 @@ export const Login = (props) => {
           }
           
         }}
+        className='login-form'
       >
         <input
           onChange={(e) => {

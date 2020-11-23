@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Route, useHistory } from "react-router-dom";
+import { Route, Switch, useHistory } from "react-router-dom";
 import "./App.css";
 import { getCookie } from "../../utils/auth";
 import { Login } from "../Login/Login.js";
@@ -13,6 +13,7 @@ function App() {
 
   return (
     <div className="App">
+      <Switch>
       <Route
         exact
         path="/register"
@@ -40,6 +41,8 @@ function App() {
       />
 
       <AuthRoute path="/app" component={AppLayout} />
+      </Switch>
+      
     </div>
   );
 }
