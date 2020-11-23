@@ -13,5 +13,5 @@ Users will have a score associated with their profile that correlates with how w
 MVP FEATURES:
 
 - Login/Register a User ---- (COMPLETED)
-- User is presented with recommendations and can interact with them
-- User can search any song and recommend it. ---- (COMPLETED)(NEEDED: associate user with their recommendation) 
+- User is presented with recommendations from other users (and can interact with them??)
+- User can search any song and recommend it. ---- (COMPLETED)
