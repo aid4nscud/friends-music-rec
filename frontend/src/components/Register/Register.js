@@ -40,9 +40,13 @@ export const Register = () => {
             if(parsed.token){
               const cookie = 'token=' + parsed['token'] + '; max-age=' + 30*24*60*60
               document.cookie = cookie
+              if(parsed.user){
+                const cookie = 'user=' + parsed.user + '; max-age=' + 30*24*60*60 + '; SameSite=Strict'
+        document.cookie = cookie
+              }
               
               auth.login(()=> {
-                history.push('/app')
+                history.push('/app/listen')
         
               });
               

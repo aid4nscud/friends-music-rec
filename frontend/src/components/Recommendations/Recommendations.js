@@ -1,22 +1,24 @@
 import React, { useState, useEffect } from "react";
 import "./Recommendations.css";
 import { FeedRec } from "../FeedRec/FeedRec";
-import auth from '../../utils/auth'
+import { getCookie } from "../../utils/auth";
 
 export const Recommendations = (props) => {
   const [index, setIndex] = useState(0);
   const [recs, setRecs] = useState(null);
 
   useEffect(() => {
-    const user = auth.getUser();
-    const url = "/get_feed_recs/" + user;
-    fetch(url)
-      .then((res) => res.json())
-      .then((parsedJSON) => {
-        if (parsedJSON["recs"].length > 0) {
-          setRecs(parsedJSON["recs"]);
-        }
-      });
+    const user = getCookie("user");
+    if (user !== null) {
+      const url = "/get_feed_recs/" + user;
+      fetch(url)
+        .then((res) => res.json())
+        .then((parsedJSON) => {
+          if (parsedJSON["recs"].length > 0) {
+            setRecs(parsedJSON["recs"]);
+          }
+        });
+    }
   }, []);
 
   const nextRec = () => {

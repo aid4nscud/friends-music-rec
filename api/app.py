@@ -28,7 +28,7 @@ def encodeAuthToken(user_id):
         token = jwt.encode(payload, password, algorithm='HS256')
         return token
     except Exception as e:
-        print (e)
+        print(e)
         return e
 
 
@@ -41,12 +41,15 @@ def decodeAuthToken(token):
     except jwt.InvalidTokenError:
         return jwt.InvalidTokenError
 
+
 @app.route('/auth_decode', methods={"GET"})
 def check_token():
     error = ''
     auth_header = request.headers.get('Authorization')
+    print(auth_header)
     if auth_header:
-        token = bytes(auth_header.split(" ")[1], 'UTF-8') # Parses out the "Bearer" portion
+        # Parses out the "Bearer" portion
+        token = bytes(auth_header.split(" ")[1], 'UTF-8')
     else:
         token = ''
 
@@ -59,9 +62,6 @@ def check_token():
             return {'error': error}
 
 
-
-
-
 @app.route('/create_rec', methods={"POST"})
 def create_rec():
     recommendations.insert({
@@ -70,12 +70,11 @@ def create_rec():
         'user': request.json['user'],
         'images': request.json['images'],
         'uri': request.json['uri']
-            })
-    
+    })
+
     print('succesfully added')
     return 'received'
-    
-    
+
 
 @app.route('/get_feed_recs/<user>', methods={"GET"})
 def get_feed_recs(user):
@@ -93,19 +92,20 @@ def get_feed_recs(user):
 
     return {'recs': recs}
 
+
 @app.route('/get_user_recs/<user>', methods={"GET"})
 def get__user_recs(user):
     recs = []
     arr = db.recommendations.find({'user': user})
     for doc in arr:
         recs.append({
-                '_id': str(doc['_id']),
-                'song': doc['song'],
-                'artist': doc['artist'],
-                'user': doc['user'],
-                'images': doc['images'],
-                'uri': doc['uri']
-            })
+            '_id': str(doc['_id']),
+            'song': doc['song'],
+            'artist': doc['artist'],
+            'user': doc['user'],
+            'images': doc['images'],
+            'uri': doc['uri']
+        })
 
     return {'recs': recs}
 
@@ -127,16 +127,13 @@ def login():
     else:
         error = 'Invalid Username'
         return {'error': error}
-    
-
-
 
 
 @app.route('/api/register', methods={'POST'})
 def register():
-    
+
     message = ''
-    
+
     username = request.json['username']
     email = request.json['email']
     password = request.json['password']
@@ -146,19 +143,13 @@ def register():
 
     if(not username_exists and not email_exists):
         users.insert({
-        'email': email,
-        'username': username,
-        'password': password,
-            })
+            'email': email,
+            'username': username,
+            'password': password,
+        })
         message = 'account succesfully created'
         return {'success': message}
 
     else:
         message = 'that username or email is already in use'
         return {'error': message}
-
-
-    
-
-    
-

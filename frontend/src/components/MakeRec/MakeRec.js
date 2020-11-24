@@ -1,17 +1,13 @@
 import { useState } from "react";
-import auth from "../../utils/auth";
-import {getInfo} from '../../utils/Spotify'
+import { getCookie } from "../../utils/auth";
+import { getInfo } from "../../utils/Spotify";
 import React from "react";
-import axios from 'axios'
+import axios from "axios";
 import { SearchResult } from "../SearchResult/SearchResult";
-
-
 
 const info = getInfo();
 const clientID = info.client_id;
 const clientSecret = info.client_secret;
-
-
 
 export const MakeRec = (props) => {
   const [images, setImages] = useState(null);
@@ -64,7 +60,7 @@ export const MakeRec = (props) => {
   };
 
   const createRec = () => {
-    const recommender = auth.getUser();
+    const recommender = getCookie("user");
 
     const rec = {
       song: queued.song,
@@ -154,8 +150,6 @@ export const MakeRec = (props) => {
     </div>
   );
 };
-
-
 
 const removeDuplicates = (recs) => {
   let unique = [];

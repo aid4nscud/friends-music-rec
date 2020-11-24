@@ -42,11 +42,7 @@ export const AppLayout = (props) => {
         />
       </Switch>
 
-      {/* <Recommendations
-        spotifyToken={spotifyToken}
-        setSpotifyToken={setSpotifyToken}
-      /> */}
-      {/* <MakeRec spotifyToken={spotifyToken} setSpotifyToken={setSpotifyToken} /> */}
+
     </div>
   );
 };
