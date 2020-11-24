@@ -19,7 +19,7 @@ const decode = async () => {
           res.data["user"] +
           "; max-age=" +
           30 * 24 * 60 * 60 +
-          "; SameSite=Strict";
+          "; SameSite=Strict;";
         document.cookie = cookie;
       }
       auth.setAuthenticated(true);

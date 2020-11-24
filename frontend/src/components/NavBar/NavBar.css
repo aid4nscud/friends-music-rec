@@ -1,19 +1,29 @@
 .navbar {
   text-align: center;
   width: 100%;
-  border-color: darkblue;
+  background-color: blue;
 }
 
 .navbar ul {
-  width: 75%;
+  width: 100%;
+  height: max-content;
   display: inline-block;
 }
 
-.navbar li {
-  width: 33%;
+.navbar li{
+
+  width: 25%;
   display: inline-block;
+  border-radius: 60%;
 }
 
-.navbar button {
-  float: right;
+.navbar li a:hover {
+ 
+  font-size: large;
+
 }
+
+
+
+
+

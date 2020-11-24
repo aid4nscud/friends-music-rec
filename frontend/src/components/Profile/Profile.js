@@ -41,15 +41,15 @@ export const Profile = (props) => {
       )}
 
       {userRecs !== null ? (
-        <h3>Your Song Recommendations</h3>
+        <h2>Songs You've Recommended</h2>
       ) : (
-        <h3>Once you make a recommendation, find it here!</h3>
+        <h2>Once you make a recommendation, find it here!</h2>
       )}
 
       {userRecs !== null &&
         userRecs.map((rec) => {
           return (
-            <UserRec song={rec.song} artist={rec.artist} images={rec.images} />
+            <UserRec uri={rec.uri} song={rec.song} artist={rec.artist} images={rec.images} />
           );
         })}
     </div>

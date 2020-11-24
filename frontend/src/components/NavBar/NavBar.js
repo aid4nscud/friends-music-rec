@@ -9,16 +9,16 @@ export const NavBar = () => {
     <div className='navbar'>
       <ul>
         <li>
-          <Link to="/app/me" style={{textDecoration: 'none', color: "deeppink"}}>PROFILE</Link>
+          <Link to="/app/me" style={{textDecoration: 'none', color: "white"}}>PROFILE</Link>
         </li>
         <li>
-          <Link to="/app/recommend" style={{textDecoration: 'none', color: "deeppink"}}>RECOMMEND</Link>
+          <Link to="/app/recommend" style={{textDecoration: 'none', color: "white"}}>RECOMMEND</Link>
         </li>
         <li>
-          <Link to="/app/listen" style={{textDecoration: 'none', color: "deeppink"}}>LISTEN</Link>
+          <Link to="/app/listen" style={{textDecoration: 'none', color: "white"}}>LISTEN</Link>
         </li>
-      </ul>
-      <button
+        <li>
+        <button
         onClick={() => {
           auth.logout(() => {
             document.cookie.split(";").forEach(function(c) { document.cookie = c.replace(/^ +/, "").replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/"); });
@@ -28,6 +28,9 @@ export const NavBar = () => {
       >
         Logout
       </button>
+        </li>
+      </ul>
+      
     </div>
   );
 };
