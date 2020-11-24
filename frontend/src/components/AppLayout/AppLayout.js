@@ -2,14 +2,13 @@ import React, { useState} from "react";
 import auth from "../../utils/auth";
 import { MakeRec } from "../MakeRec/MakeRec.js";
 import { Recommendations } from "../Recommendations/Recommendations";
-import { Switch, useHistory } from "react-router-dom";
+import { Switch} from "react-router-dom";
 import { Profile } from "../Profile/Profile";
 import { AuthRoute } from "../AuthRoute";
 import {NavBar} from '../NavBar/NavBar'
 
 export const AppLayout = (props) => {
   const [spotifyToken, setSpotifyToken] = useState(null);
-  const history = useHistory();
 
   return (
     <div className="app-layout">
@@ -24,9 +23,7 @@ export const AppLayout = (props) => {
           path="/app/listen"
           component={Recommendations}
           spotifyToken={spotifyToken} setSpotifyToken={setSpotifyToken}
-          
-            // spotifyToken = { spotifyToken }
-            // setSpotifyToken = { setSpotifyToken }
+      
           
         />
 
@@ -35,9 +32,7 @@ export const AppLayout = (props) => {
           path="/app/recommend"
           component={MakeRec}
           spotifyToken={spotifyToken} setSpotifyToken={setSpotifyToken}
-          
-            // spotifyToken =  {spotifyToken} 
-            // setSpotifyToken = { setSpotifyToken }
+  
           
         />
       </Switch>

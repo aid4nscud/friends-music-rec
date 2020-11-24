@@ -9,13 +9,13 @@ export const NavBar = () => {
     <div className='navbar'>
       <ul>
         <li>
-          <Link to="/app/me">PROFILE</Link>
+          <Link to="/app/me" style={{textDecoration: 'none', color: "deeppink"}}>PROFILE</Link>
         </li>
         <li>
-          <Link to="/app/recommend">RECOMMEND</Link>
+          <Link to="/app/recommend" style={{textDecoration: 'none', color: "deeppink"}}>RECOMMEND</Link>
         </li>
         <li>
-          <Link to="/app/listen">LISTEN</Link>
+          <Link to="/app/listen" style={{textDecoration: 'none', color: "deeppink"}}>LISTEN</Link>
         </li>
       </ul>
       <button
