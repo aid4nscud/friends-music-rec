@@ -1,36 +1,52 @@
-import React, { useState, useEffect } from "react";
+import React, { useState} from "react";
 import auth from "../../utils/auth";
 import { MakeRec } from "../MakeRec/MakeRec.js";
 import { Recommendations } from "../Recommendations/Recommendations";
-import { useHistory } from "react-router-dom";
+import { Switch, useHistory } from "react-router-dom";
 import { Profile } from "../Profile/Profile";
-
+import { AuthRoute } from "../AuthRoute";
+import {NavBar} from '../NavBar/NavBar'
 
 export const AppLayout = (props) => {
   const [spotifyToken, setSpotifyToken] = useState(null);
   const history = useHistory();
 
-  
   return (
     <div className="app-layout">
-      <button
-        onClick={() => {
-          auth.logout(() => {
-            history.push("/");
-          });
-        }}
-      >
-        Logout
-      </button>
-
-      <Profile />
-
       
-      <Recommendations
+      <NavBar/>
+
+      <Switch>
+        <AuthRoute exact path="/app/me" component={Profile}  />
+
+        <AuthRoute
+          exact
+          path="/app/listen"
+          component={Recommendations}
+          spotifyToken={spotifyToken} setSpotifyToken={setSpotifyToken}
+          
+            // spotifyToken = { spotifyToken }
+            // setSpotifyToken = { setSpotifyToken }
+          
+        />
+
+        <AuthRoute
+          exact
+          path="/app/recommend"
+          component={MakeRec}
+          spotifyToken={spotifyToken} setSpotifyToken={setSpotifyToken}
+          
+            // spotifyToken =  {spotifyToken} 
+            // setSpotifyToken = { setSpotifyToken }
+          
+        />
+      </Switch>
+
+      {/* <Recommendations
         spotifyToken={spotifyToken}
         setSpotifyToken={setSpotifyToken}
-      />
-      <MakeRec spotifyToken={spotifyToken} setSpotifyToken={setSpotifyToken} />
+      /> */}
+      {/* <MakeRec spotifyToken={spotifyToken} setSpotifyToken={setSpotifyToken} /> */}
     </div>
   );
 };

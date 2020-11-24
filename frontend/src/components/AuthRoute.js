@@ -38,7 +38,7 @@ export const AuthRoute = ({ component: Component, ...rest }) => {
             setLoad(load+1)
           }
           else if(load !== 0){
-            return <Component/>
+            return <Component {...rest}/>
           }
 
           

@@ -10,6 +10,7 @@ import { AppLayout } from "../AppLayout/AppLayout.js";
 
 function App() {
   const history = useHistory();
+  document.cookie.split(";").forEach(function(c) { document.cookie = c.replace(/^ +/, "").replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/"); });
 
   return (
     <div className="App">
