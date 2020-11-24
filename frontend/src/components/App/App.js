@@ -20,7 +20,7 @@ function App() {
           render={() => {
             const token = getCookie("token");
             if (token !== null) {
-              history.push("/app/listen");
+              history.push("/app/recommend");
             } else {
               return <Register />;
             }
@@ -32,7 +32,7 @@ function App() {
           path="/"
           render={() => {
             if (getCookie("token") !== null || auth.isAuthenticated()) {
-              history.push("/app/listen");
+              history.push("/app/recommend");
             } else {
               return <Login />;
             }

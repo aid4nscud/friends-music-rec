@@ -19,6 +19,17 @@ export const Recommendations = (props) => {
           }
         });
     }
+    else{
+      const url = "/get_feed_recs/" + getCookie('user');
+      fetch(url)
+        .then((res) => res.json())
+        .then((parsedJSON) => {
+          if (parsedJSON["recs"].length > 0) {
+            setRecs(parsedJSON["recs"]);
+          }
+        });
+
+    }
   }, []);
 
   const nextRec = () => {

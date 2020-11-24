@@ -32,7 +32,7 @@ export const Login = (props) => {
           document.cookie = cookie;
 
           auth.login(() => {
-            history.push("/app/listen");
+            history.push("/app/recommend");
           });
         } else {
           setWarning(parsed["error"]);
