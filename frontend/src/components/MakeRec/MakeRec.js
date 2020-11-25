@@ -4,6 +4,7 @@ import { getInfo } from "../../utils/Spotify";
 import React from "react";
 import axios from "axios";
 import { SearchResult } from "../SearchResult/SearchResult";
+import './MakeRec.css'
 
 const info = getInfo();
 const clientID = info.client_id;

@@ -1,4 +1,5 @@
 import React from "react";
+import './FeedRec.css'
 
 export const FeedRec = (props) => {
   let uri = props.uri;
@@ -18,8 +19,8 @@ export const FeedRec = (props) => {
       ></iframe>
       <div>
         <h3 className="rec-desc">
-          Recommended to you by{" "}
-          <span className="span-recommender">{props.user}</span>
+          Recommended to you by {" "}
+          <span className="span-recommender">{ props.user}</span>
         </h3>
       </div>
 

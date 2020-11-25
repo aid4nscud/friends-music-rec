@@ -2,6 +2,7 @@ import React from "react";
 import { useEffect, useState } from "react";
 import { getCookie } from "../../utils/auth";
 import { FeedRec } from "../FeedRec/FeedRec";
+import './FriendRecs.css'
 
 export const FriendRecs = (props) => {
   const [recs, setRecs] = useState(null);
@@ -39,7 +40,7 @@ export const FriendRecs = (props) => {
   };
 
   return (
-    <div>
+    <div className='friend-recs'>
       {recs === null ? (
         <h1>Find friends and see their recommendations here!</h1>
       ) : (

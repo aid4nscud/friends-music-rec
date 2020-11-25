@@ -33,7 +33,7 @@ export const Profile = (props) => {
   }, []);
 
   return (
-    <div>
+    <div className='profile'>
       {user !== null && (
         <h1>
           Welcome to your profile <span className="span-user">{user}</span>

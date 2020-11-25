@@ -9,6 +9,7 @@
 
 }
 .search-result:hover {
+    border-color: white;
     border-top-style: solid;
     border-bottom-style: solid;
     border-left-style: solid;
@@ -17,6 +18,11 @@
 
     transform: scale(1.01);
 
+}
+
+
+p, b {
+    color: white;
 }
 
 

@@ -60,12 +60,13 @@ export const Discover = (props) => {
     }
   };
   return (
-    <div className="recommendations">
-      <h2> Discover songs recommended by random people!</h2>
+    <div className="discover">
       {recs === null ? (
-        <h1>...Searching for the perfect recommendation...</h1>
+        <h1>No recs rn G</h1>
       ) : (
-        <DiscoverRec
+        <div>
+          <h1>Listen to Random Recommendations</h1>
+           <DiscoverRec
           user={recs[index].user}
           spotifyToken={props.spotifyToken}
           setSpotifyToken={props.setSpotifyToken}
@@ -77,6 +78,8 @@ export const Discover = (props) => {
           follow={follow}
           followButton={followButton}
         />
+        </div>
+       
       )}
     </div>
   );

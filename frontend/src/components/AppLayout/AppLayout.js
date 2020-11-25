@@ -6,6 +6,7 @@ import { Profile } from "../Profile/Profile";
 import { AuthRoute } from "../AuthRoute";
 import { NavBar } from "../NavBar/NavBar";
 import { FriendRecs } from "../FriendRecs/FriendRecs";
+import './AppLayout.css'
 
 export const AppLayout = (props) => {
   const [spotifyToken, setSpotifyToken] = useState(null);
