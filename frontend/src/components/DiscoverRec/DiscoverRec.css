@@ -1,0 +1,14 @@
+.follow-button {
+    display: inline-block;
+    margin-left: 1rem;
+    
+}
+
+.rec-desc {
+    display: inline-block;
+}
+
+.span-recommender {
+    text-decoration: underline;
+    color: deeppink;
+}

@@ -12,10 +12,13 @@ export const NavBar = () => {
           <Link to="/app/me" style={{textDecoration: 'none', color: "white"}}>PROFILE</Link>
         </li>
         <li>
+          <Link to="/app/listen" style={{textDecoration: 'none', color: "white"}}>LISTEN</Link>
+        </li>
+        <li>
           <Link to="/app/recommend" style={{textDecoration: 'none', color: "white"}}>RECOMMEND</Link>
         </li>
         <li>
-          <Link to="/app/listen" style={{textDecoration: 'none', color: "white"}}>LISTEN</Link>
+          <Link to="/app/discover" style={{textDecoration: 'none', color: "white"}}>DISCOVER</Link>
         </li>
         <li>
         <button

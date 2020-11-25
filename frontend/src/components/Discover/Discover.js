@@ -1,16 +1,38 @@
 import React, { useState, useEffect } from "react";
-import "./Recommendations.css";
-import { FeedRec } from "../FeedRec/FeedRec";
+import "./Discover.css";
+import { DiscoverRec } from "../DiscoverRec/DiscoverRec";
 import { getCookie } from "../../utils/auth";
 
-export const Recommendations = (props) => {
+export const Discover = (props) => {
   const [index, setIndex] = useState(0);
   const [recs, setRecs] = useState(null);
+  const [followButton, setFollowButton] = useState("Follow");
+
+  const follow = (userToFollow) => {
+    const userFollowing = getCookie("user");
+
+    const data = {
+      userToFollow: userToFollow,
+      userFollowing: userFollowing,
+    };
+    fetch("/api/follow_user", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+    })
+      .then((res) => res.json())
+      .then((parsed) => {
+        if (parsed.success) {
+          alert("sucessfully followed user");
+          setFollowButton("Following");
+        }
+      });
+  };
 
   useEffect(() => {
     const user = getCookie("user");
     if (user !== null) {
-      const url = "/get_feed_recs/" + user;
+      const url = "/get_discover_recs/" + user;
       fetch(url)
         .then((res) => res.json())
         .then((parsedJSON) => {
@@ -18,9 +40,8 @@ export const Recommendations = (props) => {
             setRecs(parsedJSON["recs"]);
           }
         });
-    }
-    else{
-      const url = "/get_feed_recs/" + getCookie('user');
+    } else {
+      const url = "/get_feed_recs/" + getCookie("user");
       fetch(url)
         .then((res) => res.json())
         .then((parsedJSON) => {
@@ -28,7 +49,6 @@ export const Recommendations = (props) => {
             setRecs(parsedJSON["recs"]);
           }
         });
-
     }
   }, []);
 
@@ -41,9 +61,11 @@ export const Recommendations = (props) => {
   };
   return (
     <div className="recommendations">
-      <h2> Listen to recommendations!</h2>
-      {recs !== null && (
-        <FeedRec
+      <h2> Discover songs recommended by random people!</h2>
+      {recs === null ? (
+        <h1>...Searching for the perfect recommendation...</h1>
+      ) : (
+        <DiscoverRec
           user={recs[index].user}
           spotifyToken={props.spotifyToken}
           setSpotifyToken={props.setSpotifyToken}
@@ -52,6 +74,8 @@ export const Recommendations = (props) => {
           artist={recs[index].artist}
           uri={recs[index].uri}
           nextRec={nextRec}
+          follow={follow}
+          followButton={followButton}
         />
       )}
     </div>

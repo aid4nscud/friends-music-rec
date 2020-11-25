@@ -37,9 +37,28 @@ def decodeAuthToken(token):
         payload = jwt.decode(token, password, algorithms=['HS256'])
         return payload
     except jwt.ExpiredSignatureError:
-        return jwt.ExpiredSignatureError
+        return 'jwt.ExpiredSignatureError'
     except jwt.InvalidTokenError:
-        return jwt.InvalidTokenError
+        return 'jwt.InvalidTokenError'
+
+
+@app.route('/api/follow_user', methods={"POST"})
+def follow_user():
+    user_to_follow = request.json['userToFollow']
+    user_following = request.json['userFollowing']
+
+    try:
+        users.update(
+            {"username": user_following},
+            {
+                '$push': {
+                    'following': user_to_follow
+                }
+            }
+        )
+        return {'success': 'success'}
+    except Exception as e:
+        print(e)
 
 
 @app.route('/auth_decode', methods={"GET"})
@@ -55,11 +74,14 @@ def check_token():
 
     if token:
         decoded = decodeAuthToken(token)
-        if not isinstance(decoded, str):
-            return decoded
-        else:
-            error = 'problem decoding token'
-            return {'error': error}
+        try:
+            if not isinstance(decoded, str):
+                return decoded
+            else:
+                error = 'problem decoding token'
+                return {'error': error}
+        except Exception as e:
+            print(e)
 
 
 @app.route('/create_rec', methods={"POST"})
@@ -76,11 +98,32 @@ def create_rec():
     return 'received'
 
 
-@app.route('/get_feed_recs/<user>', methods={"GET"})
-def get_feed_recs(user):
+@app.route('/get_discover_recs/<user>', methods={"GET"})
+def get_discover_recs(user):
+    user = users.find_one({'username': user})
+    user_following = user['following']
     recs = []
-    for doc in db.recommendations.find():
-        if(doc['user'] != user):
+    for doc in recommendations.find():
+        if(doc['user'] != user['username'] and doc['user'] not in user_following):
+            recs.append({
+                '_id': str(doc['_id']),
+                'song': doc['song'],
+                'artist': doc['artist'],
+                'user': doc['user'],
+                'images': doc['images'],
+                'uri': doc['uri']
+            })
+
+    return {'recs': recs}
+
+
+@app.route('/get_friend_recs/<user>', methods={"GET"})
+def get_friend_recs(user):
+    user = users.find_one({'username': user})
+    user_following = user['following']
+    recs = []
+    for doc in recommendations.find():
+        if(doc['user'] != user['username'] and doc['user'] in user_following):
             recs.append({
                 '_id': str(doc['_id']),
                 'song': doc['song'],
@@ -108,6 +151,9 @@ def get__user_recs(user):
         })
 
     return {'recs': recs}
+
+
+# AUTH ENDPOINTS
 
 
 @app.route('/api/login', methods={'POST'})
@@ -146,6 +192,7 @@ def register():
             'email': email,
             'username': username,
             'password': password,
+            'following': [],
         })
         message = 'account succesfully created'
         return {'success': message}
