@@ -1,17 +1,17 @@
-# prototype
+
+## The goal of this project is to create a MVP for an application that can allow users to recommend their favorite songs to, as well as discover new music from their friends and other unknown users. 
 
 
-The goal of this project is to create a MVP for an application that can allow users to recommend their favorite songs, as well as discover new music from the recommendations of other users. 
+Users will have a profile that is made up of their song recommendations (with associated information for each one). 
+             - Views
+             - Likes
+             - Score that evaluates how well the song recommendation is received
 
 
-Users will have a profile that is made up of their recommendations. and recommendation info. 
+## MVP FEATURES:
 
+**- Login/Register a User** ---- (COMPLETED)
 
-Users will have a score associated with their profile that correlates with how well their song recommendations to the app perform, or in other words, how well other users on the app react to the recommendation
+**- User is presented with recommendations from other users + recommendations from their friends and can listen to them** ---- (ALMOST DONE ---- NEED TO ADD AUTHORIZATION CODE FLOW FOR SPOTIFY AND ADD INTERACTION TO RECOMMENDATIONS)
 
-
-MVP FEATURES:
-
-- Login/Register a User ---- (COMPLETED)
-- User is presented with recommendations from other users (COMPLETED)(just need to personalize the recommendations and add interaction?)
-- User can search any song and recommend it. ---- (COMPLETED)
+**- User can search any song and recommend it.** ---- (COMPLETED)
