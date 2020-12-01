@@ -1,14 +1,16 @@
+
 .navbar {
   text-align: center;
-  width: 100%;
-  background-color: blue;
+  background-color: #004085;
   margin-top: -0.5rem;
+  
 }
 
 .navbar ul {
   width: 100%;
-  height: max-content;
+ 
   display: inline-block;
+  
 }
 
 .navbar li{
@@ -20,11 +22,10 @@
 
 .navbar li a:hover {
  
-  font-size: large;
+  font-size: larger;
+
+
+  
 
 }
-
-
-
-
 

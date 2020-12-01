@@ -6,6 +6,24 @@ import "./Profile.css";
 export const Profile = (props) => {
   const [userRecs, setUserRecs] = useState(null);
   const [user, setUser] = useState(null);
+  const [render, setRender] = useState(0)
+
+  const deleteRec = (song) => {
+    const recommender = getCookie("user");
+
+    const rec = {
+      song: song,
+      user: recommender,
+    };
+    fetch("/api/delete_rec", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(rec),
+    });
+
+   setRender(render+1)
+    console.log("rec succesfully deleted");
+  };
 
   useEffect(() => {
     if (user === null) {
@@ -30,7 +48,7 @@ export const Profile = (props) => {
           }
         });
     }
-  }, []);
+  }, [render]);
 
   return (
     <div className='profile'>
@@ -49,7 +67,7 @@ export const Profile = (props) => {
       {userRecs !== null &&
         userRecs.map((rec) => {
           return (
-            <UserRec uri={rec.uri} song={rec.song} artist={rec.artist} images={rec.images} />
+            <UserRec deleteRec = {deleteRec} uri={rec.uri} song={rec.song} artist={rec.artist} images={rec.images} />
           );
         })}
     </div>

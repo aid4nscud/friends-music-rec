@@ -5,6 +5,7 @@ import axios from "axios";
 import { getCookie } from "../utils/auth";
 
 const decode = async () => {
+  console.log(document.cookie)
   const token = getCookie("token");
   let authed = await axios("/auth_decode", {
     headers: {

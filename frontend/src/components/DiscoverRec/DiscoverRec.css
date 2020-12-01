@@ -1,11 +1,39 @@
-.follow-button {
+html {
+    text-align: center;
+}
+.rec-desc button {
+    width: 100%;
+    margin: 0.5rem;
     display: inline-block;
-    margin-left: 1rem;
     
 }
+iframe{
+    width: 100%;
+    margin: auto;
 
-.rec-desc {
-    display: inline-block;
+}
+.card-header {
+    display: block;
+    width: 100%;
+}
+
+.card-header ul {
+    width: 100%;
+}
+
+.card-header ul li{
+    width: 100%;
+    display:block;
+}
+
+.more-info {
+    width: 100%;
+
+background-color: violet;
+}
+
+.rec-desc button{
+    display: inline-block
 }
 
 .span-recommender {
@@ -13,3 +41,10 @@
     color: deeppink;
     font-size: large;
 }
+
+.discover-rec {
+    margin:auto;
+
+    width: 60%;
+}
+

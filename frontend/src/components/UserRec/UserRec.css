@@ -1,12 +1,45 @@
 .user-rec {
    
-    
-text-align: center;
-    
-    display: inline-block;
-    padding: 0.5rem;
+  width: 25%; 
+  display: inline-block;
+  margin: 2rem;
+  border-style: solid;
+  border-color: rgb(255, 255, 255);
+  background-color:#004085;
+border-radius: 10% 0 10% 0;
 
+}
 
+.card-header li{
+  
+  display: inline-block;
+  width: 50%;
+
+  
+  
+
+}
+
+.card-header {
+  
+  display: inline-block;
+  width: 100%;
+ 
+ 
+}
+
+.card-header button {
+ 
+
+ width: 50%;
+ 
+
+}
+
+iframe {
+  width: 100%;
+  margin-bottom: -0.3rem;
+  border-radius: 10% 0 10% 0;
 }
 
 .user-rec img {

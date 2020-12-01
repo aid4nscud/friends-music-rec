@@ -7,6 +7,7 @@ export const Discover = (props) => {
   const [index, setIndex] = useState(0);
   const [recs, setRecs] = useState(null);
   const [followButton, setFollowButton] = useState("Follow");
+  const [moreInfo, setMoreInfo] = useState(false)
 
   const follow = (userToFollow) => {
     const userFollowing = getCookie("user");
@@ -30,10 +31,14 @@ export const Discover = (props) => {
   };
 
   useEffect(() => {
-    const user = getCookie("user");
-    if (user !== null) {
-      const url = "/get_discover_recs/" + user;
-      fetch(url)
+    const data = {'user':getCookie("user")};
+    if (data['user'] !== null) {
+      const url = "/api/get_discover_recs"
+      fetch(url, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      })
         .then((res) => res.json())
         .then((parsedJSON) => {
           if (parsedJSON["recs"].length > 0) {
@@ -41,14 +46,8 @@ export const Discover = (props) => {
           }
         });
     } else {
-      const url = "/get_feed_recs/" + getCookie("user");
-      fetch(url)
-        .then((res) => res.json())
-        .then((parsedJSON) => {
-          if (parsedJSON["recs"].length > 0) {
-            setRecs(parsedJSON["recs"]);
-          }
-        });
+      return alert('bruhhhhhhhhh')
+      
     }
   }, []);
 
@@ -57,6 +56,8 @@ export const Discover = (props) => {
       const currIndex = index == recs.length - 1 ? 0 : index + 1;
 
       setIndex(currIndex);
+      setMoreInfo(false)
+      setFollowButton("Follow")
     }
   };
   return (
@@ -77,6 +78,9 @@ export const Discover = (props) => {
           nextRec={nextRec}
           follow={follow}
           followButton={followButton}
+          moreInfo = {moreInfo}
+          setMoreInfo = {setMoreInfo}
+
         />
         </div>
        

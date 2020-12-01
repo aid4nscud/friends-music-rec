@@ -28,8 +28,12 @@ export const Login = (props) => {
             parsed["token"] +
             "; max-age=" +
             30 * 24 * 60 * 60 +
-            "; SameSite=Strict";
+            "; SameSite=Strict; spotify_auth_state=" ;
           document.cookie = cookie;
+
+          // const url  = parsed.url
+
+
 
           auth.login(() => {
             history.push("/app/recommend");
