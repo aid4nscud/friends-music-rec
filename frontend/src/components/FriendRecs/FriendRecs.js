@@ -7,6 +7,11 @@ import './FriendRecs.css'
 export const FriendRecs = (props) => {
   const [recs, setRecs] = useState(null);
   const [index, setIndex] = useState(0);
+  const [followButton, setFollowButton] = useState("Unfollow");
+
+
+
+  
 
   useEffect(() => {
     const user = getCookie("user");
@@ -30,6 +35,26 @@ export const FriendRecs = (props) => {
         });
     }
   }, []);
+
+  const unfollow = (userToUnfollow) => {
+    const userUnfollowing = getCookie("user");
+
+    const data = {
+      userToUnfollow: userToUnfollow,
+      userUnfollowing: userUnfollowing,
+    };
+    fetch("/api/unfollow_user", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+    })
+      .then((res) => res.json())
+      .then((parsed) => {
+        if (parsed.success) {
+          setFollowButton("Follow");
+        }
+      });
+  }
 
   const nextRec = () => {
     {
@@ -55,6 +80,8 @@ export const FriendRecs = (props) => {
             artist={recs[index].artist}
             uri={recs[index].uri}
             nextRec={nextRec}
+            unfollow={unfollow}
+            followButton={followButton}
           />
         </div>
       )}

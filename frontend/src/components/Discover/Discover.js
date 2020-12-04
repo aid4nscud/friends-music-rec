@@ -30,6 +30,8 @@ export const Discover = (props) => {
       });
   };
 
+  
+
   useEffect(() => {
     const data = {'user':getCookie("user")};
     if (data['user'] !== null) {

@@ -1,16 +1,15 @@
-import { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { getCookie } from "../../utils/auth";
 import { getInfo } from "../../utils/Spotify";
-import React from "react";
 import axios from "axios";
 import { SearchResult } from "../SearchResult/SearchResult";
-import './MakeRec.css'
+import './SearchRec.css'
 
-const info = getInfo();
-const clientID = info.client_id;
-const clientSecret = info.client_secret;
+export const SearchRec = (props) => {
+  const info = getInfo();
+  const clientID = info.client_id;
+  const clientSecret = info.client_secret;
 
-export const MakeRec = (props) => {
   const [images, setImages] = useState(null);
   const [inputValue, setInputValue] = useState("");
   const [userValue, setUserValue] = useState("");
@@ -22,6 +21,26 @@ export const MakeRec = (props) => {
     setUserValue("");
     setQueued(null);
     setResults([]);
+  };
+
+  const createRec = () => {
+    const recommender = getCookie("user");
+
+    const rec = {
+      song: queued.song,
+      artist: queued.artist,
+      user: recommender,
+      images: queued.images,
+      uri: queued.uri,
+    };
+    fetch("/create_rec", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(rec),
+    });
+
+    cleanup();
+    console.log("rec succesfully added");
   };
 
   const search = (query, limit = 8) => {
@@ -60,29 +79,9 @@ export const MakeRec = (props) => {
     });
   };
 
-  const createRec = () => {
-    const recommender = getCookie("user");
-
-    const rec = {
-      song: queued.song,
-      artist: queued.artist,
-      user: recommender,
-      images: queued.images,
-      uri: queued.uri,
-    };
-    fetch("/create_rec", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(rec),
-    });
-
-    cleanup();
-    console.log("rec succesfully added");
-  };
-
   return (
     <div className="make-rec">
-      <h2>Recommend a good song!</h2>
+      <h1>Search a song, and recommend!</h1>
 
       <form onSubmit={createRec}>
         <input
@@ -123,7 +122,7 @@ export const MakeRec = (props) => {
       )}
 
       {results && (
-        <div>
+        <div className="search-results">
           {results.map((item) => {
             const info = {
               id: item["id"],

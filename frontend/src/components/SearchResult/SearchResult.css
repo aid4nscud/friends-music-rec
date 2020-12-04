@@ -23,6 +23,12 @@
 
 p, b {
     color: white;
+    display: block;
+}
+
+b {
+    padding: 1rem;
+    font-size: larger;
 }
 
 

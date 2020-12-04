@@ -227,6 +227,24 @@ def follow_user():
     except Exception as e:
         print(e)
 
+@app.route('/api/unfollow_user', methods={"POST"})
+def unfollow_user():
+    user_to_unfollow = request.json['userToUnfollow']
+    user_unfollowing = request.json['userUnfollowing']
+
+    try:
+        users.update(
+            {"username": user_unfollowing},
+            {
+                '$pull': {
+                    'following': user_to_unfollow
+                }
+            }
+        )
+        return {'success': 'success'}
+    except Exception as e:
+        print(e)
+
 
 
 @app.route('/create_rec', methods={"POST"})

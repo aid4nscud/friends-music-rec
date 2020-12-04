@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { MakeRec } from "../MakeRec/MakeRec.js";
+import { CreateAndExplore } from "../CreateAndExplore/CreateAndExplore";
 import { Discover } from "../Discover/Discover";
 import { Switch } from "react-router-dom";
 import { Profile } from "../Profile/Profile";
@@ -28,16 +28,8 @@ export const AppLayout = (props) => {
 
         <AuthRoute
           exact
-          path="/app/discover"
-          component={Discover}
-          spotifyToken={spotifyToken}
-          setSpotifyToken={setSpotifyToken}
-        />
-
-        <AuthRoute
-          exact
-          path="/app/recommend"
-          component={MakeRec}
+          path="/app/create+explore"
+          component={CreateAndExplore}
           spotifyToken={spotifyToken}
           setSpotifyToken={setSpotifyToken}
         />

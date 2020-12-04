@@ -7,29 +7,42 @@ html {
     display: inline-block;
     
 }
-iframe{
-    width: 100%;
+.follow-button {
+    display: inline-block;
+    width: 25%;
     margin: auto;
-
+    margin-left: 1rem;
 }
-.card-header {
-    display: block;
+.following-button {
+    display: inline-block;
+    width: 25%;
+    margin: auto;
+    margin-left: 1rem;
+}
+
+.more-info-desc {
+    width: 100%;
+}
+.card-footer {
+    width: 50%;
+    margin: auto;
+}
+
+.card-footer ul {
     width: 100%;
 }
 
-.card-header ul {
-    width: 100%;
-}
-
-.card-header ul li{
+.card-footer ul li{
     width: 100%;
     display:block;
 }
 
 .more-info {
-    width: 100%;
+   width: 50%;
+    padding: 0.2rem;
+    display: inline-block;
 
-background-color: violet;
+background-color: #004085;
 }
 
 .rec-desc button{
@@ -44,7 +57,22 @@ background-color: violet;
 
 .discover-rec {
     margin:auto;
+border-style: solid;
+border-color: white;
+    width: 50%;
+}
 
-    width: 60%;
+.discover-rec-iframe {
+    width: 100%;
+    border-style: solid;
+    border-color: white;
+    border-radius: 0%;
+    
+}
+
+.next-button {
+    float: right;
+    margin: 1rem;
+    width: 10%;
 }
 

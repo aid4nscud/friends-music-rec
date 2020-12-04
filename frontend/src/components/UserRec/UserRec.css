@@ -10,7 +10,7 @@ border-radius: 10% 0 10% 0;
 
 }
 
-.card-header li{
+.profile-card-header li{
   
   display: inline-block;
   width: 50%;
@@ -20,7 +20,7 @@ border-radius: 10% 0 10% 0;
 
 }
 
-.card-header {
+.profile-card-header {
   
   display: inline-block;
   width: 100%;
@@ -28,7 +28,7 @@ border-radius: 10% 0 10% 0;
  
 }
 
-.card-header button {
+.profile-card-header button {
  
 
  width: 50%;
@@ -36,16 +36,13 @@ border-radius: 10% 0 10% 0;
 
 }
 
-iframe {
-  width: 100%;
-  margin-bottom: -0.3rem;
-  border-radius: 10% 0 10% 0;
-}
 
-.user-rec img {
+
+.user-rec iframe {
+  width: 100%;
     display: block;
     margin-left: auto;
   margin-right: auto;
-  
+  border-radius: 10% 0 10% 0;
 }
 

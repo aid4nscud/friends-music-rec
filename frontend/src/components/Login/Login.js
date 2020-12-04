@@ -36,7 +36,7 @@ export const Login = (props) => {
 
 
           auth.login(() => {
-            history.push("/app/recommend");
+            history.push("/app/create+explore");
           });
         } else {
           setWarning(parsed["error"]);

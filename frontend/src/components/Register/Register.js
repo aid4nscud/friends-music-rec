@@ -46,7 +46,7 @@ export const Register = () => {
               }
               
               auth.login(()=> {
-                history.push('/app/recommend')
+                history.push('/app/create+explore')
         
               });
               

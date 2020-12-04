@@ -15,10 +15,7 @@ export const NavBar = () => {
           <Link to="/app/listen" style={{textDecoration: 'none', color: "white"}}>LISTEN</Link>
         </li>
         <li>
-          <Link to="/app/recommend" style={{textDecoration: 'none', color: "white"}}>RECOMMEND</Link>
-        </li>
-        <li>
-          <Link to="/app/discover" style={{textDecoration: 'none', color: "white"}}>DISCOVER</Link>
+          <Link to="/app/create+explore" style={{textDecoration: 'none', color: "white"}}>EXPLORE</Link>
         </li>
         <li>
         <button

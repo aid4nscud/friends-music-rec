@@ -1,15 +1,21 @@
+html {
+    text-align: center;
+}
+
 .warning {
     color: crimson;
 }
 
 .login {
-    text-align: center;
+    
       margin: auto;
-      width: 100%;
-      justify-content: center;
+      width: 50%;
+     
       
     }
-    
+    .login-form {
+        display: inline-block;
+    }
     
     .login-form input{
         display: block;

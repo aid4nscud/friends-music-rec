@@ -9,9 +9,19 @@ export const DiscoverRec = (props) => {
 
   return (
     <div className="discover-rec">
-      <div className ='card-header'>
-        <ul>
-          <li>
+      
+
+      <iframe className='discover-rec-iframe'
+        src={url}
+        width="500"
+        height="500"
+        frameBorder="1"
+        allowtransparency="true"
+        allow="encrypted-media"
+      ></iframe>
+
+<div className ='card-footer'>
+        
           <p className='more-info'
           onClick={() => {
             return props.moreInfo
@@ -21,9 +31,9 @@ export const DiscoverRec = (props) => {
         >
           More Info
         </p>
-          </li>
-          {props.moreInfo && (<li>
-          <p className="rec-desc">
+          
+          {props.moreInfo && (<div className="more-info-desc">
+            <p >
             Recommended to you by{" "}
             <span className="span-recommender">{props.user}</span>
             {props.moreInfo && props.followButton === "Follow" ? (
@@ -36,31 +46,24 @@ export const DiscoverRec = (props) => {
                 {props.followButton}
               </button>
             ) : (
-              <button className="follow-button" style={{ color: "deeppink" }}>
+              <button className="following-button" >
                 {props.followButton}
               </button>
             )}
           </p>
+          </div>
+         
             
-            </li>
+            
           
         )}
           
-        </ul>
+        
         
         
       </div>
 
-      <iframe
-        src={url}
-        width="500"
-        height="500"
-        frameBorder="1"
-        allowtransparency="true"
-        allow="encrypted-media"
-      ></iframe>
-
-      <button onClick={props.nextRec}>Next</button>
+      <button className='next-button 'onClick={props.nextRec}>Next </button>
     </div>
   );
 };

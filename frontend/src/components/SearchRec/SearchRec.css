@@ -1,0 +1,16 @@
+html {
+    text-align: center;
+}
+
+.make-rec{
+    border-style: solid;
+    border-color: white;
+}
+.make-rec form{
+    display: inline-block;
+}
+.make-rec h2 {
+    color: black
+    ;
+    display: block;
+}

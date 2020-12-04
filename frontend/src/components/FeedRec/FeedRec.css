@@ -1,3 +1,34 @@
 .span-recommender {
     font-size: x-large;
 }
+.card-header{
+width: 100%;
+margin: auto;
+
+}
+.feed-rec {
+    width: 50%;
+    margin: auto;
+    border-style: solid;
+    border-color: white;
+    background-color: #004085;
+
+}
+.feed-rec-iframe {
+    border-style: solid;
+    border-color: white;
+    border-radius: 0%;
+    width: 100%;
+    margin-bottom: -0.3rem;
+   
+  }
+
+  .next-button {
+      float: right;
+      margin: 1rem;
+      padding: 0.5rem;
+  }
+  .next-button-container {
+      width: 50%;
+      display: inline-block;
+  }

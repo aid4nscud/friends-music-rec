@@ -9,7 +9,7 @@ export const UserRec = (props) => {
 
   return (
     <div className="user-rec">
-      <div className="card-header">
+      <div className="profile-card-header">
         <ul>
           <li>
           <button
@@ -29,7 +29,7 @@ export const UserRec = (props) => {
        
       </div>
 
-      <iframe
+      <iframe className='profile-iframe'
         src={url}
         width="500"
         height="300"
