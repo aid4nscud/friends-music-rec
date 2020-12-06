@@ -21,7 +21,7 @@ export const UserRec = (props) => {
         </button>
           </li>
           <li>
-          <p>Likes: 200</p>
+          <p>{"Likes: " + props.likes}</p>
 
           </li>
         </ul>

@@ -31,7 +31,7 @@ function App() {
           exact
           path="/"
           render={() => {
-            if (getCookie("token") !== null || auth.isAuthenticated()) {
+            if (getCookie("token") !== null || auth.isAuthenticated() || getCookie("user") !== null) {
               history.push("/app/create+explore");
             } else {
               return <Login />;

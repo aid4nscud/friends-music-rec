@@ -41,6 +41,7 @@ export const AuthRoute = ({ component: Component, ...rest }) => {
       render={() => {
         if (getCookie("token") !== null) {
           const authed = decode();
+       
 
           return authed ? <Component {...rest} /> : <Redirect to="/" />;
         }

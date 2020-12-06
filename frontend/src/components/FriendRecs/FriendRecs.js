@@ -10,9 +10,6 @@ export const FriendRecs = (props) => {
   const [followButton, setFollowButton] = useState("Unfollow");
 
 
-
-  
-
   useEffect(() => {
     const user = getCookie("user");
     if (user !== null) {
@@ -61,8 +58,31 @@ export const FriendRecs = (props) => {
       const currIndex = index == recs.length - 1 ? 0 : index + 1;
 
       setIndex(currIndex);
+      setFollowButton('Unfollow')
     }
   };
+
+  function likeRec(recToLike) {
+    const userLiking = getCookie("user");
+
+    const data = {
+      recToLike: recToLike,
+      userLiking: userLiking,
+    };
+    fetch("/api/like_rec", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+    })
+      .then((res) => res.json())
+      .then((parsed) => {
+        if (!parsed.success) {
+          return alert('error')
+    
+        }
+
+      });
+  }
 
   return (
     <div className='friend-recs'>
@@ -72,6 +92,9 @@ export const FriendRecs = (props) => {
         <div>
           <h1>Listen to what your friends recommend!</h1>
           <FeedRec
+          likes = {recs[index].likes}
+          like={likeRec}
+          id={recs[index]._id}
             user={recs[index].user}
             spotifyToken={props.spotifyToken}
             setSpotifyToken={props.setSpotifyToken}

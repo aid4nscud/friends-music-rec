@@ -29,6 +29,10 @@ export const FeedRec = (props) => {
                 {props.followButton}
               </button>
             )}
+          <h3 className='likes-label' >{'Likes: ' + props.likes}</h3>
+      <button className='like-button' onClick={()=> {
+        props.like(props.id)
+      }}>Like</button>
       </div>
       <iframe className='feed-rec-iframe'
         src={url}

@@ -1,5 +1,6 @@
 from flask import Flask, request, jsonify, make_response
 from pymongo import MongoClient
+from bson.objectid import ObjectId
 import os
 import datetime
 import jwt
@@ -31,47 +32,10 @@ TOKEN_URL = 'https://accounts.spotify.com/api/token'
 
 # AUTHORIZATION FLOW SPOTIFY:
 
-'''@app.route('/callback')
-def callback():
-    error = request.args.get('error')
-    code = request.args.get('code')
-    state = request.args.get('state')
-    stored_state = request.cookies.get('spotify_auth_state')
 
-    # Check state
-    if state is None or state != stored_state:
-        app.logger.error('Error message: %s', repr(error))
-        app.logger.error('State mismatch: %s != %s', stored_state, state)
-        abort(400)
 
-    # Request tokens with code we obtained
-    payload = {
-        'grant_type': 'authorization_code',
-        'code': code,
-        'redirect_uri': REDIRECT_URI,
-    }
 
-    # `auth=(CLIENT_ID, SECRET)` basically wraps an 'Authorization'
-    # header with value:
-    # b'Basic ' + b64encode((CLIENT_ID + ':' + SECRET).encode())
-    res = requests.post(TOKEN_URL, auth=(
-        CLIENT_ID, CLIENT_SECRET), data=payload)
-    res_data = res.json()
 
-    if res_data.get('error') or res.status_code != 200:
-        app.logger.error(
-            'Failed to receive token: %s',
-            res_data.get('error', 'No error information received.'),
-        )
-        abort(res.status_code)
-
-    # Load tokens into session
-    session['tokens'] = {
-        'access_token': res_data.get('access_token'),
-        'refresh_token': res_data.get('refresh_token'),
-    }
-
-    return redirect(url_for('me'))'''
 
 
 # JWT FOR USER AUTHENTICATION - FUNCTIONS BELOW
@@ -126,7 +90,7 @@ def check_token():
 def login():
 
 
-#AUTH WITH APP
+#AUTH WITH APP + SPOTIFY
 
     error = ''
     req = request.json
@@ -137,48 +101,13 @@ def login():
         if(creds['password'] == password):
             token = encodeAuthToken(username).decode('UTF-8')
 
-            #AUTH WITH SPOTIFY
-
-            #state = ''.join(secrets.choice(string.ascii_uppercase + string.digits) for _ in range(16))
-
-            #payload = {
-             #   'client_id': CLIENT_ID,
-              #  'response_type': 'code',
-               # 'redirect_uri': REDIRECT_URI,
-                #'state': state,
-
-           # }
-
-            #url = f'{AUTH_URL}/?{urlencode(payload)}'
-
-            return {'token': token}
+            return {'token': token, 'user': username}
         else:
             error = 'Wrong Password'
             return {'error': error}
     else:
         error = 'Invalid Username'
         return {'error': error}
-
-'''@app.route('/refresh')
-def refresh():
-    #Refresh access token.
-
-    payload = {
-        'grant_type': 'refresh_token',
-        'refresh_token': session.get('tokens').get('refresh_token'),
-    }
-    headers = {'Content-Type': 'application/x-www-form-urlencoded'}
-
-    res = requests.post(
-        TOKEN_URL, auth=(CLIENT_ID, CLIENT_SECRET), data=payload, headers=headers
-    )
-    res_data = res.json()
-
-    # Load new token into session
-    session['tokens']['access_token'] = res_data.get('access_token')
-
-    return json.dumps(session['tokens'])
-'''
 
 
 @app.route('/api/register', methods={'POST'})
@@ -207,7 +136,11 @@ def register():
         message = 'that username or email is already in use'
         return {'error': message}
 
+
+
 # USER ACTIONS ON APP 
+
+
 
 @app.route('/api/follow_user', methods={"POST"})
 def follow_user():
@@ -254,18 +187,48 @@ def create_rec():
         'artist': request.json['artist'],
         'user': request.json['user'],
         'images': request.json['images'],
-        'uri': request.json['uri']
+        'uri': request.json['uri'],
+        'likers': []
     })
 
-    print('succesfully added')
-    return 'received'
+    return print('succesfully added')
+    
+
 
 @app.route('/api/delete_rec', methods={"POST"})
 def delete_rec():
     recommendations.remove({'song': request.json['song'], 'user': request.json['user']})
 
-    print('succesfully added')
-    return 'received'
+    return print('succesfully deleted')
+    
+
+
+@app.route('/api/like_rec', methods={"POST"})
+def like_rec():
+    rec_to_like = request.json['recToLike']
+    rec_to_like = ObjectId(rec_to_like)
+    user_liking = request.json['userLiking']
+
+    rec = recommendations.find_one({"_id": rec_to_like})
+    likers_arr = rec['likers']
+    print(likers_arr)
+    if user_liking not in rec['likers']:
+        try:
+            recommendations.update(
+                {"_id": rec_to_like},
+                {
+                    '$push': {
+                    'likers': user_liking
+                    }
+                }
+            )
+            return {'success': 'success'}
+        except Exception as e:
+            print(e)
+            return e
+    else:
+        return {'error': 'error'}
+    
 
 
 
@@ -281,13 +244,15 @@ def get_discover_recs():
     recs = []
     for doc in recommendations.find():
         if(doc['user'] != user['username'] and doc['user'] not in user_following):
+          
             recs.append({
                 '_id': str(doc['_id']),
                 'song': doc['song'],
                 'artist': doc['artist'],
                 'user': doc['user'],
                 'images': doc['images'],
-                'uri': doc['uri']
+                'uri': doc['uri'],
+                'likes':  len(doc['likers']),
             })
 
     return {'recs': recs}
@@ -300,13 +265,15 @@ def get_friend_recs(user):
     recs = []
     for doc in recommendations.find():
         if(doc['user'] != user['username'] and doc['user'] in user_following):
+            print(len(doc['likers']))
             recs.append({
                 '_id': str(doc['_id']),
                 'song': doc['song'],
                 'artist': doc['artist'],
                 'user': doc['user'],
                 'images': doc['images'],
-                'uri': doc['uri']
+                'uri': doc['uri'],
+                'likes': len(doc['likers'])
             })
 
     return {'recs': recs}
@@ -323,7 +290,8 @@ def get__user_recs(user):
             'artist': doc['artist'],
             'user': doc['user'],
             'images': doc['images'],
-            'uri': doc['uri']
+            'uri': doc['uri'],
+            'likes': len(doc['likers'])
         })
 
     return {'recs': recs}

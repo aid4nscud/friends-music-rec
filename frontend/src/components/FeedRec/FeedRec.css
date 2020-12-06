@@ -5,7 +5,17 @@
 width: 100%;
 margin: auto;
 
+
 }
+
+.like-button {
+    display: inline-block;
+}
+
+.likes-label {
+    display: block;
+}
+
 .feed-rec {
     width: 50%;
     margin: auto;
@@ -30,5 +40,12 @@ margin: auto;
   }
   .next-button-container {
       width: 50%;
+      display: inline-block;
+  }
+
+  .unfollow-button {
+      display: inline-block;
+  }
+  .follow-button {
       display: inline-block;
   }

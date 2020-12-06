@@ -2,26 +2,22 @@ import { useState, useEffect } from "react";
 import { getCookie } from "../../utils/auth";
 
 import React from "react";
-
-import {SearchRec} from '../SearchRec/SearchRec'
+import { SearchRec } from "../SearchRec/SearchRec";
 import "./CreateAndExplore.css";
-import {DiscoverRec} from '../DiscoverRec/DiscoverRec'
-
-
+import { Discover } from "../Discover/Discover";
 
 export const CreateAndExplore = (props) => {
-  
+  const [render, setRender] = useState(0);
   const [index, setIndex] = useState(0);
   const [recs, setRecs] = useState(null);
   const [followButton, setFollowButton] = useState("Follow");
   const [moreInfo, setMoreInfo] = useState(false);
-  const [render, setRender] = useState(0);
+  const [liked, setLiked] = useState(false);
 
   useEffect(() => {
-    if(render===0){
-      const data = { user: getCookie("user") };
-    if (data["user"] !== null) {
-      const url = "/api/get_discover_recs";
+    const data = {'user':getCookie("user")};
+    if (data['user'] !== null) {
+      const url = "/api/get_discover_recs"
       fetch(url, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -31,19 +27,10 @@ export const CreateAndExplore = (props) => {
         .then((parsedJSON) => {
           if (parsedJSON["recs"].length > 0) {
             setRecs(parsedJSON["recs"]);
-            setRender(render+1)
           }
         });
-    }
-    }
-    
+    } 
   }, []);
-
-  
-
-  
-
-  
 
   const follow = (userToFollow) => {
     const userFollowing = getCookie("user");
@@ -60,7 +47,6 @@ export const CreateAndExplore = (props) => {
       .then((res) => res.json())
       .then((parsed) => {
         if (parsed.success) {
-          alert("sucessfully followed user");
           setFollowButton("Following");
         }
       });
@@ -73,41 +59,63 @@ export const CreateAndExplore = (props) => {
       setIndex(currIndex);
       setMoreInfo(false);
       setFollowButton("Follow");
+      setLiked(false)
     }
   };
 
-  return (
-    <div className='create-explore'>
+  function likeRec(recToLike) {
+    const userLiking = getCookie("user");
 
+    const data = {
+      recToLike: recToLike,
+      userLiking: userLiking,
+    };
+    fetch("/api/like_rec", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+    })
+      .then((res) => res.json())
+      .then((parsed) => {
+        if (!parsed.success) {
+          return alert('error')
+    
+        }
+        setLiked(true)
+
+      });
+  }
+
+  return (
+    <div className="create-explore">
       <div className="discover">
         {recs === null ? (
           <h1>No recs rn G</h1>
         ) : (
           <div>
             <h1>Explore Anonymous Recommendations</h1>
-            <DiscoverRec
-              user={recs[index].user}
+            <Discover
+            recs = {recs}
+            nextRec={nextRec}
+            follow={follow}
+            liked={liked}
+            setLiked={setLiked}
+            moreInfo={moreInfo}
+            setMoreInfo={setMoreInfo}
+            followButton={followButton}
               spotifyToken={props.spotifyToken}
               setSpotifyToken={props.setSpotifyToken}
-              images={recs[index].images}
-              song={recs[index].song}
-              artist={recs[index].artist}
-              uri={recs[index].uri}
-              nextRec={nextRec}
-              follow={follow}
-              followButton={followButton}
-              moreInfo={moreInfo}
-              setMoreInfo={setMoreInfo}
+              likeRec={likeRec}
+              index={index}
             />
           </div>
         )}
       </div>
 
-      <SearchRec spotifyToken={props.spotifyToken} setSpotifyToken={props.setSpotifyToken}/>
-
-      
+      <SearchRec
+        spotifyToken={props.spotifyToken}
+        setSpotifyToken={props.setSpotifyToken}
+      />
     </div>
   );
 };
-
-

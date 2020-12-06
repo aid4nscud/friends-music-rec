@@ -23,14 +23,24 @@ export const Login = (props) => {
       .then((res) => res.json())
       .then((parsed) => {
         if (parsed.token) {
+          
           const cookie =
             "token=" +
-            parsed["token"] +
+            parsed.token +
             "; max-age=" +
             30 * 24 * 60 * 60 +
-            "; SameSite=Strict; spotify_auth_state=" ;
+            "; SameSite=Strict; "
           document.cookie = cookie;
-
+        
+          if (parsed.user) {
+            const cookie2 =
+              "user=" +
+              parsed.user +
+              "; max-age=" +
+              30 * 24 * 60 * 60 +
+              "; SameSite=Strict;"
+            document.cookie = cookie2;
+          }
           // const url  = parsed.url
 
 
@@ -39,7 +49,7 @@ export const Login = (props) => {
             history.push("/app/create+explore");
           });
         } else {
-          setWarning(parsed["error"]);
+          setWarning(parsed.error);
         }
       });
   };

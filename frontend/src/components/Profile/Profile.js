@@ -67,7 +67,7 @@ export const Profile = (props) => {
       {userRecs !== null &&
         userRecs.map((rec) => {
           return (
-            <UserRec deleteRec = {deleteRec} uri={rec.uri} song={rec.song} artist={rec.artist} images={rec.images} />
+            <UserRec deleteRec = {deleteRec} likes={rec.likes} uri={rec.uri} song={rec.song} artist={rec.artist} images={rec.images} />
           );
         })}
     </div>

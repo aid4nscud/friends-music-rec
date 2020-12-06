@@ -2,16 +2,16 @@ import React, { useEffect, useState } from "react";
 import "./DiscoverRec.css";
 
 export const DiscoverRec = (props) => {
+ const [likes, setLikes] = useState(props.likes)
   let uri = props.uri;
   let uriCode = uri.substr(14);
-
   let url = "https://open.spotify.com/embed/track/" + uriCode;
+
 
   return (
     <div className="discover-rec">
-      
-
-      <iframe className='discover-rec-iframe'
+      <iframe
+        className="discover-rec-iframe"
         src={url}
         width="500"
         height="500"
@@ -20,9 +20,27 @@ export const DiscoverRec = (props) => {
         allow="encrypted-media"
       ></iframe>
 
-<div className ='card-footer'>
+      <div className="card-footer">
+        {props.liked === false ? <button
+          className="like-button"
+          onClick={() => {
+            props.like(props.id)
+            setLikes(likes+1)
+            props.setLiked(true)
+          }}
+        >
+          Like
+        </button> : <h3
+          className="liked"
+        >
+          Liked!
+        </h3>}
         
-          <p className='more-info'
+
+        <h3>{"Likes: " + likes}</h3>
+
+        <p
+          className="more-info"
           onClick={() => {
             return props.moreInfo
               ? props.setMoreInfo(false)
@@ -31,39 +49,36 @@ export const DiscoverRec = (props) => {
         >
           More Info
         </p>
-          
-          {props.moreInfo && (<div className="more-info-desc">
-            <p >
-            Recommended to you by{" "}
-            <span className="span-recommender">{props.user}</span>
-            {props.moreInfo && props.followButton === "Follow" ? (
-              <button
-                className="follow-button"
-                onClick={() => {
-                  props.follow(props.user);
-                }}
-              >
-                {props.followButton}
-              </button>
-            ) : (
-              <button className="following-button" >
-                {props.followButton}
-              </button>
-            )}
-          </p>
+
+        {props.moreInfo && (
+          <div className="more-info-desc">
+            <p>
+              Recommended to you by{" "}
+              <span className="span-recommender">{props.user}</span>
+              {props.moreInfo && props.followButton === "Follow" ? (
+                <button
+                  className="follow-button"
+                  onClick={() => {
+                    props.follow(props.user);
+                  }}
+                >
+                  {props.followButton}
+                </button>
+              ) : (
+                <button className="following-button">
+                  {props.followButton}
+                </button>
+              )}
+            </p>
           </div>
-         
-            
-            
-          
         )}
-          
-        
-        
-        
       </div>
 
-      <button className='next-button 'onClick={props.nextRec}>Next </button>
+      <button className="next-button " onClick={()=> {
+        setLikes(props.likes);
+        props.nextRec()}}>
+        Next{" "}
+      </button>
     </div>
   );
 };
