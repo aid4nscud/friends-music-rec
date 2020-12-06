@@ -4,8 +4,14 @@
 .card-header{
 width: 100%;
 margin: auto;
+text-align: center;
 
 
+}
+
+.card-header button {
+    margin: 1rem;
+    padding: 0.3rem;
 }
 
 .like-button {
@@ -13,7 +19,7 @@ margin: auto;
 }
 
 .likes-label {
-    display: block;
+    display: inline-block;
 }
 
 .feed-rec {
@@ -22,14 +28,17 @@ margin: auto;
     border-style: solid;
     border-color: white;
     background-color: #004085;
+    border-radius: 10% 0 10% 0;
 
 }
 .feed-rec-iframe {
-    border-style: solid;
-    border-color: white;
-    border-radius: 0%;
-    width: 100%;
-    margin-bottom: -0.3rem;
+    
+        width: 100%;
+          display: block;
+          margin-left: auto;
+        margin-right: auto;
+        border-radius: 10% 0 10% 0;
+      
    
   }
 
@@ -47,5 +56,21 @@ margin: auto;
       display: inline-block;
   }
   .follow-button {
+      display: inline-block;
+  }
+
+  .rec-desc {
+      display: inline-block;
+  }
+
+  .user-info {
+      width: 60%;
+      margin: auto;
+      display: inline-block;
+  }
+
+  .rec-info {
+      width: 40%;
+      margin: auto;
       display: inline-block;
   }

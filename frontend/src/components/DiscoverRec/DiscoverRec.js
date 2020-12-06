@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./DiscoverRec.css";
 
 export const DiscoverRec = (props) => {
- const [likes, setLikes] = useState(props.likes)
+ const [likes, setLikes] = useState(0)
   let uri = props.uri;
   let uriCode = uri.substr(14);
   let url = "https://open.spotify.com/embed/track/" + uriCode;
@@ -37,7 +37,7 @@ export const DiscoverRec = (props) => {
         </h3>}
         
 
-        <h3>{"Likes: " + likes}</h3>
+        <h3>{"Likes: " + (props.likes + likes)}</h3>
 
         <p
           className="more-info"
@@ -75,7 +75,7 @@ export const DiscoverRec = (props) => {
       </div>
 
       <button className="next-button " onClick={()=> {
-        setLikes(props.likes);
+        setLikes(0);
         props.nextRec()}}>
         Next{" "}
       </button>

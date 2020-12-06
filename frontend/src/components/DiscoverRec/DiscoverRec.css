@@ -43,6 +43,8 @@ html {
     display: inline-block;
 
 background-color: #004085;
+border-style: outset;
+border-color: white;
 }
 
 .rec-desc button{
@@ -60,13 +62,18 @@ background-color: #004085;
 border-style: solid;
 border-color: white;
     width: 50%;
+    border-radius: 10% 0 10% 0;
+    background-color: #004085;
 }
 
 .discover-rec-iframe {
-    width: 100%;
-    border-style: solid;
-    border-color: white;
-    border-radius: 0%;
+    
+        width: 100%;
+          display: block;
+          margin-left: auto;
+        margin-right: auto;
+        border-radius: 10% 0 10% 0;
+      
     
 }
 

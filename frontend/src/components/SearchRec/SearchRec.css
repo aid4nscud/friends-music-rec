@@ -3,8 +3,10 @@ html {
 }
 
 .make-rec{
-    border-style: solid;
-    border-color: white;
+    display: inline-block;
+    width: 100%;
+    border-top-style: dotted;
+    border-color: #004085;
 }
 .make-rec form{
     display: inline-block;
@@ -12,5 +14,5 @@ html {
 .make-rec h2 {
     color: black
     ;
-    display: block;
+    display: inline-block;
 }

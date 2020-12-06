@@ -1,12 +1,18 @@
+html {
+  text-align: center;
+}
+
 .register {
-text-align: center;
+
   margin: auto;
-  width: 100%;
-  justify-content: center;
+  width: 50%;
+
   
 }
 
-
+.register-form {
+  display: inline-block;
+}
 .register-form input{
     display: block;
     margin-bottom: 3rem;
