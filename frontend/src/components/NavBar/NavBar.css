@@ -1,31 +1,35 @@
-
 .navbar {
+  width: 100vw;
+  height: 5rem;
   text-align: center;
   background-color: #004085;
-  margin-top: -0.5rem;
-  
+  border-bottom-style: solid;
+  border-bottom-color: white;
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 100;
+  border-top: 0;
 }
-
 .navbar ul {
-  width: 100%;
- 
+  width: 85%;
+  height: 5rem;
   display: inline-block;
-  
 }
 
-.navbar li{
-
-  width: 25%;
+.navbar li {
+  width: 33%;
+  height: 100%;
   display: inline-block;
   border-radius: 60%;
 }
 
-.navbar li a:hover {
- 
-  font-size: larger;
-
-
-  
-
+.nav-icon:hover {
+  transform: scale(1.2);
 }
 
+.navbar button {
+  
+  width: 10%;
+  
+}

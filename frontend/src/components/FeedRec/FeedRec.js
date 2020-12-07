@@ -16,7 +16,7 @@ export const FeedRec = (props) => {
               Recommended by{" "}
               <span className="span-recommender">{props.user}</span>
             </h3>
-            {props.followButton === "Unfollow" ? (
+            {props.followButton === "Following" ? (
               <button
                 className="unfollow-button"
                 onClick={() => {

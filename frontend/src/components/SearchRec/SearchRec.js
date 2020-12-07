@@ -3,7 +3,7 @@ import { getCookie } from "../../utils/auth";
 import { getInfo } from "../../utils/Spotify";
 import axios from "axios";
 import { SearchResult } from "../SearchResult/SearchResult";
-import './SearchRec.css'
+import "./SearchRec.css";
 
 export const SearchRec = (props) => {
   const info = getInfo();
@@ -81,7 +81,10 @@ export const SearchRec = (props) => {
 
   return (
     <div className="make-rec">
-      <h1>Search a song, and recommend!</h1>
+      <div className="search-header">
+      <h1 >Search a song, and recommend!</h1>
+      </div>
+      
 
       <form onSubmit={createRec}>
         <input

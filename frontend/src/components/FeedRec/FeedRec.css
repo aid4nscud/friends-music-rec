@@ -4,7 +4,7 @@
 .card-header{
 width: 100%;
 margin: auto;
-text-align: center;
+
 
 
 }
@@ -14,21 +14,18 @@ text-align: center;
     padding: 0.3rem;
 }
 
-.like-button {
-    display: inline-block;
-}
 
 .likes-label {
     display: inline-block;
 }
 
 .feed-rec {
-    width: 50%;
+    width: 40%;
     margin: auto;
     border-style: solid;
     border-color: white;
     background-color: #004085;
-    border-radius: 10% 0 10% 0;
+    border-radius: 10% 10% 10% 10%;
 
 }
 .feed-rec-iframe {
@@ -37,18 +34,18 @@ text-align: center;
           display: block;
           margin-left: auto;
         margin-right: auto;
-        border-radius: 10% 0 10% 0;
+        border-radius: 10% 0 10% 10%;
       
    
   }
 
   .next-button {
-      float: right;
+      
       margin: 1rem;
       padding: 0.5rem;
   }
   .next-button-container {
-      width: 50%;
+      width: 40%;
       display: inline-block;
   }
 

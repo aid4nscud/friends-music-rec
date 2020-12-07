@@ -1,18 +1,31 @@
 html {
-    text-align: center;
+  text-align: center;
 }
 
-.make-rec{
-    display: inline-block;
-    width: 100%;
-    border-top-style: dotted;
-    border-color: #004085;
+.make-rec {
+  display: inline-block;
+  width: 100%;
+  border-top-style: dotted;
+  border-color: #004085;
+  margin-bottom: 2rem;
+  margin-top: 2rem;
 }
-.make-rec form{
-    display: inline-block;
+
+.search-header {
+    background-color: #004085 ;
+    padding: 1rem;
+    width: 100%;
+    margin-left: -1rem;
+}
+.make-rec form {
+margin-top: 2rem;
+  display: inline-block;
 }
 .make-rec h2 {
-    color: black
-    ;
-    display: inline-block;
+  color: black;
+  display: inline-block;
+}
+
+.search-results {
+  margin-top: 1rem;
 }

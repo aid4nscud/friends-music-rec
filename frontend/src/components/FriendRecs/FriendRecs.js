@@ -7,7 +7,7 @@ import './FriendRecs.css'
 export const FriendRecs = (props) => {
   const [recs, setRecs] = useState(null);
   const [index, setIndex] = useState(0);
-  const [followButton, setFollowButton] = useState("Unfollow");
+  const [followButton, setFollowButton] = useState("Following");
 
 
   useEffect(() => {
@@ -58,7 +58,7 @@ export const FriendRecs = (props) => {
       const currIndex = index == recs.length - 1 ? 0 : index + 1;
 
       setIndex(currIndex);
-      setFollowButton('Unfollow')
+      setFollowButton('Following')
     }
   };
 

@@ -1,85 +1,57 @@
 html {
-    text-align: center;
+  text-align: center;
 }
-.rec-desc button {
-    width: 100%;
-    margin: 0.5rem;
-    display: inline-block;
-    
-}
+
 .follow-button {
-    display: inline-block;
-    width: 25%;
-    margin: auto;
-    margin-left: 1rem;
+  display: inline-block;
+  width: 5rem;
+  margin: auto;
+  margin-left: 1rem;
 }
 .following-button {
-    display: inline-block;
-    width: 25%;
-    margin: auto;
-    margin-left: 1rem;
+  display: inline-block;
+  width: 5rem;
+  margin: auto;
+  margin-left: 1rem;
+}
+.card-header {
+  width: 50%;
+  margin: auto;
 }
 
 .more-info-desc {
-    width: 100%;
-}
-.card-footer {
-    width: 50%;
-    margin: auto;
-}
-
-.card-footer ul {
-    width: 100%;
-}
-
-.card-footer ul li{
-    width: 100%;
-    display:block;
-}
-
-.more-info {
-   width: 50%;
-    padding: 0.2rem;
-    display: inline-block;
-
-background-color: #004085;
-border-style: outset;
-border-color: white;
-}
-
-.rec-desc button{
-    display: inline-block
+  width: 70%;
+  display: inline-block;
 }
 
 .span-recommender {
-    text-decoration: underline;
-    color: deeppink;
-    font-size: large;
+  color: rgb(21, 161, 255);
+  font-size: larger;
 }
 
 .discover-rec {
-    margin:auto;
-border-style: solid;
-border-color: white;
-    width: 50%;
-    border-radius: 10% 0 10% 0;
-    background-color: #004085;
+  margin: auto;
+  border-style: solid;
+  border-color: white;
+  width: 40%;
+  border-radius: 10% 10% 10% 10%;
+  background-color: #004085;
 }
 
 .discover-rec-iframe {
-    
-        width: 100%;
-          display: block;
-          margin-left: auto;
-        margin-right: auto;
-        border-radius: 10% 0 10% 0;
-      
-    
+  width: 100%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 10% 0 10% 10%;
 }
 
 .next-button {
-    float: right;
-    margin: 1rem;
-    width: 10%;
+  float: right;
+  margin: 1rem;
+  width: 5rem;
 }
 
+.likes-number {
+  display: inline-block;
+}

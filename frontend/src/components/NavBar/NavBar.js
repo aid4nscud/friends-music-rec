@@ -2,6 +2,9 @@ import React from "react";
 import { Link, useHistory } from "react-router-dom";
 import auth from "../../utils/auth";
 import './NavBar.css'
+import { ReactComponent as ProfileIcon } from "../../profile-icon.svg";
+import { ReactComponent as ListenIcon } from "../../listen-icon.svg";
+import { ReactComponent as DiscoverIcon } from "../../discover-icon.svg";
 
 export const NavBar = () => {
   const history = useHistory();
@@ -9,16 +12,17 @@ export const NavBar = () => {
     <div className='navbar'>
       <ul>
         <li>
-          <Link to="/app/me" style={{textDecoration: 'none', color: "white"}}>PROFILE</Link>
+          <Link to="/app/me" ><ProfileIcon className='nav-icon'/></Link>
         </li>
         <li>
-          <Link to="/app/listen" style={{textDecoration: 'none', color: "white"}}>LISTEN</Link>
+          <Link to="/app/listen" ><ListenIcon className='nav-icon'/></Link>
         </li>
         <li>
-          <Link to="/app/create+explore" style={{textDecoration: 'none', color: "white"}}>EXPLORE</Link>
+          <Link to="/app/create+explore" ><DiscoverIcon className='nav-icon'/></Link>
         </li>
-        <li>
-        <button
+      </ul>
+
+      <button
         onClick={() => {
           auth.logout(() => {
             document.cookie.split(";").forEach(function(c) { document.cookie = c.replace(/^ +/, "").replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/"); });
@@ -28,8 +32,6 @@ export const NavBar = () => {
       >
         Logout
       </button>
-        </li>
-      </ul>
       
     </div>
   );

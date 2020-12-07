@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { getCookie } from "../../utils/auth";
 import { UserRec } from "../UserRec/UserRec";
 import "./Profile.css";
+import {HeartIcon} from '../HeartIcon'
 
 export const Profile = (props) => {
   const [userRecs, setUserRecs] = useState(null);
@@ -59,7 +60,7 @@ export const Profile = (props) => {
       )}
 
       {userRecs !== null ? (
-        <h2>Songs You've Recommended</h2>
+        <h2>Your Song Recommendations</h2>
       ) : (
         <h2>Once you make a recommendation, find it here!</h2>
       )}
