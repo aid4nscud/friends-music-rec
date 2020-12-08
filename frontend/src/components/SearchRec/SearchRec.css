@@ -3,22 +3,35 @@ html {
 }
 
 .make-rec {
+  min-height: 50rem;
   display: inline-block;
   width: 100%;
-  border-top-style: dotted;
-  border-color: #004085;
+
   margin-bottom: 2rem;
   margin-top: 2rem;
 }
 
 .search-header {
-    background-color: #004085 ;
-    padding: 1rem;
-    width: 100%;
-    margin-left: -1rem;
+  background: rgb(245, 39, 84);
+  background: linear-gradient(
+    0deg,
+    rgba(245, 39, 84, 0) 0%,
+    rgba(0, 0, 0, 0) 0%,
+    rgba(0, 0, 0, 0.25) 4%,
+    rgba(0, 0, 0, 0.5) 11%,
+    rgba(0, 0, 0, 0.75) 21%,
+    rgb(0, 0, 0) 31%,
+    rgba(0, 0, 0, 0.5) 58%,
+    rgba(0, 0, 0, 0.25) 83%,
+    rgba(0, 0, 0, 0) 100%
+  );
+  padding: 0.5rem;
+  width: 100%;
+  margin-left: -0.5rem;
 }
-.make-rec form {
-margin-top: 2rem;
+.search-rec-form {
+  width: 60%;
+  margin: 2rem 0 1rem 0;
   display: inline-block;
 }
 .make-rec h2 {
@@ -29,3 +42,22 @@ margin-top: 2rem;
 .search-results {
   margin-top: 1rem;
 }
+
+.search-rec-button {
+  margin: 1rem;
+  padding: 0.5rem;
+}
+
+.search-rec-input {
+  border-radius: 1rem;
+  border-style: solid;
+  border-color: white;
+}
+
+.search-rec-input:focus {
+  transform: scale(1.1);
+  margin-right: 2rem;
+  outline: none;
+}
+
+

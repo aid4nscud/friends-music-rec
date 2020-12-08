@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { CreateAndExplore } from "../CreateAndExplore/CreateAndExplore";
-import { Discover } from "../Discover/Discover";
-import { Switch } from "react-router-dom";
+import auth from '../../utils/auth'
+import { Switch, useHistory } from "react-router-dom";
 import { Profile } from "../Profile/Profile";
 import { AuthRoute } from "../AuthRoute";
 import { NavBar } from "../NavBar/NavBar";
@@ -10,6 +10,7 @@ import './AppLayout.css'
 
 export const AppLayout = (props) => {
   const [spotifyToken, setSpotifyToken] = useState(null);
+  const history = useHistory();
 
   return (
     <div className="app-layout">
@@ -34,6 +35,17 @@ export const AppLayout = (props) => {
           setSpotifyToken={setSpotifyToken}
         />
       </Switch>
+
+      <button
+        onClick={() => {
+          auth.logout(() => {
+            document.cookie.split(";").forEach(function(c) { document.cookie = c.replace(/^ +/, "").replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/"); });
+            history.push("/");
+          });
+        }}
+      >
+        Logout
+      </button>
     </div>
   );
 };

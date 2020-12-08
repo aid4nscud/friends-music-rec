@@ -25,25 +25,25 @@ html {
 }
 
 .span-recommender {
-  color: rgb(21, 161, 255);
+  color: #f52754;
   font-size: larger;
 }
 
 .discover-rec {
   margin: auto;
   border-style: solid;
-  border-color: white;
+  min-width: 370px;
   width: 40%;
   border-radius: 10% 10% 10% 10%;
-  background-color: #004085;
+  background-color: #111111;
 }
 
 .discover-rec-iframe {
-  width: 100%;
+  width: 99%;
   display: block;
-  margin-left: auto;
-  margin-right: auto;
   border-radius: 10% 0 10% 10%;
+  border-style: solid;
+  border-color: #111111;
 }
 
 .next-button {

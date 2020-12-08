@@ -11,9 +11,9 @@ export const Discover = (props) => {
   const [liked, setLiked] = useState(false);
 
   useEffect(() => {
-    const data = {'user':getCookie("user")};
-    if (data['user'] !== null) {
-      const url = "/api/get_discover_recs"
+    const data = { user: getCookie("user") };
+    if (data["user"] !== null) {
+      const url = "/api/get_discover_recs";
       fetch(url, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -25,7 +25,7 @@ export const Discover = (props) => {
             setRecs(parsedJSON["recs"]);
           }
         });
-    } 
+    }
   }, []);
 
   const follow = (userToFollow) => {
@@ -49,13 +49,17 @@ export const Discover = (props) => {
   };
 
   const nextRec = () => {
-    {
-      const currIndex = index == recs.length - 1 ? 0 : index + 1;
-
-      setIndex(currIndex);
+    if (index !== recs.length - 1) {
+      setIndex(index + 1);
       setMoreInfo(false);
       setFollowButton("Follow");
-      setLiked(false)
+      setLiked(false);
+    }
+    else if(index == recs.length -1 && recs.length > 1){
+      setIndex(0);
+      setMoreInfo(false);
+      setFollowButton("Follow");
+      setLiked(false);
     }
   };
 
@@ -73,16 +77,12 @@ export const Discover = (props) => {
     })
       .then((res) => res.json())
       .then((parsed) => {
-        if (!parsed.success) {
-          return alert('error')
-    
-        }
-        setLiked(true)
+        // if (!parsed.success) {
 
+        // }
+        setLiked(true);
       });
   }
-
-
 
   return (
     <div className="discover">
@@ -92,23 +92,23 @@ export const Discover = (props) => {
       ) : (
         <div>
           <DiscoverRec
-          liked = {liked}
-          setLiked={setLiked}
-          likes={recs[index].likes}
-          id={recs[index]._id}
-          user={recs[index].user}
-          spotifyToken={props.spotifyToken}
-          setSpotifyToken={props.setSpotifyToken}
-          images={recs[index].images}
-          song={recs[index].song}
-          artist={recs[index].artist}
-          uri={recs[index].uri}
-          like={likeRec}
-          nextRec={nextRec}
-          follow={follow}
-          followButton={followButton}
-          moreInfo={moreInfo}
-          setMoreInfo={setMoreInfo}
+            liked={liked}
+            setLiked={setLiked}
+            likes={recs[index].likes}
+            id={recs[index]._id}
+            user={recs[index].user}
+            spotifyToken={props.spotifyToken}
+            setSpotifyToken={props.setSpotifyToken}
+            images={recs[index].images}
+            song={recs[index].song}
+            artist={recs[index].artist}
+            uri={recs[index].uri}
+            like={likeRec}
+            nextRec={nextRec}
+            follow={follow}
+            followButton={followButton}
+            moreInfo={moreInfo}
+            setMoreInfo={setMoreInfo}
           />
         </div>
       )}

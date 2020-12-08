@@ -82,44 +82,43 @@ export const SearchRec = (props) => {
   return (
     <div className="make-rec">
       <div className="search-header">
-      <h1 >Search a song, and recommend!</h1>
+        <h1>Search a song, and recommend!</h1>
       </div>
-      
 
-      <form onSubmit={createRec}>
-        <input
-          placeholder="Search Song"
-          value={inputValue}
-          onChange={(e) => {
-            setInputValue(e.target.value);
-          }}
-        ></input>
-
-        {images && (
-          <input
-            placeholder="user"
-            value={userValue}
+      <div className='search-rec-form'>
+        
+          <input className='search-rec-input'
+            placeholder="Search Song"
+            value={inputValue}
             onChange={(e) => {
-              setUserValue(e.target.value);
+              setInputValue(e.target.value);
             }}
           ></input>
-        )}
-      </form>
 
-      <button
-        onClick={() => {
-          search(inputValue);
-        }}
-      >
-        Search Song
-      </button>
+      
+        <button
+          className="search-rec-button"
+          onClick={() => {
+            search(inputValue);
+          }}
+        >
+          Search Song
+        </button>
+      </div>
 
       {queued != null && (
         <div>
-          <p>{queued.song}</p>
-          <img src={queued.images[1]["url"]} />
-          <p>{queued.artist}</p>
-          <p>{"Song Popularity: " + queued.popularity}</p>
+          <div className='loading-spinner'>
+<iframe style={{borderRadius:'2rem 0 2rem 2rem'}}className='queued-iframe'
+        src={queued.url}
+        width="400"
+        height="300"
+        frameBorder="1"
+        allowtransparency="true"
+        allow="encrypted-media"
+      ></iframe>
+</div>
+          <b>{"Song Popularity: " + queued.popularity}</b>
           <button onClick={createRec}>Make Recommendation</button>
         </div>
       )}
@@ -127,7 +126,13 @@ export const SearchRec = (props) => {
       {results && (
         <div className="search-results">
           {results.map((item) => {
+             let uri = item.uri;
+             let uriCode = uri.substr(14);
+           
+             let url = "https://open.spotify.com/embed/track/" + uriCode;
+
             const info = {
+              url:url,
               id: item["id"],
               images: item["album"]["images"],
               song: item["name"],

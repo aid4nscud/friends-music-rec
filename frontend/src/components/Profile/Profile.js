@@ -30,8 +30,14 @@ export const Profile = (props) => {
     if (user === null) {
       let query = getCookie("user");
 
-      const url = "/get_user_recs/" + query;
-      fetch(url)
+      const url = "/api/get_user_recs";
+
+      const data = {user: query}
+      fetch(url, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      })
         .then((res) => res.json())
         .then((parsedJSON) => {
           if (parsedJSON["recs"].length > 0) {
@@ -40,8 +46,13 @@ export const Profile = (props) => {
           setUser(query);
         });
     } else {
-      const url = "/get_user_recs/" + user;
-      fetch(url)
+      const url = "/api/get_user_recs";
+      const data = {user: user}
+      fetch(url, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      })
         .then((res) => res.json())
         .then((parsedJSON) => {
           if (parsedJSON["recs"].length > 0) {
@@ -65,12 +76,12 @@ export const Profile = (props) => {
         <h2>Once you make a recommendation, find it here!</h2>
       )}
 
-      {userRecs !== null &&
-        userRecs.map((rec) => {
+      {userRecs !== null && <div className='profile-recs'>{ userRecs.map((rec) => {
           return (
             <UserRec deleteRec = {deleteRec} likes={rec.likes} uri={rec.uri} song={rec.song} artist={rec.artist} images={rec.images} />
           );
-        })}
+        })}</div>}
+       
     </div>
   );
 };

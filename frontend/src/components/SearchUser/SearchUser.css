@@ -1,0 +1,24 @@
+.search-results {
+    display: block;
+    width: 100%;
+    margin: auto;
+    text-align: left;
+}
+
+.search-user-input {
+    border-radius: 1rem;
+    border-style: solid;
+    border-color: white;
+  }
+  
+  .search-user-input:focus {
+    transform: scale(1.1);
+    margin-right: 2rem;
+    outline: none;
+  }
+  
+
+  .search-user-form {
+      width: 60%;
+      margin: auto;
+  }

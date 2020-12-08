@@ -6,6 +6,7 @@
 .discover{
 
     width: 100%;
+   
     display: inline-block;
     
    
@@ -14,4 +15,7 @@
 
 .search-results {
     margin-top: 1rem;
+    width: 90%;
+    margin: auto;
+    text-align: center;
 }

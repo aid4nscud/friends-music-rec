@@ -2,19 +2,27 @@ import React from "react";
 import { useEffect, useState } from "react";
 import { getCookie } from "../../utils/auth";
 import { FeedRec } from "../FeedRec/FeedRec";
+import { SearchUser } from "../SearchUser/SearchUser";
 import './FriendRecs.css'
 
 export const FriendRecs = (props) => {
   const [recs, setRecs] = useState(null);
   const [index, setIndex] = useState(0);
   const [followButton, setFollowButton] = useState("Following");
+  const [liked, setLiked] = useState(false)
 
 
   useEffect(() => {
     const user = getCookie("user");
+
     if (user !== null) {
-      const url = "/get_friend_recs/" + user;
-      fetch(url)
+      const url = "/api/get_friend_recs";
+      const data = {user: user}
+      fetch(url, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      })
         .then((res) => res.json())
         .then((parsedJSON) => {
           if (parsedJSON["recs"].length > 0) {
@@ -22,8 +30,13 @@ export const FriendRecs = (props) => {
           }
         });
     } else {
-      const url = "/get_friend_recs/" + getCookie("user");
-      fetch(url)
+      const url = "/api/get_friend_recs"
+      const data = {user: getCookie('user')}
+      fetch(url, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      })
         .then((res) => res.json())
         .then((parsedJSON) => {
           if (parsedJSON["recs"].length > 0) {
@@ -92,6 +105,8 @@ export const FriendRecs = (props) => {
         <div>
           <h1>Listen to what your friends recommend!</h1>
           <FeedRec
+          liked={liked}
+          setLiked={setLiked}
           likes = {recs[index].likes}
           like={likeRec}
           id={recs[index]._id}
@@ -108,6 +123,8 @@ export const FriendRecs = (props) => {
           />
         </div>
       )}
+
+      <SearchUser/>
     </div>
   );
 };

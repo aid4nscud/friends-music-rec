@@ -7,6 +7,7 @@ margin: auto;
 
 
 
+
 }
 
 .card-header button {
@@ -16,34 +17,39 @@ margin: auto;
 
 
 .likes-label {
+    width: auto;
+    margin: 1rem;
     display: inline-block;
 }
 
 .feed-rec {
     width: 40%;
+    min-width: 370px;
     margin: auto;
-    border-style: solid;
-    border-color: white;
-    background-color: #004085;
+    background-color: #111111;
     border-radius: 10% 10% 10% 10%;
 
 }
+
+.like-icon {
+    width: auto;
+   display: inline-block;
+   position: relative;
+   top: 1rem;
+   
+}
 .feed-rec-iframe {
     
-        width: 100%;
+        width: 99%;
           display: block;
-          margin-left: auto;
-        margin-right: auto;
+          margin: auto;
         border-radius: 10% 0 10% 10%;
+        border-style: solid;
+        border-color: #111111;
       
    
   }
 
-  .next-button {
-      
-      margin: 1rem;
-      padding: 0.5rem;
-  }
   .next-button-container {
       width: 40%;
       display: inline-block;
@@ -61,13 +67,18 @@ margin: auto;
   }
 
   .user-info {
-      width: 60%;
-      margin: auto;
+      width: auto;
+     
       display: inline-block;
+      padding-bottom: 1rem;
+      text-align: center;
+      margin: 0 3rem 0 0;
   }
 
   .rec-info {
-      width: 40%;
-      margin: auto;
+      width: auto;
+      
       display: inline-block;
+      text-align: left;
+      
   }

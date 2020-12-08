@@ -43,8 +43,8 @@ export const DiscoverRec = (props) => {
           </div>
         )}
       </div>
-
-      <iframe
+<div className='loading-spinner'>
+<iframe
         className="discover-rec-iframe"
         src={url}
         width="500"
@@ -53,6 +53,8 @@ export const DiscoverRec = (props) => {
         allowtransparency="true"
         allow="encrypted-media"
       ></iframe>
+</div>
+      
 
      
 

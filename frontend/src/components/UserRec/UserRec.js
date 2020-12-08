@@ -28,8 +28,8 @@ export const UserRec = (props) => {
         
        
       </div>
-
-      <iframe className='profile-iframe'
+<div className='loading-spinner'>
+<iframe className='profile-iframe'
         src={url}
         width="500"
         height="300"
@@ -37,6 +37,8 @@ export const UserRec = (props) => {
         allowtransparency="true"
         allow="encrypted-media"
       ></iframe>
+</div>
+      
     </div>
   );
 };

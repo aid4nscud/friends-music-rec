@@ -1,6 +1,6 @@
 import React from "react";
-import { ReactComponent as UnlikedHeart } from "../../src/liked-heart.svg";
-import { ReactComponent as LikedHeart } from "../../src/unliked-heart.svg";
+import { ReactComponent as UnlikedHeart } from "../../src/assets/liked-heart.svg";
+import { ReactComponent as LikedHeart } from "../../src/assets/unliked-heart.svg";
 
 export const HeartIcon = (props) => {
   return (

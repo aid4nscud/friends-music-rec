@@ -1,9 +1,20 @@
 .span-user {
-    color:#1984F7;
+    color:white;
+    background-color: #F52754;
+    padding: 0.5rem 1rem 0.5rem 1rem ;
+    border-style: solid;
+    border-color: white;
+    border-radius: 1rem;
+    margin: 1rem;
 }
 
 .profile {
     margin-top: 7rem;
+    min-height: 100vh;
+}
+
+.profile-recs {
+    text-align: center;
 }
 
 

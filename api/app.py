@@ -128,6 +128,7 @@ def register():
             'username': username,
             'password': password,
             'following': [],
+            'followers': [],
         })
         message = 'account succesfully created'
         return {'success': message}
@@ -153,6 +154,14 @@ def follow_user():
             {
                 '$push': {
                     'following': user_to_follow
+                }
+            }
+        )
+        users.update(
+            {"username": user_to_follow},
+            {
+                '$push': {
+                    'followers': user_following
                 }
             }
         )
@@ -258,14 +267,17 @@ def get_discover_recs():
     return {'recs': recs}
 
 
-@app.route('/get_friend_recs/<user>', methods={"GET"})
-def get_friend_recs(user):
-    user = users.find_one({'username': user})
+@app.route('/api/get_friend_recs', methods={"POST"})
+def get_friend_recs():
+
+    username = request.json['user']
+
+    user = users.find_one({'username': username})
+
     user_following = user['following']
     recs = []
     for doc in recommendations.find():
         if(doc['user'] != user['username'] and doc['user'] in user_following):
-            print(len(doc['likers']))
             recs.append({
                 '_id': str(doc['_id']),
                 'song': doc['song'],
@@ -279,10 +291,11 @@ def get_friend_recs(user):
     return {'recs': recs}
 
 
-@app.route('/get_user_recs/<user>', methods={"GET"})
-def get__user_recs(user):
+@app.route('/api/get_user_recs', methods={"POST"})
+def get__user_recs():
+    user = request.json['user']
     recs = []
-    arr = db.recommendations.find({'user': user})
+    arr = recommendations.find({'user': user})
     for doc in arr:
         recs.append({
             '_id': str(doc['_id']),
@@ -295,6 +308,40 @@ def get__user_recs(user):
         })
 
     return {'recs': recs}
+
+
+
+@app.route('/api/search_user', methods={"POST"})
+def search_user():
+    try:
+        user = request.json['user']
+        arr = users.find({"username" : {'$regex' : ".*" + user + ".*"}})
+        usersArr = []
+        for u in arr:
+            numFollowers = len(u['followers'])
+            print(numFollowers)
+            usersArr.append({
+                '_id': str(u['_id']),
+                'username': u['username'],
+                'followers': numFollowers,
+
+            })
+        if len(usersArr) > 0:
+            return {'users': usersArr}
+        else:
+            return {'noresults': 'noresults'}
+    except Exception as e:
+        print(e)
+        return {'error': 'error'}
+    
+
+    
+
+
+
+
+
+
 
 
 
