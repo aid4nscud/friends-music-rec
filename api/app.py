@@ -291,11 +291,12 @@ def get_friend_recs():
     return {'recs': recs}
 
 
-@app.route('/api/get_user_recs', methods={"POST"})
-def get__user_recs():
-    user = request.json['user']
+@app.route('/api/get_user_profile', methods={"POST"})
+def get__user_profile():
+    #getting recs first
+    username = request.json['user']
     recs = []
-    arr = recommendations.find({'user': user})
+    arr = recommendations.find({'user': username})
     for doc in arr:
         recs.append({
             '_id': str(doc['_id']),
@@ -306,8 +307,18 @@ def get__user_recs():
             'uri': doc['uri'],
             'likes': len(doc['likers'])
         })
+    
+    #getting user followers + following next
 
-    return {'recs': recs}
+    user = users.find_one({'username': username})
+    num_followers = len(user['followers'])
+    num_following = len(user['following'])
+
+    
+
+    
+
+    return {'recs': recs, 'num_followers': num_followers, 'num_following':num_following}
 
 
 

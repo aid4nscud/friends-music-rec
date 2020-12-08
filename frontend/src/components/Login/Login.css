@@ -5,23 +5,41 @@ html {
 .warning {
     color: crimson;
 }
-
+.container {
+    width: 100%;
+}
 .login {
-    
-      margin: auto;
-      width: 50%;
-     
-      
-    }
+    display: inline-block;
+    width: auto;
+    margin-bottom: auto;
+}
+.login-image {
+    display: inline-block;
+    width: auto;
+    position: relative;
+    top: 6rem;
+    right: 8rem;
+}
+.login h1 {
+    margin-bottom: 3rem;
+}
     .login-form {
         display: inline-block;
+        text-align: center
     }
     
     .login-form input{
         display: block;
-        margin-bottom: 3rem;
+        width: 100%;
+        margin-bottom: 2rem;
+        border-radius: 1rem;
     
     
+    }
+
+    .login-form input:focus {
+        transform: scale(1.1);
+        outline: none;
     }
 
     p {

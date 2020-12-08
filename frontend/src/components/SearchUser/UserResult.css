@@ -3,4 +3,6 @@
     width: 25%;
     margin: auto;
     display: block;
+    border-style: solid;
+    border-color: black;
 }

@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import auth from "../../utils/auth";
 import "./Login.css";
+import image from '../../assets/login-guitar-picture.jpg'
+
 
 export const Login = (props) => {
   const [username, setUsername] = useState(null);
@@ -9,6 +11,7 @@ export const Login = (props) => {
   const [warning, setWarning] = useState(null);
   const history = useHistory();
 
+  
   const login = async (username, password) => {
     const creds = {
       username: username,
@@ -55,8 +58,12 @@ export const Login = (props) => {
   };
 
   return (
-    <div className="login">
-      <h1>Login</h1>
+    <div className='container'>
+      <div className='login-image'>
+        <img alt='skateboarder'src={image}></img>
+      </div>
+       <div className="login">
+      <h1 >Login</h1>
       <p>
         This page is where the user can sign in or sign up using one of the
         forms below
@@ -67,7 +74,7 @@ export const Login = (props) => {
           if ((username, password !== null)) {
             login(username, password);
           } else {
-            alert("Fill out all fields");
+            setWarning("Fill out all fields");
           }
         }}
         className="login-form"
@@ -101,5 +108,7 @@ export const Login = (props) => {
         </button>
       </div>
     </div>
+    </div>
+   
   );
 };

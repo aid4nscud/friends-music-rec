@@ -100,7 +100,7 @@ export const FriendRecs = (props) => {
   return (
     <div className='friend-recs'>
       {recs === null ? (
-        <h1>Find friends and see their recommendations here!</h1>
+        <h2>When you have friends, their recommendations will show up here</h2>
       ) : (
         <div>
           <h1>Listen to what your friends recommend!</h1>

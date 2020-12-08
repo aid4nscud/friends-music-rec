@@ -2,12 +2,13 @@ import React, { useEffect, useState } from "react";
 import { getCookie } from "../../utils/auth";
 import { UserRec } from "../UserRec/UserRec";
 import "./Profile.css";
-import {HeartIcon} from '../HeartIcon'
 
 export const Profile = (props) => {
   const [userRecs, setUserRecs] = useState(null);
   const [user, setUser] = useState(null);
   const [render, setRender] = useState(0)
+  const [followers, setFollowers] = useState(null)
+  const [following, setFollowing] = useState(null)
 
   const deleteRec = (song) => {
     const recommender = getCookie("user");
@@ -30,7 +31,7 @@ export const Profile = (props) => {
     if (user === null) {
       let query = getCookie("user");
 
-      const url = "/api/get_user_recs";
+      const url = "/api/get_user_profile";
 
       const data = {user: query}
       fetch(url, {
@@ -42,6 +43,8 @@ export const Profile = (props) => {
         .then((parsedJSON) => {
           if (parsedJSON["recs"].length > 0) {
             setUserRecs(parsedJSON["recs"]);
+            setFollowers(parsedJSON['num_followers'])
+            setFollowing(parsedJSON['num_following'])
           }
           setUser(query);
         });
@@ -64,11 +67,24 @@ export const Profile = (props) => {
 
   return (
     <div className='profile'>
-      {user !== null && (
+      {user, userRecs !== null && <div className='profile-header'>
         <h1>
           Welcome to your profile <span className="span-user">{user}</span>
         </h1>
-      )}
+        <ul className='user-social-info'>
+          <li style={{borderRightStyle: 'solid',
+    borderColor: 'black'}}>
+{'Followers: ' + followers}
+          </li>
+          <li style={{borderRightStyle: 'solid',
+    borderColor: 'black'}}>
+{'Following: ' + following}
+          </li>
+          <li>
+{'Recs: ' + userRecs.length}
+          </li>
+        </ul>
+      </div>}
 
       {userRecs !== null ? (
         <h2>Your Song Recommendations</h2>

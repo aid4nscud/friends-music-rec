@@ -32,6 +32,9 @@ export const SearchUser = (props) => {
 
   return (
     <div className='search-user'>
+      <div className='search-user-header'>
+        <h1>Find friends to share your music with!</h1>
+      </div>
       <div className='search-user-form'>
         <input className='search-user-input'
           placeholder="Search a username"
@@ -47,10 +50,11 @@ export const SearchUser = (props) => {
         >
           Search
         </button>
-      </div>
-      {results !== null && <button onClick={()=> {
+        {results !== null && <button classname='clear-button' onClick={()=> {
           setResults(null);
       }}>Clear</button>}
+      </div>
+     
 
       {results && (
         <div className="search-results">

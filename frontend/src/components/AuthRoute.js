@@ -7,6 +7,7 @@ import { getCookie } from "../utils/auth";
 const decode = async () => {
   console.log(document.cookie)
   const token = getCookie("token");
+  const user = getCookie('token')
   let authed = await axios("/auth_decode", {
     headers: {
       Authorization: "Bearer " + token,
@@ -14,7 +15,7 @@ const decode = async () => {
     method: "GET",
   }).then((res) => {
     if (res.data["user"]) {
-      if (getCookie("user") === null) {
+      if (user===null) {
         const cookie =
           "user=" +
           res.data["user"] +

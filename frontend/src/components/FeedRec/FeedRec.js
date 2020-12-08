@@ -83,13 +83,14 @@ export const FeedRec = (props) => {
           allow="encrypted-media"
         ></iframe>
         </div>
-        
-      </div>
-      <div className="next-button-container">
+        <div className="next-button-container">
         <button className="next-button" onClick={props.nextRec}>
           Next
         </button>
       </div>
+        
+      </div>
+      
     </div>
   );
 };

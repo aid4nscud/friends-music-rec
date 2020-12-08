@@ -10,17 +10,16 @@ export const SearchRec = (props) => {
   const clientID = info.client_id;
   const clientSecret = info.client_secret;
 
-  const [images, setImages] = useState(null);
   const [inputValue, setInputValue] = useState("");
-  const [userValue, setUserValue] = useState("");
   const [queued, setQueued] = useState(null);
   const [results, setResults] = useState(null);
+  const [searched, setSearched] = useState(false);
 
   const cleanup = () => {
     setInputValue("");
-    setUserValue("");
     setQueued(null);
     setResults([]);
+    setSearched(false);
   };
 
   const createRec = () => {
@@ -67,14 +66,20 @@ export const SearchRec = (props) => {
         },
         method: "GET",
       }).then((searchResponse) => {
-        let results = searchResponse.data["tracks"]["items"];
-        let arr = [];
-        results.forEach((item) => arr.push(item));
+        if (searchResponse.data) {
+          let results = searchResponse.data["tracks"]["items"];
+          let arr = [];
+          results.forEach((item) => arr.push(item));
 
-        //created track objects from the json response and added them to an array
-        const set = removeDuplicates(arr);
+          //created track objects from the json response and added them to an array
+          const set = removeDuplicates(arr);
 
-        setResults(set);
+          setResults(set);
+          setSearched(false)
+        }
+        else {
+          alert('error chango')
+        }
       });
     });
   };
@@ -85,20 +90,20 @@ export const SearchRec = (props) => {
         <h1>Search a song, and recommend!</h1>
       </div>
 
-      <div className='search-rec-form'>
-        
-          <input className='search-rec-input'
-            placeholder="Search Song"
-            value={inputValue}
-            onChange={(e) => {
-              setInputValue(e.target.value);
-            }}
-          ></input>
+      <div className="search-rec-form">
+        <input
+          className="search-rec-input"
+          placeholder="Search Song"
+          value={inputValue}
+          onChange={(e) => {
+            setInputValue(e.target.value);
+          }}
+        ></input>
 
-      
         <button
           className="search-rec-button"
           onClick={() => {
+            setSearched(true);
             search(inputValue);
           }}
         >
@@ -108,31 +113,33 @@ export const SearchRec = (props) => {
 
       {queued != null && (
         <div>
-          <div className='loading-spinner'>
-<iframe style={{borderRadius:'2rem 0 2rem 2rem'}}className='queued-iframe'
-        src={queued.url}
-        width="400"
-        height="300"
-        frameBorder="1"
-        allowtransparency="true"
-        allow="encrypted-media"
-      ></iframe>
-</div>
+          <div className="loading-spinner">
+            <iframe
+              style={{ borderRadius: "2rem 0 2rem 2rem" }}
+              className="queued-iframe"
+              src={queued.url}
+              width="400"
+              height="300"
+              frameBorder="1"
+              allowtransparency="true"
+              allow="encrypted-media"
+            ></iframe>
+          </div>
           <b>{"Song Popularity: " + queued.popularity}</b>
           <button onClick={createRec}>Make Recommendation</button>
         </div>
       )}
-
+      {results === null && searched === true && <div className='loading-spinner'></div>}
       {results && (
         <div className="search-results">
           {results.map((item) => {
-             let uri = item.uri;
-             let uriCode = uri.substr(14);
-           
-             let url = "https://open.spotify.com/embed/track/" + uriCode;
+            let uri = item.uri;
+            let uriCode = uri.substr(14);
+
+            let url = "https://open.spotify.com/embed/track/" + uriCode;
 
             const info = {
-              url:url,
+              url: url,
               id: item["id"],
               images: item["album"]["images"],
               song: item["name"],
@@ -152,9 +159,6 @@ export const SearchRec = (props) => {
           })}
         </div>
       )}
-
-      {images && <img alt={"bruh"} src={images[1]["url"]} />}
-      {images && inputValue != null && <h2>{inputValue + " by: "}</h2>}
     </div>
   );
 };
