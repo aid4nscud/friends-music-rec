@@ -59,6 +59,7 @@ export const Login = (props) => {
 
   return (
     <div className='container'>
+      <div className='main-message'>DON'T KEEP GOOD MUSIC A SECRET</div>
       <div className='login-image'>
         <img alt='skateboarder'src={image}></img>
       </div>

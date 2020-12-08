@@ -2,6 +2,13 @@ html {
     text-align: center;
 }
 
+.main-message {
+    width: 90%;
+    margin: auto;
+    font-size: 3rem;
+    margin-top:3rem;
+}
+
 .warning {
     color: crimson;
 }
@@ -12,25 +19,31 @@ html {
     display: inline-block;
     width: auto;
     margin-bottom: auto;
+    position: relative;
+    bottom: 4rem;
 }
 .login-image {
     display: inline-block;
     width: auto;
     position: relative;
-    top: 6rem;
+    top: 4rem;
     right: 8rem;
 }
 .login h1 {
+    width: 90%;
+    margin: auto;
     margin-bottom: 3rem;
 }
     .login-form {
+        width: 90%;
         display: inline-block;
         text-align: center
     }
     
     .login-form input{
         display: block;
-        width: 100%;
+        width: 80%;
+        margin: auto;
         margin-bottom: 2rem;
         border-radius: 1rem;
     
