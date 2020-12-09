@@ -9,10 +9,11 @@ export const FriendRecs = (props) => {
   const [recs, setRecs] = useState(null);
   const [index, setIndex] = useState(0);
   const [followButton, setFollowButton] = useState("Following");
-  const [liked, setLiked] = useState(false)
+  const [render, setRender] = useState(0)
 
 
   useEffect(() => {
+    
     const user = getCookie("user");
 
     if (user !== null) {
@@ -39,12 +40,14 @@ export const FriendRecs = (props) => {
       })
         .then((res) => res.json())
         .then((parsedJSON) => {
+          
           if (parsedJSON["recs"].length > 0) {
             setRecs(parsedJSON["recs"]);
+            
           }
         });
     }
-  }, []);
+  }, [render]);
 
   const unfollow = (userToUnfollow) => {
     const userUnfollowing = getCookie("user");
@@ -64,6 +67,7 @@ export const FriendRecs = (props) => {
           setFollowButton("Follow");
         }
       });
+      setRender(render+1)
   }
 
   const nextRec = () => {
@@ -73,6 +77,7 @@ export const FriendRecs = (props) => {
       setIndex(currIndex);
       setFollowButton('Following')
     }
+    setRender(render+1)
   };
 
   function likeRec(recToLike) {
@@ -95,6 +100,23 @@ export const FriendRecs = (props) => {
         }
 
       });
+      
+  }
+
+  function unlikeRec(recToUnlike) {
+    const userUnliking = getCookie("user");
+
+    const data = {
+      recToUnlike: recToUnlike,
+      userUnliking: userUnliking,
+    };
+
+    fetch("/api/unlike_rec", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+    })
+   
   }
 
   return (
@@ -105,11 +127,13 @@ export const FriendRecs = (props) => {
         <div>
           <h1>Listen to what your friends recommend!</h1>
           <FeedRec
-          liked={liked}
-          setLiked={setLiked}
-          likes = {recs[index].likes}
-          like={likeRec}
-          id={recs[index]._id}
+          render={render}
+          setRender={setRender}
+            liked={recs[index].liked}
+            likes = {recs[index].likes}
+            like={likeRec}
+            unlike={unlikeRec}
+            id={recs[index]._id}
             user={recs[index].user}
             spotifyToken={props.spotifyToken}
             setSpotifyToken={props.setSpotifyToken}

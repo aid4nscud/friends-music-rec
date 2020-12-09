@@ -75,10 +75,9 @@ export const SearchRec = (props) => {
           const set = removeDuplicates(arr);
 
           setResults(set);
-          setSearched(false)
-        }
-        else {
-          alert('error chango')
+          setSearched(false);
+        } else {
+          alert("error chango");
         }
       });
     });
@@ -113,15 +112,19 @@ export const SearchRec = (props) => {
 
       {queued != null && (
         <div>
-          <div className="loading-spinner">
+          <div id="queued-div" className="loading-spinner">
             <iframe
+              onLoad={() => {
+                document.getElementById("queued-div").style.backgroundImage =
+                  "none";
+              }}
               style={{ borderRadius: "2rem 0 2rem 2rem" }}
               className="queued-iframe"
               src={queued.url}
               width="400"
               height="300"
               frameBorder="1"
-              allowtransparency="true"
+              allowtransparency="false"
               allow="encrypted-media"
             ></iframe>
           </div>
@@ -129,7 +132,9 @@ export const SearchRec = (props) => {
           <button onClick={createRec}>Make Recommendation</button>
         </div>
       )}
-      {results === null && searched === true && <div className='loading-spinner'></div>}
+      {results === null && searched === true && (
+        <div className={"loading-spinner"}></div>
+      )}
       {results && (
         <div className="search-results">
           {results.map((item) => {

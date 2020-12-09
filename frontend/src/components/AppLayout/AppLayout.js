@@ -13,7 +13,8 @@ export const AppLayout = (props) => {
   const history = useHistory();
 
   return (
-    <div className="app-layout">
+    <div className='layout-container'>
+       <div className="app-layout">
       <NavBar />
 
       <Switch>
@@ -36,7 +37,10 @@ export const AppLayout = (props) => {
         />
       </Switch>
 
-      <button
+     
+    </div>
+    <div className='logout-button-container'>
+    <button className='logout-button'
         onClick={() => {
           auth.logout(() => {
             document.cookie.split(";").forEach(function(c) { document.cookie = c.replace(/^ +/, "").replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/"); });
@@ -46,6 +50,10 @@ export const AppLayout = (props) => {
       >
         Logout
       </button>
+
     </div>
+
+    </div>
+   
   );
 };

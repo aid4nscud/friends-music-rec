@@ -20,14 +20,15 @@ html {
     width: auto;
     margin-bottom: auto;
     position: relative;
-    bottom: 4rem;
+    bottom: 6rem;
+    left: 2rem;
 }
 .login-image {
     display: inline-block;
     width: auto;
     position: relative;
     top: 4rem;
-    right: 8rem;
+    right: 14rem;
 }
 .login h1 {
     width: 90%;

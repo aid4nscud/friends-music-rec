@@ -2,8 +2,7 @@ import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import auth from "../../utils/auth";
 import "./Login.css";
-import image from '../../assets/login-guitar-picture.jpg'
-
+import image from "../../assets/login-guitar-picture.jpg";
 
 export const Login = (props) => {
   const [username, setUsername] = useState(null);
@@ -11,7 +10,6 @@ export const Login = (props) => {
   const [warning, setWarning] = useState(null);
   const history = useHistory();
 
-  
   const login = async (username, password) => {
     const creds = {
       username: username,
@@ -26,27 +24,24 @@ export const Login = (props) => {
       .then((res) => res.json())
       .then((parsed) => {
         if (parsed.token) {
-          
           const cookie =
             "token=" +
             parsed.token +
             "; max-age=" +
             30 * 24 * 60 * 60 +
-            "; SameSite=Strict; "
+            "; SameSite=Strict; ";
           document.cookie = cookie;
-        
+
           if (parsed.user) {
             const cookie2 =
               "user=" +
               parsed.user +
               "; max-age=" +
               30 * 24 * 60 * 60 +
-              "; SameSite=Strict;"
+              "; SameSite=Strict;";
             document.cookie = cookie2;
           }
           // const url  = parsed.url
-
-
 
           auth.login(() => {
             history.push("/app/create+explore");
@@ -58,58 +53,53 @@ export const Login = (props) => {
   };
 
   return (
-    <div className='container'>
-      <div className='main-message'>DON'T KEEP GOOD MUSIC A SECRET</div>
-      <div className='login-image'>
-        <img alt='skateboarder'src={image}></img>
+    <div className="container">
+      <div className="main-message">DON'T KEEP GOOD MUSIC A SECRET</div>
+      <div className="login-image">
+        <img alt="skateboarder" src={image}></img>
       </div>
-       <div className="login">
-      <h1 >Login</h1>
-      <p>
-        This page is where the user can sign in or sign up using one of the
-        forms below
-      </p>
-      <form
-        onSubmit={(e) => {
-          e.preventDefault();
-          if ((username, password !== null)) {
-            login(username, password);
-          } else {
-            setWarning("Fill out all fields");
-          }
-        }}
-        className="login-form"
-      >
-        <input
-          onChange={(e) => {
-            setUsername(e.target.value);
+      <div className="login">
+        <h1>Login</h1>
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            if ((username, password !== null)) {
+              login(username, password);
+            } else {
+              setWarning("Fill out all fields");
+            }
           }}
-          placeholder="USERNAME"
-          value={username}
-        ></input>
-        <input
-          onChange={(e) => {
-            setPassword(e.target.value);
-          }}
-          placeholder="PASSWORD"
-          type="password"
-          value={password}
-        ></input>
-        <button type="submit"> Login </button>
-      </form>
-      {warning && <h3 className="warning">{warning}</h3>}
-      <div className="sign-up">
-        <h2>Don't have an account yet?</h2>
-        <button
-          onClick={() => {
-            history.push("/register");
-          }}
+          className="login-form"
         >
-          Sign up!
-        </button>
+          <input
+            onChange={(e) => {
+              setUsername(e.target.value);
+            }}
+            placeholder="USERNAME"
+            value={username}
+          ></input>
+          <input
+            onChange={(e) => {
+              setPassword(e.target.value);
+            }}
+            placeholder="PASSWORD"
+            type="password"
+            value={password}
+          ></input>
+          <button type="submit"> Login </button>
+        </form>
+        {warning && <h3 className="warning">{warning}</h3>}
+        <div className="sign-up">
+          <h2>Don't have an account yet?</h2>
+          <button
+            onClick={() => {
+              history.push("/register");
+            }}
+          >
+            Sign up!
+          </button>
+        </div>
       </div>
     </div>
-    </div>
-   
   );
 };

@@ -1,35 +1,38 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { HeartIcon } from "../HeartIcon";
 import "./DiscoverRec.css";
 
 export const DiscoverRec = (props) => {
  const [likes, setLikes] = useState(0)
-  let uri = props.uri;
+
+  let uri = props.recInfo.uri;
   let uriCode = uri.substr(14);
   let url = "https://open.spotify.com/embed/track/" + uriCode;
 
 
+
+
   return (
-    <div className="discover-rec">
+    <div id='container-div' className="discover-rec">
        <div className="card-header">
-         <HeartIcon like={props.like} recId={props.id} setMoreInfo={props.setMoreInfo} setLikes={setLikes} likes={likes} setLiked={props.setLiked} liked={props.liked}/>
+         {props.recInfo && <HeartIcon  like={props.like} recId={props.recInfo.id}  setLikes={setLikes} likes={likes}  liked={props.recInfo.liked}/>}
        
           
-        {props.moreInfo && <h3 className='likes-number'>{"Likes: " + (props.likes + likes)}</h3>}
+        {props.recInfo.liked===true && <h3 className='likes-number'>{"Likes: " + (props.recInfo.likes + likes)}</h3>}
         
 
        
 
-        {props.moreInfo && (
+        {props.recInfo.liked === true && (
           <div className="more-info-desc">
-            <h3>
-              Recommended to you by{" "}
-              <span className="span-recommender">{props.user}</span>
-              {props.moreInfo && props.followButton === "Follow" ? (
+            <p>
+              Recommended by{" "}
+              <span className="span-recommender">{props.recInfo.user}</span>
+              {props.followButton === "Follow" ? (
                 <button
                   className="follow-button"
                   onClick={() => {
-                    props.follow(props.user);
+                    props.follow(props.recInfo.user);
                   }}
                 >
                   {props.followButton}
@@ -39,7 +42,7 @@ export const DiscoverRec = (props) => {
                   {props.followButton}
                 </button>
               )}
-            </h3>
+            </p>
           </div>
         )}
       </div>
@@ -58,7 +61,7 @@ export const DiscoverRec = (props) => {
 
      
 
-      <button className="next-button " onClick={()=> {
+      <button className="next-button" onClick={()=> {
         setLikes(0);
         props.nextRec()}}>
         Next{" "}

@@ -237,6 +237,34 @@ def like_rec():
             return e
     else:
         return {'error': 'error'}
+
+
+@app.route('/api/unlike_rec', methods={"POST"})
+def unlike_rec():
+    rec_to_unlike = request.json['recToUnlike']
+    rec_to_unlike = ObjectId(rec_to_unlike)
+    user_unliking = request.json['userUnliking']
+
+    rec = recommendations.find_one({"_id": rec_to_unlike})
+    likers_arr = rec['likers']
+    print(likers_arr)
+    if user_unliking in rec['likers']:
+        try:
+            recommendations.update(
+                {"_id": rec_to_unlike},
+                {
+                    '$pull': {
+                    'likers': user_unliking
+                    }
+                }
+            )
+            return {'success': 'success'}
+        except Exception as e:
+            print(e)
+            return e
+    else:
+        return {'error': 'error'}
+    
     
 
 
@@ -253,6 +281,11 @@ def get_discover_recs():
     recs = []
     for doc in recommendations.find():
         if(doc['user'] != user['username'] and doc['user'] not in user_following):
+
+            liked = False
+
+            if(user['username'] in doc['likers']):
+                liked = True
           
             recs.append({
                 '_id': str(doc['_id']),
@@ -262,6 +295,7 @@ def get_discover_recs():
                 'images': doc['images'],
                 'uri': doc['uri'],
                 'likes':  len(doc['likers']),
+                'liked': liked
             })
 
     return {'recs': recs}
@@ -278,6 +312,11 @@ def get_friend_recs():
     recs = []
     for doc in recommendations.find():
         if(doc['user'] != user['username'] and doc['user'] in user_following):
+            liked = False
+
+            if(user['username'] in doc['likers']):
+                    liked = True
+            
             recs.append({
                 '_id': str(doc['_id']),
                 'song': doc['song'],
@@ -285,7 +324,8 @@ def get_friend_recs():
                 'user': doc['user'],
                 'images': doc['images'],
                 'uri': doc['uri'],
-                'likes': len(doc['likers'])
+                'likes': len(doc['likers']),
+                'liked': liked
             })
 
     return {'recs': recs}

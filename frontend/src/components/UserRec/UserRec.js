@@ -12,33 +12,37 @@ export const UserRec = (props) => {
       <div className="profile-card-header">
         <ul>
           <li>
-          <button
-          onClick={() => {
-            props.deleteRec(props.song);
-          }}
-        >
-          Remove
-        </button>
+            <button
+              onClick={() => {
+                props.deleteRec(props.song);
+                props.setRender(props.render+1)
+              }}
+            >
+              Remove
+            </button>
           </li>
           <li>
-          <p>{"Likes: " + props.likes}</p>
-
+            <p>{"Likes: " + props.likes}</p>
           </li>
         </ul>
-        
-       
       </div>
-<div className='loading-spinner'>
-<iframe className='profile-iframe'
-        src={url}
-        width="500"
-        height="300"
-        frameBorder="1"
-        allowtransparency="true"
-        allow="encrypted-media"
-      ></iframe>
-</div>
-      
+      <div className="loading-spinner user-rec-div">
+        <iframe
+          onLoad={() => {
+           const arr = document.getElementsByClassName("user-rec-div")
+           for(let i=0; i<arr.length;i++){
+             
+             arr[i].style.backgroundImage='none';
+           
+          }}}
+          src={url}
+          width="600"
+          height="300"
+          frameBorder="1"
+          allowtransparency="true"
+          allow="encrypted-media"
+        ></iframe>
+      </div>
     </div>
   );
 };

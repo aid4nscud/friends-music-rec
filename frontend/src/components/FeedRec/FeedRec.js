@@ -1,38 +1,18 @@
 import React from "react";
 import { useState } from "react";
-import { getCookie } from "../../utils/auth";
 import "./FeedRec.css";
 import { ReactComponent as LikedHeart } from "../../assets/liked-heart.svg";
 import { ReactComponent as UnlikedHeart } from "../../assets/unliked-heart.svg";
 
 export const FeedRec = (props) => {
-  const [likes, setLikes] = useState(props.likes);
+  const [likes, setLikes] = useState(0);
 
   let uri = props.uri;
   let uriCode = uri.substr(14);
 
   let url = "https://open.spotify.com/embed/track/" + uriCode;
 
-  function likeRec(recToLike) {
-    const userLiking = getCookie("user");
 
-    const data = {
-      recToLike: recToLike,
-      userLiking: userLiking,
-    };
-    fetch("/api/like_rec", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data),
-    })
-      .then((res) => res.json())
-      .then((parsed) => {
-        // if (!parsed.success) {
-
-        // }
-        props.setLiked(true);
-      });
-  }
 
   return (
     <div className="container">
@@ -60,16 +40,23 @@ export const FeedRec = (props) => {
             <div
               className="like-icon"
               onClick={() => {
-                if (props.liked === false) {
-                  likeRec(props.id);
-                  setLikes(likes + 1);
+              
+                if(props.liked === true){
+                  props.unlike(props.id)
+                  
+                  props.setRender(props.render +1)
+                }
+                if(props.liked===false){
+                  props.like(props.id)
+                  
+                  props.setRender(props.render + 1)
                 }
               }}
             >
               {props.liked === true ? <LikedHeart /> : <UnlikedHeart />}
             </div>
 
-            <h3 className="likes-label">{"Likes: " + likes}</h3>
+            <h3 className="likes-label">{"Likes: " + (props.likes)}</h3>
           </div>
         </div>
         <div className='loading-spinner'>

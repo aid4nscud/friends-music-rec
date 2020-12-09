@@ -7,12 +7,16 @@ html {
   width: 5rem;
   margin: auto;
   margin-left: 1rem;
+  position: relative;
+  bottom: 0.3rem;
 }
 .following-button {
   display: inline-block;
+  position: relative;
+  bottom: 0.4rem;
   width: 5rem;
   margin: auto;
-  margin-left: 1rem;
+  margin-left: 0.3rem;
 }
 .card-header {
   width: 50%;
@@ -20,15 +24,16 @@ html {
 }
 
 .more-info-desc {
-  width: 70%;
-  display: inline-block;
+  width: 60%;
+ float: right;
+  
   position: relative;
-  top: 0.4rem;
+  top: 0.7rem;
 }
 
 .span-recommender {
   color: #f52754;
-  font-size: larger;
+  font-size: large;
 }
 
 .discover-rec {
@@ -55,7 +60,9 @@ html {
 }
 
 .likes-number {
+  width: 15%;
+  float: left;
   position: relative;
-  top: 0.5rem;
-  display: inline-block;
+  top: 1.7rem;
+  left: 1rem;
 }

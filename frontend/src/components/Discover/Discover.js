@@ -7,8 +7,8 @@ export const Discover = (props) => {
   const [index, setIndex] = useState(0);
   const [recs, setRecs] = useState(null);
   const [followButton, setFollowButton] = useState("Follow");
-  const [moreInfo, setMoreInfo] = useState(false);
-  const [liked, setLiked] = useState(false);
+  const [recInfo, setRecInfo] = useState(null);
+  const [render, setRender] = useState(0)
 
   useEffect(() => {
     const data = { user: getCookie("user") };
@@ -22,12 +22,30 @@ export const Discover = (props) => {
         .then((res) => res.json())
         .then((parsedJSON) => {
           if (parsedJSON["recs"].length > 0) {
+            console.log(parsedJSON['recs'])
             setRecs(parsedJSON["recs"]);
+
+            let recinfo = {
+              likes: parsedJSON["recs"][index].likes,
+              id: parsedJSON["recs"][index]._id,
+              user: parsedJSON["recs"][index].user,
+              images: parsedJSON["recs"][index].images,
+              song: parsedJSON["recs"][index].song,
+              artist: parsedJSON["recs"][index].artist,
+              uri: parsedJSON["recs"][index].uri,
+              liked: parsedJSON['recs'][index].liked
+            };
+          
+            setRecInfo(recinfo)
           }
+          
         });
     }
-  }, []);
+  }, [render]);
 
+
+
+  
   const follow = (userToFollow) => {
     const userFollowing = getCookie("user");
 
@@ -51,15 +69,14 @@ export const Discover = (props) => {
   const nextRec = () => {
     if (index !== recs.length - 1) {
       setIndex(index + 1);
-      setMoreInfo(false);
       setFollowButton("Follow");
-      setLiked(false);
-    }
-    else if(index == recs.length -1 && recs.length > 1){
+
+      setRender(render+1)
+    } else if (index == recs.length - 1 && recs.length > 1) {
       setIndex(0);
-      setMoreInfo(false);
       setFollowButton("Follow");
-      setLiked(false);
+      
+      setRender(render+1)
     }
   };
 
@@ -70,6 +87,7 @@ export const Discover = (props) => {
       recToLike: recToLike,
       userLiking: userLiking,
     };
+
     fetch("/api/like_rec", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -77,41 +95,54 @@ export const Discover = (props) => {
     })
       .then((res) => res.json())
       .then((parsed) => {
-        // if (!parsed.success) {
-
-        // }
-        setLiked(true);
+        if (!parsed.success) {
+  
+        }
       });
+      setRender(render+1)
+  }
+
+  function unlikeRec(recToUnlike) {
+    const userUnliking = getCookie("user");
+
+    const data = {
+      recToUnlike: recToUnlike,
+      userUnliking: userUnliking,
+    };
+
+    fetch("/api/unlike_rec", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+    })
+    setRender(render+1)
   }
 
   return (
-    <div className="discover">
+    <div key={render}className="discover">
       <h1>Explore Recommendations!</h1>
-      {recs === null ? (
-        <h1>No recs rn G</h1>
-      ) : (
-        <div>
-          <DiscoverRec
-            liked={liked}
-            setLiked={setLiked}
-            likes={recs[index].likes}
-            id={recs[index]._id}
-            user={recs[index].user}
-            spotifyToken={props.spotifyToken}
-            setSpotifyToken={props.setSpotifyToken}
-            images={recs[index].images}
-            song={recs[index].song}
-            artist={recs[index].artist}
-            uri={recs[index].uri}
-            like={likeRec}
-            nextRec={nextRec}
-            follow={follow}
-            followButton={followButton}
-            moreInfo={moreInfo}
-            setMoreInfo={setMoreInfo}
-          />
-        </div>
-      )}
+
+      <div className="rec-section">
+        {recs === null ? (
+          <h1>No recs rn G</h1>
+        ) : (
+          <div>
+            {recs && recInfo !== null && (
+              <DiscoverRec
+                unlikeRec={unlikeRec}
+                recInfo={recInfo}
+                spotifyToken={props.spotifyToken}
+                setSpotifyToken={props.setSpotifyToken}
+                like={likeRec}
+                nextRec={nextRec}
+                follow={follow}
+                followButton={followButton}
+                
+              />
+            )}
+          </div>
+        )}
+      </div>
     </div>
   );
 };
