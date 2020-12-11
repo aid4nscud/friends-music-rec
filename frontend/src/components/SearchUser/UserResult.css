@@ -1,8 +1,28 @@
 .user-result {
-    padding: 0 1rem 0 1rem;
-    width: 25%;
+    padding: 1rem;
+    width: 100%;
+    height: 3rem;
     margin: auto;
     display: block;
     border-style: solid;
     border-color: black;
+    margin-bottom: 0.3rem;
+}
+
+
+.user-result h3 {
+    float: left;
+    margin-top: 1rem;
+    margin-left: 4rem;
+    
+    
+    
+
+}
+
+.user-result button {
+    float: right;
+    margin-top: 1rem;
+   
+    
 }

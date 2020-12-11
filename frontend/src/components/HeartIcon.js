@@ -11,7 +11,6 @@ const [render, setRender] = useState(0)
         if (props.liked === false) {
           props.like(props.recId);
           props.setLikes(props.likes + 1);
-          setRender(render+1)
         
         }
         //possibly premium feature
@@ -20,7 +19,6 @@ const [render, setRender] = useState(0)
           
         //   props.unlike(props.recId)
         //   props.setLikes(props.likes-1)
-        //   setRender(render+1)
           
         // }
         

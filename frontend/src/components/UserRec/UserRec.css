@@ -1,7 +1,10 @@
 .user-rec {
-  width: 20%;
+  width: 30%;
   display: inline-block;
   margin: 1rem;
+  
+ 
+  
   background-color: #111111;
   border-radius: 10% 10% 10% 10%;
 }

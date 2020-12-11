@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { HeartIcon } from "../HeartIcon";
 import "./DiscoverRec.css";
 
@@ -8,7 +8,6 @@ export const DiscoverRec = (props) => {
   let uri = props.recInfo.uri;
   let uriCode = uri.substr(14);
   let url = "https://open.spotify.com/embed/track/" + uriCode;
-
 
 
 
@@ -25,7 +24,7 @@ export const DiscoverRec = (props) => {
 
         {props.recInfo.liked === true && (
           <div className="more-info-desc">
-            <p>
+            <h3>
               Recommended by{" "}
               <span className="span-recommender">{props.recInfo.user}</span>
               {props.followButton === "Follow" ? (
@@ -42,12 +41,19 @@ export const DiscoverRec = (props) => {
                   {props.followButton}
                 </button>
               )}
-            </p>
+            </h3>
           </div>
         )}
       </div>
 <div className='loading-spinner'>
 <iframe
+onLoad={() => {
+  const arr = document.getElementsByClassName("loading-spinner")
+  for(let i=0; i<arr.length;i++){
+    
+    arr[i].style.backgroundImage='none';
+  
+ }}}
         className="discover-rec-iframe"
         src={url}
         width="500"

@@ -9,6 +9,7 @@ export const Discover = (props) => {
   const [followButton, setFollowButton] = useState("Follow");
   const [recInfo, setRecInfo] = useState(null);
   const [render, setRender] = useState(0)
+  const [liked, setLiked] = useState(null)
 
   useEffect(() => {
     const data = { user: getCookie("user") };
@@ -96,7 +97,11 @@ export const Discover = (props) => {
       .then((res) => res.json())
       .then((parsed) => {
         if (!parsed.success) {
+          setLiked(true)
   
+        }
+        else if(parsed.error) {
+          alert('some error occurred')
         }
       });
       setRender(render+1)
@@ -129,6 +134,8 @@ export const Discover = (props) => {
           <div>
             {recs && recInfo !== null && (
               <DiscoverRec
+              render = {render}
+              setRender = {setRender}
                 unlikeRec={unlikeRec}
                 recInfo={recInfo}
                 spotifyToken={props.spotifyToken}
@@ -137,6 +144,7 @@ export const Discover = (props) => {
                 nextRec={nextRec}
                 follow={follow}
                 followButton={followButton}
+                liked={liked}
                 
               />
             )}

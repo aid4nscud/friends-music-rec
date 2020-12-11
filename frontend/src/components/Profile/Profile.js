@@ -110,6 +110,7 @@ export const Profile = (props) => {
           {userRecs.map((rec) => {
             return (
               <UserRec
+              date={rec.date}
               render={render}
               setRender={setRender}
                 deleteRec={deleteRec}

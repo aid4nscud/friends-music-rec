@@ -1,18 +1,25 @@
 import React, { useState } from "react";
-import {UserResult} from './UserResult'
-import './SearchUser.css'
+import { UserResult } from "./UserResult";
+import "./SearchUser.css";
+import { getCookie } from "../../utils/auth";
 
 export const SearchUser = (props) => {
   const [input, setInput] = useState(null);
   const [results, setResults] = useState(null);
-  const [message, setMessage] = useState(null)
+  const [message, setMessage] = useState(null);
+  const [render, setRender] = useState(0)
+  const [searcher, setSearcher] = useState(null);
 
   const search = () => {
     const query = input;
 
     const url = "/api/search_user";
+    const currSearcher = getCookie("user");
+    if (currSearcher !== null) {
+      setSearcher(currSearcher);
+    }
 
-    const data = { user: query };
+    const data = { user: query, searcher: currSearcher };
 
     fetch(url, {
       method: "POST",
@@ -23,20 +30,41 @@ export const SearchUser = (props) => {
       .then((parsed) => {
         if (parsed.users) {
           setResults(parsed.users);
-        } 
-        else if(parsed.noresults){
-            setMessage('No users found :(')
+        } else if (parsed.noresults) {
+          setMessage("No users found :(");
+        }
+      });
+  };
+
+  const follow = (userToFollow) => {
+    const userFollowing = getCookie("user");
+
+    const data = {
+      userToFollow: userToFollow,
+      userFollowing: userFollowing,
+    };
+    fetch("/api/follow_user", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+    })
+      .then((res) => res.json())
+      .then((parsed) => {
+        if (parsed.success) {
+          setRender(render+1)
+
         }
       });
   };
 
   return (
-    <div className='search-user'>
-      <div className='search-user-header'>
+    <div className="search-user">
+      <div className="search-user-header">
         <h1>Find friends to share your music with!</h1>
       </div>
-      <div className='search-user-form'>
-        <input className='search-user-input'
+      <div className="search-user-form">
+        <input
+          className="search-user-input"
           placeholder="Search a username"
           value={input}
           onChange={(e) => {
@@ -50,32 +78,43 @@ export const SearchUser = (props) => {
         >
           Search
         </button>
-        {results !== null && <button classname='clear-button' onClick={()=> {
-          setResults(null);
-      }}>Clear</button>}
+        {results !== null && (
+          <button
+            classname="clear-button"
+            onClick={() => {
+              setResults(null);
+            }}
+          >
+            Clear
+          </button>
+        )}
       </div>
-     
 
       {results && (
-        <div className="search-results">
+        <div className="user-search-results">
           {results.map((user) => {
-
             const info = {
               id: user["_id"],
               username: user["username"],
-              followers: user['followers']
+              followers: user["followers"],
+              isFollowing: user["isFollowing"],
             };
+            
 
             return (
               <UserResult
+              render = {props.render}
+              setRender = {props.setRender}
+                searcher={searcher}
                 info={info}
+                follow={follow}
+                
               />
             );
           })}
         </div>
       )}
       {message && <h3>{message}</h3>}
-
     </div>
   );
 };

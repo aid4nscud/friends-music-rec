@@ -52,5 +52,6 @@ button:hover {
 
 .loading-spinner {
   background: url("../../assets/loading-spinner.svg") center center no-repeat;
+  background-size: 50%;
   z-index: -1;
 }

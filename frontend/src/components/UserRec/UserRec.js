@@ -42,6 +42,7 @@ export const UserRec = (props) => {
           allowtransparency="true"
           allow="encrypted-media"
         ></iframe>
+        <h3>{'Created on: ' + props.date}</h3>
       </div>
     </div>
   );

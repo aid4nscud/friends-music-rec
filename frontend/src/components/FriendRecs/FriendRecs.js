@@ -127,8 +127,6 @@ export const FriendRecs = (props) => {
         <div>
           <h1>Listen to what your friends recommend!</h1>
           <FeedRec
-          render={render}
-          setRender={setRender}
             liked={recs[index].liked}
             likes = {recs[index].likes}
             like={likeRec}
@@ -144,11 +142,12 @@ export const FriendRecs = (props) => {
             nextRec={nextRec}
             unfollow={unfollow}
             followButton={followButton}
+            render = {render} setRender={setRender}
           />
         </div>
       )}
 
-      <SearchUser/>
+      <SearchUser render = {render} setRender={setRender}/>
     </div>
   );
 };

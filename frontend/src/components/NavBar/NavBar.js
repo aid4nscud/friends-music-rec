@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import './NavBar.css'
 import { ReactComponent as ProfileIcon } from "../../assets/profile-icon.svg";
-import { ReactComponent as ListenIcon } from "../../assets/listen-icon.svg";
+import { ReactComponent as ListenIcon } from "../../assets/headphones.svg";
 import { ReactComponent as DiscoverIcon } from "../../assets/discover-icon.svg";
 
 export const NavBar = () => {

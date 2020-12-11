@@ -61,6 +61,13 @@ export const FeedRec = (props) => {
         </div>
         <div className='loading-spinner'>
         <iframe
+        onLoad={() => {
+          const arr = document.getElementsByClassName("loading-spinner")
+          for(let i=0; i<arr.length;i++){
+            
+            arr[i].style.backgroundImage='none';
+          
+         }}}
           className="feed-rec-iframe"
           src={url}
           width="500"

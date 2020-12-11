@@ -24,6 +24,10 @@ export const SearchRec = (props) => {
 
   const createRec = () => {
     const recommender = getCookie("user");
+    let date = Date.now();
+    let setdate = new Date(date)
+    setdate = setdate.toString().substring(0,10)
+    alert(setdate);
 
     const rec = {
       song: queued.song,
@@ -31,6 +35,7 @@ export const SearchRec = (props) => {
       user: recommender,
       images: queued.images,
       uri: queued.uri,
+      date: setdate
     };
     fetch("/create_rec", {
       method: "POST",
