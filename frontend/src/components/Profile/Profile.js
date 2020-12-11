@@ -57,7 +57,7 @@ export const Profile = (props) => {
         });
     } else {
       const url = "/api/get_user_profile";
-      const data = { user: user, requesting_user: user };
+      const data = { user: user, requestingUser: user };
       fetch(url, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
