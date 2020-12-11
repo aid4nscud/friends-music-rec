@@ -63,8 +63,8 @@ export const FriendRecs = (props) => {
     })
       .then((res) => res.json())
       .then((parsed) => {
-        if (!parsed.success) {
-         alert('error');
+        if (parsed.success) {
+         setFollowButton("Following")
         }
       });
 

@@ -8,16 +8,18 @@ html {
   margin: auto;
   margin-left: 1rem;
   position: relative;
-  bottom: 0.3rem;
+  bottom:0.3rem;
 }
 .following-button {
   display: inline-block;
   position: relative;
-  bottom: 0.4rem;
+  bottom: 0.3rem;
   width: 5rem;
   margin: auto;
-  margin-left: 0.3rem;
+  margin-left: 1rem;
+
 }
+
 .card-header {
   width: 50%;
   margin: auto;

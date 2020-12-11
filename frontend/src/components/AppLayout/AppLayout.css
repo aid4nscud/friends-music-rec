@@ -40,8 +40,8 @@ button {
   margin: 1rem;
 }
 button:hover {
-  color: #ffffff;
-  background-color: #004085;
+  
+  background-color:rgba(15, 180, 245, 0.75) 100%;
 }
 @media all and (max-width: 30em) {
   button {

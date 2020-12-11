@@ -36,7 +36,7 @@ export const DiscoverRec = (props) => {
               <span
                 onClick={() => {
                   const url = "/app/profile/" + props.recInfo.user;
-                
+                  
                   history.push(url);
                 }}
                 className="span-recommender"
@@ -53,9 +53,9 @@ export const DiscoverRec = (props) => {
                   {props.followButton}
                 </button>
               ) : (
-                <button onClick={() => {
-                  props.unfollow(props.recInfo.user);
-                }} className="following-button">
+                <button onClick={()=> {
+                  props.unfollow(props.recInfo.user)
+                }}className="following-button">
                   {props.followButton}
                 </button>
               )}
