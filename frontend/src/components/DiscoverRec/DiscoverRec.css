@@ -34,6 +34,11 @@ html {
 .span-recommender {
   color: #f52754;
   font-size: large;
+  
+}
+.span-recommender:hover {
+  transform: scale(1.1);
+  text-decoration: underline;
 }
 
 .discover-rec {

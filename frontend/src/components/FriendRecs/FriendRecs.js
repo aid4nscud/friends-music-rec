@@ -49,6 +49,28 @@ export const FriendRecs = (props) => {
     }
   }, [render]);
 
+  const follow = (userToFollow) => {
+    const userFollowing = getCookie("user");
+
+    const data = {
+      userToFollow: userToFollow,
+      userFollowing: userFollowing,
+    };
+    fetch("/api/follow_user", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+    })
+      .then((res) => res.json())
+      .then((parsed) => {
+        if (!parsed.success) {
+         alert('error');
+        }
+      });
+
+      setRender(render+1)
+  };
+
   const unfollow = (userToUnfollow) => {
     const userUnfollowing = getCookie("user");
 
@@ -131,6 +153,7 @@ export const FriendRecs = (props) => {
             likes = {recs[index].likes}
             like={likeRec}
             unlike={unlikeRec}
+            follow={follow}
             id={recs[index]._id}
             user={recs[index].user}
             spotifyToken={props.spotifyToken}

@@ -43,6 +43,7 @@ export const AuthRoute = ({ component: Component, ...rest }) => {
     <Route
       {...rest}
       render={() => {
+        
         if (getCookie("token") !== null) {
           const authed = decode();
        

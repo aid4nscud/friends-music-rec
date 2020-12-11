@@ -33,7 +33,9 @@ export const FeedRec = (props) => {
                 {props.followButton}
               </button>
             ) : (
-              <button className="follow-button">{props.followButton}</button>
+              <button onClick={() => {
+                props.follow(props.user);
+              }} className="follow-button">{props.followButton}</button>
             )}
           </div>
           <div className="rec-info">

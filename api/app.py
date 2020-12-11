@@ -211,6 +211,14 @@ def unfollow_user():
                     }
                 }
             )
+            users.update(
+                {"username": user_to_unfollow['username']},
+                {
+                    '$pull': {
+                        'followers': user_unfollowing['username']
+                    }
+                }
+                )
             return {'success': 'success'}
     except Exception as e:
         print(e)
@@ -397,15 +405,29 @@ def get__user_profile():
     
     #getting user followers + following next
 
+    requesting_user = request.json['requestingUser']
+    
+
     user = users.find_one({'username': username})
     num_followers = len(user['followers'])
     num_following = len(user['following'])
 
+    followed = False
+        
+    if(requesting_user in user['followers']):
+        followed=True
+        return {'recs': recs, 'num_followers': num_followers, 'num_following':num_following, 'followed': followed}
+
+    elif(requesting_user == user['username']):
+        followed = False
+        return {'recs': recs, 'num_followers': num_followers, 'num_following':num_following, 'followed': followed}
     
 
-    
+    return {'recs': recs, 'num_followers': num_followers, 'num_following':num_following, 'followed': followed}
 
-    return {'recs': recs, 'num_followers': num_followers, 'num_following':num_following}
+
+    
+        
 
 
 

@@ -19,6 +19,10 @@
     
 
 }
+.user-result:hover {
+    transform: scale(1.05);
+    text-decoration: underline;
+}
 
 .user-result button {
     float: right;

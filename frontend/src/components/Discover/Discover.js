@@ -46,7 +46,27 @@ export const Discover = (props) => {
 
 
 
-  
+  const unfollow = (userToUnfollow) => {
+    const userUnfollowing = getCookie("user");
+
+    const data = {
+      userToUnfollow: userToUnfollow,
+      userUnfollowing: userUnfollowing,
+    };
+    fetch("/api/unfollow_user", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+    })
+      .then((res) => res.json())
+      .then((parsed) => {
+        if (parsed.success) {
+          setFollowButton("Follow");
+        }
+      });
+      
+  }
+
   const follow = (userToFollow) => {
     const userFollowing = getCookie("user");
 
@@ -142,6 +162,7 @@ export const Discover = (props) => {
                 setSpotifyToken={props.setSpotifyToken}
                 like={likeRec}
                 nextRec={nextRec}
+                unfollow={unfollow}
                 follow={follow}
                 followButton={followButton}
                 liked={liked}

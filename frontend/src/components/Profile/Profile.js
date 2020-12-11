@@ -29,11 +29,11 @@ export const Profile = (props) => {
 
   useEffect(() => {
     if (user === null) {
-      let query = getCookie("user");
-
+      const query = getCookie("user");
+      const requesting_user = query;
       const url = "/api/get_user_profile";
 
-      const data = { user: query };
+      const data = { user: query, requesting_user: requesting_user };
       fetch(url, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -57,7 +57,7 @@ export const Profile = (props) => {
         });
     } else {
       const url = "/api/get_user_profile";
-      const data = { user: user };
+      const data = { user: user, requesting_user: user };
       fetch(url, {
         method: "POST",
         headers: { "Content-Type": "application/json" },

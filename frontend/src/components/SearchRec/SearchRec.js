@@ -117,16 +117,16 @@ export const SearchRec = (props) => {
 
       {queued != null && (
         <div>
-          <div id="queued-div" className="loading-spinner">
+          <div style={{background:'#111111', width:'30%', margin:'auto', borderRadius: "2rem 0 2rem 2rem"}}id="queued-div" className="loading-spinner">
             <iframe
               onLoad={() => {
                 document.getElementById("queued-div").style.backgroundImage =
                   "none";
               }}
-              style={{ borderRadius: "2rem 0 2rem 2rem" }}
+              style={{ borderRadius: "2rem 0 2rem 2rem", borderColor:'#111111' }}
               className="queued-iframe"
               src={queued.url}
-              width="400"
+              width="99%"
               height="300"
               frameBorder="1"
               allowtransparency="false"
