@@ -92,7 +92,7 @@ export const SearchedProfile = (props) => {
           <h1>
             {'Welcome to ' + user + "'s profile!" }
           </h1>
-          <button className ='searched-user-follow-button'onClick={()=> {
+          {user !== getCookie('user') && <button className ='searched-user-follow-button'onClick={()=> {
               if(followed === true){
                   setFollowed(false)
                   setFollowers(followers-1)
@@ -104,7 +104,7 @@ export const SearchedProfile = (props) => {
                   setFollowers(followers+1)
                   follow(user);
               }
-          }}>{followed === true ? 'Following': 'Follow'}</button>
+          }}>{followed === true ? 'Following': 'Follow'}</button>}
           </div>
           <ul className="searched-user-social-info">
             <li style={{ borderRightStyle: "solid", borderColor: "black" }}>

@@ -1,12 +1,13 @@
 import React from "react";
 import { useState } from "react";
 import "./FeedRec.css";
+import {useHistory} from 'react-router-dom';
 import { ReactComponent as LikedHeart } from "../../assets/liked-heart.svg";
 import { ReactComponent as UnlikedHeart } from "../../assets/unliked-heart.svg";
 
 export const FeedRec = (props) => {
   const [likes, setLikes] = useState(0);
-
+  const history = useHistory();
   let uri = props.uri;
   let uriCode = uri.substr(14);
 
@@ -21,7 +22,11 @@ export const FeedRec = (props) => {
           <div className="user-info">
             <h3 className="rec-desc">
               Recommended by{" "}
-              <span className="span-recommender">{props.user}</span>
+              <span onClick={()=> {
+                const url = "/app/profile/" + props.user;
+                  
+                history.push(url);
+              }} className="span-recommender">{props.user}</span>
             </h3>
             {props.followButton === "Following" ? (
               <button

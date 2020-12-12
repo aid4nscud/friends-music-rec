@@ -160,7 +160,7 @@ def follow_user():
     print(following_arr)
     print('USER TO FOLLOW: ' + user_to_follow['username'])
 
-    if user_to_follow['username'] not in following_arr:
+    if user_to_follow['username'] != user_following['username'] and user_to_follow['username'] not in following_arr:
         try:
             users.update(
                 {"username": user_following['username']},
