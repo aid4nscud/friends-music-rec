@@ -27,7 +27,7 @@ export const SearchRec = (props) => {
     let date = Date.now();
     let setdate = new Date(date);
     setdate = setdate.toString().substring(0, 10);
-    alert(setdate);
+  
 
     const rec = {
       song: queued.song,

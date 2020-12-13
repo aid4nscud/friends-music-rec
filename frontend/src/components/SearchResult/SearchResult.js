@@ -11,8 +11,8 @@ export const SearchResult = (props) => {
   return (
     <div key={props.info.id}onClick={handleClick} className="search-result">
       <div className="header">
-        <b>{"Song: " + props.info.song}</b>
-        <b>{" By: " + props.info.artist}</b>
+        <b>{props.info.song}</b>
+        <b>{props.info.artist}</b>
         
       </div>
       <img alt={props.info.song}src={props.info.images[1]['url']} />
