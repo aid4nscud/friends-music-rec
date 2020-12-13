@@ -25,8 +25,8 @@ export const SearchRec = (props) => {
   const createRec = () => {
     const recommender = getCookie("user");
     let date = Date.now();
-    let setdate = new Date(date)
-    setdate = setdate.toString().substring(0,10)
+    let setdate = new Date(date);
+    setdate = setdate.toString().substring(0, 10);
     alert(setdate);
 
     const rec = {
@@ -35,16 +35,23 @@ export const SearchRec = (props) => {
       user: recommender,
       images: queued.images,
       uri: queued.uri,
-      date: setdate
+      date: setdate,
     };
-    fetch("/create_rec", {
+    fetch("/api/create_rec", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(rec),
-    });
-
-    cleanup();
-    console.log("rec succesfully added");
+    })
+      .then((res) => res.json)
+      .then((parsed) => {
+        if (parsed["error"]) {
+          alert(parsed["error"]);
+        }
+        if (parsed["success"]) {
+          cleanup();
+          console.log("rec succesfully added");
+        }
+      });
   };
 
   const search = (query, limit = 8) => {
@@ -117,13 +124,28 @@ export const SearchRec = (props) => {
 
       {queued != null && (
         <div>
-          <div style={{background:'#111111', width:'30%', margin:'auto', borderRadius: "2rem 0 2rem 2rem"}}id="queued-div" className="loading-spinner">
+          <div
+            style={{
+              textAlign: 'left',
+              background: "#111111",
+              width: "30%",
+              margin: "auto",
+              borderRadius: "2rem 0 2rem 2rem",
+            }}
+            id="queued-div"
+            className="loading-spinner"
+          >
+             <b style={{margin:'0.5rem'}}>{"Song Popularity: " + queued.popularity}</b>
+
             <iframe
               onLoad={() => {
                 document.getElementById("queued-div").style.backgroundImage =
                   "none";
               }}
-              style={{ borderRadius: "2rem 0 2rem 2rem", borderColor:'#111111' }}
+              style={{
+                borderRadius: "2rem 0 2rem 2rem",
+                borderColor: "#111111",
+              }}
               className="queued-iframe"
               src={queued.url}
               width="99%"
@@ -133,7 +155,7 @@ export const SearchRec = (props) => {
               allow="encrypted-media"
             ></iframe>
           </div>
-          <b>{"Song Popularity: " + queued.popularity}</b>
+         
           <button onClick={createRec}>Make Recommendation</button>
         </div>
       )}

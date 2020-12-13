@@ -44,7 +44,13 @@ html {
 }
 
 .search-results {
-  margin-top: 1rem;
+  margin: 1rem;
+  text-align: left;
+
+  overflow-y: auto;
+  max-height: 45rem;
+  border-top-right-radius: 3rem;
+  border-top-left-radius: 3rem;
 }
 
 .search-rec-button {

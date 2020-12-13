@@ -1,17 +1,21 @@
 @import url('https://fonts.googleapis.com/css2?family=Merriweather&display=swap');
 html {
   height: 100%;
-  background: rgb(18, 13, 222);
-  background: linear-gradient(
-    90deg,
-    rgba(18, 13, 222, 0.75) 0%,
-    rgba(15, 180, 245, 0.75) 100%
-  );
+  background: rgb(0, 0, 0);
+  background: rgb(255,251,39);
+background: linear-gradient(90deg, rgba(255,251,39,1) 0%, rgba(255,139,0,1) 50%, rgba(255,251,39,1) 100%);
   text-align: center;
   width: 100%;
   overflow-x: hidden;
   min-height: 95vh;
   font-family: 'Merriweather', serif; 
+}
+
+span {
+  color:  rgba(255,251,39,1);
+  font-size: large;
+  padding: 1rem;
+  
 }
 
 .logout-button-container {

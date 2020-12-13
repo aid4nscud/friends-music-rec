@@ -225,14 +225,15 @@ def unfollow_user():
 
 
 
-@app.route('/create_rec', methods={"POST"})
+@app.route('/api/create_rec', methods={"POST"})
 def create_rec():
     user = users.find_one({'username': request.json['user']})
     print(user)
     user_recs = user['recs']
     
     if request.json['uri'] not in user_recs:
-        recommendations.insert({
+        try:
+            recommendations.insert({
             'song': request.json['song'],
             'artist': request.json['artist'],
             'user': request.json['user'],
@@ -240,19 +241,23 @@ def create_rec():
             'uri': request.json['uri'],
             'likers': [],
             'date': request.json['date']
-        })
+             })
 
-        users.update(
-            {"username": request.json['user']},
-            {
-                '$push': {
-                'recs': request.json['uri']
+            users.update(
+                {"username": request.json['user']},
+                {
+                    '$push': {
+                    'recs': request.json['uri']
+                    }
                 }
-            }
-        
-        )
+            
+            )
 
-        return print('succesfully added')
+            return {'success':'success'}
+        except Exception as e:
+            print(e)
+            return {'error': str(e)}
+
     
 
 
