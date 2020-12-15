@@ -10,8 +10,25 @@ Users will have a profile that is made up of their song recommendations (with as
 
 ## MVP FEATURES:
 
-**- Login/Register a User** ---- (COMPLETED)
+**- Login/Register a User**
 
-**- User is presented with recommendations from other users + recommendations from their friends and can listen to them** ---- (ALMOST DONE ---- NEED TO ADD AUTHORIZATION CODE FLOW FOR SPOTIFY AND ADD INTERACTION TO RECOMMENDATIONS)
+**- User can search any song, recommend it, and find it under their profile.**
 
-**- User can search any song and recommend it.** ---- (COMPLETED)
+**- User can view their profile, as well as that of others**
+
+**- User can explore recommendations and interact with them (like, follow recommender)**
+
+**- User can search users and follow immediately, or click on the profiles of the user results**
+
+**- User can see recommendations of users they follow and interact with them (like, ??)**
+
+
+
+
+TODO:
+
+- Spotify Authorization Code Flow
+- Add Logic to Rec and User Objects:
+  - When user goes to next rec, rec id added to 'seen' recs array with respective interaction 'liked' or 'unliked'
+  - Calculate score based on interactions 
+- Possibly add commenting to friend recs.
