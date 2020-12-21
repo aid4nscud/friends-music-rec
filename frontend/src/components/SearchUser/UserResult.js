@@ -24,7 +24,7 @@ export const UserResult = (props) => {
                   const url = "/app/profile/" + props.info.username;
                  
                   history.push(url);
-                }} className='username'>{props.info.username}</h3>
+                }} className='username'><span className='user-result-span'style={{backgroundColor:'black', borderRadius: '1rem'}}>{props.info.username}</span></h3>
             
             
 

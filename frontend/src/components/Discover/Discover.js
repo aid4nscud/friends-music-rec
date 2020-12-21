@@ -10,8 +10,11 @@ export const Discover = (props) => {
   const [recInfo, setRecInfo] = useState(null);
   const [render, setRender] = useState(0)
   const [liked, setLiked] = useState(null)
+  const [loaded, setLoaded] = useState(false)
 
   useEffect(() => {
+
+    if(loaded===false){
     const data = { user: getCookie("user") };
     if (data["user"] !== null) {
       const url = "/api/get_discover_recs";
@@ -25,24 +28,12 @@ export const Discover = (props) => {
           if (parsedJSON["recs"].length > 0) {
             console.log(parsedJSON['recs'])
             setRecs(parsedJSON["recs"]);
-
-            let recinfo = {
-              likes: parsedJSON["recs"][index].likes,
-              id: parsedJSON["recs"][index]._id,
-              user: parsedJSON["recs"][index].user,
-              images: parsedJSON["recs"][index].images,
-              song: parsedJSON["recs"][index].song,
-              artist: parsedJSON["recs"][index].artist,
-              uri: parsedJSON["recs"][index].uri,
-              liked: parsedJSON['recs'][index].liked
-            };
-          
-            setRecInfo(recinfo)
+    
           }
           
         });
-    }
-  }, [render]);
+    }}
+  }, []);
 
 
 
@@ -97,7 +88,7 @@ export const Discover = (props) => {
       setIndex(0);
       setFollowButton("Follow");
       
-      setRender(render+1)
+      // setRender(render+1)
     }
   };
 
@@ -124,7 +115,7 @@ export const Discover = (props) => {
           alert('some error occurred')
         }
       });
-      setRender(render+1)
+      // setRender(render+1)
   }
 
   function unlikeRec(recToUnlike) {
@@ -140,7 +131,7 @@ export const Discover = (props) => {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),
     })
-    setRender(render+1)
+    // setRender(render+1)
   }
 
   return (
@@ -152,12 +143,12 @@ export const Discover = (props) => {
           <h1>No recs rn G</h1>
         ) : (
           <div>
-            {recs && recInfo !== null && (
+            {recs !== null && (
               <DiscoverRec
               render = {render}
               setRender = {setRender}
                 unlikeRec={unlikeRec}
-                recInfo={recInfo}
+                recInfo={recs[index]}
                 spotifyToken={props.spotifyToken}
                 setSpotifyToken={props.setSpotifyToken}
                 like={likeRec}

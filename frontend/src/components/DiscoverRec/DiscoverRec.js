@@ -5,6 +5,7 @@ import "./DiscoverRec.css";
 
 export const DiscoverRec = (props) => {
   const [likes, setLikes] = useState(0);
+  const [liked, setLiked] = useState(props.recInfo.liked)
   const history = useHistory();
   let uri = props.recInfo.uri;
   let uriCode = uri.substr(14);
@@ -16,20 +17,21 @@ export const DiscoverRec = (props) => {
         {props.recInfo && (
           <HeartIcon
             like={props.like}
-            recId={props.recInfo.id}
+            recId={props.recInfo._id}
             setLikes={setLikes}
             likes={likes}
-            liked={props.recInfo.liked}
+            liked={liked}
+            setLiked={setLiked}
           />
         )}
 
-        {props.recInfo.liked === true && (
+        {liked === true && (
           <h3 className="likes-number">
             {"Likes: " + (props.recInfo.likes + likes)}
           </h3>
         )}
 
-        {props.recInfo.liked === true && (
+        {liked === true && (
           <div className="more-info-desc">
             <h3>
               Recommended by{" "}
@@ -64,8 +66,9 @@ export const DiscoverRec = (props) => {
         )}
       </div>
       <div className="loading-spinner">
-        <iframe
+        <iframe id='iframe-test'
           onLoad={() => {
+
             const arr = document.getElementsByClassName("loading-spinner");
             for (let i = 0; i < arr.length; i++) {
               arr[i].style.backgroundImage = "none";
@@ -73,8 +76,8 @@ export const DiscoverRec = (props) => {
           }}
           className="discover-rec-iframe"
           src={url}
-          width="500"
-          height="500"
+          width="100%"
+          height="400"
           frameBorder="1"
           allowtransparency="true"
           allow="encrypted-media"

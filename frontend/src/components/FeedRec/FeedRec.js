@@ -63,7 +63,7 @@ export const FeedRec = (props) => {
               {props.liked === true ? <LikedHeart /> : <UnlikedHeart />}
             </div>
 
-            <h3 className="likes-label">{"Likes: " + (props.likes)}</h3>
+            <h3 className="feed-likes-label">{"Likes: " + (props.likes)}</h3>
           </div>
         </div>
         <div className='loading-spinner'>

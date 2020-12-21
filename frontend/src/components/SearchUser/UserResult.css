@@ -7,6 +7,7 @@
     border-style: solid;
     border-color: black;
     margin-bottom: 0.3rem;
+    border-radius: 1rem;
 }
 
 
@@ -19,9 +20,9 @@
     
 
 }
-.user-result:hover {
-    transform: scale(1.05);
-    text-decoration: underline;
+
+.user-result h3:hover {
+transform: scale(1.1);
 }
 
 .user-result button {

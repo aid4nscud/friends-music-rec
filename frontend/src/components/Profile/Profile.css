@@ -7,16 +7,17 @@
 }
 
 .profile {
+  width: 100%;
   margin-top: 7rem;
   height: 95vh;
 }
 
 .profile-recs {
-width: 70%;
-margin: auto;
+  width: 90%;
+  margin: auto;
   margin-top: 3rem;
   text-align: center;
-  max-height: 30rem;
+  max-height: 40rem;
   overflow-x: auto;
   overflow-y: hidden;
   white-space: nowrap;
@@ -24,7 +25,7 @@ margin: auto;
   border-top-style: hidden;
   border-bottom-style: hidden;
   border-color: black;
-  border-width:thick ;
+  border-width: thick;
   border-radius: 2rem;
   background: rgb(0, 0, 0);
   background: linear-gradient(
@@ -45,7 +46,6 @@ margin: auto;
   margin-top: 2rem;
   background-color: white;
 }
-
 
 .user-social-info li {
   width: 30%;

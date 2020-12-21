@@ -42,7 +42,7 @@ export const UserRec = (props) => {
           allowtransparency="true"
           allow="encrypted-media"
         ></iframe>
-        <h3>{'Created on: ' + props.date}</h3>
+        <h3 style={{position:'relative', left:'2rem', float:'left'}}>{props.date.substring(0,3)+', '+ props.date.substring(4)}</h3>
       </div>
     </div>
   );

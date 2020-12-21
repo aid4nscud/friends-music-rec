@@ -124,21 +124,25 @@ def register():
     username_exists = users.find_one({'username': username})
     email_exists = users.find_one({'email': email})
 
-    if(not username_exists and not email_exists):
-        users.insert({
-            'email': email,
-            'username': username,
-            'password': password,
-            'following': [],
-            'followers': [],
-            'recs':[],
-        })
-        message = 'account succesfully created'
-        return {'success': message}
+    try:
+        if(not username_exists and not email_exists):
+            users.insert({
+                'email': email,
+                'username': username,
+                'password': password,
+                'following': [],
+                'followers': [],
+                'recs':[],
+            })
+            message = 'account succesfully created'
+            return {'success': message}
 
-    else:
-        message = 'that username or email is already in use'
-        return {'error': message}
+        else:
+            message = 'that username or email is already in use'
+            return {'error': message}
+    except Exception as e:
+        print(e)
+        return {'error': str(e)}
 
 
 
@@ -230,6 +234,8 @@ def create_rec():
     user = users.find_one({'username': request.json['user']})
     print(user)
     user_recs = user['recs']
+    print(user_recs)
+    print(request.json['uri'])
     
     if request.json['uri'] not in user_recs:
         try:
@@ -257,15 +263,22 @@ def create_rec():
         except Exception as e:
             print(e)
             return {'error': str(e)}
+    else:
+        return {'error': 'already recommended'}
 
     
 
 
 @app.route('/api/delete_rec', methods={"POST"})
 def delete_rec():
-    recommendations.remove({'song': request.json['song'], 'user': request.json['user']})
 
-    return print('succesfully deleted')
+    try:
+        recommendations.remove({'song': request.json['song'], 'user': request.json['user']})
+        return {'message':'succesfully deleted'}
+    except Exception as e:
+        return {'error':str(e)}
+    
+    
     
 
 
@@ -392,11 +405,24 @@ def get_friend_recs():
 
 @app.route('/api/get_user_profile', methods={"POST"})
 def get__user_profile():
-    #getting recs first
+
+    #declaring user who is searching the profile
+    requesting_user = request.json['requestingUser']
+    requesting_user = users.find_one({'username': requesting_user})
+
+    #declaring user that is being searched
     username = request.json['user']
+    username = users.find_one({'username': username})
+
+    #searching db for searched user's recommendations
     recs = []
-    arr = recommendations.find({'user': username})
+    arr = recommendations.find({'user': username['username']})
     for doc in arr:
+
+        liked = False
+        if(requesting_user['username'] in doc['likers']):
+            liked = True
+        
         recs.append({
             '_id': str(doc['_id']),
             'song': doc['song'],
@@ -405,25 +431,22 @@ def get__user_profile():
             'images': doc['images'],
             'uri': doc['uri'],
             'likes': len(doc['likers']),
-            'date': doc['date']
+            'date': doc['date'],
+            'liked': liked
         })
     
-    #getting user followers + following next
+    #getting user follower/following numbers
 
-    requesting_user = request.json['requestingUser']
-    
-
-    user = users.find_one({'username': username})
-    num_followers = len(user['followers'])
-    num_following = len(user['following'])
+    num_followers = len(username['followers'])
+    num_following = len(username['following'])
 
     followed = False
         
-    if(requesting_user in user['followers']):
+    if(requesting_user['username'] in username['followers']):
         followed=True
         return {'recs': recs, 'num_followers': num_followers, 'num_following':num_following, 'followed': followed}
 
-    elif(requesting_user == user['username']):
+    elif(requesting_user['username'] == username['username']):
         followed = False
         return {'recs': recs, 'num_followers': num_followers, 'num_following':num_following, 'followed': followed}
     
@@ -440,7 +463,7 @@ def get__user_profile():
 def search_user():
     try:
         user = request.json['user']
-        arr = users.find({"username" : {'$regex' : user + ".*"}})
+        arr = users.find({"username" : {'$regex' : ".*"+ user }})
         usersArr = []
         searcher_name = request.json['searcher']
         searcher = users.find_one({'username': searcher_name})

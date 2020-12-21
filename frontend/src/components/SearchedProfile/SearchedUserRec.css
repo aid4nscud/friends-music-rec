@@ -1,32 +1,42 @@
 .searched-user-rec {
-    width: 30%;
-    display: inline-block;
-    margin: 1rem;
-    
-   
-    
-    background-color: #111111;
-    border-radius: 10% 10% 10% 10%;
-  }
-  
-  .searched-profile-card-header li {
-    display: inline-block;
-    width: 50%;
-  }
-  
-  .searched-profile-card-header {
-    display: inline-block;
-    width: 100%;
-  }
-  
-  
-  .searched-user-rec iframe {
-    width: 99%;
-    display: block;
-    margin: auto;
-    border-radius: 10% 0 10% 10%;
-    border-style: solid;
-    border-color: #111111;
-    background-image: none;
-  }
-  
+  width: 25%;
+  display: inline-block;
+  margin: 1rem;
+
+  background-color: #111111;
+  border-radius: 10% 10% 10% 10%;
+}
+
+.searched-profile-card-header li {
+  display: inline-block;
+  width: 50%;
+}
+
+.heart-container {
+  float:left;
+  position: relative;
+  left: 2rem;
+  top: 0.3rem;
+}
+
+.searched-rec-likes-label {
+  float: right;
+  position: relative;
+  right: 2rem;
+
+
+}
+.searched-profile-card-header {
+  display: inline-block;
+  width: 100%;
+}
+
+.searched-user-rec iframe {
+  width: 99%;
+  display: block;
+  margin: auto;
+  border-radius: 10% 0 10% 10%;
+  border-style: solid;
+  border-color: #111111;
+  background-image: none;
+}

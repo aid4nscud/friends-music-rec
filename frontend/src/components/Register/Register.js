@@ -1,9 +1,7 @@
-
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
-import auth from '../../utils/auth'
-import './Register.css'
-
+import auth from "../../utils/auth";
+import "./Register.css";
 
 export const Register = () => {
   const [email, setEmail] = useState(null);
@@ -12,76 +10,75 @@ export const Register = () => {
   const history = useHistory();
 
   const register = (email, username, password) => {
-      const user = {
-          email: email,
-          username: username,
-          password: password
-      }
-      fetch("/api/register", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(user),
-      }).then(res => res.json()).then((parsed) => {
-        if(parsed.success){
+    const user = {
+      email: email.toLowerCase(),
+      username: username.toLowerCase(),
+      password: password.toLowerCase(),
+    };
+    fetch("/api/register", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(user),
+    })
+      .then((res) => res.json())
+      .then((parsed) => {
+        if(parsed.error){
+          console.log(parsed.error)
+          alert('error')
+        }
+        if (parsed.success) {
           setTimeout(2);
           const creds = {
-            username: username,
-            password: password,
+            username: username.toLowerCase(),
+            password: password.toLowerCase(),
           };
-          
+
           fetch("/api/login", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(creds),
-          }).then(res => res.json()).then((parsed) => {
-      
-           
-            
-            if(parsed.token){
-              const cookie = 'token=' + parsed['token'] + '; max-age=' + 30*24*60*60
-              document.cookie = cookie
-              if(parsed.user){
-                const cookie = 'user=' + parsed.user + '; max-age=' + 30*24*60*60 + '; SameSite=Strict'
-        document.cookie = cookie
+          })
+            .then((res) => res.json())
+            .then((parsed) => {
+              if (parsed.token) {
+                const cookie =
+                  "token=" + parsed["token"] + "; max-age=" + 30 * 24 * 60 * 60;
+                document.cookie = cookie;
+                if (parsed.user) {
+                  const cookie =
+                    "user=" +
+                    parsed.user +
+                    "; max-age=" +
+                    30 * 24 * 60 * 60 +
+                    "; SameSite=Strict";
+                  document.cookie = cookie;
+                }
+
+                auth.login(() => {
+                  history.push("/app/create+explore");
+                });
+              } else {
+                alert(parsed.error);
               }
-              
-              auth.login(()=> {
-                history.push('/app/create+explore')
-        
-              });
-              
-              
-            }
-            else{
-              alert(parsed.error);
-      
-            }
-          
-          
-        })
-      }
-      })
-    }
-    
-          
-      
-    
-  
- 
+            });
+        }
+      });
+  };
 
   return (
-    <div className='register'>
+    <div className="register">
       <h1>Register</h1>
-      <form onSubmit={(e) => {
-         e.preventDefault();
-          if(email,username, password !== null){
-          register(email, username, password)
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          if ((email, username, password !== null)) {
+            register(email, username, password);
+          } else {
+            alert("All fields must be filled out");
           }
-          else{
-              alert('All fields must be filled out')
-          }
-          
-          }} className='register-form'>
+        }}
+        className="register-form"
+      >
         <input
           onChange={(e) => {
             setEmail(e.target.value);
@@ -107,4 +104,4 @@ export const Register = () => {
       </form>
     </div>
   );
-        }
+};

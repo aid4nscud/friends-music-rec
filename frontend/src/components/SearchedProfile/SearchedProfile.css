@@ -34,11 +34,11 @@
 
   
   .searched-profile-recs {
-  width: 70%;
+  width: 80%;
   margin: auto;
     margin-top: 3rem;
     text-align: center;
-    max-height: 30rem;
+    max-height: 40rem;
     overflow-x: auto;
     overflow-y: hidden;
     white-space: nowrap;

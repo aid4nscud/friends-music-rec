@@ -5,13 +5,14 @@ import { ReactComponent as UnlikedHeart } from "../../src/assets/unliked-heart.s
 export const HeartIcon = (props) => {
 const [render, setRender] = useState(0)
 
+
   return (
     <div style={{float:'left', marginLeft:'3rem', marginTop: '2rem', marginBottom: '1rem'}}
       onClick={() => {
         if (props.liked === false) {
           props.like(props.recId);
           props.setLikes(props.likes + 1);
-        
+        props.setLiked(true)
         }
         //possibly premium feature
 

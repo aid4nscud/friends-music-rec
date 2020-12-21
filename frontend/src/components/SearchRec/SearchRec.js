@@ -42,8 +42,9 @@ export const SearchRec = (props) => {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(rec),
     })
-      .then((res) => res.json)
+      .then((res) => res.json())
       .then((parsed) => {
+        console.log(parsed)
         if (parsed["error"]) {
           alert(parsed["error"]);
         }

@@ -21,7 +21,11 @@ export const Profile = (props) => {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(rec),
-    });
+    })
+      .then((res) => res.json())
+      .then((parsed) => {
+        console.log(parsed);
+      });
 
     setRender(render + 1);
     console.log("rec succesfully deleted");
@@ -85,7 +89,7 @@ export const Profile = (props) => {
       {user && (
         <div className="profile-header">
           <h1>
-            Welcome to your profile,  <span className="span-user">{user}</span>
+            Welcome to your profile, <span className="span-user">{user}</span>
           </h1>
           <ul className="user-social-info">
             <li style={{ borderRightStyle: "solid", borderColor: "black" }}>
@@ -94,7 +98,9 @@ export const Profile = (props) => {
             <li style={{ borderRightStyle: "solid", borderColor: "black" }}>
               {following === null ? "Following: 0" : "Following: " + following}
             </li>
-            <li>{userRecs === null ? "Recs: 0" : "Recs: " + userRecs.length}</li>
+            <li>
+              {userRecs === null ? "Recs: 0" : "Recs: " + userRecs.length}
+            </li>
           </ul>
         </div>
       )}
@@ -105,14 +111,14 @@ export const Profile = (props) => {
         <h2>Once you make a recommendation, find it here!</h2>
       )}
 
-      {userRecs !== null && (
+      {userRecs !== null ? (
         <div className="profile-recs">
           {userRecs.map((rec) => {
             return (
               <UserRec
-              date={rec.date}
-              render={render}
-              setRender={setRender}
+                date={rec.date}
+                render={render}
+                setRender={setRender}
                 deleteRec={deleteRec}
                 likes={rec.likes}
                 uri={rec.uri}
@@ -123,6 +129,8 @@ export const Profile = (props) => {
             );
           })}
         </div>
+      ) : (
+        <div className="profile-recs">No recommendations yet...</div>
       )}
     </div>
   );

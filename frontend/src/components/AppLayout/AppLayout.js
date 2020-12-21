@@ -57,6 +57,7 @@ export const AppLayout = (props) => {
                     "=;expires=" + new Date().toUTCString() + ";path=/"
                   );
               });
+              
               history.push("/");
             });
           }}
