@@ -82,6 +82,7 @@ export const Discover = (props) => {
     } else if (index == recs.length - 1 && recs.length > 1) {
       setIndex(0);
       setFollowButton("Follow");
+      setLiked(false)
 
       // setRender(render+1)
     }

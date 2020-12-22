@@ -1,21 +1,42 @@
-html {
-  text-align: center;
-}
 
+.container {
+  width: 100%;
+}
 .register {
-
-  margin: auto;
-  width: 50%;
-
-  
-}
-
-.register-form {
   display: inline-block;
+  width: auto;
+  margin-bottom: auto;
+  position: relative;
+  bottom: 6rem;
+  left: 2rem;
 }
-.register-form input{
-    display: block;
-    margin-bottom: 3rem;
 
-
+.register h1 {
+  width: 90%;
+  margin: auto;
+  margin-bottom: 3rem;
 }
+  .register-form {
+      width: 90%;
+      display: inline-block;
+      text-align: center
+  }
+  
+  .register-form input{
+      display: block;
+      width: 80%;
+      margin: auto;
+      margin-bottom: 2rem;
+      border-radius: 1rem;
+  
+  
+  }
+
+  .login-form input:focus {
+      transform: scale(1.1);
+      outline: none;
+  }
+
+  p {
+      display: inline-block;
+  }

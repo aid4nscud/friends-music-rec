@@ -48,7 +48,7 @@ html {
   text-align: left;
 
   overflow-y: auto;
-  max-height: 60rem;
+  max-height: 50rem;
   border-top-right-radius: 3rem;
   display: inline-grid;
   grid-template-columns: auto auto auto;
@@ -58,6 +58,7 @@ html {
 .search-rec-button {
   margin: 1rem;
   padding: 0.5rem;
+  display: inline-block;
 }
 
 .search-rec-input {
@@ -70,6 +71,15 @@ html {
   transform: scale(1.1);
   margin-right: 2rem;
   outline: none;
+}
+
+.search-icon {
+  position:relative;
+  top:1rem;
+}
+
+.search-icon:hover {
+  transform: scale(1.1);
 }
 
 

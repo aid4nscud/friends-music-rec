@@ -3,7 +3,7 @@ import { useHistory } from "react-router-dom";
 import auth from "../../utils/auth";
 import "./Register.css";
 
-export const Register = () => {
+export const Register = (props) => {
   const [email, setEmail] = useState(null);
   const [username, setUsername] = useState(null);
   const [password, setPassword] = useState(null);
@@ -102,6 +102,15 @@ export const Register = () => {
         ></input>
         <button type="submit">Create Account!</button>
       </form>
+      <h2>Already have an account?</h2>
+            <button
+              onClick={() => {
+                props.setRegister(false);
+                // history.push("/register");
+              }}
+            >
+              Login!
+            </button>
     </div>
   );
 };

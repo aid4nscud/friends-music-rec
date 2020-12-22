@@ -7,6 +7,10 @@
     border-radius: 1rem;
     margin: 1rem;
   }
+
+  .welcome-follow h1 {
+    color: black;
+  }
   
   .searched-profile {
     margin-top: 7rem;

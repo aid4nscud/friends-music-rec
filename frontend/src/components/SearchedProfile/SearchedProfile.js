@@ -40,6 +40,10 @@ export const SearchedProfile = (props) => {
       });
   }, []);
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  });
+
   function likeRec(recToLike) {
     const userLiking = getCookie("user");
 
@@ -126,7 +130,7 @@ export const SearchedProfile = (props) => {
       {user && (
         <div className="searched-profile-header">
           <div className="welcome-follow">
-            <h1>{"Welcome to " + user + "'s profile!"}</h1>
+          <h1>Welcome to <span className="span-user">{user + '\'s'}</span> profile</h1>
             {user !== getCookie("user") && (
               <button
                 className="searched-user-follow-button"

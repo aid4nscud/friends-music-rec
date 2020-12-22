@@ -1,8 +1,9 @@
-import React, {useState } from "react";
+import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { ReactComponent as LikedHeart } from "../../assets/liked-heart.svg";
 import { ReactComponent as UnlikedHeart } from "../../assets/unliked-heart.svg";
 import "./DiscoverRec.css";
+import { GrLinkNext } from "react-icons/gr";
 
 export const DiscoverRec = (props) => {
   const [likes, setLikes] = useState(0);
@@ -27,7 +28,7 @@ export const DiscoverRec = (props) => {
               }}
               onClick={() => {
                 if (props.recInfo.liked === false) {
-                  props.like(props.recId);
+                  props.like(props.recInfo._id);
                   setLikes(likes + 1);
                   setPlaceholderLiked(true);
                 }
@@ -103,15 +104,16 @@ export const DiscoverRec = (props) => {
           ></iframe>
         </div>
 
-        <button
+        <div
           className="next-button"
           onClick={() => {
             setLikes(0);
             props.nextRec();
+            setPlaceholderLiked(false)
           }}
         >
-          Next{" "}
-        </button>
+          <GrLinkNext style={{ padding: "0.5rem" }} size="2em" />
+        </div>
       </div>
     </div>
   );

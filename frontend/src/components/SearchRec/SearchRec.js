@@ -4,6 +4,7 @@ import { getInfo } from "../../utils/Spotify";
 import axios from "axios";
 import { SearchResult } from "../SearchResult/SearchResult";
 import "./SearchRec.css";
+import { FaSearchengin } from "react-icons/fa";
 
 export const SearchRec = (props) => {
   const info = getInfo();
@@ -27,7 +28,6 @@ export const SearchRec = (props) => {
     let date = Date.now();
     let setdate = new Date(date);
     setdate = setdate.toString().substring(0, 10);
-  
 
     const rec = {
       song: queued.song,
@@ -44,7 +44,7 @@ export const SearchRec = (props) => {
     })
       .then((res) => res.json())
       .then((parsed) => {
-        console.log(parsed)
+        console.log(parsed);
         if (parsed["error"]) {
           alert(parsed["error"]);
         }
@@ -104,6 +104,23 @@ export const SearchRec = (props) => {
 
       <div className="search-rec-form">
         <input
+        onKeyPress={(e) => {
+          let code;
+
+          if (e.key !== undefined) {
+            code = e.key;
+          } else if (e.keyIdentifier !== undefined) {
+            code = e.keyIdentifier;
+          } else if (e.keyCode !== undefined) {
+            code = e.keyCode;
+          }
+          
+
+          if (code === 'Enter') {
+            setSearched(true);
+            search(inputValue);
+          }
+        }}
           className="search-rec-input"
           placeholder="Search Song"
           value={inputValue}
@@ -112,22 +129,23 @@ export const SearchRec = (props) => {
           }}
         ></input>
 
-        <button
+        <div
           className="search-rec-button"
           onClick={() => {
             setSearched(true);
             search(inputValue);
           }}
+          
         >
-          Search Song
-        </button>
+          <FaSearchengin className="search-icon" color="white" size="3em" />
+        </div>
       </div>
 
       {queued != null && (
         <div>
           <div
             style={{
-              textAlign: 'left',
+              textAlign: "left",
               background: "#111111",
               width: "30%",
               margin: "auto",
@@ -136,7 +154,9 @@ export const SearchRec = (props) => {
             id="queued-div"
             className="loading-spinner"
           >
-             <b style={{margin:'0.5rem'}}>{"Song Popularity: " + queued.popularity}</b>
+            <b style={{ margin: "0.5rem" }}>
+              {"Song Popularity: " + queued.popularity}
+            </b>
 
             <iframe
               onLoad={() => {
@@ -156,7 +176,7 @@ export const SearchRec = (props) => {
               allow="encrypted-media"
             ></iframe>
           </div>
-         
+
           <button onClick={createRec}>Make Recommendation</button>
         </div>
       )}

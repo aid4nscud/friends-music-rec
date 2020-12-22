@@ -45,9 +45,9 @@ export const FriendRecs = (props) => {
     }
   }, [render]);
 
-  useEffect(()=> {
+  useEffect(() => {
     window.scrollTo(0, 0);
-  })
+  });
 
   const follow = (userToFollow) => {
     const userFollowing = getCookie("user");
@@ -139,11 +139,7 @@ export const FriendRecs = (props) => {
 
   return (
     <div className="friend-recs">
-      {recs === null ? (
-        <h2 style={{ color: "black" }}>
-          When you have friends, their recommendations will show up here
-        </h2>
-      ) : (
+      {recs !== null && (
         <div>
           <h1 style={{ color: "black" }}>
             Listen to what your friends recommend!
@@ -173,7 +169,6 @@ export const FriendRecs = (props) => {
       <Discover
         spotifyToken={props.spotifyToken}
         setSpotifyToken={props.setSpotifyToken}
-        
       />
     </div>
   );

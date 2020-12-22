@@ -4,6 +4,7 @@ import "./FeedRec.css";
 import {useHistory} from 'react-router-dom';
 import { ReactComponent as LikedHeart } from "../../assets/liked-heart.svg";
 import { ReactComponent as UnlikedHeart } from "../../assets/unliked-heart.svg";
+import {GrLinkNext} from 'react-icons/gr'
 
 export const FeedRec = (props) => {
   const [likes, setLikes] = useState(0);
@@ -85,9 +86,9 @@ export const FeedRec = (props) => {
         ></iframe>
         </div>
         <div className="next-button-container">
-        <button className="next-button" onClick={props.nextRec}>
-          Next
-        </button>
+        <div className="next-button" onClick={props.nextRec}>
+        <GrLinkNext style={{padding:'0.5rem'}}size='2em'/>
+        </div>
       </div>
         
       </div>
