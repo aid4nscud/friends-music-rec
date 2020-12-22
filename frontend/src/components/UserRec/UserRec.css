@@ -2,9 +2,7 @@
   width: 25%;
   display: inline-block;
   margin: 1rem;
-  
- 
-  
+
   background-color: #111111;
   border-radius: 10% 10% 10% 10%;
 }
@@ -31,4 +29,23 @@
   border-style: solid;
   border-color: #111111;
   background-image: none;
+}
+
+.user-rec-likes-label {
+  float: right;
+  position: relative;
+  right: 2rem;
+}
+
+.remove-rec-icon {
+  float: right;
+  position: relative;
+  right: 0.2rem;
+  top: 1rem;
+  background-color: #ffffff00;
+  width: 15%;
+}
+
+.remove-rec-icon:hover {
+  transform: scale(1.1);
 }

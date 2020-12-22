@@ -144,10 +144,10 @@ export const FriendRecs = (props) => {
   return (
     <div className='friend-recs'>
       {recs === null ? (
-        <h2>When you have friends, their recommendations will show up here</h2>
+        <h2 style={{color:'black'}}>When you have friends, their recommendations will show up here</h2>
       ) : (
         <div>
-          <h1>Listen to what your friends recommend!</h1>
+          <h1 style={{color:'black'}}>Listen to what your friends recommend!</h1>
           <FeedRec
             liked={recs[index].liked}
             likes = {recs[index].likes}

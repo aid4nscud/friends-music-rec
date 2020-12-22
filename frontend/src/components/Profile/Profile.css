@@ -12,6 +12,13 @@
   height: 95vh;
 }
 
+.profile-header h1 {
+  display: inline-block;
+}
+
+.settings-icon:hover {
+  transform: scale(1.1);
+}
 .profile-recs {
   
   width: 90%;
@@ -42,16 +49,23 @@
 }
 
 .user-social-info {
-  display: inline-block;
+  display: block;
   width: 60%;
+  height: 4rem;
   margin: auto;
   margin-top: 2rem;
-  background-color: white;
+  background-color: rgb(0, 0, 0);
+  border-style: solid;
+  border-color: white;
 }
 
 .user-social-info li {
   width: 30%;
-  margin: auto;
-  display: inline-block;
+  height: 2rem;
   padding: 1rem;
+  display: inline-block;
+  margin: auto;
+  color: rgb(255, 255, 255);
+  font-size: 1.5rem;
+
 }

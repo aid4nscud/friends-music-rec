@@ -2,6 +2,9 @@ import React, { useEffect, useState } from "react";
 import { getCookie } from "../../utils/auth";
 import { UserRec } from "../UserRec/UserRec";
 import "./Profile.css";
+import { MdSettings } from "react-icons/md";
+
+
 
 export const Profile = (props) => {
   const [userRecs, setUserRecs] = useState(null);
@@ -69,14 +72,17 @@ export const Profile = (props) => {
     <div className="profile">
       {user && (
         <div className="profile-header">
-          <h1>
+          <h1 style={{color:'black', fontSize:'2rem'}}>
             Welcome to your profile, <span className="span-user">{user}</span>
           </h1>
+
+          <MdSettings className='settings-icon' style={{display:'inline-block', margin:'1rem', position:'relative', top:'2rem'}} size='3em' color='black'/>
+          
           <ul className="user-social-info">
-            <li style={{ borderRightStyle: "solid", borderColor: "black" }}>
+            <li style={{ borderRightStyle: "solid", borderColor: "white" }}>
               {followers === null ? "Followers: 0" : "Followers: " + followers}
             </li>
-            <li style={{ borderRightStyle: "solid", borderColor: "black" }}>
+            <li style={{ borderRightStyle: "solid", borderColor: "white" }}>
               {following === null ? "Following: 0" : "Following: " + following}
             </li>
             <li>

@@ -136,7 +136,7 @@ export const Discover = (props) => {
 
   return (
     <div key={render}className="discover">
-      <h1>Explore Recommendations!</h1>
+      <h1 style={{color:'black'}}>Explore Recommendations!</h1>
 
       <div className="rec-section">
         {recs === null ? (
