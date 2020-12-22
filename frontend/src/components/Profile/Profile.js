@@ -10,11 +10,11 @@ export const Profile = (props) => {
   const [followers, setFollowers] = useState(null);
   const [following, setFollowing] = useState(null);
 
-  const deleteRec = (song) => {
+  const deleteRec = (uri) => {
     const recommender = getCookie("user");
 
     const rec = {
-      song: song,
+      uri: uri,
       user: recommender,
     };
     fetch("/api/delete_rec", {
@@ -24,64 +24,45 @@ export const Profile = (props) => {
     })
       .then((res) => res.json())
       .then((parsed) => {
-        console.log(parsed);
+        if (parsed.message) {
+          setRender(render + 1);
+          console.log(parsed.message);
+        } else {
+          alert("error");
+        }
       });
-
-    setRender(render + 1);
-    console.log("rec succesfully deleted");
   };
 
   useEffect(() => {
-    if (user === null) {
-      const query = getCookie("user");
-      const requesting_user = query;
-      const url = "/api/get_user_profile";
-
-      const data = { user: query, requesting_user: requesting_user };
-      fetch(url, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
-      })
-        .then((res) => res.json())
-        .then((parsedJSON) => {
-          alert(parsedJSON["recs"]);
-          if (parsedJSON["recs"].length > 0) {
-            setUserRecs(parsedJSON["recs"]);
-            setFollowers(parsedJSON["num_followers"]);
-            setFollowing(parsedJSON["num_following"]);
-          } else if (
-            parsedJSON["num_followers"] &&
-            parsedJSON["recs"].length <= 0
-          ) {
-            setFollowers(parsedJSON["num_followers"]);
-            setFollowing(parsedJSON["num_following"]);
-          }
-          setUser(query);
-        });
-    } else {
-      const url = "/api/get_user_profile";
-      const data = { user: user, requestingUser: user };
-      fetch(url, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
-      })
-        .then((res) => res.json())
-        .then((parsedJSON) => {
-          if (parsedJSON["recs"].length > 0) {
-            setUserRecs(parsedJSON["recs"]);
-            setFollowers(parsedJSON["num_followers"]);
-            setFollowing(parsedJSON["num_following"]);
-          } else if (
-            parsedJSON["num_followers"] &&
-            parsedJSON["recs"].length <= 0
-          ) {
-            setFollowers(parsedJSON["num_followers"]);
-            setFollowing(parsedJSON["num_following"]);
-          }
-        });
-    }
+    
+    const url = "/api/get_user_profile";
+    const data = { user: user, requestingUser: user };
+    fetch(url, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+    })
+      .then((res) => res.json())
+      .then((parsedJSON) => {
+        
+        if (parsedJSON["recs"].length > 0) {
+          
+          setUserRecs(parsedJSON["recs"]);
+          setFollowers(parsedJSON["num_followers"]);
+          setFollowing(parsedJSON["num_following"]);
+        } else if (
+          parsedJSON["num_followers"] &&
+          parsedJSON["recs"].length <= 0
+        ) {
+          setFollowers(parsedJSON["num_followers"]);
+          setFollowing(parsedJSON["num_following"]);
+        }
+        if(parsedJSON['recs'].length === 0){
+          setUserRecs(null)
+          setFollowers(parsedJSON["num_followers"]);
+          setFollowing(parsedJSON["num_following"]);
+        }
+      });
   }, [render]);
 
   return (
@@ -105,13 +86,7 @@ export const Profile = (props) => {
         </div>
       )}
 
-      {userRecs !== null ? (
-        <h2>Your Song Recommendations</h2>
-      ) : (
-        <h2>Once you make a recommendation, find it here!</h2>
-      )}
-
-      {userRecs !== null ? (
+      {userRecs !== null && userRecs.length > 0 ? (
         <div className="profile-recs">
           {userRecs.map((rec) => {
             return (
@@ -130,7 +105,11 @@ export const Profile = (props) => {
           })}
         </div>
       ) : (
-        <div className="profile-recs">No recommendations yet...</div>
+        <div className="profile-recs">
+          <h3 style={{ margin: "0", position: "relative", top: "10rem" }}>
+            {user + " hasn't recommended any songs yet :("}
+          </h3>
+        </div>
       )}
     </div>
   );

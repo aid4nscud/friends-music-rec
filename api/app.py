@@ -29,13 +29,7 @@ AUTH_URL = 'https://accounts.spotify.com/authorize'
 TOKEN_URL = 'https://accounts.spotify.com/api/token'
 
 
-
 # AUTHORIZATION FLOW SPOTIFY:
-
-
-
-
-
 
 
 # JWT FOR USER AUTHENTICATION - FUNCTIONS BELOW
@@ -66,7 +60,7 @@ def decodeAuthToken(token):
 
 @app.route('/auth_decode', methods={"GET"})
 def check_token():
-    
+
     auth_header = request.headers.get('Authorization')
     if auth_header:
         # Parses out the "Bearer" portion
@@ -83,16 +77,12 @@ def check_token():
             return {'error': decoded}
         else:
             return decoded
-            
 
-
-    
 
 @app.route('/api/login', methods={'POST'})
 def login():
 
-
-#AUTH WITH APP + SPOTIFY
+    # AUTH WITH APP + SPOTIFY
 
     error = ''
     req = request.json
@@ -132,7 +122,7 @@ def register():
                 'password': password,
                 'following': [],
                 'followers': [],
-                'recs':[],
+                'recs': [],
             })
             message = 'account succesfully created'
             return {'success': message}
@@ -145,14 +135,12 @@ def register():
         return {'error': str(e)}
 
 
-
-# USER ACTIONS ON APP 
-
+# USER ACTIONS ON APP
 
 
 @app.route('/api/follow_user', methods={"POST"})
 def follow_user():
-   
+
     user_to_follow = request.json['userToFollow']
     user_following = request.json['userFollowing']
     user_to_follow = users.find_one({'username': user_to_follow})
@@ -169,11 +157,11 @@ def follow_user():
             users.update(
                 {"username": user_following['username']},
                 {
-                '$push': {
-                    'following': user_to_follow['username']
-                        }
+                    '$push': {
+                        'following': user_to_follow['username']
+                    }
                 }
-                )
+            )
             users.update(
                 {"username": user_to_follow['username']},
                 {
@@ -181,29 +169,26 @@ def follow_user():
                         'followers': user_following['username']
                     }
                 }
-                )
+            )
 
             return {'success': 'success'}
- 
+
         except Exception as e:
             print(e)
             return e
     else:
         return {'error': 'user already followed'}
-   
+
 
 @app.route('/api/unfollow_user', methods={"POST"})
 def unfollow_user():
     user_to_unfollow = request.json['userToUnfollow']
     user_unfollowing = request.json['userUnfollowing']
 
-
     user_to_unfollow = users.find_one({'username': user_to_unfollow})
     user_unfollowing = users.find_one({'username': user_unfollowing})
 
     followingArr = user_unfollowing['following']
-
- 
 
     try:
         if user_to_unfollow['username'] in followingArr:
@@ -222,11 +207,10 @@ def unfollow_user():
                         'followers': user_unfollowing['username']
                     }
                 }
-                )
+            )
             return {'success': 'success'}
     except Exception as e:
         print(e)
-
 
 
 @app.route('/api/create_rec', methods={"POST"})
@@ -236,50 +220,50 @@ def create_rec():
     user_recs = user['recs']
     print(user_recs)
     print(request.json['uri'])
-    
+
     if request.json['uri'] not in user_recs:
         try:
             recommendations.insert({
-            'song': request.json['song'],
-            'artist': request.json['artist'],
-            'user': request.json['user'],
-            'images': request.json['images'],
-            'uri': request.json['uri'],
-            'likers': [],
-            'date': request.json['date']
-             })
+                'song': request.json['song'],
+                'artist': request.json['artist'],
+                'user': request.json['user'],
+                'images': request.json['images'],
+                'uri': request.json['uri'],
+                'likers': [],
+                'date': request.json['date']
+            })
 
             users.update(
                 {"username": request.json['user']},
                 {
                     '$push': {
-                    'recs': request.json['uri']
+                        'recs': request.json['uri']
                     }
                 }
-            
+
             )
 
-            return {'success':'success'}
+            return {'success': 'success'}
         except Exception as e:
             print(e)
             return {'error': str(e)}
     else:
         return {'error': 'already recommended'}
 
-    
-
 
 @app.route('/api/delete_rec', methods={"POST"})
 def delete_rec():
 
     try:
-        recommendations.remove({'song': request.json['song'], 'user': request.json['user']})
-        return {'message':'succesfully deleted'}
+        recommendations.remove(
+            {'uri': request.json['uri'], 'user': request.json['user']})
+        users.update(
+            {'username': request.json['user']},
+            {'$pull': {"recs": request.json['uri']}}
+        )
+        return {'message': 'succesfully deleted'}
     except Exception as e:
-        return {'error':str(e)}
-    
-    
-    
+        return {'error': str(e)}
 
 
 @app.route('/api/like_rec', methods={"POST"})
@@ -297,7 +281,7 @@ def like_rec():
                 {"_id": rec_to_like},
                 {
                     '$push': {
-                    'likers': user_liking
+                        'likers': user_liking
                     }
                 }
             )
@@ -324,7 +308,7 @@ def unlike_rec():
                 {"_id": rec_to_unlike},
                 {
                     '$pull': {
-                    'likers': user_unliking
+                        'likers': user_unliking
                     }
                 }
             )
@@ -334,10 +318,6 @@ def unlike_rec():
             return e
     else:
         return {'error': 'error'}
-    
-    
-
-
 
 
 # ROUTES TO ACCESS RECOMMENDATIONS DISPLAYED IN THE SECTIONS: "DISCOVER", "LISTEN", AND "PROFILE" OF APP
@@ -356,7 +336,7 @@ def get_discover_recs():
 
             if(user['username'] in doc['likers']):
                 liked = True
-          
+
             recs.append({
                 '_id': str(doc['_id']),
                 'song': doc['song'],
@@ -386,8 +366,8 @@ def get_friend_recs():
             liked = False
 
             if(user['username'] in doc['likers']):
-                    liked = True
-            
+                liked = True
+
             recs.append({
                 '_id': str(doc['_id']),
                 'song': doc['song'],
@@ -406,15 +386,15 @@ def get_friend_recs():
 @app.route('/api/get_user_profile', methods={"POST"})
 def get__user_profile():
 
-    #declaring user who is searching the profile
+    # declaring user who is searching the profile
     requesting_user = request.json['requestingUser']
     requesting_user = users.find_one({'username': requesting_user})
 
-    #declaring user that is being searched
+    # declaring user that is being searched
     username = request.json['user']
     username = users.find_one({'username': username})
 
-    #searching db for searched user's recommendations
+    # searching db for searched user's recommendations
     recs = []
     arr = recommendations.find({'user': username['username']})
     for doc in arr:
@@ -422,7 +402,7 @@ def get__user_profile():
         liked = False
         if(requesting_user['username'] in doc['likers']):
             liked = True
-        
+
         recs.append({
             '_id': str(doc['_id']),
             'song': doc['song'],
@@ -434,48 +414,40 @@ def get__user_profile():
             'date': doc['date'],
             'liked': liked
         })
-    
-    #getting user follower/following numbers
+
+    # getting user follower/following numbers
 
     num_followers = len(username['followers'])
     num_following = len(username['following'])
 
     followed = False
-        
+
     if(requesting_user['username'] in username['followers']):
-        followed=True
-        return {'recs': recs, 'num_followers': num_followers, 'num_following':num_following, 'followed': followed}
+        followed = True
+        return {'recs': recs, 'num_followers': num_followers, 'num_following': num_following, 'followed': followed}
 
     elif(requesting_user['username'] == username['username']):
         followed = False
-        return {'recs': recs, 'num_followers': num_followers, 'num_following':num_following, 'followed': followed}
-    
+        return {'recs': recs, 'num_followers': num_followers, 'num_following': num_following, 'followed': followed}
 
-    return {'recs': recs, 'num_followers': num_followers, 'num_following':num_following, 'followed': followed}
-
-
-    
-        
-
+    return {'recs': recs, 'num_followers': num_followers, 'num_following': num_following, 'followed': followed}
 
 
 @app.route('/api/search_user', methods={"POST"})
 def search_user():
     try:
         user = request.json['user']
-        arr = users.find({"username" : {'$regex' : ".*"+ user }})
+        arr = users.find({"username": {'$regex': ".*" + user}})
         usersArr = []
         searcher_name = request.json['searcher']
         searcher = users.find_one({'username': searcher_name})
         searcher_following = searcher['following']
 
-        
         for u in arr:
             following = False
             if u['username'] in searcher_following and u['username'] != searcher_name:
                 following = True
 
-            
             numFollowers = len(u['followers'])
             usersArr.append({
                 '_id': str(u['_id']),
@@ -491,15 +463,3 @@ def search_user():
     except Exception as e:
         print(e)
         return {'error': 'error'}
-    
-
-    
-
-
-
-
-
-
-
-
-

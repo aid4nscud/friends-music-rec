@@ -14,8 +14,8 @@ export const UserRec = (props) => {
           <li>
             <button
               onClick={() => {
-                props.deleteRec(props.song);
-                props.setRender(props.render+1)
+                props.deleteRec(props.uri);
+                
               }}
             >
               Remove

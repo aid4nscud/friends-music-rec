@@ -13,10 +13,12 @@
 }
 
 .profile-recs {
+  
   width: 90%;
   margin: auto;
   margin-top: 3rem;
   text-align: center;
+  min-height: 20rem;
   max-height: 40rem;
   overflow-x: auto;
   overflow-y: hidden;

@@ -48,7 +48,7 @@ html {
   text-align: left;
 
   overflow-y: auto;
-  max-height: 45rem;
+  max-height: 60rem;
   border-top-right-radius: 3rem;
   display: inline-grid;
   grid-template-columns: auto auto auto;
