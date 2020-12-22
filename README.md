@@ -31,6 +31,5 @@ TODO:
   - When user goes to next rec, rec id added to 'seen' recs array with respective interaction 'liked' or 'unliked'
   - Calculate score based on interactions 
 
-- Add like functionality to SearchedProfileRec
-
+- Activity Feed???
 - ADD DIRECT RECOMMENDATIONS??? IF SO, WHAT IS ASSOCIATED SCORE?
