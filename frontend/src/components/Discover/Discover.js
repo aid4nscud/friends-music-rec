@@ -2,40 +2,36 @@ import React, { useState, useEffect } from "react";
 import "./Discover.css";
 import { DiscoverRec } from "../DiscoverRec/DiscoverRec";
 import { getCookie } from "../../utils/auth";
+import { SearchUser } from "../SearchUser/SearchUser";
 
 export const Discover = (props) => {
   const [index, setIndex] = useState(0);
   const [recs, setRecs] = useState(null);
   const [followButton, setFollowButton] = useState("Follow");
-  const [recInfo, setRecInfo] = useState(null);
-  const [render, setRender] = useState(0)
-  const [liked, setLiked] = useState(null)
-  const [loaded, setLoaded] = useState(false)
+  const [render, setRender] = useState(0);
+  const [liked, setLiked] = useState(null);
+  const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
-
-    if(loaded===false){
-    const data = { user: getCookie("user") };
-    if (data["user"] !== null) {
-      const url = "/api/get_discover_recs";
-      fetch(url, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
-      })
-        .then((res) => res.json())
-        .then((parsedJSON) => {
-          if (parsedJSON["recs"].length > 0) {
-            console.log(parsedJSON['recs'])
-            setRecs(parsedJSON["recs"]);
-    
-          }
-          
-        });
-    }}
+    if (loaded === false) {
+      const data = { user: getCookie("user") };
+      if (data["user"] !== null) {
+        const url = "/api/get_discover_recs";
+        fetch(url, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(data),
+        })
+          .then((res) => res.json())
+          .then((parsedJSON) => {
+            if (parsedJSON["recs"].length > 0) {
+              console.log(parsedJSON["recs"]);
+              setRecs(parsedJSON["recs"]);
+            }
+          });
+      }
+    }
   }, []);
-
-
 
   const unfollow = (userToUnfollow) => {
     const userUnfollowing = getCookie("user");
@@ -55,8 +51,7 @@ export const Discover = (props) => {
           setFollowButton("Follow");
         }
       });
-      
-  }
+  };
 
   const follow = (userToFollow) => {
     const userFollowing = getCookie("user");
@@ -83,11 +78,11 @@ export const Discover = (props) => {
       setIndex(index + 1);
       setFollowButton("Follow");
 
-      setRender(render+1)
+      setRender(render + 1);
     } else if (index == recs.length - 1 && recs.length > 1) {
       setIndex(0);
       setFollowButton("Follow");
-      
+
       // setRender(render+1)
     }
   };
@@ -108,14 +103,12 @@ export const Discover = (props) => {
       .then((res) => res.json())
       .then((parsed) => {
         if (!parsed.success) {
-          setLiked(true)
-  
-        }
-        else if(parsed.error) {
-          alert('some error occurred')
+          setRender(render+1);
+        } else if (parsed.error) {
+          alert("some error occurred");
         }
       });
-      // setRender(render+1)
+    // setRender(render+1)
   }
 
   function unlikeRec(recToUnlike) {
@@ -130,23 +123,24 @@ export const Discover = (props) => {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),
-    })
+    });
     // setRender(render+1)
   }
 
   return (
-    <div key={render}className="discover">
-      <h1 style={{color:'black'}}>Explore Recommendations!</h1>
-
-      <div className="rec-section">
+    <div className="discover">
+      <div className="explore-header">
+        <h1>Find new music from new people!</h1>
+      </div>
+      <div style={{ display: "inline-block" }} className="rec-section">
         {recs === null ? (
-          <h1>No recs rn G</h1>
+          <h1>Looking for recommendations...</h1>
         ) : (
           <div>
             {recs !== null && (
               <DiscoverRec
-              render = {render}
-              setRender = {setRender}
+                render={render}
+                setRender={setRender}
                 unlikeRec={unlikeRec}
                 recInfo={recs[index]}
                 spotifyToken={props.spotifyToken}
@@ -157,11 +151,12 @@ export const Discover = (props) => {
                 follow={follow}
                 followButton={followButton}
                 liked={liked}
-                
               />
             )}
+            
           </div>
         )}
+        <SearchUser />
       </div>
     </div>
   );

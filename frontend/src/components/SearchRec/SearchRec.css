@@ -8,7 +8,7 @@ html {
 }
 .make-rec {
   min-height: 50rem;
-  display: inline-block;
+  float: right;
   width: 100%;
 
   margin-bottom: 2rem;

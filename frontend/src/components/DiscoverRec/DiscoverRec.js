@@ -1,98 +1,118 @@
 import React, {useState } from "react";
 import { useHistory } from "react-router-dom";
-import { HeartIcon } from "../HeartIcon";
+import { ReactComponent as LikedHeart } from "../../assets/liked-heart.svg";
+import { ReactComponent as UnlikedHeart } from "../../assets/unliked-heart.svg";
 import "./DiscoverRec.css";
 
 export const DiscoverRec = (props) => {
   const [likes, setLikes] = useState(0);
-  const [liked, setLiked] = useState(props.recInfo.liked)
+  const [placeholderLiked, setPlaceholderLiked] = useState(false);
   const history = useHistory();
   let uri = props.recInfo.uri;
   let uriCode = uri.substr(14);
   let url = "https://open.spotify.com/embed/track/" + uriCode;
 
   return (
-    <div id="container-div" className="discover-rec">
-      <div className="card-header">
-        {props.recInfo && (
-          <HeartIcon
-            like={props.like}
-            recId={props.recInfo._id}
-            setLikes={setLikes}
-            likes={likes}
-            liked={liked}
-            setLiked={setLiked}
-          />
-        )}
-
-        {liked === true && (
-          <h3 className="likes-number">
-            {"Likes: " + (props.recInfo.likes + likes)}
-          </h3>
-        )}
-
-        {liked === true && (
-          <div className="more-info-desc">
-            <h3>
-              Recommended by{" "}
-              <span
-                onClick={() => {
-                  const url = "/app/profile/" + props.recInfo.user;
-                  
-                  history.push(url);
-                }}
-                className="span-recommender"
-              >
-                {props.recInfo.user}
-              </span>
-              {props.followButton === "Follow" ? (
-                <button
-                  className="follow-button"
-                  onClick={() => {
-                    props.follow(props.recInfo.user);
-                  }}
-                >
-                  {props.followButton}
-                </button>
+    <div className="container-div">
+      <h1 style={{ color: "black" }}>Explore Recommendations!</h1>
+      <div className="discover-rec">
+        <div className="card-header">
+          {props.recInfo && (
+            <div
+              style={{
+                float: "left",
+                marginLeft: "3rem",
+                marginTop: "2rem",
+                marginBottom: "1rem",
+              }}
+              onClick={() => {
+                if (props.recInfo.liked === false) {
+                  props.like(props.recId);
+                  setLikes(likes + 1);
+                  setPlaceholderLiked(true);
+                }
+              }}
+            >
+              {props.recInfo.liked === true || placeholderLiked === true ? (
+                <LikedHeart />
               ) : (
-                <button onClick={()=> {
-                  props.unfollow(props.recInfo.user)
-                }}className="following-button">
-                  {props.followButton}
-                </button>
+                <UnlikedHeart />
               )}
+            </div>
+          )}
+
+          {(props.recInfo.liked === true || placeholderLiked === true) && (
+            <h3 className="likes-number">
+              {"Likes: " + (props.recInfo.likes + likes)}
             </h3>
-          </div>
-        )}
-      </div>
-      <div className="loading-spinner">
-        <iframe id='iframe-test'
-          onLoad={() => {
+          )}
 
-            const arr = document.getElementsByClassName("loading-spinner");
-            for (let i = 0; i < arr.length; i++) {
-              arr[i].style.backgroundImage = "none";
-            }
+          {(props.recInfo.liked === true || placeholderLiked === true) && (
+            <div className="more-info-desc">
+              <h3>
+                Recommended by{" "}
+                <span
+                  onClick={() => {
+                    const url = "/app/profile/" + props.recInfo.user;
+
+                    history.push(url);
+                  }}
+                  className="span-recommender"
+                >
+                  {props.recInfo.user}
+                </span>
+                {props.followButton === "Follow" ? (
+                  <button
+                    className="follow-button"
+                    onClick={() => {
+                      props.follow(props.recInfo.user);
+                    }}
+                  >
+                    {props.followButton}
+                  </button>
+                ) : (
+                  <button
+                    onClick={() => {
+                      props.unfollow(props.recInfo.user);
+                    }}
+                    className="following-button"
+                  >
+                    {props.followButton}
+                  </button>
+                )}
+              </h3>
+            </div>
+          )}
+        </div>
+        <div className="loading-spinner">
+          <iframe
+            id="iframe-test"
+            onLoad={() => {
+              const arr = document.getElementsByClassName("loading-spinner");
+              for (let i = 0; i < arr.length; i++) {
+                arr[i].style.backgroundImage = "none";
+              }
+            }}
+            className="discover-rec-iframe"
+            src={url}
+            width="100%"
+            height="400"
+            frameBorder="1"
+            allowtransparency="true"
+            allow="encrypted-media"
+          ></iframe>
+        </div>
+
+        <button
+          className="next-button"
+          onClick={() => {
+            setLikes(0);
+            props.nextRec();
           }}
-          className="discover-rec-iframe"
-          src={url}
-          width="100%"
-          height="400"
-          frameBorder="1"
-          allowtransparency="true"
-          allow="encrypted-media"
-        ></iframe>
+        >
+          Next{" "}
+        </button>
       </div>
-
-      <button
-        className="next-button"
-        onClick={() => {
-          setLikes(0);
-          props.nextRec();
-        }}
-      >
-        Next{" "}
-      </button>
     </div>
   );
 };

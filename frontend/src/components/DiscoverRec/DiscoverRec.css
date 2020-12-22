@@ -21,7 +21,7 @@ html {
 }
 
 .card-header {
-  width: 50%;
+  width: 100%;
   margin: auto;
 }
 
@@ -40,12 +40,20 @@ html {
 }
 
 .discover-rec {
-  margin: auto;
+  
   border-style: solid;
-  min-width: 370px;
-  width: 40%;
+  min-width: 30rem;
+  width: 100%;
   border-radius: 10% 10% 10% 10%;
   background-color: #111111;
+}
+.container-div {
+  position: relative;
+  left: 5rem;
+width: 40%; 
+margin: auto;
+float: left;
+  
 }
 
 .discover-rec-iframe {

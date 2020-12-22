@@ -13,29 +13,6 @@ export const Profile = (props) => {
   const [followers, setFollowers] = useState(null);
   const [following, setFollowing] = useState(null);
 
-  const deleteRec = (uri) => {
-    const recommender = getCookie("user");
-
-    const rec = {
-      uri: uri,
-      user: recommender,
-    };
-    fetch("/api/delete_rec", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(rec),
-    })
-      .then((res) => res.json())
-      .then((parsed) => {
-        if (parsed.message) {
-          setRender(render + 1);
-          console.log(parsed.message);
-        } else {
-          alert("error");
-        }
-      });
-  };
-
   useEffect(() => {
     
     const url = "/api/get_user_profile";
@@ -67,6 +44,36 @@ export const Profile = (props) => {
         }
       });
   }, [render]);
+
+
+  useEffect(()=> {
+    window.scrollTo(0, 0);
+  })
+
+  const deleteRec = (uri) => {
+    const recommender = getCookie("user");
+
+    const rec = {
+      uri: uri,
+      user: recommender,
+    };
+    fetch("/api/delete_rec", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(rec),
+    })
+      .then((res) => res.json())
+      .then((parsed) => {
+        if (parsed.message) {
+          setRender(render + 1);
+          console.log(parsed.message);
+        } else {
+          alert("error");
+        }
+      });
+  };
+
+  
 
   return (
     <div className="profile">

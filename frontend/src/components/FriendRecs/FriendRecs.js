@@ -2,23 +2,21 @@ import React from "react";
 import { useEffect, useState } from "react";
 import { getCookie } from "../../utils/auth";
 import { FeedRec } from "../FeedRec/FeedRec";
-import { SearchUser } from "../SearchUser/SearchUser";
-import './FriendRecs.css'
+import { Discover } from "../Discover/Discover";
+import "./FriendRecs.css";
 
 export const FriendRecs = (props) => {
   const [recs, setRecs] = useState(null);
   const [index, setIndex] = useState(0);
   const [followButton, setFollowButton] = useState("Following");
-  const [render, setRender] = useState(0)
-
+  const [render, setRender] = useState(0);
 
   useEffect(() => {
-    
     const user = getCookie("user");
 
     if (user !== null) {
       const url = "/api/get_friend_recs";
-      const data = {user: user}
+      const data = { user: user };
       fetch(url, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -31,8 +29,8 @@ export const FriendRecs = (props) => {
           }
         });
     } else {
-      const url = "/api/get_friend_recs"
-      const data = {user: getCookie('user')}
+      const url = "/api/get_friend_recs";
+      const data = { user: getCookie("user") };
       fetch(url, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -40,14 +38,16 @@ export const FriendRecs = (props) => {
       })
         .then((res) => res.json())
         .then((parsedJSON) => {
-          
           if (parsedJSON["recs"].length > 0) {
             setRecs(parsedJSON["recs"]);
-            
           }
         });
     }
   }, [render]);
+
+  useEffect(()=> {
+    window.scrollTo(0, 0);
+  })
 
   const follow = (userToFollow) => {
     const userFollowing = getCookie("user");
@@ -64,11 +64,11 @@ export const FriendRecs = (props) => {
       .then((res) => res.json())
       .then((parsed) => {
         if (parsed.success) {
-         setFollowButton("Following")
+          setFollowButton("Following");
         }
       });
 
-      setRender(render+1)
+    setRender(render + 1);
   };
 
   const unfollow = (userToUnfollow) => {
@@ -89,17 +89,17 @@ export const FriendRecs = (props) => {
           setFollowButton("Follow");
         }
       });
-      setRender(render+1)
-  }
+    setRender(render + 1);
+  };
 
   const nextRec = () => {
     {
       const currIndex = index == recs.length - 1 ? 0 : index + 1;
 
       setIndex(currIndex);
-      setFollowButton('Following')
+      setFollowButton("Following");
     }
-    setRender(render+1)
+    setRender(render + 1);
   };
 
   function likeRec(recToLike) {
@@ -117,12 +117,9 @@ export const FriendRecs = (props) => {
       .then((res) => res.json())
       .then((parsed) => {
         if (!parsed.success) {
-          return alert('error')
-    
+          return alert("error");
         }
-
       });
-      
   }
 
   function unlikeRec(recToUnlike) {
@@ -137,20 +134,23 @@ export const FriendRecs = (props) => {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),
-    })
-   
+    });
   }
 
   return (
-    <div className='friend-recs'>
+    <div className="friend-recs">
       {recs === null ? (
-        <h2 style={{color:'black'}}>When you have friends, their recommendations will show up here</h2>
+        <h2 style={{ color: "black" }}>
+          When you have friends, their recommendations will show up here
+        </h2>
       ) : (
         <div>
-          <h1 style={{color:'black'}}>Listen to what your friends recommend!</h1>
+          <h1 style={{ color: "black" }}>
+            Listen to what your friends recommend!
+          </h1>
           <FeedRec
             liked={recs[index].liked}
-            likes = {recs[index].likes}
+            likes={recs[index].likes}
             like={likeRec}
             unlike={unlikeRec}
             follow={follow}
@@ -165,12 +165,16 @@ export const FriendRecs = (props) => {
             nextRec={nextRec}
             unfollow={unfollow}
             followButton={followButton}
-            render = {render} setRender={setRender}
+            render={render}
+            setRender={setRender}
           />
         </div>
       )}
-
-      <SearchUser render = {render} setRender={setRender}/>
+      <Discover
+        spotifyToken={props.spotifyToken}
+        setSpotifyToken={props.setSpotifyToken}
+        
+      />
     </div>
   );
 };

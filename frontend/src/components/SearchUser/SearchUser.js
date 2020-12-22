@@ -59,9 +59,7 @@ export const SearchUser = (props) => {
 
   return (
     <div className="search-user">
-      <div className="search-user-header">
-        <h1>Find friends to share your music with!</h1>
-      </div>
+      <h1 style={{color:'black'}}>Search Profiles</h1>
       <div className="search-user-form">
         <input
           className="search-user-input"
