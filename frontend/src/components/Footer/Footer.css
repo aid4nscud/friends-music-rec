@@ -1,7 +1,8 @@
 .footer {
-    height: 20rem;
+    height: 15rem;
     background-color: #111111;
     width: 110%;
     margin-left: -1rem;
     margin-top: 8rem;
-}
+    border-style: solid;
+    border-top-color: white;}

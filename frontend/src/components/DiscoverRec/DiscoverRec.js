@@ -103,8 +103,12 @@ export const DiscoverRec = (props) => {
             allow="encrypted-media"
           ></iframe>
         </div>
+        <h3 style={{width:'20%', marginLeft:'2rem'}}>
+          {props.recInfo.date.substring(0, 3) + ", " + props.recInfo.date.substring(4)}
+        </h3>
 
         <div
+        
           className="next-button"
           onClick={() => {
             setLikes(0);
@@ -112,8 +116,9 @@ export const DiscoverRec = (props) => {
             setPlaceholderLiked(false)
           }}
         >
-          <GrLinkNext style={{ padding: "0.5rem" }} size="2em" />
+          <GrLinkNext color='white'style={{ padding: "0.5rem" }} size="2em" />
         </div>
+        
       </div>
     </div>
   );

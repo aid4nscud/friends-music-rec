@@ -131,7 +131,7 @@ export const Discover = (props) => {
   return (
     <div className="discover">
       <div className="explore-header">
-        <h1>Find new music from new people!</h1>
+        <h1>Find new music, from new people!</h1>
       </div>
       <div style={{ display: "inline-block" }} className="rec-section">
         {recs === null ? (

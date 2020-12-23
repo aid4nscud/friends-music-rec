@@ -145,24 +145,19 @@ export const FriendRecs = (props) => {
             Listen to what your friends recommend!
           </h1>
           <FeedRec
-            liked={recs[index].liked}
-            likes={recs[index].likes}
+            recInfo = {recs[index]}
+            followButton={followButton}
+            render={render}
+            spotifyToken={props.spotifyToken}
+            setSpotifyToken={props.setSpotifyToken}
+            nextRec={nextRec}
+            unfollow={unfollow}
             like={likeRec}
             unlike={unlikeRec}
             follow={follow}
-            id={recs[index]._id}
-            user={recs[index].user}
-            spotifyToken={props.spotifyToken}
-            setSpotifyToken={props.setSpotifyToken}
-            images={recs[index].images}
-            song={recs[index].song}
-            artist={recs[index].artist}
-            uri={recs[index].uri}
-            nextRec={nextRec}
-            unfollow={unfollow}
-            followButton={followButton}
-            render={render}
             setRender={setRender}
+            
+            
           />
         </div>
       )}

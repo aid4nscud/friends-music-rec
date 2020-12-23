@@ -6,6 +6,7 @@ import datetime
 import jwt
 import string
 import secrets
+import array
 alphabet = string.ascii_letters + string.digits
 password = 'bruh'
 
@@ -320,7 +321,7 @@ def unlike_rec():
         return {'error': 'error'}
 
 
-# ROUTES TO ACCESS RECOMMENDATIONS DISPLAYED IN THE SECTIONS: "DISCOVER", "LISTEN", AND "PROFILE" OF APP
+# ROUTES TO ACCESS RECOMMENDATIONS DISPLAYED IN THE SECTIONS: "DISCOVER" and "PROFILE" OF APP
 
         # NEED TO CHANGE THIS: WHY TF IS IT IN THE URL????????
 @app.route('/api/get_discover_recs', methods={"POST"})
@@ -328,6 +329,7 @@ def get_discover_recs():
     print(request.json['user'])
     user = users.find_one({'username': request.json['user']})
     user_following = user['following']
+    
     recs = []
     for doc in recommendations.find():
         if(doc['user'] != user['username'] and doc['user'] not in user_following):
@@ -348,6 +350,9 @@ def get_discover_recs():
                 'liked': liked,
                 'date': doc['date']
             })
+    
+
+    recs.reverse()
 
     return {'recs': recs}
 
@@ -379,6 +384,8 @@ def get_friend_recs():
                 'liked': liked,
                 'date': doc['date']
             })
+    
+    recs.reverse()
 
     return {'recs': recs}
 
@@ -414,7 +421,7 @@ def get__user_profile():
             'date': doc['date'],
             'liked': liked
         })
-
+    recs.reverse()
     # getting user follower/following numbers
 
     num_followers = len(username['followers'])

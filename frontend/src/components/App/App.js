@@ -16,23 +16,10 @@ function App() {
       <Switch>
         <Route
           exact
-          path="/register"
-          render={() => {
-            const token = getCookie("token");
-            if (token !== null) {
-              history.push("/app/create+explore");
-            } else {
-              return <Register />;
-            }
-          }}
-        />
-
-        <Route
-          exact
           path="/"
           render={() => {
             if (getCookie("token") !== null || auth.isAuthenticated() || getCookie("user") !== null) {
-              history.push("/app/create+explore");
+              history.push("/app/listen");
             } else {
               return <Login />;
             }

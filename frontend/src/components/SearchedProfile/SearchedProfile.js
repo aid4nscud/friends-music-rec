@@ -152,10 +152,10 @@ export const SearchedProfile = (props) => {
             )}
           </div>
           <ul className="searched-user-social-info">
-            <li style={{ borderRightStyle: "solid", borderColor: "black" }}>
+            <li style={{ borderRightStyle: "solid", borderColor: "white" }}>
               {followers === null ? "Followers: 0" : "Followers: " + followers}
             </li>
-            <li style={{ borderRightStyle: "solid", borderColor: "black" }}>
+            <li style={{ borderRightStyle: "solid", borderColor: "white" }}>
               {following === null ? "Following: 0" : "Following: " + following}
             </li>
             <li>

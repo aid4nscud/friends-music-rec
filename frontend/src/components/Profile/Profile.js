@@ -100,7 +100,10 @@ export const Profile = (props) => {
       )}
 
       {userRecs !== null && userRecs.length > 0 ? (
+        
+        
         <div className="profile-recs">
+          
           {userRecs.map((rec) => {
             return (
               <UserRec
@@ -117,6 +120,7 @@ export const Profile = (props) => {
             );
           })}
         </div>
+        
       ) : (
         <div className="profile-recs">
           <h3 style={{ margin: "0", position: "relative", top: "10rem" }}>

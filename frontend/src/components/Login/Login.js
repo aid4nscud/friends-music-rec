@@ -46,7 +46,7 @@ export const Login = (props) => {
           // const url  = parsed.url
 
           auth.login(() => {
-            history.push("/app/create+explore");
+            history.push("/app/listen");
           });
         } else {
           setWarning(parsed.error);
@@ -99,7 +99,7 @@ export const Login = (props) => {
             <button
               onClick={() => {
                 setRegister(true);
-                // history.push("/register");
+                
               }}
             >
               Sign up!

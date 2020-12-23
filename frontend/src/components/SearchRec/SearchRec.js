@@ -99,7 +99,7 @@ export const SearchRec = (props) => {
   return (
     <div className="make-rec">
       <div className="search-header">
-        <h1>Search a song, and recommend!</h1>
+        <h1>Search a song, and make a recommendation!</h1>
       </div>
 
       <div className="search-rec-form">

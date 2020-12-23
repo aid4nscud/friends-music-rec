@@ -55,7 +55,7 @@ export const Register = (props) => {
                 }
 
                 auth.login(() => {
-                  history.push("/app/create+explore");
+                  history.push("/app/listen");
                 });
               } else {
                 alert(parsed.error);
