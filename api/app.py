@@ -193,6 +193,7 @@ def unfollow_user():
 
     try:
         if user_to_unfollow['username'] in followingArr:
+            print('success')
             users.update(
                 {"username": user_unfollowing['username']},
                 {

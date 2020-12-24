@@ -12,7 +12,9 @@ export const Discover = (props) => {
   const [liked, setLiked] = useState(null);
   const [loaded, setLoaded] = useState(false);
 
+  
   useEffect(() => {
+    
     if (loaded === false) {
       const data = { user: getCookie("user") };
       if (data["user"] !== null) {
@@ -135,7 +137,7 @@ export const Discover = (props) => {
       </div>
       <div style={{ display: "inline-block" }} className="rec-section">
         {recs === null ? (
-          <h1>Looking for recommendations...</h1>
+          <h1 style={{color:'black'}}className='container-div'>Looking for recommendations...</h1>
         ) : (
           <div>
             {recs !== null && (

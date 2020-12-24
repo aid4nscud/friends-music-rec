@@ -6,8 +6,9 @@
 .search-user-input {
   border-radius: 1rem;
   border-style: solid;
-  border-color: white;
+  border-color: rgb(0, 0, 0);
   margin-bottom: 2rem;
+  
 }
 
 .search-user-input:focus {
@@ -29,5 +30,25 @@
   position: relative;
   right: 5rem;
   float: right;
-  width: 50%;
+  width: 40%;
+}
+
+.search-user-icon {
+  position:relative;
+  
+}
+
+.search-user-icon:hover {
+  transform: scale(1.1);
+}
+
+.search-user-button {
+  margin: 1rem;
+  border-radius: 1rem;
+  display: inline-block;
+ 
+  position:relative;
+  top: 1rem;
+
+
 }

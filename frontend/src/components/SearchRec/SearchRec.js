@@ -15,6 +15,7 @@ export const SearchRec = (props) => {
   const [queued, setQueued] = useState(null);
   const [results, setResults] = useState(null);
   const [searched, setSearched] = useState(false);
+  const [recType, setRecType] = useState("public");
 
   const cleanup = () => {
     setInputValue("");
@@ -56,6 +57,7 @@ export const SearchRec = (props) => {
   };
 
   const search = (query, limit = 8) => {
+    setQueued(null);
     let url =
       "https://api.spotify.com/v1/search?q=" +
       query +
@@ -104,23 +106,22 @@ export const SearchRec = (props) => {
 
       <div className="search-rec-form">
         <input
-        onKeyPress={(e) => {
-          let code;
+          onKeyPress={(e) => {
+            let code;
 
-          if (e.key !== undefined) {
-            code = e.key;
-          } else if (e.keyIdentifier !== undefined) {
-            code = e.keyIdentifier;
-          } else if (e.keyCode !== undefined) {
-            code = e.keyCode;
-          }
-          
+            if (e.key !== undefined) {
+              code = e.key;
+            } else if (e.keyIdentifier !== undefined) {
+              code = e.keyIdentifier;
+            } else if (e.keyCode !== undefined) {
+              code = e.keyCode;
+            }
 
-          if (code === 'Enter') {
-            setSearched(true);
-            search(inputValue);
-          }
-        }}
+            if (code === "Enter") {
+              setSearched(true);
+              search(inputValue);
+            }
+          }}
           className="search-rec-input"
           placeholder="Search Song"
           value={inputValue}
@@ -135,29 +136,24 @@ export const SearchRec = (props) => {
             setSearched(true);
             search(inputValue);
           }}
-          
         >
-          <FaSearchengin className="search-icon" color="white" size="3em" />
+          <FaSearchengin className="search-icon" color="black" size="3em" />
         </div>
       </div>
 
-      {queued != null && (
-        <div>
+      {queued !== null && (
+        <div className="queued-rec">
           <div
             style={{
               textAlign: "left",
               background: "#111111",
-              width: "30%",
               margin: "auto",
-              borderRadius: "2rem 0 2rem 2rem",
+              borderRadius: "2rem",
+              display: "inline-block",
             }}
             id="queued-div"
-            className="loading-spinner"
+            className="queued-rec-card loading-spinner"
           >
-            <b style={{ margin: "0.5rem" }}>
-              {"Song Popularity: " + queued.popularity}
-            </b>
-
             <iframe
               onLoad={() => {
                 document.getElementById("queued-div").style.backgroundImage =
@@ -176,14 +172,42 @@ export const SearchRec = (props) => {
               allow="encrypted-media"
             ></iframe>
           </div>
+          <div className="make-rec-options">
+            <h2>Create Recommendation</h2>
+            <div className="send-rec-selector">
+              <div className="send-rec-radio-pair">
+                <input
+                  className="send-rec-radio-input"
+                  type="radio"
+                  id="public"
+                  name="rec-type"
+                  value="public"
+                />
+                <label for="public">Public</label>
+              </div>
 
-          <button onClick={createRec}>Make Recommendation</button>
+              <div className="send-rec-radio-pair">
+                <input
+                  className="send-rec-radio-pair"
+                  type="radio"
+                  id="direct"
+                  name="rec-type"
+                  value="direct"
+                />
+                <label for="direct">Direct</label>
+              </div>
+            </div>
+
+            <b style={{ display: "block" }}>
+              {"Song Popularity: " + queued.popularity}
+            </b>
+
+            <button onClick={createRec}>Make Recommendation</button>
+          </div>
         </div>
       )}
-      {results === null && searched === true && (
-        <div className={"loading-spinner"}></div>
-      )}
-      {results && (
+
+      {results !== null && queued === null && (
         <div className="search-results">
           {results.map((item) => {
             let uri = item.uri;

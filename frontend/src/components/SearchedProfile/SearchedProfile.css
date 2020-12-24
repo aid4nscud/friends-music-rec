@@ -38,13 +38,14 @@
 
   
   .searched-profile-recs {
-  width: 80%;
-  margin: auto;
-    margin-top: 3rem;
+  width: 65%;
+  display: inline-grid;
+  grid-template-columns: auto auto auto;
+  margin-top: 1rem;
     text-align: center;
-    max-height: 40rem;
-    overflow-x: auto;
-    overflow-y: hidden;
+    max-height: 35rem;
+    overflow-x: hidden;
+    overflow-y: auto;
     white-space: nowrap;
     border-style: dashed;
     border-top-style: hidden;
@@ -66,7 +67,7 @@
   
   .searched-user-social-info {
     display: block;
-    width: 60%;
+    width: 65%;
     height: 4rem;
     margin: auto;
     margin-top: 2rem;

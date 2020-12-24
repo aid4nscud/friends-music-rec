@@ -17,7 +17,7 @@ export const FeedRec = (props) => {
   return (
     <div className="feed-rec-container">
       <div className="feed-rec">
-        <div className="card-header">
+        <div className="feed-rec-card-header">
           <div className="user-info">
             <h3 className="rec-desc">
               Recommended by{" "}
@@ -34,21 +34,22 @@ export const FeedRec = (props) => {
             </h3>
             {props.followButton === "Following" ? (
               <button
-                className="unfollow-button"
+              style={{backgroundColor:'white',color:'black'}}
+                className="feed-rec-follow-button"
                 onClick={() => {
                   props.unfollow(props.recInfo.user);
                 }}
               >
-                {props.followButton}
+                <b>{props.followButton}</b>
               </button>
             ) : (
               <button
                 onClick={() => {
                   props.follow(props.recInfo.user);
                 }}
-                className="follow-button"
+                className="feed-rec-follow-button"
               >
-                {props.followButton}
+                <b>{props.followButton}</b>
               </button>
             )}
           </div>

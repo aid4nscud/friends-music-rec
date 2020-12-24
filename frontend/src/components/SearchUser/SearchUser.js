@@ -2,12 +2,13 @@ import React, { useState } from "react";
 import { UserResult } from "./UserResult";
 import "./SearchUser.css";
 import { getCookie } from "../../utils/auth";
+import { FaSearchengin } from "react-icons/fa";
 
 export const SearchUser = (props) => {
   const [input, setInput] = useState(null);
   const [results, setResults] = useState(null);
   const [message, setMessage] = useState(null);
-  const [render, setRender] = useState(0)
+  const [render, setRender] = useState(0);
   const [searcher, setSearcher] = useState(null);
 
   const search = () => {
@@ -51,15 +52,14 @@ export const SearchUser = (props) => {
       .then((res) => res.json())
       .then((parsed) => {
         if (parsed.success) {
-          setRender(render+1)
-
+          setRender(render + 1);
         }
       });
   };
 
   return (
     <div className="search-user">
-      <h1 style={{color:'black'}}>Search Profiles</h1>
+      <h1 style={{ color: "black" }}>Search Profiles</h1>
       <div className="search-user-form">
         <input
           className="search-user-input"
@@ -68,14 +68,29 @@ export const SearchUser = (props) => {
           onChange={(e) => {
             setInput(e.target.value);
           }}
+          onKeyPress={(e) => {
+            let code;
+
+            if (e.key !== undefined) {
+              code = e.key;
+            } else if (e.keyIdentifier !== undefined) {
+              code = e.keyIdentifier;
+            } else if (e.keyCode !== undefined) {
+              code = e.keyCode;
+            }
+
+            if (code === "Enter") {
+              search();
+            }
+          }}
         />
-        <button
+        <div className='search-user-button'
           onClick={() => {
             search();
           }}
         >
-          Search
-        </button>
+          <FaSearchengin color='black' size='3em' className='search-user-icon'/>
+        </div>
         {results !== null && (
           <button
             classname="clear-button"
@@ -97,16 +112,14 @@ export const SearchUser = (props) => {
               followers: user["followers"],
               isFollowing: user["isFollowing"],
             };
-            
 
             return (
               <UserResult
-              render = {props.render}
-              setRender = {props.setRender}
+                render={props.render}
+                setRender={props.setRender}
                 searcher={searcher}
                 info={info}
                 follow={follow}
-                
               />
             );
           })}

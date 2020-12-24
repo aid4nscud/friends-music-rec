@@ -130,7 +130,10 @@ export const SearchedProfile = (props) => {
       {user && (
         <div className="searched-profile-header">
           <div className="welcome-follow">
-          <h1>Welcome to <span className="span-user">{user + '\'s'}</span> profile</h1>
+            <h1>
+              Welcome to <span className="span-user">{user + "'s"}</span>{" "}
+              profile
+            </h1>
             {user !== getCookie("user") && (
               <button
                 className="searched-user-follow-button"
@@ -165,30 +168,29 @@ export const SearchedProfile = (props) => {
         </div>
       )}
 
-      {userRecs !== null ? (
-        <h2>Song Recommendations</h2>
-      ) : (
-        <h2>{user + " hasn't made any recommendations yet :("}</h2>
-      )}
-
       {userRecs !== null && (
-        <div className="searched-profile-recs">
-          {userRecs.map((rec) => {
-            return (
-              <SearchedUserRec
-                recID = {rec._id}
-                likeRec={likeRec}
-                unlikeRec={unlikeRec}
-                date={rec.date}
-                likes={rec.likes}
-                uri={rec.uri}
-                song={rec.song}
-                artist={rec.artist}
-                images={rec.images}
-                liked={rec.liked}
-              />
-            );
-          })}
+        <div className="searched-profile-recs-container">
+          <div style={{width:'65%',margin:'auto' ,display:'block', position:'relative', left:'2rem'}} className="searched-profile-song-recommendations">
+            <h2 style={{color:'black', float:'left'}}>{user+'\'s Song Recommendations'}</h2>
+          </div>
+          <div className="searched-profile-recs">
+            {userRecs.map((rec) => {
+              return (
+                <SearchedUserRec
+                  recID={rec._id}
+                  likeRec={likeRec}
+                  unlikeRec={unlikeRec}
+                  date={rec.date}
+                  likes={rec.likes}
+                  uri={rec.uri}
+                  song={rec.song}
+                  artist={rec.artist}
+                  images={rec.images}
+                  liked={rec.liked}
+                />
+              );
+            })}
+          </div>
         </div>
       )}
     </div>

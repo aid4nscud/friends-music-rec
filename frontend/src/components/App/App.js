@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Route, Switch, useHistory } from "react-router-dom";
+import { Redirect, Route, Switch, useHistory } from "react-router-dom";
 import "./App.css";
 import auth, { getCookie } from "../../utils/auth";
 import { Login } from "../Login/Login.js";
@@ -27,6 +27,9 @@ function App() {
         />
 
         <AuthRoute path="/app" component={AppLayout} />
+        <Route path='*'>
+          <Redirect to='/'/>
+        </Route>
       </Switch>
     </div>
   );

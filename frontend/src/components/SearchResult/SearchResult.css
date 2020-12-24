@@ -44,19 +44,11 @@ img {
     border-style: solid;
     border-width: 0.4rem;
 
-    
-   
- 
-
 }
 
-
-p, b {
+.search-result b {
     color: white;
     display: block;
-}
-
-b {
     padding: 1rem;
     font-size: larger;
 }

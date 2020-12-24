@@ -67,8 +67,6 @@ export const FriendRecs = (props) => {
           setFollowButton("Following");
         }
       });
-
-    setRender(render + 1);
   };
 
   const unfollow = (userToUnfollow) => {
@@ -89,17 +87,20 @@ export const FriendRecs = (props) => {
           setFollowButton("Follow");
         }
       });
-    setRender(render + 1);
   };
 
-  const nextRec = () => {
-    {
-      const currIndex = index == recs.length - 1 ? 0 : index + 1;
-
-      setIndex(currIndex);
-      setFollowButton("Following");
-    }
+  const nextErr = ()=> {
+    alert("need to get more recs, or start showing old ones");
+  }
+  const nextSuccess = () => {
+    setIndex(index + 1);
     setRender(render + 1);
+    setFollowButton("Following");
+  }
+  const nextRec = () => {
+    return index === recs.length - 1
+      ? nextErr()
+      : nextSuccess()
   };
 
   function likeRec(recToLike) {
@@ -145,7 +146,7 @@ export const FriendRecs = (props) => {
             Listen to what your friends recommend!
           </h1>
           <FeedRec
-            recInfo = {recs[index]}
+            recInfo={recs[index]}
             followButton={followButton}
             render={render}
             spotifyToken={props.spotifyToken}
@@ -156,8 +157,6 @@ export const FriendRecs = (props) => {
             unlike={unlikeRec}
             follow={follow}
             setRender={setRender}
-            
-            
           />
         </div>
       )}

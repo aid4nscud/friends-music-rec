@@ -99,10 +99,16 @@ export const Profile = (props) => {
         </div>
       )}
 
+      
+
       {userRecs !== null && userRecs.length > 0 ? (
         
-        
-        <div className="profile-recs">
+        <div className='profile-recs-container'>
+          <div style={{width:'65%',margin:'auto' ,display:'block', position:'relative', left:'2rem' }} className='your-song-recommendations'>
+          <h2 style={{color:'black', float:'left',}}>Your Song Recommendations</h2>
+          </div>
+          
+           <div className="profile-recs">
           
           {userRecs.map((rec) => {
             return (
@@ -120,14 +126,20 @@ export const Profile = (props) => {
             );
           })}
         </div>
+        </div>
         
       ) : (
+        <div className='profile-recs-container'>
         <div className="profile-recs">
           <h3 style={{ margin: "0", position: "relative", top: "10rem" }}>
             {user + " hasn't recommended any songs yet :("}
           </h3>
         </div>
-      )}
-    </div>
-  );
-};
+        
+        </div>)
+  
+}
+</div>
+)
+
+}

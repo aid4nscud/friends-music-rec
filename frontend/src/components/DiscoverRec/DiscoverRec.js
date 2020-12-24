@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { ReactComponent as LikedHeart } from "../../assets/liked-heart.svg";
 import { ReactComponent as UnlikedHeart } from "../../assets/unliked-heart.svg";
@@ -13,6 +13,7 @@ export const DiscoverRec = (props) => {
   let uriCode = uri.substr(14);
   let url = "https://open.spotify.com/embed/track/" + uriCode;
 
+  
   return (
     <div className="container-div">
       <h1 style={{ color: "black" }}>Explore Recommendations!</h1>
@@ -64,21 +65,22 @@ export const DiscoverRec = (props) => {
                 </span>
                 {props.followButton === "Follow" ? (
                   <button
-                    className="follow-button"
+                    className="discover-rec-follow-button"
                     onClick={() => {
                       props.follow(props.recInfo.user);
                     }}
                   >
-                    {props.followButton}
+                    <b>{props.followButton}</b>
                   </button>
                 ) : (
                   <button
                     onClick={() => {
                       props.unfollow(props.recInfo.user);
                     }}
-                    className="following-button"
+                    style={{backgroundColor:'white', color:'black'}}
+                    className="discover-rec-follow-button"
                   >
-                    {props.followButton}
+                    <b>{props.followButton}</b>
                   </button>
                 )}
               </h3>
