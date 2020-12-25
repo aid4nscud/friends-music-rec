@@ -9,7 +9,7 @@
 .profile {
   width: 100%;
   margin-top: 7rem;
-  height: 75vh;
+  height: 90vh;
 }
 
 .profile-header h1 {
@@ -22,13 +22,14 @@
 .profile-recs {
   
   width: 65%;
+  margin: auto;
   
-  display: inline-grid;
-  grid-template-columns: auto auto auto;
+  display: grid;
+  grid-template-columns: 33% 33% 33%;
   margin-top: 1rem;
   text-align: center;
   min-height: 20rem;
-  max-height: 35rem;
+  max-height: 40rem;
   overflow-x: hidden;
   overflow-y: auto;
   white-space: nowrap;

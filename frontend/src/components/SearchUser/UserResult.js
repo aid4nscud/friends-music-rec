@@ -1,42 +1,76 @@
-import React, { useDebugValue, useEffect, useState } from 'react'
-import { Link, useHistory } from 'react-router-dom'
-import { AuthRoute } from '../AuthRoute'
-import { SearchedProfile } from '../SearchedProfile/SearchedProfile'
-import './UserResult.css'
+import React, { useDebugValue, useEffect, useState } from "react";
+import { Link, useHistory } from "react-router-dom";
+import { AuthRoute } from "../AuthRoute";
+import { SearchedProfile } from "../SearchedProfile/SearchedProfile";
+import "./UserResult.css";
 
 export const UserResult = (props) => {
-    const [followButton, setFollowButton] = useState(null)
-    const history = useHistory();
-    useEffect(()=> {
-        if(props.info.isFollowing === true){
-            setFollowButton('Following')
-        }
-        else {
-            setFollowButton("Follow")
-        }
+  const [isFollowing, setIsFollowing] = useState(props.info.isFollowing);
+  const [followButton, setFollowButton] = useState("Follow");
+  const [backgroundColor,setBackgroundColor] = useState('black')
+  const [color, setColor] = useState('white')
+  
+  const history = useHistory();
 
-    },[])
+  useEffect(() => {
     
-    return (
-        <div className='user-result'>
-            
-            <h3  onClick={() => {
-                  const url = "/app/profile/" + props.info.username;
-                 
-                  history.push(url);
-                }} className='username'><span className='user-result-span'style={{backgroundColor:'black', borderRadius: '1rem'}}>{props.info.username}</span></h3>
-            
-            
-
-            { props.searcher !== props.info.username && (props.info.isFollowing === false ? <button onClick={()=> {
-                props.follow(props.info.username)
-                props.setRender(props.render+1)
-                setFollowButton('Following')
-            }}className='follow-button'>{followButton}</button> : <button className='follow-button'>{followButton}</button>)}
+    if (isFollowing === true) {
+      setFollowButton("Following");
+      setBackgroundColor('white')
+      setColor('black')
 
       
-    
-            
-        </div>
-    )
-}
+      
+      
+    } else {
+      setFollowButton("Follow");
+      setBackgroundColor('black')
+      setColor('white')
+      
+     
+    }
+  });
+
+  return (
+    <div className="user-result">
+      <h3
+        onClick={() => {
+          const url = "/app/profile/" + props.info.username;
+
+          history.push(url);
+        }}
+        className="username"
+      >
+        <span
+          className="user-result-span"
+          style={{ backgroundColor: "black", borderRadius: "1rem" }}
+        >
+          {props.info.username}
+        </span>
+      </h3>
+
+      {props.searcher !== props.info.username  && (
+        <button
+        style={{backgroundColor:backgroundColor, color: color}}
+        id="user-result-follow-button"
+          
+          onClick={(e) => {
+            if (isFollowing === true) {
+              props.unfollow(props.info.username);
+              setIsFollowing(false);
+              e.target.innerHTML = "Follow";
+            } else {
+              props.follow(props.info.username);
+              setIsFollowing(true);
+              e.target.innerHTML = "Following";
+            }
+          }}
+         
+          className="user-result-follow-button"
+        >
+          {followButton !== null && followButton}
+        </button>
+      )}
+    </div>
+  );
+};

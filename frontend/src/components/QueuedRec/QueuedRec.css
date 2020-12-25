@@ -1,0 +1,22 @@
+.make-rec-options {
+    display: inline-block;
+    width: 50%;
+    
+  
+  }
+  
+  
+  .queued-rec-card {
+    float: left;
+    width: 50%;
+  }
+  
+  .queued-rec {
+    width: 40%;
+    margin: auto;
+  }
+  
+  .send-rec-radio-pair {
+    display: inline-block;
+    padding: 0.5rem;
+  }

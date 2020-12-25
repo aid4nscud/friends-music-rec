@@ -134,23 +134,28 @@ export const SearchedProfile = (props) => {
               Welcome to <span className="span-user">{user + "'s"}</span>{" "}
               profile
             </h1>
-            {user !== getCookie("user") && (
+            {user !== getCookie("user") && followed === true ? (
+              <button
+                style={{ backgroundColor: "white", color: "black" }}
+                className="searched-user-follow-button"
+                onClick={() => {
+                  unfollow(user);
+                  setFollowed(false);
+                  setFollowers(followers - 1);
+                }}
+              >
+                Following
+              </button>
+            ) : (
               <button
                 className="searched-user-follow-button"
                 onClick={() => {
-                  if (followed === true) {
-                    setFollowed(false);
-                    setFollowers(followers - 1);
-                    unfollow(user);
-                  }
-                  if (followed === false) {
-                    setFollowed(true);
-                    setFollowers(followers + 1);
-                    follow(user);
-                  }
+                  follow(user);
+                  setFollowed(true);
+                  setFollowers(followers + 1);
                 }}
               >
-                {followed === true ? "Following" : "Follow"}
+                Follow
               </button>
             )}
           </div>
@@ -170,8 +175,21 @@ export const SearchedProfile = (props) => {
 
       {userRecs !== null && (
         <div className="searched-profile-recs-container">
-          <div style={{width:'65%',margin:'auto' ,display:'block', position:'relative', left:'2rem'}} className="searched-profile-song-recommendations">
-            <h2 style={{color:'black', float:'left'}}>{user+'\'s Song Recommendations'}</h2>
+          <div
+            style={{
+              width: "65%",
+              margin: "auto",
+              marginTop: "2rem",
+              display: "block",
+            }}
+            className="searched-profile-song-recommendations"
+          >
+            <h2 className="searched-profile-recs-label">
+              <span style={{ fontSize: "large" }} className="span-user">
+                {user + "'s"}
+              </span>
+              Song Recommendations
+            </h2>
           </div>
           <div className="searched-profile-recs">
             {userRecs.map((rec) => {

@@ -57,6 +57,29 @@ export const SearchUser = (props) => {
       });
   };
 
+  const unfollow = (userToUnfollow) => {
+    const userUnfollowing = getCookie("user");
+
+    const data = {
+      userToUnfollow: userToUnfollow,
+      userUnfollowing: userUnfollowing,
+    };
+    fetch("/api/unfollow_user", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+    })
+      .then((res) => res.json())
+      .then((parsed) => {
+        if(parsed.success){
+          setRender(render+1)
+        }
+        else {
+          alert("error");
+        }
+      });
+  };
+
   return (
     <div className="search-user">
       <h1 style={{ color: "black" }}>Search Profiles</h1>
@@ -111,15 +134,17 @@ export const SearchUser = (props) => {
               username: user["username"],
               followers: user["followers"],
               isFollowing: user["isFollowing"],
+              
             };
 
             return (
               <UserResult
-                render={props.render}
-                setRender={props.setRender}
+                render={render}
+                setRender={setRender}
                 searcher={searcher}
                 info={info}
                 follow={follow}
+                unfollow={unfollow}
               />
             );
           })}

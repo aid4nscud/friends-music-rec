@@ -28,11 +28,33 @@
 transform: scale(1.1);
 }
 
-.user-result button {
+
+    
+   
+
+.user-result-follow-button {
     float: right;
     position: relative;
-    top: 0.5rem;
+    padding: 0.75rem;
     right: 1.5rem;
-   
-    
-}
+    width: 6rem;
+    max-width: 7rem;
+    margin-left: 1rem;
+    border-style: solid;
+    border-radius: 0.8rem;
+    background-color: black;
+    color: white;
+    border-color:rgba(255, 251, 39, 1);
+    font-size: large;
+    text-align: center;
+  }
+  
+  .user-result-follow-button:hover {
+    transform: scale(1.1);
+  }
+  
+  .user-result-follow-button:focus {
+    outline: none;
+  }
+  
+  

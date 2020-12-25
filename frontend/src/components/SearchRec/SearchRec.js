@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { getCookie } from "../../utils/auth";
+
 import { getInfo } from "../../utils/Spotify";
 import axios from "axios";
 import { SearchResult } from "../SearchResult/SearchResult";
 import "./SearchRec.css";
 import { FaSearchengin } from "react-icons/fa";
+import { QueuedRec } from "../QueuedRec/QueuedRec";
 
 export const SearchRec = (props) => {
   const info = getInfo();
@@ -14,46 +15,17 @@ export const SearchRec = (props) => {
   const [inputValue, setInputValue] = useState("");
   const [queued, setQueued] = useState(null);
   const [results, setResults] = useState(null);
-  const [searched, setSearched] = useState(false);
-  const [recType, setRecType] = useState("public");
+  const [render, setRender] = useState(0);
+
+  useEffect(()=> {
+    window.scrollTo(0, 0);
+  })
 
   const cleanup = () => {
     setInputValue("");
     setQueued(null);
-    setResults([]);
-    setSearched(false);
-  };
-
-  const createRec = () => {
-    const recommender = getCookie("user");
-    let date = Date.now();
-    let setdate = new Date(date);
-    setdate = setdate.toString().substring(0, 10);
-
-    const rec = {
-      song: queued.song,
-      artist: queued.artist,
-      user: recommender,
-      images: queued.images,
-      uri: queued.uri,
-      date: setdate,
-    };
-    fetch("/api/create_rec", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(rec),
-    })
-      .then((res) => res.json())
-      .then((parsed) => {
-        console.log(parsed);
-        if (parsed["error"]) {
-          alert(parsed["error"]);
-        }
-        if (parsed["success"]) {
-          cleanup();
-          console.log("rec succesfully added");
-        }
-      });
+    setResults(null);
+   
   };
 
   const search = (query, limit = 8) => {
@@ -90,7 +62,6 @@ export const SearchRec = (props) => {
           const set = removeDuplicates(arr);
 
           setResults(set);
-          setSearched(false);
         } else {
           alert("error chango");
         }
@@ -118,7 +89,6 @@ export const SearchRec = (props) => {
             }
 
             if (code === "Enter") {
-              setSearched(true);
               search(inputValue);
             }
           }}
@@ -133,7 +103,6 @@ export const SearchRec = (props) => {
         <div
           className="search-rec-button"
           onClick={() => {
-            setSearched(true);
             search(inputValue);
           }}
         >
@@ -141,71 +110,7 @@ export const SearchRec = (props) => {
         </div>
       </div>
 
-      {queued !== null && (
-        <div className="queued-rec">
-          <div
-            style={{
-              textAlign: "left",
-              background: "#111111",
-              margin: "auto",
-              borderRadius: "2rem",
-              display: "inline-block",
-            }}
-            id="queued-div"
-            className="queued-rec-card loading-spinner"
-          >
-            <iframe
-              onLoad={() => {
-                document.getElementById("queued-div").style.backgroundImage =
-                  "none";
-              }}
-              style={{
-                borderRadius: "2rem 0 2rem 2rem",
-                borderColor: "#111111",
-              }}
-              className="queued-iframe"
-              src={queued.url}
-              width="99%"
-              height="300"
-              frameBorder="1"
-              allowtransparency="false"
-              allow="encrypted-media"
-            ></iframe>
-          </div>
-          <div className="make-rec-options">
-            <h2>Create Recommendation</h2>
-            <div className="send-rec-selector">
-              <div className="send-rec-radio-pair">
-                <input
-                  className="send-rec-radio-input"
-                  type="radio"
-                  id="public"
-                  name="rec-type"
-                  value="public"
-                />
-                <label for="public">Public</label>
-              </div>
-
-              <div className="send-rec-radio-pair">
-                <input
-                  className="send-rec-radio-pair"
-                  type="radio"
-                  id="direct"
-                  name="rec-type"
-                  value="direct"
-                />
-                <label for="direct">Direct</label>
-              </div>
-            </div>
-
-            <b style={{ display: "block" }}>
-              {"Song Popularity: " + queued.popularity}
-            </b>
-
-            <button onClick={createRec}>Make Recommendation</button>
-          </div>
-        </div>
-      )}
+      {queued !== null && <QueuedRec cleanup={cleanup} info={queued} />}
 
       {results !== null && queued === null && (
         <div className="search-results">
@@ -229,7 +134,6 @@ export const SearchRec = (props) => {
               <SearchResult
                 setResults={setResults}
                 setQueued={setQueued}
-                create={createRec}
                 info={info}
               />
             );

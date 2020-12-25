@@ -130,9 +130,9 @@ export const Profile = (props) => {
         
       ) : (
         <div className='profile-recs-container'>
-        <div className="profile-recs">
-          <h3 style={{ margin: "0", position: "relative", top: "10rem" }}>
-            {user + " hasn't recommended any songs yet :("}
+        <div  style={{textAlign:'center'}} className="profile-recs">
+          <h3 style={{width:'auto', margin:'auto', position:'absolute', top:'50%', left:'40%' }}>
+            <span style={{fontSize:'large'}}className='span-user'>{user}</span>hasn't recommended any songs yet :(
           </h3>
         </div>
         
