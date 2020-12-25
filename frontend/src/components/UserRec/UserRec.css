@@ -23,6 +23,8 @@
 
 .user-rec iframe {
   width: 99%;
+  position: relative;
+  
   display: block;
   margin: auto;
   border-radius: 10% 0 10% 10%;

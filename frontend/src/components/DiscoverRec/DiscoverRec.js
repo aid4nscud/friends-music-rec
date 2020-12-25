@@ -13,10 +13,18 @@ export const DiscoverRec = (props) => {
   let uriCode = uri.substr(14);
   let url = "https://open.spotify.com/embed/track/" + uriCode;
 
-  
   return (
     <div className="container-div">
-      <h1 style={{ color: "black" }}>Explore Recommendations!</h1>
+      <h1
+        style={{
+          width: "50%",
+          color: "black",
+          position: "relative",
+          left: "2rem",
+        }}
+      >
+        Explore Recommendations!
+      </h1>
       <div className="discover-rec">
         <div className="card-header">
           {props.recInfo && (
@@ -77,7 +85,7 @@ export const DiscoverRec = (props) => {
                     onClick={() => {
                       props.unfollow(props.recInfo.user);
                     }}
-                    style={{backgroundColor:'white', color:'black'}}
+                    style={{ backgroundColor: "white", color: "black" }}
                     className="discover-rec-follow-button"
                   >
                     <b>{props.followButton}</b>
@@ -105,22 +113,22 @@ export const DiscoverRec = (props) => {
             allow="encrypted-media"
           ></iframe>
         </div>
-        <h3 style={{width:'20%', marginLeft:'2rem'}}>
-          {props.recInfo.date.substring(0, 3) + ", " + props.recInfo.date.substring(4)}
+        <h3 style={{ width: "20%", marginLeft: "2rem" }}>
+          {props.recInfo.date.substring(0, 3) +
+            ", " +
+            props.recInfo.date.substring(4)}
         </h3>
 
         <div
-        
           className="next-button"
           onClick={() => {
             setLikes(0);
             props.nextRec();
-            setPlaceholderLiked(false)
+            setPlaceholderLiked(false);
           }}
         >
-          <GrLinkNext color='white'style={{ padding: "0.5rem" }} size="2em" />
+          <GrLinkNext color="white" style={{ padding: "0.5rem" }} size="2em" />
         </div>
-        
       </div>
     </div>
   );

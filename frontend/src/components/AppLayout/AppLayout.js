@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import {SearchRec} from '../SearchRec/SearchRec'
 import { Switch, Route, Redirect, useHistory } from "react-router-dom";
 import { Profile } from "../Profile/Profile";
 import { AuthRoute } from "../AuthRoute";
@@ -7,7 +8,6 @@ import { FriendRecs } from "../FriendRecs/FriendRecs";
 import "./AppLayout.css";
 import { SearchedProfile } from "../SearchedProfile/SearchedProfile";
 import { Footer } from "../Footer/Footer";
-import { SearchRec } from "../SearchRec/SearchRec";
 
 export const AppLayout = (props) => {
   const [spotifyToken, setSpotifyToken] = useState(null);
@@ -30,7 +30,7 @@ export const AppLayout = (props) => {
 
           <AuthRoute
             exact
-            path="/app/create"
+            path="/app/create+explore"
             component={SearchRec}
             spotifyToken={spotifyToken}
             setSpotifyToken={setSpotifyToken}

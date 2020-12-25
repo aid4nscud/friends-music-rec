@@ -173,7 +173,7 @@ export const SearchedProfile = (props) => {
         </div>
       )}
 
-      {userRecs !== null && (
+      {userRecs !== null ? (
         <div className="searched-profile-recs-container">
           <div
             style={{
@@ -208,6 +208,25 @@ export const SearchedProfile = (props) => {
                 />
               );
             })}
+          </div>
+        </div>
+      ) : (
+        <div className="searched-profile-recs-container">
+          <div className="profile-recs">
+            <h3
+              style={{
+                width: "auto",
+                margin: "auto",
+                position: "absolute",
+                top: "45%",
+                left: "40%",
+              }}
+            >
+              <span style={{ fontSize: "large" }} className="span-user">
+                {user}
+              </span>
+              hasn't recommended any songs yet :(
+            </h3>
           </div>
         </div>
       )}

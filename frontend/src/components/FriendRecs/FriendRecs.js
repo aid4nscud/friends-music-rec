@@ -10,6 +10,7 @@ export const FriendRecs = (props) => {
   const [index, setIndex] = useState(0);
   const [followButton, setFollowButton] = useState("Following");
   const [render, setRender] = useState(0);
+  const [loaded, setLoaded] = useState(null)
 
   useEffect(() => {
     const user = getCookie("user");
@@ -26,6 +27,10 @@ export const FriendRecs = (props) => {
         .then((parsedJSON) => {
           if (parsedJSON["recs"].length > 0) {
             setRecs(parsedJSON["recs"]);
+            setLoaded(true)
+          }
+          else{
+            setLoaded(false)
           }
         });
     } else {
@@ -40,6 +45,10 @@ export const FriendRecs = (props) => {
         .then((parsedJSON) => {
           if (parsedJSON["recs"].length > 0) {
             setRecs(parsedJSON["recs"]);
+            setLoaded(true)
+          }
+          else{
+            setLoaded(false)
           }
         });
     }
@@ -160,10 +169,10 @@ export const FriendRecs = (props) => {
           />
         </div>
       )}
-      <Discover
+      {loaded !==null && <Discover
         spotifyToken={props.spotifyToken}
         setSpotifyToken={props.setSpotifyToken}
-      />
+      />}
     </div>
   );
 };

@@ -47,7 +47,7 @@ export const NavBar = (props) => {
           </Link>
         </li>
         <li>
-          <Link to="/app/create">
+          <Link to="/app/create+explore">
             <DiscoverIcon id='create+explore-nav-icon'className="nav-icon" />
           </Link>
         </li>

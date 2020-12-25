@@ -20,8 +20,9 @@ export const Footer = () => {
                     "=;expires=" + new Date().toUTCString() + ";path=/"
                   );
               });
-              
               history.push("/");
+              
+              
             });
           }}
         >
