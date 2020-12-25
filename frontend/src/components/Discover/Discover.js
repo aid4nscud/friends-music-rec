@@ -132,9 +132,6 @@ export const Discover = (props) => {
 
   return (
     <div className="discover">
-      <div className="explore-header">
-        <h1>Find new music, from new people!</h1>
-      </div>
       <div style={{ display: "inline-block" }} className="rec-section">
         {recs === null ? (
           <h1 style={{color:'black'}}className='container-div'>Looking for recommendations...</h1>
@@ -159,7 +156,7 @@ export const Discover = (props) => {
             
           </div>
         )}
-        <SearchUser />
+        
       </div>
     </div>
   );

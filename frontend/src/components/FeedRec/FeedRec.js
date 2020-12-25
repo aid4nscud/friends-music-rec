@@ -103,7 +103,7 @@ export const FeedRec = (props) => {
             props.recInfo.date.substring(4)}
         </h3>
       </div>
-      <div style={{position:'relative', bottom:'2rem'}} className="next-button" onClick={props.nextRec}>
+      <div  className="next-button" onClick={props.nextRec}>
         <GrLinkNext style={{ padding: "0.5rem" }} size="2em" />
       </div>
     </div>

@@ -46,28 +46,26 @@ html {
 
 .discover-rec {
   
-  border-style: solid;
-  min-width: 30rem;
   width: 100%;
-  border-radius: 10% 10% 10% 10%;
+  min-width: 370px;
+  margin: auto;
   background-color: #111111;
+  border-radius: 10% 10% 10% 10%;
+  margin-bottom: 1rem;
 }
 .container-div {
-  
-  position: relative;
-  top: 2rem;
-  left: 5rem;
+ 
 width: 50%; 
 margin: auto;
-float: left;
+
   
 }
 
 .discover-rec-iframe {
-  width: 100%;
+  width: 99%;
   display: block;
   position: relative;
-  right: 0.1rem;
+  left: 0.1rem;
   
   border-radius: 10% 0 10% 10%;
   border-style: solid;
@@ -76,9 +74,10 @@ float: left;
 
 
 .next-button {
-  float: right;
-  margin: 1rem;
+  
   width: 8rem;
+  position: relative;
+  left: 80%;
   background-color: rgb(255, 255, 255);
   border-radius: 1rem;
   border-style: solid;

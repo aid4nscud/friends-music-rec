@@ -10,7 +10,8 @@ export const FriendRecs = (props) => {
   const [index, setIndex] = useState(0);
   const [followButton, setFollowButton] = useState("Following");
   const [render, setRender] = useState(0);
-  const [loaded, setLoaded] = useState(null)
+  const [loaded, setLoaded] = useState(null);
+  const [recType, setRecType] = useState(false);
 
   useEffect(() => {
     const user = getCookie("user");
@@ -27,10 +28,9 @@ export const FriendRecs = (props) => {
         .then((parsedJSON) => {
           if (parsedJSON["recs"].length > 0) {
             setRecs(parsedJSON["recs"]);
-            setLoaded(true)
-          }
-          else{
-            setLoaded(false)
+            setLoaded(true);
+          } else {
+            setLoaded(false);
           }
         });
     } else {
@@ -45,10 +45,9 @@ export const FriendRecs = (props) => {
         .then((parsedJSON) => {
           if (parsedJSON["recs"].length > 0) {
             setRecs(parsedJSON["recs"]);
-            setLoaded(true)
-          }
-          else{
-            setLoaded(false)
+            setLoaded(true);
+          } else {
+            setLoaded(false);
           }
         });
     }
@@ -98,18 +97,16 @@ export const FriendRecs = (props) => {
       });
   };
 
-  const nextErr = ()=> {
+  const nextErr = () => {
     alert("need to get more recs, or start showing old ones");
-  }
+  };
   const nextSuccess = () => {
     setIndex(index + 1);
     setRender(render + 1);
     setFollowButton("Following");
-  }
+  };
   const nextRec = () => {
-    return index === recs.length - 1
-      ? nextErr()
-      : nextSuccess()
+    return index === recs.length - 1 ? nextErr() : nextSuccess();
   };
 
   function likeRec(recToLike) {
@@ -149,11 +146,24 @@ export const FriendRecs = (props) => {
 
   return (
     <div className="friend-recs">
-      {recs !== null && (
+       <button
+        style={{ padding: "1rem" }}
+        onClick={() => {
+          setRecType(!recType);
+        }}
+      >
+        {recType===true? 'ExploreRec': 'FriendRec'}
+      </button>
+      {recType === true ? (
+        <h1 style={{ color: "black" }}>
+          Listen to what your friends recommend!
+        </h1>
+      ) : (
+        <h1 style={{ color: "black" }}>Explore Recommendations!</h1>
+      )}
+     
+      {recs !== null && recType === true && (
         <div>
-          <h1 style={{ color: "black" }}>
-            Listen to what your friends recommend!
-          </h1>
           <FeedRec
             recInfo={recs[index]}
             followButton={followButton}
@@ -169,10 +179,12 @@ export const FriendRecs = (props) => {
           />
         </div>
       )}
-      {loaded !==null && <Discover
-        spotifyToken={props.spotifyToken}
-        setSpotifyToken={props.setSpotifyToken}
-      />}
+      {recType === false && (
+        <Discover
+          spotifyToken={props.spotifyToken}
+          setSpotifyToken={props.setSpotifyToken}
+        />
+      )}
     </div>
   );
 };

@@ -15,16 +15,6 @@ export const DiscoverRec = (props) => {
 
   return (
     <div className="container-div">
-      <h1
-        style={{
-          width: "50%",
-          color: "black",
-          position: "relative",
-          left: "2rem",
-        }}
-      >
-        Explore Recommendations!
-      </h1>
       <div className="discover-rec">
         <div className="card-header">
           {props.recInfo && (
@@ -106,20 +96,22 @@ export const DiscoverRec = (props) => {
             }}
             className="discover-rec-iframe"
             src={url}
-            width="100%"
-            height="400"
+            width="500"
+            height="500"
             frameBorder="1"
             allowtransparency="true"
             allow="encrypted-media"
           ></iframe>
         </div>
-        <h3 style={{ width: "20%", marginLeft: "2rem" }}>
+        <h3 style={{width: "20%", margin: "2rem", position:'relative', bottom:'1rem'}}>
           {props.recInfo.date.substring(0, 3) +
             ", " +
             props.recInfo.date.substring(4)}
         </h3>
 
-        <div
+       
+      </div>
+      <div
           className="next-button"
           onClick={() => {
             setLikes(0);
@@ -129,7 +121,6 @@ export const DiscoverRec = (props) => {
         >
           <GrLinkNext color="white" style={{ padding: "0.5rem" }} size="2em" />
         </div>
-      </div>
     </div>
   );
 };
