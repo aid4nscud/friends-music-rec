@@ -1,14 +1,8 @@
 @import url("https://fonts.googleapis.com/css2?family=Merriweather&display=swap");
 html {
   height: 100%;
-  background: rgb(0, 0, 0);
-  background: rgb(255, 251, 39);
-  background: linear-gradient(
-    90deg,
-    rgba(255, 251, 39, 1) 0%,
-    rgba(255, 139, 0, 1) 50%,
-    rgba(255, 251, 39, 1) 100%
-  );
+  background: rgb(12,225,247);
+background: linear-gradient(90deg, rgba(12,225,247,1) 0%, rgba(31,173,240,1) 50%, rgba(12,225,247,1) 100%);
   text-align: center;
   width: 100%;
   overflow-x: hidden;
@@ -17,7 +11,7 @@ html {
 }
 
 span {
-  color: rgba(255, 251, 39, 1);
+  color: #00E0C3;
   font-size: large;
   padding: 1rem;
 }

@@ -37,7 +37,7 @@
 }
 
 .searched-profile-recs {
-  width: 65%;
+  width: 80%;
   margin: auto;
   display: grid;
   grid-template-columns: 33% 33% 33%;

@@ -97,7 +97,9 @@ export const FeedRec = (props) => {
   };
 
   const nextErr = () => {
-    alert("need to get more recs, or start showing old ones");
+    setIndex(0)
+    setRender(render+1)
+    setFollowButton('Following')
   };
   const nextSuccess = () => {
     setIndex(index + 1);
