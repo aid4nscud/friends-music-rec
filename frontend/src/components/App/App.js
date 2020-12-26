@@ -18,7 +18,9 @@ function App() {
           exact
           path="/"
           render={() => {
-            if (getCookie("token") !== null || auth.isAuthenticated() || getCookie("user") !== null) {
+            
+            
+            if (getCookie("token") !== null && getCookie("user") !== null) {
               history.push("/app/listen");
             } else {
               return <Login />;

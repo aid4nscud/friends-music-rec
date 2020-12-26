@@ -16,7 +16,7 @@ export const UserResult = (props) => {
     
     if (isFollowing === true) {
       setFollowButton("Following");
-      setBackgroundColor('white')
+      setBackgroundColor('#00E0C3')
       setColor('black')
 
       

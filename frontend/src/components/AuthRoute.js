@@ -44,17 +44,15 @@ export const AuthRoute = ({ component: Component, ...rest }) => {
       {...rest}
       render={() => {
         
-        if (getCookie("token") !== null) {
+        if (getCookie("token"),getCookie('user') !== null) {
           const authed = decode();
        
 
           return authed ? <Component {...rest} /> : <Redirect to="/" />;
         }
 
-        // if(auth.isAuthenticated()){
-        //   return <Component {...rest}/>
-        // }
         else {
+          
           return <Redirect to="/" />;
         }
       }}

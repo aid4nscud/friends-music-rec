@@ -136,7 +136,7 @@ export const SearchedProfile = (props) => {
             </h1>
             {user !== getCookie("user") && followed === true ? (
               <button
-                style={{ backgroundColor: "white", color: "black" }}
+                style={{ backgroundColor: "#00E0C3", color: "black" }}
                 className="searched-user-follow-button"
                 onClick={() => {
                   unfollow(user);

@@ -99,7 +99,7 @@ export const FeedRec = (props) => {
   const nextErr = () => {
     setIndex(0)
     setRender(render+1)
-    setFollowButton('Following')
+    setFollowButton("Following")
   };
   const nextSuccess = () => {
     setIndex(index + 1);
@@ -167,7 +167,7 @@ export const FeedRec = (props) => {
                 </h3>
                 {followButton === "Following" ? (
                   <button
-                    style={{ backgroundColor: "white", color: "black" }}
+                    style={{ backgroundColor: "#00E0C3", color: "black" }}
                     className="feed-rec-follow-button"
                     onClick={() => {
                       unfollow(recs[index].user);
