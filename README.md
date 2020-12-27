@@ -27,9 +27,20 @@ Users will have a profile that is made up of their song recommendations (with as
 
 TODO:
 
-- Add Logic to Rec and User Objects:
-  - When user goes to next rec, rec id added to 'seen' recs array with respective interaction 'liked' or 'unliked'
-  - Calculate score based on interactions 
+- Add Activity Feed where Search Profile currently is in FeedRecs
 
-- Activity Feed???
-- ADD DIRECT RECOMMENDATIONS??? IF SO, WHAT IS ASSOCIATED SCORE?
+- Move Search User underneath ExploreRec, icon visible that points to it though
+
+- Add direct/public choice + choose recipients in search rec (frontend) and create_rec (backend)
+
+- If popularity is 0-100 or 0.01-1, popularity multiplier as variable 'pop' on score is: mult = (1/pop). There can be conditional cases for recs with pop. above 75 and pop. below 30
+
+- Add popup for profile options (logout, edit details)
+
+- Add popup for SearchRec possibly
+
+
+OPTIONAL/UNDECIDED
+
+-Spotify Auth Flow
+
