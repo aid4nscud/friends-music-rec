@@ -30,9 +30,11 @@ export const SearchUser = (props) => {
       .then((res) => res.json())
       .then((parsed) => {
         if (parsed.users) {
+          setMessage(null)
           setResults(parsed.users);
         } else if (parsed.noresults) {
           setMessage("No users found :(");
+          setResults(null)
         }
       });
   };

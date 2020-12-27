@@ -20,6 +20,7 @@
   width: 33%;
   height: 100%;
   display: inline-block;
+  vertical-align: middle;
 }
 
 .nav-icon:hover {
@@ -30,4 +31,13 @@
   
   width: 10%;
   
+}
+
+.nav-icon{
+  vertical-align: middle;
+  display: inline-block;
+}
+
+#create-explore-nav-icon:hover{
+transform: scale(1.1);
 }

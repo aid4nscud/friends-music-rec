@@ -34,6 +34,9 @@ export const FeedRec = (props) => {
             setRecs(parsedJSON["recs"]);
             props.setRecType(true);
           } 
+          else{
+            setRecs(false)
+          }
           
         });
     } else {
@@ -50,6 +53,9 @@ export const FeedRec = (props) => {
             props.setRecs(true);
             setRecs(parsedJSON["recs"]);
             props.setRecType(true);
+          }
+          else{
+            setRecs(false)
           }
           
         });
@@ -147,7 +153,7 @@ export const FeedRec = (props) => {
 
   return (
     <div className="feed-rec-container">
-      {recs !== null ? (
+      {recs !==null && recs.length > 0 ? (
         <div>
           <div className="feed-rec">
             <div className="feed-rec-card-header">

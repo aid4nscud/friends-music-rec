@@ -67,8 +67,8 @@ export const MainRecs = (props) => {
       </ul>
 
       {recType === true && (
-        <div className='main-recs-explore'>
-        
+        <div className='main-recs-friends'>
+        <div style={{display:'inline-block', width:'50%', textAlign:'center', marginTop:'3rem'}}>
           <FeedRec
             
             spotifyToken={props.spotifyToken}
@@ -77,7 +77,8 @@ export const MainRecs = (props) => {
             setRecType={setRecType}
             setRecs={setRecs}
           />
-          <SearchUser />
+          </div>
+          {recs===true && <div className='recs-true-format'><SearchUser /></div>}
         </div>
       )}
       {recType === false && (

@@ -16,15 +16,15 @@ export const NavBar = (props) => {
       case "me":
         document.getElementById('profile-nav-icon').style.transform='scale(1.2)'
         document.getElementById('listen-nav-icon').style.transform='scale(1)'
-        document.getElementById('create+explore-nav-icon').style.transform='scale(1)'
+        document.getElementById('create-explore-nav-icon').style.transform='scale(1)'
         break;
       case "listen":
         document.getElementById('listen-nav-icon').style.transform='scale(1.2)'
         document.getElementById('profile-nav-icon').style.transform='scale(1)'
-        document.getElementById('create+explore-nav-icon').style.transform='scale(1)'
+        document.getElementById('create-explore-nav-icon').style.transform='scale(1)'
         break;
       case "create+explore":
-        document.getElementById('create+explore-nav-icon').style.transform='scale(1.2)'
+        document.getElementById('create-explore-nav-icon').style.transform='scale(1.2)'
         document.getElementById('profile-nav-icon').style.transform='scale(1)'
         document.getElementById('listen-nav-icon').style.transform='scale(1)'
         break;
@@ -46,9 +46,10 @@ export const NavBar = (props) => {
             <ListenIcon id='listen-nav-icon' className="nav-icon" />
           </Link>
         </li>
-        <li>
-          <Link to="/app/create+explore">
-            <DiscoverIcon id='create+explore-nav-icon'className="nav-icon" />
+        <li >
+          <h3 style={{display:'inline-block', verticalAlign:'middle', marginRight:'1rem'}}>Create</h3>
+          <Link  id='create-explore-nav-icon' to="/app/create+explore">
+            <DiscoverIcon className="nav-icon" />
           </Link>
         </li>
       </ul>
