@@ -102,7 +102,7 @@ export const Register = (props) => {
         ></input>
         <button type="submit">Create Account!</button>
       </form>
-      <h2>Already have an account?</h2>
+      <h2 style={{color:'black'}}>Already have an account?</h2>
             <button
               onClick={() => {
                 props.setRegister(false);

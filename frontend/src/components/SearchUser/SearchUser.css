@@ -1,6 +1,6 @@
 .user-search-results {
   padding: 1rem;
-  width: 100%;
+  width: 90%;
   margin: auto;
   max-height: 30rem;
   overflow-y: auto;
@@ -44,7 +44,7 @@
   display: inline-block;
   vertical-align: top;
   
-  margin-left: 3rem;
+  
 
   
   

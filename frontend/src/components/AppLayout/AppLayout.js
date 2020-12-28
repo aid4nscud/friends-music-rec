@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {SearchRec} from '../SearchRec/SearchRec'
 import { Switch, Route, Redirect, useHistory } from "react-router-dom";
 import { Profile } from "../Profile/Profile";
@@ -12,10 +12,16 @@ import { MainRecs } from "../FriendRecs/MainRecs";
 export const AppLayout = (props) => {
   const [spotifyToken, setSpotifyToken] = useState(null);
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  });
+
+
   return (
     <div className="layout-container">
       <div className="app-layout">
-        <NavBar />
+        <NavBar spotifyToken={spotifyToken}
+            setSpotifyToken={setSpotifyToken}/>
 
         <Switch>
           <AuthRoute
@@ -30,14 +36,6 @@ export const AppLayout = (props) => {
 
           <AuthRoute
             exact
-            path="/app/create+explore"
-            component={SearchRec}
-            spotifyToken={spotifyToken}
-            setSpotifyToken={setSpotifyToken}
-          />
-
-          <AuthRoute
-            exact
             path="/app/profile/:user"
             component={SearchedProfile}
           />
@@ -45,7 +43,7 @@ export const AppLayout = (props) => {
             <Redirect to="/" />
           </Route>
         </Switch>
-        <Footer />
+        
       </div>
       
     </div>

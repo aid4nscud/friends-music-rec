@@ -11,6 +11,7 @@
     height: 30rem;
     border-radius: 3rem;
     text-align: center;
+    font-size: auto;
  
     
     
@@ -47,7 +48,7 @@ img {
     color: white;
     display: block;
     padding: 1rem;
-    font-size: larger;
+    font-size: large;
 }
 
 

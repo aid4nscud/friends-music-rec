@@ -3,8 +3,9 @@ import { getCookie } from "../../utils/auth";
 import { UserRec } from "../UserRec/UserRec";
 import "./Profile.css";
 import { MdSettings } from "react-icons/md";
-
-
+import Popup from "reactjs-popup";
+import auth from '../../utils/auth'
+import { useHistory } from "react-router-dom";
 
 export const Profile = (props) => {
   const [userRecs, setUserRecs] = useState(null);
@@ -13,8 +14,20 @@ export const Profile = (props) => {
   const [followers, setFollowers] = useState(null);
   const [following, setFollowing] = useState(null);
 
-  useEffect(() => {
+  const contentStyle = {
+    margin: "auto",
+    background: "rgb(255, 255, 255)",
+    width: "70%",
+    top:'10%',
+    left:'15%',
+    zIndex:'99'
     
+  };
+  const overlayStyle = {zIndex:'99'}
+
+  const history = useHistory()
+
+  useEffect(() => {
     const url = "/api/get_user_profile";
     const data = { user: user, requestingUser: user };
     fetch(url, {
@@ -24,9 +37,7 @@ export const Profile = (props) => {
     })
       .then((res) => res.json())
       .then((parsedJSON) => {
-        
         if (parsedJSON["recs"].length > 0) {
-          
           setUserRecs(parsedJSON["recs"]);
           setFollowers(parsedJSON["num_followers"]);
           setFollowing(parsedJSON["num_following"]);
@@ -37,18 +48,18 @@ export const Profile = (props) => {
           setFollowers(parsedJSON["num_followers"]);
           setFollowing(parsedJSON["num_following"]);
         }
-        if(parsedJSON['recs'].length === 0){
-          setUserRecs(null)
+        if (parsedJSON["recs"].length === 0) {
+          setUserRecs(null);
           setFollowers(parsedJSON["num_followers"]);
           setFollowing(parsedJSON["num_following"]);
         }
       });
   }, [render]);
 
-
-  useEffect(()=> {
+  useEffect(() => {
     window.scrollTo(0, 0);
-  })
+  });
+ 
 
   const deleteRec = (uri) => {
     const recommender = getCookie("user");
@@ -73,18 +84,15 @@ export const Profile = (props) => {
       });
   };
 
-  
-
   return (
     <div className="profile">
       {user && (
         <div className="profile-header">
-          <h1 style={{color:'black', fontSize:'2rem'}}>
+          <h1 style={{ color: "black", fontSize: "2rem" }}>
             Welcome to your profile, <span className="span-user">{user}</span>
           </h1>
-
-          <MdSettings className='settings-icon' style={{display:'inline-block', margin:'1rem', position:'relative', top:'2rem'}} size='3em' color='black'/>
           
+
           <ul className="user-social-info">
             <li style={{ borderRightStyle: "solid", borderColor: "white" }}>
               {followers === null ? "Followers: 0" : "Followers: " + followers}
@@ -96,50 +104,104 @@ export const Profile = (props) => {
               {userRecs === null ? "Recs: 0" : "Recs: " + userRecs.length}
             </li>
           </ul>
+
+          <Popup className='profile-popup'
+          
+          trigger={
+           
+              <MdSettings
+                className="settings-icon"
+                size="3em"
+                color="black"
+              />
+           
+          } {...{contentStyle, overlayStyle}}
+        >
+          <div>
+          <div className="logout-button-container">
+        <button
+          className="logout-button"
+          onClick={() => {
+            auth.logout(() => {
+              document.cookie.split(";").forEach(function (c) {
+                document.cookie = c
+                  .replace(/^ +/, "")
+                  .replace(
+                    /=.*/,
+                    "=;expires=" + new Date().toUTCString() + ";path=/"
+                  );
+              });
+              history.push("/");
+             
+              
+              
+            });
+          }}
+        >
+          Logout
+        </button>
+      </div>
+          </div>
+        </Popup>
+         
         </div>
       )}
 
-      
-
       {userRecs !== null && userRecs.length > 0 ? (
-        
-        <div className='profile-recs-container'>
-          <div style={{width:'65%',margin:'auto' ,display:'block', position:'relative', left:'2rem' }} className='your-song-recommendations'>
-          <h2 style={{color:'black', float:'left',}}>Your Song Recommendations</h2>
+        <div className="profile-recs-container">
+          <div
+            style={{
+              width: "65%",
+              margin: "auto",
+              display: "block",
+              position: "relative",
+              left: "2rem",
+            }}
+            className="your-song-recommendations"
+          >
+            <h2 style={{ color: "black", float: "left" }}>
+              Your Song Recommendations
+            </h2>
           </div>
-          
-           <div className="profile-recs">
-          
-          {userRecs.map((rec) => {
-            return (
-              <UserRec
-                date={rec.date}
-                render={render}
-                setRender={setRender}
-                deleteRec={deleteRec}
-                likes={rec.likes}
-                uri={rec.uri}
-                song={rec.song}
-                artist={rec.artist}
-                images={rec.images}
-              />
-            );
-          })}
-        </div>
-        </div>
-        
-      ) : (
-        <div className='profile-recs-container'>
-        <div  style={{textAlign:'center'}} className="profile-recs">
-          <h3 style={{width:'auto', margin:'auto', position:'absolute', top:'50%', left:'40%' }}>
-            <span style={{fontSize:'large'}}className='span-user'>{user}</span>hasn't recommended any songs yet :(
-          </h3>
-        </div>
-        
-        </div>)
-  
-}
-</div>
-)
 
-}
+          <div className="profile-recs">
+            {userRecs.map((rec) => {
+              return (
+                <UserRec
+                  date={rec.date}
+                  render={render}
+                  setRender={setRender}
+                  deleteRec={deleteRec}
+                  likes={rec.likes}
+                  uri={rec.uri}
+                  song={rec.song}
+                  artist={rec.artist}
+                  images={rec.images}
+                />
+              );
+            })}
+          </div>
+        </div>
+      ) : (
+        <div className="profile-recs-container">
+          <div style={{ textAlign: "center" }} className="profile-recs">
+            <h3
+              style={{
+                width: "auto",
+                margin: "auto",
+                position: "absolute",
+                top: "50%",
+                left: "40%",
+              }}
+            >
+              <span style={{ fontSize: "large" }} className="span-user">
+                {user}
+              </span>
+              hasn't recommended any songs yet :(
+            </h3>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+};

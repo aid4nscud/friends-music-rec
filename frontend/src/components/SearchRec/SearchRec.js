@@ -15,11 +15,6 @@ export const SearchRec = (props) => {
   const [inputValue, setInputValue] = useState("");
   const [queued, setQueued] = useState(null);
   const [results, setResults] = useState(null);
-  const [render, setRender] = useState(0);
-
-  useEffect(()=> {
-    window.scrollTo(0, 0);
-  })
 
   const cleanup = () => {
     setInputValue("");

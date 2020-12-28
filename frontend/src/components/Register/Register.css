@@ -1,25 +1,28 @@
 
-.container {
-  width: 100%;
-}
+
 .register {
   display: inline-block;
-  width: auto;
+  width: 40%;
   margin-bottom: auto;
   position: relative;
-  bottom: 6rem;
-  left: 2rem;
+  
+  vertical-align: middle;
+  background-color: white;
+   padding: 1rem;
+   border-radius: 2rem;
 }
 
 .register h1 {
-  width: 90%;
+  width: 50%;
   margin: auto;
   margin-bottom: 3rem;
+  color: black;
 }
   .register-form {
-      width: 90%;
+      width: 50%;
       display: inline-block;
       text-align: center
+      
   }
   
   .register-form input{

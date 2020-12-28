@@ -15,9 +15,6 @@ export const MainRecs = (props) => {
   const [color2, setColor2] = useState("rgba(0, 0, 0, 0.53)");
   const [recs, setRecs] = useState(null)
 
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  });
 
   useEffect(() => {
     if (recType === true) {

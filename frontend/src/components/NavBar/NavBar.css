@@ -12,8 +12,9 @@
   border-top: 0;
 }
 .navbar ul {
-  width: 85%;
+  width: 100%;
   display: inline-block;
+  vertical-align: middle;
 }
 
 .navbar li {
@@ -36,8 +37,45 @@
 .nav-icon{
   vertical-align: middle;
   display: inline-block;
+  margin-bottom: 1rem;
+ 
 }
 
 #create-explore-nav-icon:hover{
 transform: scale(1.1);
+}
+
+.navbar-popup-content {
+  margin: auto;
+  
+  background: rgb(255, 255, 255);
+  width: 100%;
+  min-height: 90vh;
+  height: auto;
+  margin: auto;
+  position: fixed;
+  border-radius: 2rem;
+  border-style: solid;
+  border-color: black;
+
+}
+.navbar-popup-arrow {
+  color: rgb(255, 255, 255);
+}
+[role='tooltip'].popup-content {
+  
+  position: fixed;
+  left: 0;
+  
+  height: auto;
+  margin:auto;
+  
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 0px 3px;
+}
+
+.navbar-popup-overlay {
+  background: rgba(0, 0, 0, 0.5);
+}
+[data-popup='tooltip'].popup-overlay {
+  background: rgba(0, 0, 0, 0.5) ;
 }

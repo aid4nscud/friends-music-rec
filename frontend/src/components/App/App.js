@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 
 import { Redirect, Route, Switch, useHistory } from "react-router-dom";
 import "./App.css";
@@ -7,9 +7,12 @@ import { Login } from "../Login/Login.js";
 import { Register } from "../Register/Register";
 import { AuthRoute } from "../AuthRoute";
 import { AppLayout } from "../AppLayout/AppLayout.js";
+import { Footer } from "../Footer/Footer";
 
 function App() {
   const history = useHistory();
+
+  
 
   return (
     <div className="App">
@@ -33,6 +36,7 @@ function App() {
           <Redirect to='/'/>
         </Route>
       </Switch>
+      <Footer/>
     </div>
   );
 }

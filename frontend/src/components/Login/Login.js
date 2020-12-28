@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import auth from "../../utils/auth";
 import "./Login.css";
-import image from "../../assets/login-guitar-picture.jpg";
+import image from "../../assets/login-jukebox-picture.jpg";
 import { Register } from "../Register/Register";
 
 export const Login = (props) => {
@@ -44,7 +44,8 @@ export const Login = (props) => {
             document.cookie = cookie2;
           }
           // const url  = parsed.url
-
+auth.setAuthenticated(true)
+alert(auth.isAuthenticated())
           auth.login(() => {
             history.push("/app/listen");
           });
@@ -95,7 +96,7 @@ export const Login = (props) => {
           </form>
           {warning && <h3 className="warning">{warning}</h3>}
           <div className="sign-up">
-            <h2>Don't have an account yet?</h2>
+            <h2 style={{color:'white'}}>Don't have an account yet?</h2>
             <button
               onClick={() => {
                 setRegister(true);

@@ -9,7 +9,11 @@
 .profile {
   width: 100%;
   margin-top: 7rem;
-  height: 90vh;
+  height: 95vh;
+}
+
+.profile-header {
+  width: 100%;
 }
 
 .profile-header h1 {
@@ -20,10 +24,9 @@
   transform: scale(1.1);
 }
 .profile-recs {
-  
   width: 80%;
   margin: auto;
-  
+
   display: grid;
   grid-template-columns: 33% 33% 33%;
   margin-top: 1rem;
@@ -55,6 +58,8 @@
   display: block;
   width: 65%;
   height: 4rem;
+  max-height: 4rem;
+
   margin-left: auto;
   margin-right: auto;
   margin-top: 2rem;
@@ -67,10 +72,42 @@
 .user-social-info li {
   width: 30%;
   height: 2rem;
-  padding: 1rem;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
   display: inline-block;
   margin: auto;
   color: rgb(255, 255, 255);
   font-size: 1.5rem;
+}
 
+
+.profile-popup-content {
+  
+  background: rgb(255, 255, 255);
+  position: fixed;
+  min-height: 90vh;
+  height: auto;
+  border-radius: 2rem;
+  border-style: solid;
+  border-color: black;
+  width: 60%;
+  
+
+}
+.profile-popup-arrow {
+  color: rgb(255, 255, 255);
+}
+[role='tooltip'].popup-content {
+
+  position: fixed;
+  margin:auto;
+ 
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 0px 3px;
+}
+
+.profile-popup-overlay {
+  background: rgba(0, 0, 0, 0.5);
+}
+[data-popup='tooltip'].popup-overlay {
+  background: transparent;
 }
