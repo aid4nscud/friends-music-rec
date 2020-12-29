@@ -35,10 +35,6 @@ TODO:
 
 - If popularity is 0-100 or 0.01-1, popularity multiplier as variable 'pop' on score is: mult = (1/pop). There can be conditional cases for recs with pop. above 75 and pop. below 30
 
-- Add popup for profile options (logout, edit details)
-
-- Add popup for SearchRec possibly
-
 
 OPTIONAL/UNDECIDED
 
