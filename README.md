@@ -29,7 +29,7 @@ TODO:
 
 - Add Activity Feed where Search Profile currently is in FeedRecs
 
-- Move Search User underneath ExploreRec, icon visible that points to it though
+- Move Search User underneath ExploreRec, icon visible that points to it though ( or popup )
 
 - Add direct/public choice + choose recipients in search rec (frontend) and create_rec (backend)
 
