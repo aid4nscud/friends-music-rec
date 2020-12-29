@@ -29,15 +29,11 @@ TODO:
 
 - Add Activity Feed where Search Profile currently is in FeedRecs
 
-- Move Search User underneath ExploreRec, icon visible that points to it though
+- Move Search User underneath ExploreRec, icon visible that points to it though ( or popup )
 
 - Add direct/public choice + choose recipients in search rec (frontend) and create_rec (backend)
 
 - If popularity is 0-100 or 0.01-1, popularity multiplier as variable 'pop' on score is: mult = (1/pop). There can be conditional cases for recs with pop. above 75 and pop. below 30
-
-- Add popup for profile options (logout, edit details)
-
-- Add popup for SearchRec possibly
 
 
 OPTIONAL/UNDECIDED
