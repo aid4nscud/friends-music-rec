@@ -20,6 +20,7 @@ export const SearchRec = (props) => {
     setInputValue("");
     setQueued(null);
     setResults(null);
+    props.setPopup(null)
   };
 
   const search = (query, limit = 8) => {

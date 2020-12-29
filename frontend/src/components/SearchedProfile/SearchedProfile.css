@@ -112,7 +112,7 @@
 
 .searched-profile-recs-label {
   color: black;
-  float: left;
   position: relative;
-  bottom: 1rem;
+  margin: 1rem;
+  padding-bottom: 1rem;
 }

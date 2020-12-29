@@ -77,7 +77,20 @@ export const Profile = (props) => {
         <div className="profile-header">
           <h1 style={{ color: "black", fontSize: "2rem" }}>
             Welcome to your profile, <span className="span-user">{user}</span>
+            
           </h1>
+          <div className="settings-icon"
+            onClick={() => {
+              if (props.popup !== "edit-profile") {
+                props.setPopup("edit-profile");
+              } else {
+                props.setPopup(null);
+              }
+            }}
+          >
+            <MdSettings  size="3em" color="black" />
+          </div>
+          
 
           <ul className="user-social-info">
             <li style={{ borderRightStyle: "solid", borderColor: "white" }}>
@@ -90,17 +103,7 @@ export const Profile = (props) => {
               {userRecs === null ? "Recs: 0" : "Recs: " + userRecs.length}
             </li>
           </ul>
-          <div
-            onClick={() => {
-              if (props.popup !== "edit-profile") {
-                props.setPopup("edit-profile");
-              } else {
-                props.setPopup(null);
-              }
-            }}
-          >
-            <MdSettings className="settings-icon" size="3em" color="black" />
-          </div>
+          
         </div>
       )}
 
@@ -116,7 +119,7 @@ export const Profile = (props) => {
             }}
             className="your-song-recommendations"
           >
-            <h2 style={{ color: "black", float: "left" }}>
+            <h2 style={{ color: "black",  }}>
               Your Song Recommendations
             </h2>
           </div>

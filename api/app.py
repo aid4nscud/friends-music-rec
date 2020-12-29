@@ -124,6 +124,7 @@ def register():
                 'following': [],
                 'followers': [],
                 'recs': [],
+                'direct_recs':[]
             })
             message = 'account succesfully created'
             return {'success': message}
@@ -253,6 +254,32 @@ def create_rec():
         return {'error': 'already recommended'}
 
 
+@app.route('/api/create_direct_rec', methods={"POST"})
+def create_direct_rec():
+    user = request.json['user']
+    recipients = request.json['recipients']
+
+    direct_rec = {
+        'song': request.json['song'],
+        'artist': request.json['artist'],
+        'user': user,
+        'images': request.json['images'],
+        'uri': request.json['uri'],
+        'date': request.json['date'],
+        'action': None,
+    }
+
+    try:
+        for r in recipients:
+            users.update_one({'username': r}, {'$push': {'direct_recs': direct_rec}})
+        
+
+        return {'success': 'success'}
+    except Exception as e:
+        print(e)
+        return {'error': str(e)}
+
+
 @app.route('/api/delete_rec', methods={"POST"})
 def delete_rec():
 
@@ -330,7 +357,7 @@ def get_discover_recs():
     print(request.json['user'])
     user = users.find_one({'username': request.json['user']})
     user_following = user['following']
-    
+
     recs = []
     for doc in recommendations.find():
         if(doc['user'] != user['username'] and doc['user'] not in user_following):
@@ -351,7 +378,6 @@ def get_discover_recs():
                 'liked': liked,
                 'date': doc['date']
             })
-    
 
     recs.reverse()
 
@@ -385,7 +411,7 @@ def get_friend_recs():
                 'liked': liked,
                 'date': doc['date']
             })
-    
+
     recs.reverse()
 
     return {'recs': recs}
@@ -471,3 +497,22 @@ def search_user():
     except Exception as e:
         print(e)
         return {'error': 'error'}
+
+
+@app.route('/api/get_friends', methods={"POST"})
+def get_friends():
+
+    username = request.json['user']
+
+    user = users.find_one({'username': username})
+
+    followers = user['followers']
+    following = user['following']
+
+    followers_set = set(followers)
+
+    mutual = followers_set.intersection(following)
+
+    print(list(mutual))
+
+    return {'friends': list(mutual)}

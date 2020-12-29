@@ -1,6 +1,8 @@
 .make-rec-options {
     display: inline-block;
-    width: 50%;
+    width: 40%;
+    vertical-align: top;
+    margin-left: 3rem;
     
   
   }
@@ -12,11 +14,37 @@
   }
   
   .queued-rec {
-    width: 40%;
+    width: 90%;
     margin: auto;
   }
   
-  .send-rec-radio-pair {
-    display: inline-block;
-    padding: 0.5rem;
-  }
+
+  .toggle-rectype button{
+    width: 50%;
+    max-width: 10rem;
+    min-height: 4rem;
+    height: 100%;
+    max-height: 4rem;
+display: inline-block;
+padding-top: 1rem;
+padding-bottom: 1rem;
+border-style: none;
+font-size: large;
+
+
+}
+
+.toggle-rectype button:focus{
+outline: none;
+}
+
+.toggle-rectype {
+    
+    width: 10rem;
+    height: 4rem;
+    margin: auto;
+    padding-left: 0rem;
+    border-style: solid;
+    border-color: black;
+    border-radius: 1.5rem;
+}
