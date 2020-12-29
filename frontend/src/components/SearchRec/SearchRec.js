@@ -20,7 +20,6 @@ export const SearchRec = (props) => {
     setInputValue("");
     setQueued(null);
     setResults(null);
-   
   };
 
   const search = (query, limit = 8) => {
@@ -67,7 +66,23 @@ export const SearchRec = (props) => {
   return (
     <div className="make-rec">
       <div className="search-header">
-        <h1>Search a song, and make a recommendation!</h1>
+        <h1 style={{ display: "inline-block", verticalAlign: "middle" }}>
+          Search a song, and make a recommendation!
+        </h1>
+        {props.popup !== null && (
+          <button
+            style={{
+              display: "inline-block",
+              marginLeft: "1rem",
+              verticalAlign: "middle",
+            }}
+            onClick={() => {
+              props.setPopup(null);
+            }}
+          >
+            EXIT
+          </button>
+        )}
       </div>
 
       <div className="search-rec-form">

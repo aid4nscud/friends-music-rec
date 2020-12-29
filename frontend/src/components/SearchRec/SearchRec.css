@@ -28,6 +28,7 @@ height: 100%;
     rgba(0, 0, 0, 0) 100%
   );
   padding: 0.5rem;
+  border-radius: 2rem;
   
 }
 .search-rec-form {
@@ -42,14 +43,16 @@ height: 100%;
 
 .search-results {
   width: 99%;
+  max-width: 99%;
   display: grid;
   margin: auto;
-  grid-template-columns: auto auto auto auto;
+  grid-template-columns: 25% 25% 25% 25%;
   margin-top: 1rem;
   text-align: center;
   min-height: 20rem;
   max-height: 40rem;
   overflow-y: auto;
+  overflow-x: hidden;
   white-space: nowrap;
   border-style: dashed;
   border-color: black;

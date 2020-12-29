@@ -1,8 +1,13 @@
 @import url("https://fonts.googleapis.com/css2?family=Merriweather&display=swap");
 html {
   height: 100%;
-  background: rgb(12,225,247);
-background: linear-gradient(90deg, rgba(12,225,247,1) 0%, rgba(31,173,240,1) 50%, rgba(12,225,247,1) 100%);
+  background: rgb(12, 225, 247);
+  background: linear-gradient(
+    90deg,
+    rgba(12, 225, 247, 1) 0%,
+    rgba(31, 173, 240, 1) 50%,
+    rgba(12, 225, 247, 1) 100%
+  );
   text-align: center;
   width: 100%;
   overflow-x: hidden;
@@ -11,7 +16,7 @@ background: linear-gradient(90deg, rgba(12,225,247,1) 0%, rgba(31,173,240,1) 50%
 }
 
 span {
-  color: #00E0C3;
+  color: #00e0c3;
   font-size: large;
   padding: 1rem;
 }
@@ -31,4 +36,30 @@ input {
   background: url("../../assets/loading-spinner.svg") center center no-repeat;
   background-size: 50%;
   z-index: -1;
+}
+
+.popup {
+  background-color: white;
+  border-radius: 2rem;
+  position: fixed;
+  left: 5%;
+  z-index: 999;
+  width: 90%;
+  min-height: 70vh;
+  max-height: 95vh;
+  margin: auto;
+  margin-top: -5rem;
+  border-style: solid;
+  border-color: black;
+}
+
+.popup-overlay {
+  position: fixed;
+  width: 100%;
+  margin: auto;
+  margin-left: -0.5rem;
+  margin-top: -7rem;
+  height: 100vh;
+  z-index: 999;
+  background-color: rgba(0, 0, 0, 0.445);
 }

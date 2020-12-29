@@ -3,8 +3,7 @@ import { getCookie } from "../../utils/auth";
 import { UserRec } from "../UserRec/UserRec";
 import "./Profile.css";
 import { MdSettings } from "react-icons/md";
-import Popup from "reactjs-popup";
-import auth from '../../utils/auth'
+import auth from "../../utils/auth";
 import { useHistory } from "react-router-dom";
 
 export const Profile = (props) => {
@@ -14,18 +13,7 @@ export const Profile = (props) => {
   const [followers, setFollowers] = useState(null);
   const [following, setFollowing] = useState(null);
 
-  const contentStyle = {
-    margin: "auto",
-    background: "rgb(255, 255, 255)",
-    width: "70%",
-    top:'10%',
-    left:'15%',
-    zIndex:'99'
-    
-  };
-  const overlayStyle = {zIndex:'99'}
-
-  const history = useHistory()
+  const history = useHistory();
 
   useEffect(() => {
     const url = "/api/get_user_profile";
@@ -59,7 +47,6 @@ export const Profile = (props) => {
   useEffect(() => {
     window.scrollTo(0, 0);
   });
- 
 
   const deleteRec = (uri) => {
     const recommender = getCookie("user");
@@ -91,7 +78,6 @@ export const Profile = (props) => {
           <h1 style={{ color: "black", fontSize: "2rem" }}>
             Welcome to your profile, <span className="span-user">{user}</span>
           </h1>
-          
 
           <ul className="user-social-info">
             <li style={{ borderRightStyle: "solid", borderColor: "white" }}>
@@ -104,46 +90,17 @@ export const Profile = (props) => {
               {userRecs === null ? "Recs: 0" : "Recs: " + userRecs.length}
             </li>
           </ul>
-
-          <Popup className='profile-popup'
-          
-          trigger={
-           
-              <MdSettings
-                className="settings-icon"
-                size="3em"
-                color="black"
-              />
-           
-          } {...{contentStyle, overlayStyle}}
-        >
-          <div>
-          <div className="logout-button-container">
-        <button
-          className="logout-button"
-          onClick={() => {
-            auth.logout(() => {
-              document.cookie.split(";").forEach(function (c) {
-                document.cookie = c
-                  .replace(/^ +/, "")
-                  .replace(
-                    /=.*/,
-                    "=;expires=" + new Date().toUTCString() + ";path=/"
-                  );
-              });
-              history.push("/");
-             
-              
-              
-            });
-          }}
-        >
-          Logout
-        </button>
-      </div>
+          <div
+            onClick={() => {
+              if (props.popup !== "edit-profile") {
+                props.setPopup("edit-profile");
+              } else {
+                props.setPopup(null);
+              }
+            }}
+          >
+            <MdSettings className="settings-icon" size="3em" color="black" />
           </div>
-        </Popup>
-         
         </div>
       )}
 

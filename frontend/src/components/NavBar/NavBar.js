@@ -4,21 +4,10 @@ import "./NavBar.css";
 import { ReactComponent as ProfileIcon } from "../../assets/profile-icon.svg";
 import { ReactComponent as ListenIcon } from "../../assets/headphones.svg";
 import { ReactComponent as DiscoverIcon } from "../../assets/discover-icon.svg";
-import { SearchRec } from "../SearchRec/SearchRec";
-import Popup from "reactjs-popup";
+
 
 export const NavBar = (props) => {
   const baseURL = "localhost:3000/";
-
-  const contentStyle = {
-    margin: "auto",
-    background: "rgb(255, 255, 255)",
-    width: "80%",
-    margin: "auto",
-    position: "fixed",
-    top:'1rem',
-    
-  };
 
   // removing the https and base url to be left with the current page location
   const path = window.location.href.substring(baseURL.length + 11);
@@ -58,38 +47,38 @@ export const NavBar = (props) => {
           </Link>
         </li>
 
-        <Popup
-          className="navbar-popup"
-          trigger={
-            <div className='nav-icon' style={{
+        <div onClick={()=> {
+          if(props.popup !== 'search-rec'){
+            props.setPopup('search-rec')
+          }
+          else{
+            props.setPopup(null)
+          }
+          
+        }}
+          className="nav-icon"
+          style={{
+            display: "inline-block",
+            verticalAlign: "middle",
+          }}
+        >
+          <h3
+            style={{
+              display: "inline-block",
+              marginRight: "1rem",
+              verticalAlign: "middle",
+            }}
+          >
+            Create
+          </h3>
+          <DiscoverIcon
+            style={{
               display: "inline-block",
               verticalAlign: "middle",
-            }}>
-              <h3 style={{
-              display: "inline-block",
-              marginRight:'1rem',
-              verticalAlign:'middle'
-              
             }}
-                
-              >
-                Create
-              </h3 >
-              <DiscoverIcon style={{
-              display: "inline-block",
-              verticalAlign:'middle'
-              
-            
-            }} />
-            </div>
-          }
-          {...{ contentStyle }}
-        >
-          <SearchRec
-            spotifyToken={props.spotifyToken}
-            setSpotifyToken={props.setSpotifyToken}
           />
-        </Popup>
+        </div>
+
         <li>
           <Link to="/app/listen">
             <ListenIcon id="listen-nav-icon" className="nav-icon" />
