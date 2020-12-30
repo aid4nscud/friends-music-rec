@@ -7,6 +7,8 @@ import { ReactComponent as LikedHeart } from "../../assets/liked-heart.svg";
 import { ReactComponent as UnlikedHeart } from "../../assets/unliked-heart.svg";
 import { GrLinkNext } from "react-icons/gr";
 import { SearchUser } from "../SearchUser/SearchUser";
+import { ActivityFeed } from "../ActivityFeed/ActivityFeed";
+import { SearchedProfile } from "../SearchedProfile/SearchedProfile";
 
 export const FeedRec = (props) => {
   const [recs, setRecs] = useState(null);
@@ -260,14 +262,14 @@ export const FeedRec = (props) => {
           <div className="next-button" onClick={nextRec}>
             <GrLinkNext style={{ padding: "0.5rem" }} size="2em" />
           </div>
-          
+         
         </div>
       ) : (
         <div style={{ marginTop: "2rem" }}>
           <h2 style={{ color: "black" }}>
             You aren't following anyone yet, search profiles or explore!
           </h2>
-          <SearchUser />
+          <SearchUser/>
         </div>
       )}
     </div>

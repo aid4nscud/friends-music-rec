@@ -69,7 +69,7 @@ export const NavBar = (props) => {
               verticalAlign: "middle",
             }}
           >
-            Create
+            CREATE
           </h3>
           <DiscoverIcon
             style={{

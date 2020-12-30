@@ -115,6 +115,10 @@ def register():
     username_exists = users.find_one({'username': username})
     email_exists = users.find_one({'email': email})
 
+    time = datetime.datetime.now()
+
+    create_account_notification_object = {'type': 'create_account', 'time': time}
+
     try:
         if(not username_exists and not email_exists):
             users.insert({
@@ -124,10 +128,12 @@ def register():
                 'following': [],
                 'followers': [],
                 'recs': [],
-                'direct_recs':[]
+                'direct_recs': [],
+                'notifications': [create_account_notification_object]
             })
             message = 'account succesfully created'
             return {'success': message}
+            
 
         else:
             message = 'that username or email is already in use'
@@ -154,6 +160,8 @@ def follow_user():
     print(following_arr)
     print('USER TO FOLLOW: ' + user_to_follow['username'])
 
+    follow_notification_object = {'type': 'follow', 'from': user_following}
+
     if user_to_follow['username'] != user_following['username'] and user_to_follow['username'] not in following_arr:
         try:
             users.update(
@@ -168,7 +176,8 @@ def follow_user():
                 {"username": user_to_follow['username']},
                 {
                     '$push': {
-                        'followers': user_following['username']
+                        'followers': user_following['username'],
+                        'notifications': follow_notification_object
                     }
                 }
             )
@@ -224,6 +233,7 @@ def create_rec():
     print(user_recs)
     print(request.json['uri'])
 
+
     if request.json['uri'] not in user_recs:
         try:
             recommendations.insert({
@@ -269,8 +279,8 @@ def create_direct_rec():
 
     try:
         for r in recipients:
-            users.update_one({'username': r}, {'$push': {'direct_recs': direct_rec}})
-        
+            users.update_one({'username': r}, {
+                             '$push': {'direct_recs': direct_rec}})
 
         return {'success': 'success'}
     except Exception as e:
@@ -300,6 +310,10 @@ def like_rec():
     user_liking = request.json['userLiking']
 
     rec = recommendations.find_one({"_id": rec_to_like})
+    user_to_like = rec['user']
+
+    like_notification_object = {'type': 'like', 'from': user_liking}
+
     likers_arr = rec['likers']
     print(likers_arr)
     if user_liking not in rec['likers']:
@@ -312,6 +326,7 @@ def like_rec():
                     }
                 }
             )
+            users.update_one({'username': user_to_like}, {'$push': {'notifications': like_notification_object}})
             return {'success': 'success'}
         except Exception as e:
             print(e)
@@ -511,3 +526,18 @@ def get_friends():
     print(list(mutual))
 
     return {'friends': list(mutual)}
+
+
+@app.route('/api/get_notifications', methods={"POST"})
+def get_notifications():
+
+    username = request.json['user']
+
+    user = users.find_one({'username': username})
+
+    try:
+        notifications = list(user['notifications'])
+        notifications.reverse()
+        return {'notifications': notifications}
+    except Exception as e:
+        return {'error': str(e)}

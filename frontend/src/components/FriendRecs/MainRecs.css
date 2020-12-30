@@ -58,10 +58,14 @@ outline: none;
 }
 
 .recs-true-format {
-width: 30%;
+width: 35%;
+border-style: solid;
+
  
  
  vertical-align: top;
+ margin-top: 4rem;
+ margin-left: 4rem;
  
  display: inline-block;
   

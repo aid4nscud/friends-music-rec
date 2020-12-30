@@ -4,6 +4,7 @@ import { FeedRec } from "../FeedRec/FeedRec";
 import { Discover } from "../Discover/Discover";
 import "./MainRecs.css";
 import { SearchUser } from "../SearchUser/SearchUser";
+import { ActivityFeed } from "../ActivityFeed/ActivityFeed";
 
 export const MainRecs = (props) => {
   const [recType, setRecType] = useState(true); //set to null and useeffect hook will set conditionally based on if there are any friendrecs
@@ -75,7 +76,7 @@ export const MainRecs = (props) => {
             setRecs={setRecs}
           />
           </div>
-          {recs===true && <div className='recs-true-format'><SearchUser /></div>}
+          {recs===true && <div className='recs-true-format'><ActivityFeed /></div>}
         </div>
       )}
       {recType === false && (

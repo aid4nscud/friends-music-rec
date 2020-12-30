@@ -37,7 +37,7 @@ export const AppLayout = (props) => {
         )}
 
         {popup === "edit-profile" && (
-          <div className='popup' style={{width:'60%', top:'25%', left:'20%'}}>
+          <div className='popup' style={{width:'50%', top:'15%', left:'25%'}}>
             <EditProfile setPopup={setPopup}/>
           </div>
         )}
