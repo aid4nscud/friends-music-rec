@@ -9,6 +9,8 @@ export const SearchedProfile = (props) => {
   const [followers, setFollowers] = useState(null);
   const [following, setFollowing] = useState(null);
   const [followed, setFollowed] = useState(null);
+
+ 
   const { user } = useParams();
 
   useEffect(() => {
@@ -43,6 +45,9 @@ export const SearchedProfile = (props) => {
   useEffect(() => {
     window.scrollTo(0, 0);
   });
+
+
+  
 
   function likeRec(recToLike) {
     const userLiking = getCookie("user");

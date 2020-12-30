@@ -8,10 +8,19 @@ import { GrLinkNext } from "react-icons/gr";
 export const DiscoverRec = (props) => {
   const [likes, setLikes] = useState(0);
   const [placeholderLiked, setPlaceholderLiked] = useState(false);
+  const [time, setTime] = useState(null)
   const history = useHistory();
   let uri = props.recInfo.uri;
   let uriCode = uri.substr(14);
   let url = "https://open.spotify.com/embed/track/" + uriCode;
+
+  useEffect(()=> {
+let currTime = Date.now()/1000;
+let stored_time = props.recInfo.date
+
+const time_dif = currTime-stored_time
+setTime(time_dif/60)
+  }, [])
 
   return (
     <div className="container-div">
@@ -104,9 +113,7 @@ export const DiscoverRec = (props) => {
           ></iframe>
         </div>
         <h3 style={{width: "20%", margin: "2rem", position:'relative', bottom:'1rem'}}>
-          {props.recInfo.date.substring(0, 3) +
-            ", " +
-            props.recInfo.date.substring(4)}
+          {time !==null && Math.round(time) + ' minutes ago'}
         </h3>
 
        

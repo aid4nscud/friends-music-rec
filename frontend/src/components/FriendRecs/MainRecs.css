@@ -59,12 +59,11 @@ outline: none;
 
 .recs-true-format {
 width: 35%;
-border-style: solid;
-
  
  
  vertical-align: top;
- margin-top: 4rem;
+ margin: auto;
+ margin-top: 6rem;
  margin-left: 4rem;
  
  display: inline-block;

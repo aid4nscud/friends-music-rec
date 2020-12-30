@@ -7,14 +7,15 @@ import { ReactComponent as LikedHeart } from "../../assets/liked-heart.svg";
 import { ReactComponent as UnlikedHeart } from "../../assets/unliked-heart.svg";
 import { GrLinkNext } from "react-icons/gr";
 import { SearchUser } from "../SearchUser/SearchUser";
-import { ActivityFeed } from "../ActivityFeed/ActivityFeed";
-import { SearchedProfile } from "../SearchedProfile/SearchedProfile";
+
 
 export const FeedRec = (props) => {
   const [recs, setRecs] = useState(null);
   const [index, setIndex] = useState(0);
   const [followButton, setFollowButton] = useState("Following");
   const [render, setRender] = useState(0);
+  const [time, setTime] = useState(null)
+
 
   const history = useHistory();
 
@@ -63,6 +64,19 @@ export const FeedRec = (props) => {
         });
     }
   }, [render]);
+
+  useEffect(()=> {
+
+      let currTime = Date.now()/1000;
+      let stored_time = 3
+      
+      const time_dif = currTime-stored_time
+      setTime(time_dif/60)
+
+    
+   
+   
+      }, [])
 
   const follow = (userToFollow) => {
     const userFollowing = getCookie("user");
@@ -253,9 +267,7 @@ export const FeedRec = (props) => {
                 bottom: "1rem",
               }}
             >
-              {recs[index].date.substring(0, 3) +
-                ", " +
-                recs[index].date.substring(4)}
+              {time !==null && Math.round(time) + ' minutes ago'}
             </h3>
           </div>
 

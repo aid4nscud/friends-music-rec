@@ -9,10 +9,24 @@ export const SearchedUserRec = (props) => {
   const { user } = useParams();
   const [liked, setLiked] = useState(props.liked);
   const [likes, setLikes] = useState(0);
+  const [time, setTime] = useState(null)
   let uri = props.uri;
   let uriCode = uri.substr(14);
 
   let url = "https://open.spotify.com/embed/track/" + uriCode;
+
+  useEffect(()=> {
+
+    let currTime = Date.now()/1000;
+    let stored_time = props.date
+    
+    const time_dif = currTime-stored_time
+    setTime(time_dif/60)
+
+  
+ 
+ 
+    }, [])
 
   return (
     <div className="searched-user-rec">
@@ -56,7 +70,7 @@ export const SearchedUserRec = (props) => {
           allowtransparency="true"
           allow="encrypted-media"
         ></iframe>
-        <h3 style={{float:'left', position:'relative', left: '2rem'}}>{props.date.substring(0,3)+', '+ props.date.substring(4)}</h3>
+        <h3 style={{float:'left', position:'relative', left: '2rem'}}>{time !==null && Math.round(time) + ' minutes ago'}</h3>
       </div>
     </div>
   );

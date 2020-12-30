@@ -3,6 +3,7 @@ from pymongo import MongoClient
 from bson.objectid import ObjectId
 import os
 import datetime
+import time
 import jwt
 import string
 import secrets
@@ -66,9 +67,9 @@ def check_token():
     if auth_header:
         # Parses out the "Bearer" portion
         token = auth_header.split(" ")
-        print(token)
+
         token = token[1]
-        print(token)
+
     else:
         token = ''
 
@@ -115,9 +116,10 @@ def register():
     username_exists = users.find_one({'username': username})
     email_exists = users.find_one({'email': email})
 
-    time = datetime.datetime.now()
+    curr_time = time.time()
 
-    create_account_notification_object = {'type': 'create_account', 'time': time}
+    create_account_notification_object = {
+        'type': 'create_account', 'time': curr_time}
 
     try:
         if(not username_exists and not email_exists):
@@ -133,7 +135,6 @@ def register():
             })
             message = 'account succesfully created'
             return {'success': message}
-            
 
         else:
             message = 'that username or email is already in use'
@@ -160,7 +161,10 @@ def follow_user():
     print(following_arr)
     print('USER TO FOLLOW: ' + user_to_follow['username'])
 
-    follow_notification_object = {'type': 'follow', 'from': user_following}
+    curr_time = time.time()
+
+    follow_notification_object = {
+        'type': 'follow', 'from': user_following['username'], 'time': curr_time}
 
     if user_to_follow['username'] != user_following['username'] and user_to_follow['username'] not in following_arr:
         try:
@@ -233,6 +237,7 @@ def create_rec():
     print(user_recs)
     print(request.json['uri'])
 
+    curr_time = time.time()
 
     if request.json['uri'] not in user_recs:
         try:
@@ -242,7 +247,7 @@ def create_rec():
                 'user': request.json['user'],
                 'uri': request.json['uri'],
                 'likers': [],
-                'date': request.json['date']
+                'date': curr_time
             })
 
             users.update(
@@ -309,28 +314,59 @@ def like_rec():
     rec_to_like = ObjectId(rec_to_like)
     user_liking = request.json['userLiking']
 
+    user_liking_obj = users.find_one({'username': request.json['userLiking']})
+
+    user_liking_username = user_liking_obj['username']
+
     rec = recommendations.find_one({"_id": rec_to_like})
     user_to_like = rec['user']
 
-    like_notification_object = {'type': 'like', 'from': user_liking}
+    curr_time = time.time()
+
+    like_notification_object = {'type': 'like', 'from': user_liking_username,
+                                'time': curr_time, 'rec': request.json['recToLike']}
 
     likers_arr = rec['likers']
     print(likers_arr)
     if user_liking not in rec['likers']:
-        try:
-            recommendations.update(
-                {"_id": rec_to_like},
-                {
-                    '$push': {
-                        'likers': user_liking
-                    }
+       
+        recommendations.update(
+            {"_id": rec_to_like},
+            {
+                '$push': {
+                    'likers': user_liking
                 }
-            )
-            users.update_one({'username': user_to_like}, {'$push': {'notifications': like_notification_object}})
+            }
+        )
+        user_to_like = users.find_one({'username': user_to_like})
+        notifications = user_to_like['notifications']
+        exists = False
+
+        if len(notifications) > 0:
+            for no in notifications:
+                print(no)
+                if no['type'] == 'like':
+                    print(no['type'])
+                    if no['rec'] == request.json['recToLike']:
+                        exists = True
+                        break
+        print(exists)
+
+        if exists == False:
+
+            users.update({'username': user_to_like['username']}, {
+                                '$push': {'notifications': like_notification_object}})
+
+            
             return {'success': 'success'}
-        except Exception as e:
-            print(e)
-            return e
+
+        else:
+            users.update({'username': user_to_like['username']}, {
+                                '$pull': {'notifications': {'rec': request.json['recToLike']}}})
+            users.update({'username': user_to_like['username']}, {
+                                '$push': {'notifications': like_notification_object}})
+
+            return {'success': 'success'}
     else:
         return {'error': 'error'}
 
@@ -540,4 +576,5 @@ def get_notifications():
         notifications.reverse()
         return {'notifications': notifications}
     except Exception as e:
+        print(e)
         return {'error': str(e)}

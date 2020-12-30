@@ -1,15 +1,43 @@
 .notification {
-    width: 99%;
+    width: 100%;
+    overflow-x: hidden;
     margin: auto;
-    height: 3rem;
-    padding: 1rem;
+    padding: 1rem 0rem 1rem 0rem;
+    text-align:left;
+    border-bottom-style: solid;
+}
+
+.notif-message{
+    width: max-content;
+    font-size: medium;
+    display: inline-block;
+    vertical-align: middle;
+}
+.notif-date {
+    width: auto;
+    float: right;
+    position: relative;
+right: 1rem;
+top: 0.6rem;}
+.notification-list {
+    height: 33rem;
+    overflow-y: auto;
+    overflow-x: hidden;
+
 }
 
 .activity-feed {
+    height: 35.5rem;
     font-size: large;
+    border-radius: 1.5rem;
+    border-style: solid;
+    background-color: rgba(0, 0, 0, 0.356);
 }
 
 .activity-feed-header {
+    
+    border-top-left-radius: 1rem;
+    border-top-right-radius: 1rem;
     width: 100%;
     margin: auto;
     background-color: black;

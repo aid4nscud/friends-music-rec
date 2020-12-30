@@ -76,7 +76,7 @@ export const MainRecs = (props) => {
             setRecs={setRecs}
           />
           </div>
-          {recs===true && <div className='recs-true-format'><ActivityFeed /></div>}
+          <div className='recs-true-format'><ActivityFeed /></div>
         </div>
       )}
       {recType === false && (

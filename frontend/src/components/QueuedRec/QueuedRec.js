@@ -28,17 +28,14 @@ export const QueuedRec = (props) => {
 
   const createRec = () => {
     const recommender = getCookie("user");
-  
-    let date = Date.now();
-    let setdate = new Date(date);
-    setdate = setdate.toString().substring(0, 10);
+    
+    
 
     const rec = {
       song: props.info.song,
       artist: props.info.artist,
       user: recommender,
       uri: props.info.uri,
-      date: setdate,
     };
     fetch("/api/create_rec", {
       method: "POST",
@@ -53,7 +50,6 @@ export const QueuedRec = (props) => {
         }
         if (parsed["success"]) {
           props.cleanup();
-          alert('Recommendation Successful')
         }
       });
   };
@@ -62,15 +58,14 @@ export const QueuedRec = (props) => {
     const recommender = getCookie("user");
 
     let date = Date.now();
-    let setdate = new Date(date);
-    setdate = setdate.toString().substring(0, 10);
+    
 
     const directRec = {
       song: props.info.song,
       artist: props.info.artist,
       user: recommender,
       uri: props.info.uri,
-      date: setdate,
+      date: date,
       recipients: friends
     };
 

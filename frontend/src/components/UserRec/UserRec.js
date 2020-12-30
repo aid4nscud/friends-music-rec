@@ -1,12 +1,26 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "./UserRec.css";
 import { FaMinusCircle } from "react-icons/fa";
 
 export const UserRec = (props) => {
   let uri = props.uri;
   let uriCode = uri.substr(14);
+  const [time, setTime] = useState(null)
 
   let url = "https://open.spotify.com/embed/track/" + uriCode;
+
+  useEffect(()=> {
+
+    let currTime = Date.now()/1000;
+    let stored_time = props.date
+    
+    const time_dif = currTime-stored_time
+    setTime(time_dif/60)
+
+  
+ 
+ 
+    }, [])
 
   return (
     <div className="user-rec">
@@ -31,7 +45,7 @@ export const UserRec = (props) => {
           allow="encrypted-media"
         ></iframe>
         <h3 style={{ position: "relative", left: "2rem", float: "left" }}>
-          {props.date.substring(0, 3) + ", " + props.date.substring(4)}
+        {time !==null && Math.round(time) + ' minutes ago'}
         </h3>
         <div
           className="remove-rec-icon"
