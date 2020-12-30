@@ -6,6 +6,7 @@ import { SearchResult } from "../SearchResult/SearchResult";
 import "./SearchRec.css";
 import { FaSearchengin } from "react-icons/fa";
 import { QueuedRec } from "../QueuedRec/QueuedRec";
+import { AiOutlineCloseCircle } from "react-icons/ai";
 
 export const SearchRec = (props) => {
   const info = getInfo();
@@ -71,18 +72,20 @@ export const SearchRec = (props) => {
           Search a song, and make a recommendation!
         </h1>
         {props.popup !== null && (
-          <button
+          <div className='close-popup-button'
             style={{
-              display: "inline-block",
-              marginLeft: "1rem",
-              verticalAlign: "middle",
+              float:'right',
+              position:'relative',
+              right:'3rem',
+              top:'1rem',
+              
             }}
             onClick={() => {
               props.setPopup(null);
             }}
           >
-            EXIT
-          </button>
+            <AiOutlineCloseCircle size='3em' color='white'/>
+          </div>
         )}
       </div>
 

@@ -79,7 +79,7 @@ export const Profile = (props) => {
             Welcome to your profile, <span className="span-user">{user}</span>
             
           </h1>
-          <div className="settings-icon"
+          <div style={{display:'inline-block', verticalAlign:'middle'}}className="settings-icon"
             onClick={() => {
               if (props.popup !== "edit-profile") {
                 props.setPopup("edit-profile");

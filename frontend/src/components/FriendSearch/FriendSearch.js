@@ -29,41 +29,67 @@ export const FriendSearch = (props) => {
 
   const addFriend = (friendName) => {
     let currState = addedFriends;
-    currState.push(friendName);
+    if(currState.indexOf(friendName)===-1){
+      currState.push(friendName);
+    setAddedFriends(currState);
+    setRender(render + 1);
+    }
+
+    
+  };
+
+  const deleteFriend = (friendName) => {
+    let currState = addedFriends;
+    let index = currState.indexOf(friendName);
+    currState.splice(index,1);
     setAddedFriends(currState);
     setRender(render + 1);
   };
 
-  
   return (
-    <div>
+    <div style={{marginTop:'2rem'}}>
       <h3 style={{ color: "black" }}>Available Friends</h3>
-      {friends.length > 0 ? <ul
-        style={{
-          padding: "none",
-          width: "100%",
-          margin: "auto",
-          maxHeight: "15rem",
-          overflowY: "auto",
-          borderStyle: "solid",
-          borderColor: "black",
-          textAlign: "left",
-        }}
-      >
-        {
-          friends.map((friend) => {
-            return <FriendResult addFriend={addFriend} friend={friend} />;
+      {friends.length > 0 ? (
+        <ul
+          style={{
+            padding: "none",
+            width: "100%",
+            margin: "auto",
+            maxHeight: "15rem",
+            overflowY: "auto",
+            borderStyle: "dashed",
+            borderColor: "black",
+            textAlign: "left",
+            borderTopStyle:'hidden',
+            borderBottomStyle:'hidden',
+            
+            
+          }}
+        >
+          {friends.map((friend) => {
+            return (
+              <FriendResult
+                addFriend={addFriend}
+                deleteFriend={deleteFriend}
+                friend={friend}
+              />
+            );
           })}
-      </ul> : <h2>You can only send direct recs to users that you both follow, and are followed by...</h2>}
+        </ul>
+      ) : (
+        <h2>
+          You can only send direct recs to users that you both follow, and are
+          followed by...
+        </h2>
+      )}
 
       {addedFriends.length > 0 && (
         <h2 style={{ display: "block" }}>
-          {addedFriends.length < 3
-            ? "Recommend to " + addedFriends[0] + ", and " + addedFriends[1]
+          {addedFriends.length < 2
+            ? "Recommend to " + addedFriends[0]
             : "Recommend to " +
-              addedFriends[0] +
-              " and " +
-              (addedFriends.length - 1) +
+              addedFriends[0] 
+              + ", and " + (addedFriends.length - 1) +
               " others"}
         </h2>
       )}

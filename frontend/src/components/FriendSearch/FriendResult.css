@@ -1,0 +1,7 @@
+.friend-result button:hover {
+    transform: scale(1.1);
+}
+
+.friend-result button:focus {
+   outline: none;
+}

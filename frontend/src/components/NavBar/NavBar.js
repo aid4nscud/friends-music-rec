@@ -16,22 +16,16 @@ export const NavBar = (props) => {
     switch (path) {
       case "me":
         document.getElementById("profile-nav-icon").style.transform =
-          "scale(1.2)";
+          "scale(1.5)";
         document.getElementById("listen-nav-icon").style.transform = "scale(1)";
         // document.getElementById('create-explore-nav-icon').style.transform='scale(1)'
         break;
       case "listen":
         document.getElementById("listen-nav-icon").style.transform =
-          "scale(1.2)";
+          "scale(1.5)";
         document.getElementById("profile-nav-icon").style.transform =
           "scale(1)";
         // document.getElementById('create-explore-nav-icon').style.transform='scale(1)'
-        break;
-      case "create+explore":
-        // document.getElementById('create-explore-nav-icon').style.transform='scale(1.2)'
-        document.getElementById("profile-nav-icon").style.transform =
-          "scale(1)";
-        document.getElementById("listen-nav-icon").style.transform = "scale(1)";
         break;
 
       default:
@@ -44,6 +38,11 @@ export const NavBar = (props) => {
         <li>
           <Link to="/app/me">
             <ProfileIcon id="profile-nav-icon" className="nav-icon" />
+          </Link>
+        </li>
+        <li>
+          <Link to="/app/listen">
+            <ListenIcon id="listen-nav-icon" className="nav-icon" />
           </Link>
         </li>
 
@@ -60,6 +59,7 @@ export const NavBar = (props) => {
           style={{
             display: "inline-block",
             verticalAlign: "middle",
+            width:'33%'
           }}
         >
           <h3
@@ -79,11 +79,7 @@ export const NavBar = (props) => {
           />
         </div>
 
-        <li>
-          <Link to="/app/listen">
-            <ListenIcon id="listen-nav-icon" className="nav-icon" />
-          </Link>
-        </li>
+        
       </ul>
     </div>
   );

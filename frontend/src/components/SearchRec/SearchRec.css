@@ -99,4 +99,8 @@ height: 100%;
 }
 
 
+.close-popup-button:hover {
+  transform: scale(1.2);
+}
+
 

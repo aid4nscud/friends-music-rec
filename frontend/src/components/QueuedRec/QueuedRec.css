@@ -43,6 +43,8 @@ outline: none;
     width: 10rem;
     height: 4rem;
     margin: auto;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
     padding-left: 0rem;
     border-style: solid;
     border-color: black;
