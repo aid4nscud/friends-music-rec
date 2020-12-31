@@ -100,10 +100,10 @@ export const Register = (props) => {
           value={password}
           placeholder="PASSWORD"
         ></input>
-        <button type="submit">Create Account!</button>
+        <button className='login-page-button' type="submit">Create Account!</button>
       </form>
       <h2 style={{color:'black'}}>Already have an account?</h2>
-            <button
+            <button className='login-page-button'
               onClick={() => {
                 props.setRegister(false);
                 // history.push("/register");

@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Domine&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Domine&display=swap");
 
 html {
   height: 100%;
@@ -13,8 +13,7 @@ html {
   width: 100%;
   overflow-x: hidden;
   min-height: 85vh;
-  font-family: 'Domine', serif;
-
+  font-family: "Domine", serif;
 }
 
 span {
@@ -48,9 +47,8 @@ input {
   z-index: 999;
   width: 90%;
   min-height: 85vh;
-  max-height: 95vh;
-  margin: auto;
-  margin-top: -2rem;
+  max-height: 90vh;
+  top: 9.5%;
   border-style: solid;
   border-color: black;
 }

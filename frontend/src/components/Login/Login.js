@@ -45,7 +45,6 @@ export const Login = (props) => {
           }
           // const url  = parsed.url
 auth.setAuthenticated(true)
-alert(auth.isAuthenticated())
           auth.login(() => {
             history.push("/app/listen");
           });
@@ -59,7 +58,7 @@ alert(auth.isAuthenticated())
     <div className="container">
       <div className="main-message">DON'T KEEP GOOD MUSIC A SECRET</div>
       <div className="login-image">
-        <img alt="skateboarder" src={image}></img>
+        <img style={{borderRadius:'2rem'}}alt="skateboarder" src={image}></img>
       </div>
       {register === true ? (
         <Register setRegister={setRegister} />
@@ -92,12 +91,12 @@ alert(auth.isAuthenticated())
               type="password"
               value={password}
             ></input>
-            <button type="submit"> Login </button>
+            <button  className='login-page-button' type="submit"> Login </button>
           </form>
           {warning && <h3 className="warning">{warning}</h3>}
           <div className="sign-up">
-            <h2 style={{color:'white'}}>Don't have an account yet?</h2>
-            <button
+            <h2 style={{color:'black'}}>Don't have an account yet?</h2>
+            <button className='login-page-button'
               onClick={() => {
                 setRegister(true);
                 

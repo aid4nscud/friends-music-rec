@@ -6,7 +6,7 @@ import { AuthRoute } from "../AuthRoute";
 import { NavBar } from "../NavBar/NavBar";
 import "./AppLayout.css";
 import { SearchedProfile } from "../SearchedProfile/SearchedProfile";
-import { MainRecs } from "../FriendRecs/MainRecs";
+import { MainRecs } from "../MainRecs/MainRecs";
 
 import { EditProfile } from "../EditProfile/EditProfile";
 
@@ -37,7 +37,7 @@ export const AppLayout = (props) => {
         )}
 
         {popup === "edit-profile" && (
-          <div className='popup' style={{width:'50%', top:'15%', left:'25%'}}>
+          <div className='popup' style={{width:'50%', top:'10%', left:'25%'}}>
             <EditProfile setPopup={setPopup}/>
           </div>
         )}

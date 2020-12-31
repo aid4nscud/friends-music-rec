@@ -5,28 +5,52 @@ import { FaMinusCircle } from "react-icons/fa";
 export const UserRec = (props) => {
   let uri = props.uri;
   let uriCode = uri.substr(14);
-  const [time, setTime] = useState(null)
+  const [time, setTime] = useState(null);
+  const [metric, setMetric] = useState("minutes");
 
   let url = "https://open.spotify.com/embed/track/" + uriCode;
 
-  useEffect(()=> {
+  useEffect(() => {
+    let currTime = Date.now() / 1000;
+    let stored_time = props.date;
 
-    let currTime = Date.now()/1000;
-    let stored_time = props.date
-    
-    const time_dif = currTime-stored_time
-    setTime(time_dif/60)
+    let time_dif = (currTime - stored_time) / 60;
 
-  
- 
- 
-    }, [])
+    if (time_dif > 59) {
+      setMetric("hours");
+      time_dif = Math.round(time_dif / 60);
+      if (time_dif > 23) {
+        time_dif = Math.round(time_dif / 24);
+        setMetric("days");
+        if (time_dif > 7) {
+          time_dif = Math.round(time_dif / 7);
+          setMetric("weeks");
+          if (time_dif > 3) {
+            time_dif = Math.round(time_dif / 4);
+            setMetric("months");
+            if (time_dif > 11) {
+              time_dif = Math.round(time_dif / 12);
+              setMetric("years");
+            } else {
+              setTime(Math.round(time_dif));
+            }
+          } else {
+            setTime(Math.round(time_dif));
+          }
+        } else {
+          setTime(Math.round(time_dif));
+        }
+      } else {
+        setTime(Math.round(time_dif));
+      }
+    } else {
+      setTime(Math.round(time_dif));
+    }
+  }, []);
 
   return (
     <div className="user-rec">
       <div className="profile-card-header">
-        
-
         <h3 className="user-rec-likes-label">{"Likes: " + props.likes}</h3>
       </div>
       <div className="loading-spinner user-rec-div">
@@ -45,7 +69,7 @@ export const UserRec = (props) => {
           allow="encrypted-media"
         ></iframe>
         <h3 style={{ position: "relative", left: "2rem", float: "left" }}>
-        {time !==null && Math.round(time) + ' minutes ago'}
+          {time !== null && time + " " + metric + " ago"}
         </h3>
         <div
           className="remove-rec-icon"

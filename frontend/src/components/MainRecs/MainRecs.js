@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useRef } from "react";
 import { useEffect, useState } from "react";
-import { FeedRec } from "../FeedRec/FeedRec";
+import { FriendRecs } from "../FriendRecs/FriendRecs";
 import { Discover } from "../Discover/Discover";
 import "./MainRecs.css";
 import { SearchUser } from "../SearchUser/SearchUser";
 import { ActivityFeed } from "../ActivityFeed/ActivityFeed";
+import { FaSearchengin } from "react-icons/fa";
 
 export const MainRecs = (props) => {
   const [recType, setRecType] = useState(true); //set to null and useeffect hook will set conditionally based on if there are any friendrecs
@@ -14,8 +15,9 @@ export const MainRecs = (props) => {
   const [color1, setColor1] = useState("white");
   const [backgroundColor2, setBackgroundColor2] = useState("white");
   const [color2, setColor2] = useState("rgba(0, 0, 0, 0.53)");
-  const [recs, setRecs] = useState(null)
+  const [recs, setRecs] = useState(null);
 
+  const searchUserRef = useRef();
 
   useEffect(() => {
     if (recType === true) {
@@ -30,6 +32,8 @@ export const MainRecs = (props) => {
       setColor2("black");
     }
   }, [recType]);
+
+  
 
   return (
     <div className="friend-recs">
@@ -63,32 +67,59 @@ export const MainRecs = (props) => {
           Explore
         </button>
       </ul>
+      {recType === false && (
+        <div style={{display:'inline-block', position:'relative', top:'1rem', marginLeft:'1rem'}}
+          onClick={() => {
+            if (searchUserRef.current) {
+              searchUserRef.current.scrollIntoView({
+                behavior: "smooth",
+                block: "nearest",
+              });
+            }
+          }}
+        >
+          <FaSearchengin
+            color="white"
+            size="3em"
+            className="search-user-icon"
+          />
+        </div>
+      )}
 
       {recType === true && (
-        <div className='main-recs-friends'>
-        <div style={{display:'inline-block', width:'50%', textAlign:'center', marginTop:'3rem'}}>
-          <FeedRec
-            
-            spotifyToken={props.spotifyToken}
-            setSpotifyToken={props.setSpotifyToken}
-            recType={recType}
-            setRecType={setRecType}
-            setRecs={setRecs}
-          />
+        <div className="main-recs-friends">
+          <div
+            style={{
+              display: "inline-block",
+              width: "50%",
+              textAlign: "center",
+              marginTop: "3rem",
+            }}
+          >
+            <FriendRecs
+              spotifyToken={props.spotifyToken}
+              setSpotifyToken={props.setSpotifyToken}
+              recType={recType}
+              setRecType={setRecType}
+              setRecs={setRecs}
+            />
           </div>
-          <div className='recs-true-format'><ActivityFeed /></div>
+          <div className="recs-true-format">
+            <ActivityFeed />
+          </div>
         </div>
       )}
       {recType === false && (
-        <div className='main-recs-explore'>
-       
-        <Discover
-          spotifyToken={props.spotifyToken}
-          setSpotifyToken={props.setSpotifyToken}
-        />
+        <div className="main-recs-explore">
+          <Discover
+            spotifyToken={props.spotifyToken}
+            setSpotifyToken={props.setSpotifyToken}
+          />
+          <div ref={searchUserRef}>
+            <SearchUser />
+          </div>
         </div>
       )}
-      
     </div>
   );
 };

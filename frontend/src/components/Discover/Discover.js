@@ -134,7 +134,7 @@ export const Discover = (props) => {
     <div className="discover">
       <div style={{ display: "inline-block" }} className="rec-section">
         {recs === null ? (
-          <h1 style={{color:'black'}}className='container-div'>Looking for recommendations...</h1>
+          <h1 style={{color:'black', marginTop:'8rem'}}className='container-div'>Looking for recommendations...</h1>
         ) : (
           <div>
             {recs !== null && (

@@ -68,7 +68,7 @@ export const SearchRec = (props) => {
   return (
     <div className="make-rec">
       <div className="search-header">
-        <h1 style={{ display: "inline-block", verticalAlign: "middle" }}>
+        <h1 style={{ display: "inline-block", verticalAlign: "middle", color:'black' }}>
           Search a song, and make a recommendation!
         </h1>
         {props.popup !== null && (
@@ -84,7 +84,7 @@ export const SearchRec = (props) => {
               props.setPopup(null);
             }}
           >
-            <AiOutlineCloseCircle size='3em' color='white'/>
+            <AiOutlineCloseCircle size='3em' color='black'/>
           </div>
         )}
       </div>

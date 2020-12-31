@@ -22,32 +22,32 @@
   height: 100%;
   display: inline-block;
   vertical-align: middle;
+  position: relative;
+  top: 0.5rem;
 }
 
-.nav-icon:hover {
+.create-rec-icon:hover {
   transform: scale(1.2);
 }
 
 .navbar button {
-  
   width: 10%;
-  
 }
 
-.nav-icon{
-  vertical-align: middle;
-  display: inline-block;
-  margin-bottom: 1rem;
- 
+.navbar-logo {
+  float: left;
+  position: relative;
+  top: 1.5rem;
+  left: 5rem;
+  width: 20%;
 }
 
-#create-explore-nav-icon:hover{
-transform: scale(1.1);
+.create-rec-icon {
+  float: right;
+  width: 20%;
 }
 
 .navbar-popup-content {
-
-  
   background: rgb(255, 255, 255);
   width: 100%;
   min-height: 80vh;
@@ -57,25 +57,23 @@ transform: scale(1.1);
   border-radius: 2rem;
   border-style: solid;
   border-color: black;
-
 }
 .navbar-popup-arrow {
   color: rgb(255, 255, 255);
 }
-[role='tooltip'].popup-content {
-  
+[role="tooltip"].popup-content {
   position: fixed;
   left: 0;
-  
+
   height: auto;
-  margin:auto;
-  
+  margin: auto;
+
   box-shadow: rgba(0, 0, 0, 0.16) 0px 0px 3px;
 }
 
 .navbar-popup-overlay {
   background: rgba(0, 0, 0, 0.5);
 }
-[data-popup='tooltip'].popup-overlay {
-  background: rgba(0, 0, 0, 0.5) ;
+[data-popup="tooltip"].popup-overlay {
+  background: rgba(0, 0, 0, 0.5);
 }

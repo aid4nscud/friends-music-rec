@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { UserResult } from "./UserResult";
 import "./SearchUser.css";
 import { getCookie } from "../../utils/auth";
@@ -114,7 +114,7 @@ export const SearchUser = (props) => {
             search();
           }}
         >
-          <FaSearchengin color='black' size='3em' className='search-user-icon'/>
+          <FaSearchengin color='white' size='3em' className='search-user-icon'/>
         </div>
         {results !== null && (
           <button

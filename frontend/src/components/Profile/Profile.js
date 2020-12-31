@@ -150,7 +150,7 @@ export const Profile = (props) => {
                 width: "auto",
                 margin: "auto",
                 position: "absolute",
-                top: "50%",
+                top: "45%",
                 left: "40%",
               }}
             >

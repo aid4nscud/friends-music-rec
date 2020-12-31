@@ -8,19 +8,52 @@ import { GrLinkNext } from "react-icons/gr";
 export const DiscoverRec = (props) => {
   const [likes, setLikes] = useState(0);
   const [placeholderLiked, setPlaceholderLiked] = useState(false);
-  const [time, setTime] = useState(null)
+  const [time, setTime] = useState("");
+  const [metric, setMetric] = useState("minutes");
+  
   const history = useHistory();
   let uri = props.recInfo.uri;
   let uriCode = uri.substr(14);
   let url = "https://open.spotify.com/embed/track/" + uriCode;
 
-  useEffect(()=> {
-let currTime = Date.now()/1000;
-let stored_time = props.recInfo.date
+  useEffect(() => {
+    let currTime = Date.now() / 1000;
+    let stored_time = props.recInfo.date;
 
-const time_dif = currTime-stored_time
-setTime(time_dif/60)
-  }, [])
+    let time_dif = (currTime - stored_time) / 60;
+
+    if (time_dif > 59) {
+      setMetric("hours");
+      time_dif = Math.round(time_dif / 60);
+      if (time_dif > 23) {
+        time_dif = Math.round(time_dif / 24);
+        setMetric("days");
+        if (time_dif > 7) {
+          time_dif = Math.round(time_dif / 7);
+          setMetric("weeks");
+          if (time_dif > 3) {
+            time_dif = Math.round(time_dif / 4);
+            setMetric("months");
+            if (time_dif > 11) {
+              time_dif = Math.round(time_dif / 12);
+              setMetric("years");
+            } else {
+              setTime(Math.round(time_dif));
+            }
+          } else {
+            setTime(Math.round(time_dif));
+          }
+        } else {
+          setTime(Math.round(time_dif));
+        }
+      } else {
+        setTime(Math.round(time_dif));
+      }
+    } else {
+      time_dif = Math.round(time_dif);
+      setTime(time_dif);
+    }
+  }, [props.recInfo]);
 
   return (
     <div className="container-div">
@@ -36,9 +69,11 @@ setTime(time_dif/60)
               }}
               onClick={() => {
                 if (props.recInfo.liked === false) {
-                  props.like(props.recInfo._id);
-                  setLikes(likes + 1);
-                  setPlaceholderLiked(true);
+                  if (likes === 0) {
+                    props.like(props.recInfo._id);
+                    setLikes(likes + 1);
+                    setPlaceholderLiked(true);
+                  }
                 }
               }}
             >
@@ -94,7 +129,11 @@ setTime(time_dif/60)
             </div>
           )}
         </div>
-        <div className="loading-spinner">
+        <div onClick={() => {
+              alert('bruh')
+              const audio = document.getElementsByTagName("audio");
+              console.log(audio);
+            }} className="loading-spinner">
           <iframe
             id="iframe-test"
             onLoad={() => {
@@ -110,24 +149,31 @@ setTime(time_dif/60)
             frameBorder="1"
             allowtransparency="true"
             allow="encrypted-media"
+            
           ></iframe>
         </div>
-        <h3 style={{width: "20%", margin: "2rem", position:'relative', bottom:'1rem'}}>
-          {time !==null && Math.round(time) + ' minutes ago'}
-        </h3>
-
-       
-      </div>
-      <div
-          className="next-button"
-          onClick={() => {
-            setLikes(0);
-            props.nextRec();
-            setPlaceholderLiked(false);
+        <h3
+          style={{
+            width: "20%",
+            margin: "2rem",
+            position: "relative",
+            bottom: "1rem",
           }}
         >
-          <GrLinkNext color="white" style={{ padding: "0.5rem" }} size="2em" />
-        </div>
+          {time !== null && time + " " + metric + " ago"}
+          
+        </h3>
+      </div>
+      <div
+        className="next-button"
+        onClick={() => {
+          setLikes(0);
+          props.nextRec();
+          setPlaceholderLiked(false);
+        }}
+      >
+        <GrLinkNext color="white" style={{ padding: "0.5rem" }} size="2em" />
+      </div>
     </div>
   );
 };

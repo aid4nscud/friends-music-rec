@@ -10,6 +10,8 @@
   background-color: white;
    padding: 1rem;
    border-radius: 2rem;
+   border-style: solid;
+  border-color: black;
 }
 
 .register h1 {
@@ -35,7 +37,7 @@
   
   }
 
-  .login-form input:focus {
+  .register-form input:focus {
       transform: scale(1.1);
       outline: none;
   }

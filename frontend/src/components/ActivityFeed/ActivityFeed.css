@@ -8,19 +8,21 @@
 }
 
 .notif-message{
-    width: max-content;
-    font-size: medium;
+    width: 70%;
+    font-size:small;
     display: inline-block;
     vertical-align: middle;
 }
 .notif-date {
+    font-size: medium;
     width: auto;
     float: right;
     position: relative;
 right: 1rem;
-top: 0.6rem;}
+top: 1rem;
+width: 20%;}
 .notification-list {
-    height: 33rem;
+    height: 30rem;
     overflow-y: auto;
     overflow-x: hidden;
 
@@ -44,5 +46,10 @@ top: 0.6rem;}
     color: white;
     padding: 0.5rem 0rem 0.5rem 0rem;
 
+}
+
+.profile-link:hover {
+    
+    text-decoration: underline;
 }
 

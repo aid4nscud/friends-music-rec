@@ -4,7 +4,6 @@ import { Redirect, Route, Switch, useHistory } from "react-router-dom";
 import "./App.css";
 import auth, { getCookie } from "../../utils/auth";
 import { Login } from "../Login/Login.js";
-import { Register } from "../Register/Register";
 import { AuthRoute } from "../AuthRoute";
 import { AppLayout } from "../AppLayout/AppLayout.js";
 import { Footer } from "../Footer/Footer";
@@ -19,7 +18,11 @@ function App() {
           exact
           path="/"
           render={() => {
-            if (getCookie("token") !== null && getCookie("user") !== null) {
+            if (auth.isAuthenticated() === true) {
+              auth.setAuthenticated(true);
+              history.push("/app/listen");
+            } else if (getCookie("token") !== null) {
+              auth.setAuthenticated(true);
               history.push("/app/listen");
             } else {
               return <Login />;

@@ -10,23 +10,49 @@ export const SearchedUserRec = (props) => {
   const [liked, setLiked] = useState(props.liked);
   const [likes, setLikes] = useState(0);
   const [time, setTime] = useState(null)
+  const [metric, setMetric] = useState('minutes')
   let uri = props.uri;
   let uriCode = uri.substr(14);
 
   let url = "https://open.spotify.com/embed/track/" + uriCode;
 
-  useEffect(()=> {
+  useEffect(() => {
+    let currTime = Date.now() / 1000;
+    let stored_time = props.date;
 
-    let currTime = Date.now()/1000;
-    let stored_time = props.date
-    
-    const time_dif = currTime-stored_time
-    setTime(time_dif/60)
+    let time_dif = (currTime - stored_time) / 60;
 
-  
- 
- 
-    }, [])
+    if (time_dif > 59) {
+      setMetric("hours");
+      time_dif = Math.round(time_dif / 60);
+      if (time_dif > 23) {
+        time_dif = Math.round(time_dif / 24);
+        setMetric("days");
+        if (time_dif > 7) {
+          time_dif = Math.round(time_dif / 7);
+          setMetric("weeks");
+          if (time_dif > 3) {
+            time_dif = Math.round(time_dif / 4);
+            setMetric("months");
+            if (time_dif > 11) {
+              time_dif = Math.round(time_dif / 12);
+              setMetric("years");
+            } else {
+              setTime(Math.round(time_dif));
+            }
+          } else {
+            setTime(Math.round(time_dif));
+          }
+        } else {
+          setTime(Math.round(time_dif));
+        }
+      } else {
+        setTime(Math.round(time_dif));
+      }
+    } else {
+      setTime(Math.round(time_dif));
+    }
+  }, []);
 
   return (
     <div className="searched-user-rec">
@@ -70,7 +96,7 @@ export const SearchedUserRec = (props) => {
           allowtransparency="true"
           allow="encrypted-media"
         ></iframe>
-        <h3 style={{float:'left', position:'relative', left: '2rem'}}>{time !==null && Math.round(time) + ' minutes ago'}</h3>
+        <h3 style={{float:'left', position:'relative', left: '2rem'}}>{time !==null && time + ' ' + metric + ' ago'}</h3>
       </div>
     </div>
   );
