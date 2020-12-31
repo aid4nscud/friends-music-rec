@@ -27,12 +27,11 @@ Users will have a profile that is made up of their song recommendations (with as
 
 TODO:
 
-- Move Search User underneath ExploreRec, icon visible that points to it though ( or popup )
+- Find something to use to indicate rec quality 
 
 - Add direct/public choice + choose recipients in search rec (frontend) and create_direct_rec (backend)
-
-- If popularity is 0-100 or 0.01-1, popularity multiplier as variable 'pop' on score is: mult = (1/pop). There can be conditional cases for recs with pop. above 75 and pop. below 30
-
+    
+    - Add caption functionality to Create Rec
 
 - Add logo, title, footer, favicon, etc...
 
