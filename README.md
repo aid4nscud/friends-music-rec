@@ -16,24 +16,24 @@ Users will have a profile that is made up of their song recommendations (with as
 
 **- User can view their profile and can see their social info + what they've recommended**
 
-**- User can explore recommendations and interact with them (like, follow recommender)**
+**- User can explore recommendations and interact with them (like, follow user)**
 
 **- User can search users and follow immediately, or click on the profiles of the user results**
 
-**- User can see recommendations of users they follow and interact with them (like, save??)**
+**- User can see recommendations of users they follow and interact with them (like)**
 
 
 
 
 TODO:
 
-- Add Activity Feed where Search Profile currently is in FeedRecs
+- Find something to use to indicate rec quality 
 
-- Move Search User underneath ExploreRec, icon visible that points to it though ( or popup )
+- Add direct/public choice + choose recipients in search rec (frontend) and create_direct_rec (backend)
+    
+    - Add caption functionality to Create Rec
 
-- Add direct/public choice + choose recipients in search rec (frontend) and create_rec (backend)
-
-- If popularity is 0-100 or 0.01-1, popularity multiplier as variable 'pop' on score is: mult = (1/pop). There can be conditional cases for recs with pop. above 75 and pop. below 30
+- Add logo, title, footer, favicon, etc...
 
 
 OPTIONAL/UNDECIDED
