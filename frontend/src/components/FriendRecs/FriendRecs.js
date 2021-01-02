@@ -3,12 +3,14 @@ import { useEffect, useState } from "react";
 import { getCookie } from "../../utils/auth";
 import { FeedRec } from "../FeedRec/FeedRec";
 import { SearchUser } from "../SearchUser/SearchUser";
+import {DirectRecs} from '../DirectRecs/DirectRecs'
 
 export const FriendRecs = (props) => {
   const [recs, setRecs] = useState(null);
   const [index, setIndex] = useState(0);
   const [followButton, setFollowButton] = useState("Following");
   const [render, setRender] = useState(0);
+  const [directRecs, setDirectRecs] = useState(null);
 
   useEffect(() => {
     const user = getCookie("user");
@@ -50,6 +52,30 @@ export const FriendRecs = (props) => {
           }
         });
     }
+  }, [render]);
+
+  useEffect(() => {
+    const url = "/api/get_direct_recs";
+    const user = getCookie("user");
+
+    const data = {
+      user: user,
+    };
+
+    fetch(url, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+    })
+      .then((res) => res.json())
+      .then((parsed) => {
+        if (parsed["recs"]) {
+          setDirectRecs(parsed["recs"]);
+        }
+        if (parsed["error"]) {
+          alert(parsed["error"]);
+        }
+      });
   }, [render]);
 
   const follow = (userToFollow) => {
@@ -143,7 +169,8 @@ export const FriendRecs = (props) => {
 
   return (
     <div>
-      {(recs !== null && recs.length > 0)  ? (
+      
+      {recs !== null && recs.length > 0 ? (
         <FeedRec
           render={render}
           setRender={setRender}
@@ -161,6 +188,17 @@ export const FriendRecs = (props) => {
             You aren't following anyone yet, search profiles or explore!
           </h2>
           <SearchUser />
+        </div>
+      )}
+      {directRecs !== null && directRecs.length > 0 && (
+        <div >
+           <h1>Direct Recs</h1>
+          
+           
+          <DirectRecs recs={directRecs}/>
+            
+          
+        
         </div>
       )}
     </div>

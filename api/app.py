@@ -578,3 +578,29 @@ def get_notifications():
     except Exception as e:
         print(e)
         return {'error': str(e)}
+
+
+@app.route('/api/get_direct_recs', methods={"POST"})
+def get_direct_recs():
+    username = request.json['user']
+    try:
+        user = users.find_one({'username':username})
+        arr = user['direct_recs']
+        dir_recs = []
+        for doc in arr:
+            dir_recs.append({
+                
+                
+                'song': doc['song'],
+                'artist': doc['artist'],
+                'user': doc['user'],
+                'uri': doc['uri'],
+                'date': doc['date'],
+                
+            })
+        dir_recs.reverse()
+        return {'recs': dir_recs}
+
+    except Exception as e:
+        print(e)
+        return {'error': str(e)}

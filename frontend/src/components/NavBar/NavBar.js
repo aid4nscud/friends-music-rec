@@ -59,7 +59,7 @@ export const NavBar = (props) => {
           style={{
             display: "inline-block",
             verticalAlign: "middle",
-            width: "20%",
+           
           }}
         >
           <h3
