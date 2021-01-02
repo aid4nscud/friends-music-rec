@@ -7,6 +7,7 @@ export const UserRec = (props) => {
   let uriCode = uri.substr(14);
   const [time, setTime] = useState(null);
   const [metric, setMetric] = useState("minutes");
+  const [justNow, setJustNow] = useState(false)
 
   let url = "https://open.spotify.com/embed/track/" + uriCode;
 
@@ -15,6 +16,10 @@ export const UserRec = (props) => {
     let stored_time = props.date;
 
     let time_dif = (currTime - stored_time) / 60;
+
+    if (time_dif < 2) {
+      setJustNow(true);
+    }
 
     if (time_dif > 59) {
       setMetric("hours");
@@ -69,7 +74,7 @@ export const UserRec = (props) => {
           allow="encrypted-media"
         ></iframe>
         <h3 style={{ position: "relative", left: "2rem", float: "left" }}>
-          {time !== null && time + " " + metric + " ago"}
+          {justNow === false ? time + " " + metric + " ago" : "just now"}
         </h3>
         <div
           className="remove-rec-icon"

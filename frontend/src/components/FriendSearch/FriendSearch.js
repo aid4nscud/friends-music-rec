@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { getCookie } from "../../utils/auth";
 import { FriendResult } from "./FriendResult";
+import './FriendSearch.css'
 
 export const FriendSearch = (props) => {
   const [friends, setFriends] = useState([]);
@@ -50,21 +51,8 @@ export const FriendSearch = (props) => {
     <div style={{marginTop:'2rem'}}>
       <h3 style={{ color: "black" }}>Available Friends</h3>
       {friends.length > 0 ? (
-        <ul
-          style={{
-            padding: "none",
-            width: "100%",
-            margin: "auto",
-            maxHeight: "15rem",
-            overflowY: "auto",
-            borderStyle: "dashed",
-            borderColor: "black",
-            textAlign: "left",
-            borderTopStyle:'hidden',
-            borderBottomStyle:'hidden',
-            
-            
-          }}
+        <ul className='mutual-friends-list'
+          
         >
           {friends.map((friend) => {
             return (

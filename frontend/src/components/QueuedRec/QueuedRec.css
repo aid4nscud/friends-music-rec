@@ -3,6 +3,8 @@
   width: 40%;
   vertical-align: top;
   margin-left: 3rem;
+  min-height: 32rem;
+  border-style: solid;
 }
 
 .queued-rec-card {
@@ -42,4 +44,22 @@
   border-style: solid;
   border-color: black;
   border-radius: 1.5rem;
+}
+
+
+.make-rec-button {
+  background-color: black;
+  color: white;
+  padding: 1rem;
+  border-radius: 1rem;
+  font-size: large;
+  margin: 1rem;
+}
+
+.make-rec-button:hover {
+  transform: scale(1.1);
+}
+
+.make-rec-button:focus {
+  outline: none;
 }

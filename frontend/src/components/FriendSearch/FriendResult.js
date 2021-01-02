@@ -15,17 +15,17 @@ export const FriendResult = (props) => {
   return (
     <div className='friend-result'
       style={{
-        padding: "1rem",
-        width: "110%",
-        margin: "auto",
-        marginLeft: "-2.4rem",
+       
+        width: "100%",
+        
+        
         background: backgroundColor,
       }}
     >
-      <h2 style={{ width: "70%" }}>{props.friend}</h2>
+      <h2 style={{ width: "60%" }}>{props.friend}</h2>
 
       {added === false && <button
-        style={{ margin: "1rem", padding:'1rem', borderRadius:'1rem', width: '6rem' }}
+        style={{ margin: "1rem", padding:'0.5rem', borderRadius:'1rem', width: '6rem' }}
         onClick={() => {
           setAdded(true);
           props.addFriend(props.friend);

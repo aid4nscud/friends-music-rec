@@ -18,11 +18,10 @@ function App() {
           exact
           path="/"
           render={() => {
-            if (auth.isAuthenticated() === true) {
-              auth.setAuthenticated(true);
+            const authed = auth.isAuthenticated();
+            if (authed === true) {
               history.push("/app/listen");
             } else if (getCookie("token") !== null) {
-              auth.setAuthenticated(true);
               history.push("/app/listen");
             } else {
               return <Login />;

@@ -138,13 +138,14 @@ export const QueuedRec = (props) => {
         </ul>
 
         {recType === false && <FriendSearch createDirectRec={createDirectRec}/>}
+        {recType === true && <h2>Recommend to your followers, and anonymously to the world</h2>}
         {recType === true && (
-          <button
+          <button className='make-rec-button'
             onClick={() => {
               createRec();
             }}
           >
-            Make Recommendation
+            Make Recommendation!
           </button>
         )}
       </div>

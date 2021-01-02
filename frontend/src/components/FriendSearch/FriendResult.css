@@ -5,3 +5,7 @@
 .friend-result button:focus {
    outline: none;
 }
+
+.friend-result {
+    width: 50%;
+}
