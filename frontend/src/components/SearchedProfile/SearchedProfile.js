@@ -10,7 +10,6 @@ export const SearchedProfile = (props) => {
   const [following, setFollowing] = useState(null);
   const [followed, setFollowed] = useState(null);
 
- 
   const { user } = useParams();
 
   useEffect(() => {
@@ -45,9 +44,6 @@ export const SearchedProfile = (props) => {
   useEffect(() => {
     window.scrollTo(0, 0);
   });
-
-
-  
 
   function likeRec(recToLike) {
     const userLiking = getCookie("user");
@@ -139,29 +135,33 @@ export const SearchedProfile = (props) => {
               Welcome to <span className="span-user">{user + "'s"}</span>{" "}
               profile
             </h1>
-            {user !== getCookie("user") && followed === true ? (
-              <button
-                style={{ backgroundColor: "#00E0C3", color: "black" }}
-                className="searched-user-follow-button"
-                onClick={() => {
-                  unfollow(user);
-                  setFollowed(false);
-                  setFollowers(followers - 1);
-                }}
-              >
-                Following
-              </button>
-            ) : (
-              <button
-                className="searched-user-follow-button"
-                onClick={() => {
-                  follow(user);
-                  setFollowed(true);
-                  setFollowers(followers + 1);
-                }}
-              >
-                Follow
-              </button>
+            {user !== getCookie("user") && (
+              <div style={{ display: "inline-block" }}>
+                {followed === true ? (
+                  <button
+                    style={{ backgroundColor: "#00E0C3", color: "black" }}
+                    className="searched-user-follow-button"
+                    onClick={() => {
+                      unfollow(user);
+                      setFollowed(false);
+                      setFollowers(followers - 1);
+                    }}
+                  >
+                    Following
+                  </button>
+                ) : (
+                  <button
+                    className="searched-user-follow-button"
+                    onClick={() => {
+                      follow(user);
+                      setFollowed(true);
+                      setFollowers(followers + 1);
+                    }}
+                  >
+                    Follow
+                  </button>
+                )}
+              </div>
             )}
           </div>
           <ul className="searched-user-social-info">

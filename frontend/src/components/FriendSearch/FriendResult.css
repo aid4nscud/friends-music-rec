@@ -1,11 +1,23 @@
 .friend-result button:hover {
-    transform: scale(1.1);
+  transform: scale(1.1);
 }
 
 .friend-result button:focus {
-   outline: none;
+  outline: none;
+}
+
+.friend-result button {
+  flex: 0.5;
 }
 
 .friend-result {
-    width: 50%;
+  width: 100%;
+  display: flex;
+  align-content: center;
+  justify-content: center;
+}
+
+.friend-result-name {
+  flex: 1;
+  margin: 1rem;
 }

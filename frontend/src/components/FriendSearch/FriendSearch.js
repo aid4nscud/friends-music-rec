@@ -7,6 +7,7 @@ export const FriendSearch = (props) => {
   const [friends, setFriends] = useState([]);
   const [addedFriends, setAddedFriends] = useState([]);
   const [render, setRender] = useState(0);
+  const [caption, setCaption] = useState(null);
 
   useEffect(() => {
     const url = "/api/get_friends";
@@ -46,10 +47,23 @@ export const FriendSearch = (props) => {
   };
 
   return (
-    <div style={{ marginTop: "2rem" }}>
+    <div className="direct-rec-container" style={{ marginTop: "2rem" }}>
+      {friends.length > 0 && (
+        <div>
+          <h3 style={{ color: "black", display: "inline-block" }}>Caption</h3>
+          <input
+            style={{ margin: "1rem" }}
+            value={caption}
+            placeholder="Add a short comment"
+            onChange={(e) => {
+              setCaption(e.target.value);
+            }}
+          />
+        </div>
+      )}
       <h3 style={{ color: "black" }}>Available Friends</h3>
       {friends.length > 0 ? (
-        <ul className="mutual-friends-list">
+        <div className="mutual-friends-list">
           {friends.map((friend) => {
             return (
               <FriendResult
@@ -59,7 +73,7 @@ export const FriendSearch = (props) => {
               />
             );
           })}
-        </ul>
+        </div>
       ) : (
         <h2>
           You can only send direct recs to users that you both follow, and are

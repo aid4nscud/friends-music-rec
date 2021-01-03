@@ -1,23 +1,18 @@
 .mutual-friends-list {
-    padding: "none";
-    width: "100%";
-    margin: "auto";
-    max-height: "15rem";
-    overflow-y: "auto";
-    overflow-x:'hidden';
-    border-style: "dashed";
-    border-color: "black";
-    text-align: "left";
-    border-top-style:'hidden';
-    border-bottom-style:'hidden';
+  padding: 0;
+  width: 90%;
+  margin: auto;
 
-    display: block;
-    margin-block-start: 0;
-    margin-block-end: 0;
-    margin-inline-start: 0px;
-    margin-inline-end: 0px;
-    padding-inline-start: 0px;
+  max-height: 15rem;
+  overflow-y: auto;
+  overflow-x: hidden;
+  border-style: solid;
+  border-color: black;
+  text-align: left;
+
+  display: block;
 }
-   
-    
-    
+
+.direct-rec-container {
+  width: 100%;
+}

@@ -44,6 +44,7 @@
   border-style: solid;
   border-color: black;
   border-radius: 1.5rem;
+  overflow-x: hidden;
 }
 
 .make-rec-button {

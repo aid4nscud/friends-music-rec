@@ -50,7 +50,7 @@ def encodeAuthToken(user_id):
 
 
 def decodeAuthToken(token):
-    #token = token.encode('UTF-8')
+    # token = token.encode('UTF-8')
     try:
         payload = jwt.decode(token, password, algorithm='HS256')
         return payload
@@ -156,15 +156,15 @@ def follow_user():
     user_following = users.find_one({'username': user_following})
     following_arr = user_following['following']
 
-    mystr = "FOLLOWING ARR: "
-    print(mystr)
-    print(following_arr)
-    print('USER TO FOLLOW: ' + user_to_follow['username'])
-
     curr_time = time.time()
 
     follow_notification_object = {
         'type': 'follow', 'from': user_following['username'], 'time': curr_time}
+
+    mystr = "FOLLOWING ARR:"
+    print(mystr)
+    print(following_arr)
+    print('USER TO FOLLOW: ' + user_to_follow['username'])
 
     if user_to_follow['username'] != user_following['username'] and user_to_follow['username'] not in following_arr:
         try:
@@ -192,6 +192,7 @@ def follow_user():
             print(e)
             return e
     else:
+        print('user allready followeed')
         return {'error': 'user already followed'}
 
 
@@ -329,7 +330,7 @@ def like_rec():
     likers_arr = rec['likers']
     print(likers_arr)
     if user_liking not in rec['likers']:
-       
+
         recommendations.update(
             {"_id": rec_to_like},
             {
@@ -355,16 +356,15 @@ def like_rec():
         if exists == False:
 
             users.update({'username': user_to_like['username']}, {
-                                '$push': {'notifications': like_notification_object}})
+                '$push': {'notifications': like_notification_object}})
 
-            
             return {'success': 'success'}
 
         else:
             users.update({'username': user_to_like['username']}, {
-                                '$pull': {'notifications': {'rec': request.json['recToLike']}}})
+                '$pull': {'notifications': {'rec': request.json['recToLike']}}})
             users.update({'username': user_to_like['username']}, {
-                                '$push': {'notifications': like_notification_object}})
+                '$push': {'notifications': like_notification_object}})
 
             return {'success': 'success'}
     else:
@@ -584,19 +584,19 @@ def get_notifications():
 def get_direct_recs():
     username = request.json['user']
     try:
-        user = users.find_one({'username':username})
+        user = users.find_one({'username': username})
         arr = user['direct_recs']
         dir_recs = []
         for doc in arr:
             dir_recs.append({
-                
-                
+
+
                 'song': doc['song'],
                 'artist': doc['artist'],
                 'user': doc['user'],
                 'uri': doc['uri'],
                 'date': doc['date'],
-                
+
             })
         dir_recs.reverse()
         return {'recs': dir_recs}

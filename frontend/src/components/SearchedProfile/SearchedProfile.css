@@ -30,10 +30,8 @@
 
 .welcome-follow button {
   display: inline-block;
-  margin: 1rem;
-  position: relative;
-  bottom: 0.5rem;
-  width: 10%;
+
+  width: 100%;
 }
 
 .searched-profile-recs {
@@ -88,11 +86,7 @@
 .searched-user-follow-button {
   padding: 0.75rem;
   display: inline-block;
-  width: 6rem;
-  max-width: 7rem;
-  margin-left: 1rem;
-  position: relative;
-  bottom: 0.3rem;
+
   border-style: solid;
   border-radius: 0.8rem;
   background-color: black;

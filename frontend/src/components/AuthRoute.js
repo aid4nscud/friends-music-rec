@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Route, Redirect, useHistory } from "react-router-dom";
-import auth from "../utils/auth";
+import auth, { clearCookies } from "../utils/auth";
 import { getCookie } from "../utils/auth";
 
 export const AuthRoute = ({ component: Component, ...rest }) => {
@@ -21,9 +21,7 @@ export const AuthRoute = ({ component: Component, ...rest }) => {
           if (parsed["error"]) {
             auth.setAuthenticated(false);
             setAuthed(false);
-            document.cookie =
-              "token= ; expires = Thu, 01 Jan 1970 00:00:00 GMT";
-            document.cookie = "user= ; expires = Thu, 01 Jan 1970 00:00:00 GMT";
+            clearCookies();
           }
           if (parsed["user"]) {
             if (user === null && getCookie("user") === null) {
@@ -39,9 +37,7 @@ export const AuthRoute = ({ component: Component, ...rest }) => {
             auth.setAuthenticated(true);
             setAuthed(true);
           } else {
-            document.cookie =
-              "token= ; expires = Thu, 01 Jan 1970 00:00:00 GMT";
-            document.cookie = "user= ; expires = Thu, 01 Jan 1970 00:00:00 GMT";
+            clearCookies();
             auth.setAuthenticated(false);
             setAuthed(false);
           }

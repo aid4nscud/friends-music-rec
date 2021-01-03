@@ -1,7 +1,7 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
-import auth from "../../utils/auth";
-import './EditProfile.css'
+import auth, { clearCookies } from "../../utils/auth";
+import "./EditProfile.css";
 import { AiOutlineCloseCircle } from "react-icons/ai";
 
 export const EditProfile = (props) => {
@@ -9,12 +9,19 @@ export const EditProfile = (props) => {
   return (
     <div>
       {props.popup !== null && (
-        <div className='popup-close-button' style={{float:'right', position:'relative', right:'2rem', top:'1rem'}}
+        <div
+          className="popup-close-button"
+          style={{
+            float: "right",
+            position: "relative",
+            right: "2rem",
+            top: "1rem",
+          }}
           onClick={() => {
             props.setPopup(null);
           }}
         >
-          <AiOutlineCloseCircle size='3em' color='black'/>
+          <AiOutlineCloseCircle size="3em" color="black" />
         </div>
       )}
 
@@ -22,15 +29,8 @@ export const EditProfile = (props) => {
         <button
           className="logout-button"
           onClick={() => {
+            clearCookies();
             auth.logout(() => {
-              document.cookie.split(";").forEach(function (c) {
-                document.cookie = c
-                  .replace(/^ +/, "")
-                  .replace(
-                    /=.*/,
-                    "=;expires=" + new Date().toUTCString() + ";path=/"
-                  );
-              });
               history.push("/");
             });
           }}

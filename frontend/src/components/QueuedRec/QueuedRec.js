@@ -11,7 +11,6 @@ export const QueuedRec = (props) => {
   const [color1, setColor1] = useState("white");
   const [backgroundColor2, setBackgroundColor2] = useState("white");
   const [color2, setColor2] = useState("rgba(0, 0, 0, 0.53)");
-  const [caption, setCaption] = useState(null);
 
   useEffect(() => {
     if (recType === true) {
@@ -53,7 +52,7 @@ export const QueuedRec = (props) => {
       });
   };
 
-  const createDirectRec = (friends) => {
+  const createDirectRec = (friends, caption) => {
     const recommender = getCookie("user");
 
     let date = Date.now();
@@ -65,6 +64,7 @@ export const QueuedRec = (props) => {
       uri: props.info.uri,
       date: date,
       recipients: friends,
+      caption: caption,
     };
 
     fetch("/api/create_direct_rec", {
@@ -101,14 +101,6 @@ export const QueuedRec = (props) => {
           allowtransparency="false"
           allow="encrypted-media"
         ></iframe>
-        <input
-          style={{ margin: "1rem" }}
-          value={caption}
-          placeholder="Add a short comment"
-          onChange={(e) => {
-            setCaption(e.target.value);
-          }}
-        />
       </div>
 
       <div className="make-rec-options">
@@ -120,8 +112,6 @@ export const QueuedRec = (props) => {
             style={{
               backgroundColor: backgroundColor1,
               color: color1,
-              borderTopLeftRadius: "1.3rem",
-              borderBottomLeftRadius: "1.3rem",
             }}
             onClick={(e) => {
               setRecType(true);
@@ -134,8 +124,6 @@ export const QueuedRec = (props) => {
             style={{
               backgroundColor: backgroundColor2,
               color: color2,
-              borderTopRightRadius: "1.3rem",
-              borderBottomRightRadius: "1.3rem",
             }}
             onClick={(e) => {
               setRecType(false);

@@ -13,7 +13,6 @@ import { EditProfile } from "../EditProfile/EditProfile";
 export const AppLayout = (props) => {
   const [spotifyToken, setSpotifyToken] = useState(null);
   const [popup, setPopup] = useState(null);
-  
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -37,8 +36,11 @@ export const AppLayout = (props) => {
         )}
 
         {popup === "edit-profile" && (
-          <div className='popup' style={{width:'50%', top:'10%', left:'25%'}}>
-            <EditProfile setPopup={setPopup}/>
+          <div
+            className="popup"
+            style={{ width: "50%", top: "10%", left: "25%", minHeight: "80vh" }}
+          >
+            <EditProfile setPopup={setPopup} />
           </div>
         )}
 

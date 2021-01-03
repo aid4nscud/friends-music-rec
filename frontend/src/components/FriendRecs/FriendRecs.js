@@ -198,7 +198,7 @@ export const FriendRecs = (props) => {
           )}
           {directRecsTog === false ? (
             <div>
-              {directRecs !== null && directRecs.length > 1 ? (
+              {recs !== null && recs.length > 1 ? (
                 <FeedRec
                   render={render}
                   setRender={setRender}
