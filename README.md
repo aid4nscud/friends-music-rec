@@ -27,11 +27,9 @@ Users will have a profile that is made up of their song recommendations (with as
 
 TODO:
 
-- Find a way to accurately track rec views.
+- Turn DiscoverRec and FeedRec into class components in order to use ComponentWillMount to track views.
 
-- Add direct/public choice + choose recipients in search rec (frontend) and create_direct_rec (backend)
-    
-    - Add caption functionality to Create Rec
+- Add caption functionality to DirectRec. Add like, dislike functionality as well
 
 - Add logo, title, footer, favicon, etc...
 
