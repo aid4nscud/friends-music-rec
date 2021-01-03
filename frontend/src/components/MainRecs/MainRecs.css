@@ -1,73 +1,62 @@
-
-
-h1, h2, h3 {
-    color: white;
-
+h1,
+h2,
+h3 {
+  color: white;
 }
-
 
 .friend-recs {
-margin-top: 7rem;
-min-height: 75vh;
+  margin-top: 7rem;
+  min-height: 75vh;
 }
 
-.discover{
+.discover {
+  width: 100%;
 
-    width: 100%;
-   
-    display: inline-block;
-    
-   
-
+  display: inline-block;
 }
 
-.toggle-type button{
-    width: 50%;
-    max-width: 20rem;
-    min-height: 4rem;
-    height: 100%;
-    max-height: 4rem;
-display: inline-block;
-padding-top: 1rem;
-padding-bottom: 1rem;
-border-style: none;
-font-size: larger;
-
-
+.toggle-type button {
+  width: 50%;
+  max-width: 20rem;
+  min-height: 4rem;
+  height: 100%;
+  max-height: 4rem;
+  display: inline-block;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  border-style: none;
+  font-size: larger;
 }
 
-.toggle-type button:focus{
-outline: none;
+.toggle-type button:focus {
+  outline: none;
 }
 
 .toggle-type {
-    
-    width: 35%;
-    height: 4rem;
-    margin: auto;
-    padding-left: 0rem;
-    border-style: solid;
-    border-color: black;
-    border-radius: 1.5rem;
-    display: inline-block;
+  width: 35%;
+  height: 4rem;
+  margin: auto;
+  padding-left: 0rem;
+  border-style: solid;
+  border-color: black;
+  border-radius: 1.5rem;
+  display: inline-block;
+  vertical-align: middle;
+  margin-top: 1rem;
 }
 
-
 .main-recs-friends {
-    width: 100%;
-    vertical-align: middle;
+  width: 100%;
+  vertical-align: middle;
 }
 
 .recs-true-format {
-width: 35%;
- 
- 
- vertical-align: top;
- margin: auto;
- margin-top: 6rem;
- margin-left: 4rem;
- 
- display: inline-block;
-  
-}
+  width: 35%;
 
+  vertical-align: top;
+  margin: auto;
+  margin-top: 6rem;
+  margin-left: 4rem;
+
+  display: inline-block;
+}

@@ -33,8 +33,6 @@ export const MainRecs = (props) => {
     }
   }, [recType]);
 
-  
-
   return (
     <div className="friend-recs">
       <ul className="toggle-type">
@@ -68,7 +66,13 @@ export const MainRecs = (props) => {
         </button>
       </ul>
       {recType === false && (
-        <div style={{display:'inline-block', position:'relative', top:'1rem', marginLeft:'1rem'}}
+        <div
+          style={{
+            display: "inline-block",
+            verticalAlign: "middle",
+            marginLeft: "3rem",
+            marginTop: "1rem",
+          }}
           onClick={() => {
             if (searchUserRef.current) {
               searchUserRef.current.scrollIntoView({
@@ -78,8 +82,23 @@ export const MainRecs = (props) => {
             }
           }}
         >
+          {" "}
+          <h3
+            style={{
+              display: "inline-block",
+              verticalAlign: "middle",
+              color: "black",
+            }}
+          >
+            Search
+          </h3>
           <FaSearchengin
-            color="white"
+            style={{
+              display: "inline-block",
+              verticalAlign: "middle",
+              padding: "1rem",
+            }}
+            color="black"
             size="3em"
             className="search-user-icon"
           />

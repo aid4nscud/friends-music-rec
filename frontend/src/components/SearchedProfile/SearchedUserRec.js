@@ -9,8 +9,8 @@ export const SearchedUserRec = (props) => {
   const { user } = useParams();
   const [liked, setLiked] = useState(props.liked);
   const [likes, setLikes] = useState(0);
-  const [time, setTime] = useState(null)
-  const [metric, setMetric] = useState('minutes')
+  const [time, setTime] = useState(null);
+  const [metric, setMetric] = useState("minutes");
   let uri = props.uri;
   let uriCode = uri.substr(14);
 
@@ -77,7 +77,9 @@ export const SearchedUserRec = (props) => {
           </div>
         )}
 
-        <h3 className="searched-rec-likes-label">{"Likes: " + (likes + props.likes)}</h3>
+        <h3 className="searched-rec-likes-label">
+          {"Likes: " + (likes + props.likes)}
+        </h3>
       </div>
       <div className="loading-spinner searched-user-rec-div">
         <iframe
@@ -90,13 +92,15 @@ export const SearchedUserRec = (props) => {
             }
           }}
           src={url}
-          width="600"
+          width="100%"
           height="300"
           frameBorder="1"
           allowtransparency="true"
           allow="encrypted-media"
         ></iframe>
-        <h3 style={{float:'left', position:'relative', left: '2rem'}}>{time !==null && time + ' ' + metric + ' ago'}</h3>
+        <h3 style={{ float: "left", position: "relative", left: "2rem" }}>
+          {time !== null && time + " " + metric + " ago"}
+        </h3>
       </div>
     </div>
   );

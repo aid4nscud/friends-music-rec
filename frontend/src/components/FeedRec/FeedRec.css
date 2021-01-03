@@ -11,7 +11,6 @@
   width: auto;
   display: inline-block;
   vertical-align: middle;
- 
 }
 
 .feed-rec {
@@ -19,7 +18,7 @@
   min-width: 370px;
   margin: auto;
   background-color: #111111;
-  border-radius: 10% 10% 10% 10%;
+  border-radius: 3rem;
   margin-bottom: 2rem;
 }
 
@@ -28,44 +27,35 @@
   display: inline-block;
   vertical-align: middle;
   margin-right: 1rem;
- 
 }
 .feed-rec-iframe {
-  width: 99%;
+  width: 100%;
   position: relative;
-  
+
   display: block;
   margin: auto;
-  border-radius: 10% 0 10% 10%;
-  border-style: solid;
+  border-radius: 1rem;
+  border-style: hidden;
   border-color: #111111;
 }
 
 .rec-desc {
   display: inline-block;
   vertical-align: middle;
-  
 }
 
 .user-info {
   width: 50%;
   height: 100%;
-display: inline-block;
-vertical-align: middle;
-  
-  
-  
+  display: inline-block;
+  vertical-align: middle;
 }
 
 .rec-info {
   width: 50%;
   height: 100%;
-display: inline-block;
-vertical-align: middle;
-
- 
-  
-  
+  display: inline-block;
+  vertical-align: middle;
 }
 
 .feed-rec-follow-button {
@@ -78,7 +68,7 @@ vertical-align: middle;
   border-radius: 0.8rem;
   background-color: black;
   color: white;
-  border-color: #00E0C3;
+  border-color: #00e0c3;
 }
 
 .feed-rec-follow-button:hover {
@@ -88,5 +78,3 @@ vertical-align: middle;
 .feed-rec-follow-button:focus {
   outline: none;
 }
-
-

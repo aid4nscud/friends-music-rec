@@ -3,8 +3,7 @@
   height: 5.5rem;
   text-align: center;
   background-color: #000000;
-  border-bottom-style: solid;
-  border-bottom-color: white;
+
   position: fixed;
   left: 0;
   top: 0;
@@ -22,8 +21,6 @@
   height: 100%;
   display: inline-block;
   vertical-align: middle;
-
-  
 }
 
 .create-rec-icon:hover {
@@ -37,8 +34,7 @@
 .navbar-logo {
   display: inline-block;
   vertical-align: middle;
-  
-  
+
   width: 10%;
 }
 

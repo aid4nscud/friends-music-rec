@@ -12,9 +12,7 @@ export const Discover = (props) => {
   const [liked, setLiked] = useState(null);
   const [loaded, setLoaded] = useState(false);
 
-  
   useEffect(() => {
-    
     if (loaded === false) {
       const data = { user: getCookie("user") };
       if (data["user"] !== null) {
@@ -84,7 +82,7 @@ export const Discover = (props) => {
     } else if (index == recs.length - 1 && recs.length > 1) {
       setIndex(0);
       setFollowButton("Follow");
-      setLiked(false)
+      setLiked(false);
 
       // setRender(render+1)
     }
@@ -106,7 +104,7 @@ export const Discover = (props) => {
       .then((res) => res.json())
       .then((parsed) => {
         if (!parsed.success) {
-          setRender(render+1);
+          setRender(render + 1);
         } else if (parsed.error) {
           alert("some error occurred");
         }
@@ -134,29 +132,50 @@ export const Discover = (props) => {
     <div className="discover">
       <div style={{ display: "inline-block" }} className="rec-section">
         {recs === null ? (
-          <h1 style={{color:'black', marginTop:'8rem'}}className='container-div'>Looking for recommendations...</h1>
+          <h1
+            style={{ color: "black", marginTop: "8rem" }}
+            className="container-div"
+          >
+            Looking for recommendations...
+          </h1>
         ) : (
           <div>
             {recs !== null && (
-              <DiscoverRec
-                render={render}
-                setRender={setRender}
-                unlikeRec={unlikeRec}
-                recInfo={recs[index]}
-                spotifyToken={props.spotifyToken}
-                setSpotifyToken={props.setSpotifyToken}
-                like={likeRec}
-                nextRec={nextRec}
-                unfollow={unfollow}
-                follow={follow}
-                followButton={followButton}
-                liked={liked}
-              />
+              <div>
+                {recs.length > 1 ? (
+                  <DiscoverRec
+                    render={render}
+                    setRender={setRender}
+                    unlikeRec={unlikeRec}
+                    recInfo={recs[index]}
+                    spotifyToken={props.spotifyToken}
+                    setSpotifyToken={props.setSpotifyToken}
+                    like={likeRec}
+                    nextRec={nextRec}
+                    unfollow={unfollow}
+                    follow={follow}
+                    followButton={followButton}
+                    liked={liked}
+                  />
+                ) : (
+                  <DiscoverRec
+                    render={render}
+                    setRender={setRender}
+                    unlikeRec={unlikeRec}
+                    recInfo={recs[index]}
+                    spotifyToken={props.spotifyToken}
+                    setSpotifyToken={props.setSpotifyToken}
+                    like={likeRec}
+                    unfollow={unfollow}
+                    follow={follow}
+                    followButton={followButton}
+                    liked={liked}
+                  />
+                )}
+              </div>
             )}
-            
           </div>
         )}
-        
       </div>
     </div>
   );

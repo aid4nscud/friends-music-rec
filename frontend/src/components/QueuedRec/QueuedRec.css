@@ -1,19 +1,19 @@
 .make-rec-options {
-  display: inline-block;
-  width: 40%;
-  vertical-align: top;
-  margin-left: 3rem;
+  flex: 1;
+  vertical-align: middle;
   min-height: 32rem;
   border-style: solid;
-}
 
-.queued-rec-card {
-  float: left;
-  width: 50%;
+  align-content: center;
+  justify-content: center;
+  padding: 0.5rem;
 }
 
 .queued-rec {
-  width: 90%;
+  display: flex;
+
+  width: 80%;
+
   margin: auto;
   margin-top: 2rem;
 }
@@ -46,7 +46,6 @@
   border-radius: 1.5rem;
 }
 
-
 .make-rec-button {
   background-color: black;
   color: white;
@@ -62,4 +61,11 @@
 
 .make-rec-button:focus {
   outline: none;
+}
+
+.rec-preview-caption {
+  flex: 1;
+
+  align-content: center;
+  justify-content: center;
 }

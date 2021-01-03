@@ -1,20 +1,12 @@
 import React, { useState } from "react";
+import { DirectRec } from "./DirectRec";
+import "./DirectRecs.css";
 
 export const DirectRecs = (props) => {
   const [index, setIndex] = useState(0);
   return (
-    <div>
-      <iframe
-        height="75px"
-        src={
-          "https://open.spotify.com/embed/track/" +
-          props.recs[index].uri.substr(14)
-        }
-        frameBorder="1"
-        allowtransparency="true"
-        allow="encrypted-media"
-      />
-      <h2>{" from " + props.recs[index].user}</h2>
+    <div className="direct-recs">
+      <DirectRec recInfo={props.recs[index]} />
       {props.recs.length > 1 && (
         <button
           onClick={() => {

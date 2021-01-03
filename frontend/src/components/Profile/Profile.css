@@ -80,9 +80,7 @@
   font-size: 1.5rem;
 }
 
-
 .profile-popup-content {
-  
   background: rgb(255, 255, 255);
   position: fixed;
   min-height: 90vh;
@@ -91,23 +89,20 @@
   border-style: solid;
   border-color: black;
   width: 60%;
-  
-
 }
 .profile-popup-arrow {
   color: rgb(255, 255, 255);
 }
-[role='tooltip'].popup-content {
-
+[role="tooltip"].popup-content {
   position: fixed;
-  margin:auto;
- 
+  margin: auto;
+
   box-shadow: rgba(0, 0, 0, 0.16) 0px 0px 3px;
 }
 
 .profile-popup-overlay {
   background: rgba(0, 0, 0, 0.5);
 }
-[data-popup='tooltip'].popup-overlay {
+[data-popup="tooltip"].popup-overlay {
   background: transparent;
 }

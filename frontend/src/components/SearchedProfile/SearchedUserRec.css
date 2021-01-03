@@ -13,7 +13,7 @@
 }
 
 .heart-container {
-  float:left;
+  float: left;
   position: relative;
   left: 2rem;
   top: 0.3rem;
@@ -23,8 +23,6 @@
   float: right;
   position: relative;
   right: 2rem;
-
-
 }
 .searched-profile-card-header {
   display: inline-block;
@@ -32,11 +30,11 @@
 }
 
 .searched-user-rec iframe {
-  width: 99%;
+  width: 100%;
   display: block;
   margin: auto;
   border-radius: 10% 0 10% 10%;
-  border-style: solid;
+  border-style: hidden;
   border-color: #111111;
   background-image: none;
 }

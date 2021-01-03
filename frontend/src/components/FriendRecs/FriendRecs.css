@@ -1,92 +1,44 @@
-.span-recommender {
-  font-size: x-large;
-}
-.feed-rec-card-header {
-  width: 100%;
-  margin: auto;
-  padding: 1rem;
-}
+.direct-recs-num {
+  background-color: #e66a91;
+  color: rgb(0, 0, 0);
+  padding: 0.5rem 1.5rem 0.5rem 1.5rem;
 
-.feed-likes-label {
-  width: auto;
-  display: inline-block;
+  align-content: center;
+  justify-content: center;
   vertical-align: middle;
- 
+  display: flex;
 }
 
-.feed-rec {
-  width: 100%;
-  min-width: 370px;
-  margin: auto;
-  background-color: #111111;
-  border-radius: 10% 10% 10% 10%;
-  margin-bottom: 2rem;
-}
+.friend-recs-toggle {
+  margin: 1rem;
 
-.like-icon {
-  width: auto;
-  display: inline-block;
-  vertical-align: middle;
-  margin-right: 1rem;
- 
-}
-.feed-rec-iframe {
-  width: 99%;
-  position: relative;
-  
-  display: block;
-  margin: auto;
-  border-radius: 10% 0 10% 10%;
   border-style: solid;
-  border-color: #111111;
+  width: 20%;
+
+  margin-bottom: 0.5rem;
+  margin-top: -2rem;
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  justify-content: center;
+  border-radius: 2rem;
+  overflow-x: hidden;
+  background-color: rgb(255, 255, 255);
 }
 
-.rec-desc {
-  display: inline-block;
-  vertical-align: middle;
-  
+.direct-recommendations-tog {
+  display: flex;
+  flex: 1;
+  align-content: center;
+  justify-content: center;
 }
 
-.user-info {
-  width: 50%;
-  height: 100%;
-display: inline-block;
-vertical-align: middle;
-  
-  
-  
-}
-
-.rec-info {
-  width: 50%;
-  height: 100%;
-display: inline-block;
-vertical-align: middle;
-
- 
-  
-  
-}
-
-.feed-rec-follow-button {
-  padding: 0.75rem;
-  display: inline-block;
-  vertical-align: middle;
-  width: 6rem;
-  position: relative;
-  border-style: solid;
-  border-radius: 0.8rem;
-  background-color: black;
-  color: white;
-  border-color: #00E0C3;
-}
-
-.feed-rec-follow-button:hover {
+.friend-recs-toggle:hover {
   transform: scale(1.1);
 }
 
-.feed-rec-follow-button:focus {
-  outline: none;
+.tog-label {
+  flex: 1;
+  vertical-align: middle;
+  color: black;
 }
-
-

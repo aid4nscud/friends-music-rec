@@ -1,14 +1,12 @@
 .footer {
-  position: absolute;
-  top: 90%;
+  align-self: flex-end;
+
   height: 15rem;
   background-color: #000000;
   width: 100vw;
   margin: auto;
   margin-left: -0.5rem;
   margin-top: 5rem;
-  border-style: solid;
-  border-top-color: white;
 }
 
 .footer-list li {

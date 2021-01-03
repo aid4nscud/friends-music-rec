@@ -15,7 +15,6 @@ export const FeedRec = (props) => {
   useEffect(() => {
     let currTime = Date.now() / 1000;
     let stored_time = props.recInfo.date;
-    
 
     let time_dif = (currTime - stored_time) / 60;
 
@@ -121,6 +120,7 @@ export const FeedRec = (props) => {
           </div>
           <div className="loading-spinner">
             <iframe
+              style={{ margin: "auto" }}
               onLoad={() => {
                 const arr = document.getElementsByClassName("loading-spinner");
                 for (let i = 0; i < arr.length; i++) {
@@ -132,7 +132,7 @@ export const FeedRec = (props) => {
                 "https://open.spotify.com/embed/track/" +
                 props.recInfo.uri.substr(14)
               }
-              width="500"
+              width="100%"
               height="500"
               frameBorder="1"
               allowtransparency="true"
@@ -148,18 +148,20 @@ export const FeedRec = (props) => {
               bottom: "1rem",
             }}
           >
-            {time !== null && time + ' ' + metric + " ago"}
+            {time !== null && time + " " + metric + " ago"}
           </h3>
         </div>
 
-        <div
-          className="next-button"
-          onClick={() => {
-            props.nextRec();
-          }}
-        >
-          <GrLinkNext style={{ padding: "0.5rem" }} size="2em" />
-        </div>
+        {props.nextRec && (
+          <div
+            className="next-button"
+            onClick={() => {
+              props.nextRec();
+            }}
+          >
+            <GrLinkNext style={{ padding: "0.5rem" }} size="2em" />
+          </div>
+        )}
       </div>
     </div>
   );

@@ -7,7 +7,7 @@ export const UserRec = (props) => {
   let uriCode = uri.substr(14);
   const [time, setTime] = useState(null);
   const [metric, setMetric] = useState("minutes");
-  const [justNow, setJustNow] = useState(false)
+  const [justNow, setJustNow] = useState(false);
 
   let url = "https://open.spotify.com/embed/track/" + uriCode;
 
@@ -67,7 +67,7 @@ export const UserRec = (props) => {
             }
           }}
           src={url}
-          width="600"
+          width="100%"
           height="300"
           frameBorder="1"
           allowtransparency="true"

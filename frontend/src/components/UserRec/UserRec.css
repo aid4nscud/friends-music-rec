@@ -22,13 +22,13 @@
 }
 
 .user-rec iframe {
-  width: 99%;
+  width: 100%;
   position: relative;
-  
+
   display: block;
   margin: auto;
   border-radius: 10% 0 10% 10%;
-  border-style: solid;
+  border-style: hidden;
   border-color: #111111;
   background-image: none;
 }

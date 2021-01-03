@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { getCookie } from "../../utils/auth";
 import { FriendResult } from "./FriendResult";
-import './FriendSearch.css'
+import "./FriendSearch.css";
 
 export const FriendSearch = (props) => {
   const [friends, setFriends] = useState([]);
@@ -30,30 +30,26 @@ export const FriendSearch = (props) => {
 
   const addFriend = (friendName) => {
     let currState = addedFriends;
-    if(currState.indexOf(friendName)===-1){
+    if (currState.indexOf(friendName) === -1) {
       currState.push(friendName);
-    setAddedFriends(currState);
-    setRender(render + 1);
+      setAddedFriends(currState);
+      setRender(render + 1);
     }
-
-    
   };
 
   const deleteFriend = (friendName) => {
     let currState = addedFriends;
     let index = currState.indexOf(friendName);
-    currState.splice(index,1);
+    currState.splice(index, 1);
     setAddedFriends(currState);
     setRender(render + 1);
   };
 
   return (
-    <div style={{marginTop:'2rem'}}>
+    <div style={{ marginTop: "2rem" }}>
       <h3 style={{ color: "black" }}>Available Friends</h3>
       {friends.length > 0 ? (
-        <ul className='mutual-friends-list'
-          
-        >
+        <ul className="mutual-friends-list">
           {friends.map((friend) => {
             return (
               <FriendResult
@@ -76,14 +72,16 @@ export const FriendSearch = (props) => {
           {addedFriends.length < 2
             ? "Recommend to " + addedFriends[0]
             : "Recommend to " +
-              addedFriends[0] 
-              + ", and " + (addedFriends.length - 1) +
+              addedFriends[0] +
+              ", and " +
+              (addedFriends.length - 1) +
               " others"}
         </h2>
       )}
 
       {addedFriends.length > 0 && (
         <button
+          className="make-rec-button"
           onClick={() => {
             props.createDirectRec(addedFriends);
           }}

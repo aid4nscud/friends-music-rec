@@ -11,6 +11,7 @@ export const QueuedRec = (props) => {
   const [color1, setColor1] = useState("white");
   const [backgroundColor2, setBackgroundColor2] = useState("white");
   const [color2, setColor2] = useState("rgba(0, 0, 0, 0.53)");
+  const [caption, setCaption] = useState(null);
 
   useEffect(() => {
     if (recType === true) {
@@ -28,8 +29,6 @@ export const QueuedRec = (props) => {
 
   const createRec = () => {
     const recommender = getCookie("user");
-    
-    
 
     const rec = {
       song: props.info.song,
@@ -58,7 +57,6 @@ export const QueuedRec = (props) => {
     const recommender = getCookie("user");
 
     let date = Date.now();
-    
 
     const directRec = {
       song: props.info.song,
@@ -66,7 +64,7 @@ export const QueuedRec = (props) => {
       user: recommender,
       uri: props.info.uri,
       date: date,
-      recipients: friends
+      recipients: friends,
     };
 
     fetch("/api/create_direct_rec", {
@@ -82,26 +80,36 @@ export const QueuedRec = (props) => {
         }
         if (parsed["success"]) {
           props.cleanup();
-          alert('Recommendation Successful')
+          alert("Recommendation Successful");
         }
       });
   };
 
   return (
     <div className="queued-rec">
-      <iframe
-        style={{
-          borderRadius: "2rem 0 2rem 2rem",
-          borderColor: "#111111",
-        }}
-        className="queued-iframe"
-        src={props.info.url}
-        width="50%"
-        height="500"
-        frameBorder="1"
-        allowtransparency="false"
-        allow="encrypted-media"
-      ></iframe>
+      <div className="rec-preview-caption">
+        <iframe
+          style={{
+            borderRadius: "2rem 0 2rem 2rem",
+            borderColor: "#111111",
+          }}
+          className="queued-iframe"
+          src={props.info.url}
+          width="70%"
+          height="450"
+          frameBorder="1"
+          allowtransparency="false"
+          allow="encrypted-media"
+        ></iframe>
+        <input
+          style={{ margin: "1rem" }}
+          value={caption}
+          placeholder="Add a short comment"
+          onChange={(e) => {
+            setCaption(e.target.value);
+          }}
+        />
+      </div>
 
       <div className="make-rec-options">
         <h2>Create Recommendation</h2>
@@ -137,10 +145,15 @@ export const QueuedRec = (props) => {
           </button>
         </ul>
 
-        {recType === false && <FriendSearch createDirectRec={createDirectRec}/>}
-        {recType === true && <h2>Recommend to your followers, and anonymously to the world</h2>}
+        {recType === false && (
+          <FriendSearch createDirectRec={createDirectRec} />
+        )}
         {recType === true && (
-          <button className='make-rec-button'
+          <h2>Recommend to your followers, and anonymously to the world</h2>
+        )}
+        {recType === true && (
+          <button
+            className="make-rec-button"
             onClick={() => {
               createRec();
             }}

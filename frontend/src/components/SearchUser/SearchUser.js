@@ -12,6 +12,7 @@ export const SearchUser = (props) => {
   const [searcher, setSearcher] = useState(null);
 
   const search = () => {
+    setResults(null);
     const query = input;
 
     const url = "/api/search_user";
@@ -30,11 +31,11 @@ export const SearchUser = (props) => {
       .then((res) => res.json())
       .then((parsed) => {
         if (parsed.users) {
-          setMessage(null)
+          setMessage(null);
           setResults(parsed.users);
         } else if (parsed.noresults) {
           setMessage("No users found :(");
-          setResults(null)
+          setResults(null);
         }
       });
   };
@@ -73,10 +74,9 @@ export const SearchUser = (props) => {
     })
       .then((res) => res.json())
       .then((parsed) => {
-        if(parsed.success){
-          setRender(render+1)
-        }
-        else {
+        if (parsed.success) {
+          setRender(render + 1);
+        } else {
           alert("error");
         }
       });
@@ -109,22 +109,27 @@ export const SearchUser = (props) => {
             }
           }}
         />
-        <div className='search-user-button'
+        <div
+          className="search-user-button"
           onClick={() => {
             search();
           }}
         >
-          <FaSearchengin color='white' size='3em' className='search-user-icon'/>
+          <FaSearchengin
+            color="black"
+            size="3em"
+            className="search-user-icon"
+          />
         </div>
         {results !== null && (
-          <button
-            classname="clear-button"
+          <div
+            className="search-user-clear-button"
             onClick={() => {
               setResults(null);
             }}
           >
             Clear
-          </button>
+          </div>
         )}
       </div>
 
@@ -136,7 +141,6 @@ export const SearchUser = (props) => {
               username: user["username"],
               followers: user["followers"],
               isFollowing: user["isFollowing"],
-              
             };
 
             return (

@@ -9,12 +9,12 @@ html {
   max-width: 6rem;
   margin-left: 1rem;
   position: relative;
-  bottom:0.3rem;
+  bottom: 0.3rem;
   border-style: solid;
   border-radius: 0.8rem;
   background-color: black;
   color: white;
-  border-color:#00E0C3;
+  border-color: #00e0c3;
 }
 
 .discover-rec-follow-button:hover {
@@ -32,12 +32,11 @@ html {
 
 .more-info-desc {
   width: 60%;
- float: right;
-  
+  float: right;
+
   position: relative;
   top: 1rem;
 }
-
 
 .span-recommender:hover {
   transform: scale(1.1);
@@ -45,36 +44,28 @@ html {
 }
 
 .discover-rec {
-  
   width: 100%;
   min-width: 370px;
   margin: auto;
   background-color: #111111;
-  border-radius: 10% 10% 10% 10%;
+  border-radius: 3rem;
 }
 .container-div {
- 
-width: 50%; 
-margin: auto;
-margin-top: 3rem;
-
-  
+  width: 50%;
+  margin: auto;
+  margin-top: 3rem;
 }
 
 .discover-rec-iframe {
-  width: 99%;
+  width: 100%;
   display: block;
-  position: relative;
-  left: 0.1rem;
-  
-  border-radius: 10% 0 10% 10%;
-  border-style: solid;
+
+  border-radius: 1rem;
+  border-style: hidden;
   border-color: #111111;
 }
 
-
 .next-button {
-  
   width: 8rem;
   position: relative;
   left: 80%;

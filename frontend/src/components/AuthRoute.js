@@ -62,7 +62,7 @@ export const AuthRoute = ({ component: Component, ...rest }) => {
       <Route
         {...rest}
         render={() => {
-          return authed !== null && authed === true ? (
+          return authed === true ? (
             <Component {...rest} />
           ) : (
             <Redirect to="/" />

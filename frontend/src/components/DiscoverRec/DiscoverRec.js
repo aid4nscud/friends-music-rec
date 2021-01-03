@@ -10,7 +10,7 @@ export const DiscoverRec = (props) => {
   const [placeholderLiked, setPlaceholderLiked] = useState(false);
   const [time, setTime] = useState("");
   const [metric, setMetric] = useState("minutes");
-  
+
   const history = useHistory();
   let uri = props.recInfo.uri;
   let uriCode = uri.substr(14);
@@ -129,11 +129,14 @@ export const DiscoverRec = (props) => {
             </div>
           )}
         </div>
-        <div onClick={() => {
-              alert('bruh')
-              const audio = document.getElementsByTagName("audio");
-              console.log(audio);
-            }} className="loading-spinner">
+        <div
+          onClick={() => {
+            alert("bruh");
+            const audio = document.getElementsByTagName("audio");
+            console.log(audio);
+          }}
+          className="loading-spinner"
+        >
           <iframe
             id="iframe-test"
             onLoad={() => {
@@ -144,12 +147,11 @@ export const DiscoverRec = (props) => {
             }}
             className="discover-rec-iframe"
             src={url}
-            width="500"
+            width="100%"
             height="500"
             frameBorder="1"
             allowtransparency="true"
             allow="encrypted-media"
-            
           ></iframe>
         </div>
         <h3
@@ -161,19 +163,20 @@ export const DiscoverRec = (props) => {
           }}
         >
           {time !== null && time + " " + metric + " ago"}
-          
         </h3>
       </div>
-      <div
-        className="next-button"
-        onClick={() => {
-          setLikes(0);
-          props.nextRec();
-          setPlaceholderLiked(false);
-        }}
-      >
-        <GrLinkNext color="white" style={{ padding: "0.5rem" }} size="2em" />
-      </div>
+      {props.nextRec && (
+        <div
+          className="next-button"
+          onClick={() => {
+            setLikes(0);
+            props.nextRec();
+            setPlaceholderLiked(false);
+          }}
+        >
+          <GrLinkNext color="white" style={{ padding: "0.5rem" }} size="2em" />
+        </div>
+      )}
     </div>
   );
 };

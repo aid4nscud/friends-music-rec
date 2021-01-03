@@ -21,7 +21,7 @@ export const SearchRec = (props) => {
     setInputValue("");
     setQueued(null);
     setResults(null);
-    props.setPopup(null)
+    props.setPopup(null);
   };
 
   const search = (query, limit = 8) => {
@@ -68,23 +68,29 @@ export const SearchRec = (props) => {
   return (
     <div className="make-rec">
       <div className="search-header">
-        <h1 style={{ display: "inline-block", verticalAlign: "middle", color:'black' }}>
+        <h1
+          style={{
+            display: "inline-block",
+            verticalAlign: "middle",
+            color: "black",
+          }}
+        >
           Search a song, and make a recommendation!
         </h1>
         {props.popup !== null && (
-          <div className='close-popup-button'
+          <div
+            className="close-popup-button"
             style={{
-              float:'right',
-              position:'relative',
-              right:'3rem',
-              top:'1rem',
-              
+              float: "right",
+              position: "relative",
+              right: "3rem",
+              top: "1rem",
             }}
             onClick={() => {
               props.setPopup(null);
             }}
           >
-            <AiOutlineCloseCircle size='3em' color='black'/>
+            <AiOutlineCloseCircle size="3em" color="black" />
           </div>
         )}
       </div>
@@ -123,7 +129,6 @@ export const SearchRec = (props) => {
           <FaSearchengin className="search-icon" color="black" size="3em" />
         </div>
       </div>
-
       {queued !== null && <QueuedRec cleanup={cleanup} info={queued} />}
 
       {results !== null && queued === null && (
