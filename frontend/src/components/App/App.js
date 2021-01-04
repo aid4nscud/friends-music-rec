@@ -21,8 +21,6 @@ function App() {
             const authed = auth.isAuthenticated();
             if (authed === true) {
               history.push("/app/listen");
-            } else if (getCookie("token") !== null) {
-              history.push("/app/listen");
             } else {
               return <Login />;
             }

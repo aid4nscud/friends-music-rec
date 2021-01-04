@@ -10,14 +10,8 @@ export const getCookie = (name) => {
 };
 
 export const clearCookies = () => {
-  var cookies = document.cookie.split(";");
-  var newCook = "";
-  for (var i = 0; i < cookies.length; i++) {
-    var spcook = cookies[i].split("=");
-    var newC = spcook[0] + "=;expires=Thu, 21 Sep 1979 00:00:01 GMT;";
-    newCook = newCook + newC;
-  }
-  document.cookie = newCook;
+  document.cookie = "user=;expires=Thu, 21 Sep 1979 00:00:01 GMT;";
+  document.cookie = "token=;expires=Thu, 21 Sep 1979 00:00:01 GMT;";
 };
 
 class Auth {
@@ -31,9 +25,9 @@ class Auth {
   }
 
   logout(cb) {
+    clearCookies();
+
     this.authenticated = false;
-    document.cookie = "token= ; expires = Thu, 01 Jan 1970 00:00:00 GMT";
-    document.cookie = "user= ; expires = Thu, 01 Jan 1970 00:00:00 GMT";
 
     cb();
   }

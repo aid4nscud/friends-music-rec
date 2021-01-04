@@ -8,7 +8,8 @@ export const AuthRoute = ({ component: Component, ...rest }) => {
 
   const decode = async () => {
     const token = getCookie("token");
-    const user = getCookie("token");
+    const user = getCookie("user");
+
     let authedFunc = async () => {
       let authVar = await fetch("/auth_decode", {
         headers: {
@@ -20,8 +21,8 @@ export const AuthRoute = ({ component: Component, ...rest }) => {
         .then((parsed) => {
           if (parsed["error"]) {
             auth.setAuthenticated(false);
-            setAuthed(false);
             clearCookies();
+            setAuthed(false);
           }
           if (parsed["user"]) {
             if (user === null && getCookie("user") === null) {
@@ -37,8 +38,8 @@ export const AuthRoute = ({ component: Component, ...rest }) => {
             auth.setAuthenticated(true);
             setAuthed(true);
           } else {
-            clearCookies();
             auth.setAuthenticated(false);
+            clearCookies();
             setAuthed(false);
           }
         });
