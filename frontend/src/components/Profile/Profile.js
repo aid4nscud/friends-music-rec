@@ -13,7 +13,18 @@ export const Profile = (props) => {
   const [followers, setFollowers] = useState(null);
   const [following, setFollowing] = useState(null);
 
-  const history = useHistory();
+  document.addEventListener(
+    "play",
+    function (e) {
+      var audios = document.getElementsByTagName("audio");
+      for (var i = 0, len = audios.length; i < len; i++) {
+        if (audios[i] != e.target) {
+          audios[i].pause();
+        }
+      }
+    },
+    true
+  );
 
   useEffect(() => {
     const url = "/api/get_user_profile";
@@ -77,9 +88,11 @@ export const Profile = (props) => {
         <div className="profile-header">
           <h1 style={{ color: "black", fontSize: "2rem" }}>
             Welcome to your profile, <span className="span-user">{user}</span>
-            
           </h1>
-          <div style={{display:'inline-block', verticalAlign:'middle'}}className="settings-icon"
+
+          <div
+            style={{ display: "inline-block", verticalAlign: "middle" }}
+            className="settings-icon"
             onClick={() => {
               if (props.popup !== "edit-profile") {
                 props.setPopup("edit-profile");
@@ -88,9 +101,8 @@ export const Profile = (props) => {
               }
             }}
           >
-            <MdSettings  size="3em" color="black" />
+            <MdSettings size="3em" color="black" />
           </div>
-          
 
           <ul className="user-social-info">
             <li style={{ borderRightStyle: "solid", borderColor: "white" }}>
@@ -103,7 +115,6 @@ export const Profile = (props) => {
               {userRecs === null ? "Recs: 0" : "Recs: " + userRecs.length}
             </li>
           </ul>
-          
         </div>
       )}
 
@@ -119,9 +130,7 @@ export const Profile = (props) => {
             }}
             className="your-song-recommendations"
           >
-            <h2 style={{ color: "black",  }}>
-              Your Song Recommendations
-            </h2>
+            <h2 style={{ color: "black" }}>Your Song Recommendations</h2>
           </div>
 
           <div className="profile-recs">

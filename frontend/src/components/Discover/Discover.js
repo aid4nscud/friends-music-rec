@@ -27,6 +27,7 @@ export const Discover = (props) => {
             if (parsedJSON["recs"].length > 0) {
               console.log(parsedJSON["recs"]);
               setRecs(parsedJSON["recs"]);
+              setLoaded(true);
             }
           });
       }
@@ -77,8 +78,6 @@ export const Discover = (props) => {
     if (index !== recs.length - 1) {
       setIndex(index + 1);
       setFollowButton("Follow");
-
-      setRender(render + 1);
     } else if (index == recs.length - 1 && recs.length > 1) {
       setIndex(0);
       setFollowButton("Follow");
@@ -159,8 +158,6 @@ export const Discover = (props) => {
                   />
                 ) : (
                   <DiscoverRec
-                    render={render}
-                    setRender={setRender}
                     unlikeRec={unlikeRec}
                     recInfo={recs[index]}
                     spotifyToken={props.spotifyToken}

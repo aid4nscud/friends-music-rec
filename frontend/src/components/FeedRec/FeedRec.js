@@ -9,8 +9,17 @@ import "./FeedRec.css";
 export const FeedRec = (props) => {
   const [time, setTime] = useState(null);
   const [metric, setMetric] = useState("minutes");
+  const [mounted, setMounted] = useState(false);
 
   const history = useHistory();
+
+  useEffect(() => {
+    if (mounted === false) {
+      // UPDATE VIEW COUNT
+
+      setMounted(true);
+    }
+  }, [props.recInfo]);
 
   useEffect(() => {
     let currTime = Date.now() / 1000;
@@ -139,23 +148,46 @@ export const FeedRec = (props) => {
               allow="encrypted-media"
             ></iframe>
           </div>
-
-          <h3
+          <div
             style={{
-              width: "20%",
-              margin: "2rem",
-              position: "relative",
-              bottom: "1rem",
+              display: "block",
+              width: "100%",
+              height: "4rem",
+              alignContent: "center",
+              justifyContent: "center",
+              marginBottom: "2rem",
             }}
           >
-            {time !== null && time + " " + metric + " ago"}
-          </h3>
+            {" "}
+            <h3
+              style={{
+                float: "left",
+
+                position: "relative",
+                left: "2rem",
+              }}
+            >
+              {time !== null && time + " " + metric + " ago"}
+            </h3>
+            <h3
+              style={{
+                float: "right",
+
+                position: "relative",
+                right: "2rem",
+              }}
+            >
+              Views: 106K
+            </h3>
+          </div>
         </div>
 
         {props.nextRec && (
           <div
             className="next-button"
             onClick={() => {
+              setMounted(false);
+
               props.nextRec();
             }}
           >

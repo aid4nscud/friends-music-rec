@@ -3,13 +3,8 @@
   display: inline-block;
   margin: 1rem;
 
-  background-color: #111111;
+  background-color: #000000;
   border-radius: 10% 10% 10% 10%;
-}
-
-.profile-card-header li {
-  display: inline-block;
-  width: 50%;
 }
 
 .profile-card-header {
@@ -29,7 +24,7 @@
   margin: auto;
   border-radius: 10% 0 10% 10%;
   border-style: hidden;
-  border-color: #111111;
+  border-color: #000000;
   background-image: none;
 }
 

@@ -11,10 +11,19 @@ export const DiscoverRec = (props) => {
   const [time, setTime] = useState("");
   const [metric, setMetric] = useState("minutes");
 
+  const [mounted, setMounted] = useState(false);
+
   const history = useHistory();
   let uri = props.recInfo.uri;
   let uriCode = uri.substr(14);
   let url = "https://open.spotify.com/embed/track/" + uriCode;
+
+  useEffect(() => {
+    if (mounted === false) {
+      // UPDATE VIEW COUNT
+      setMounted(true);
+    }
+  }, [props.recInfo]);
 
   useEffect(() => {
     let currTime = Date.now() / 1000;
@@ -129,14 +138,7 @@ export const DiscoverRec = (props) => {
             </div>
           )}
         </div>
-        <div
-          onClick={() => {
-            alert("bruh");
-            const audio = document.getElementsByTagName("audio");
-            console.log(audio);
-          }}
-          className="loading-spinner"
-        >
+        <div className="loading-spinner">
           <iframe
             id="iframe-test"
             onLoad={() => {
@@ -154,21 +156,41 @@ export const DiscoverRec = (props) => {
             allow="encrypted-media"
           ></iframe>
         </div>
-        <h3
+        <div
           style={{
-            width: "20%",
-            margin: "2rem",
-            position: "relative",
-            bottom: "1rem",
+            display: "block",
+            width: "100%",
+            height: "4rem",
+            alignContent: "center",
+            justifyContent: "center",
+            marginBottom: "2rem",
           }}
         >
-          {time !== null && time + " " + metric + " ago"}
-        </h3>
+          <h3
+            style={{
+              float: "left",
+              position: "relative",
+              left: "2rem",
+            }}
+          >
+            {time !== null && time + " " + metric + " ago"}
+          </h3>
+          <h3
+            style={{
+              float: "right",
+              position: "relative",
+              right: "2rem",
+            }}
+          >
+            Views: 23k
+          </h3>
+        </div>
       </div>
       {props.nextRec && (
         <div
           className="next-button"
           onClick={() => {
+            setMounted(false);
             setLikes(0);
             props.nextRec();
             setPlaceholderLiked(false);

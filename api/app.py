@@ -274,12 +274,14 @@ def create_direct_rec():
     user = request.json['user']
     recipients = request.json['recipients']
 
+    curr_time = time.time()
+
     direct_rec = {
         'song': request.json['song'],
         'artist': request.json['artist'],
         'user': user,
         'uri': request.json['uri'],
-        'date': request.json['date'],
+        'date': curr_time,
         'action': None,
     }
 

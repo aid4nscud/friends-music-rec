@@ -2,20 +2,23 @@
   flex: 1;
   vertical-align: middle;
   min-height: 32rem;
-  border-style: solid;
+  border-style: ridge;
 
   align-content: center;
   justify-content: center;
   padding: 0.5rem;
+  margin-right: 1rem;
 }
 
 .queued-rec {
   display: flex;
 
-  width: 80%;
+  width: 100%;
 
   margin: auto;
   margin-top: 2rem;
+  align-content: center;
+  justify-content: center;
 }
 
 .toggle-rectype button {
@@ -64,9 +67,9 @@
   outline: none;
 }
 
-.rec-preview-caption {
-  flex: 1;
+.rec-preview {
+  flex: 0.7;
 
-  align-content: center;
+  align-self: center;
   justify-content: center;
 }

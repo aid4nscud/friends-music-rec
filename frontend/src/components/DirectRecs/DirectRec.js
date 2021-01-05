@@ -4,7 +4,9 @@ import "./DirectRec.css";
 export const DirectRec = (props) => {
   return (
     <div className="direct-rec">
-      <div>content</div>
+      <div>
+        <h1>content</h1>
+      </div>
       <iframe
         className="loading-spinner"
         style={{

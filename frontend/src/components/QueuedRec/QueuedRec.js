@@ -55,14 +55,11 @@ export const QueuedRec = (props) => {
   const createDirectRec = (friends, caption) => {
     const recommender = getCookie("user");
 
-    let date = Date.now();
-
     const directRec = {
       song: props.info.song,
       artist: props.info.artist,
       user: recommender,
       uri: props.info.uri,
-      date: date,
       recipients: friends,
       caption: caption,
     };
@@ -87,15 +84,15 @@ export const QueuedRec = (props) => {
 
   return (
     <div className="queued-rec">
-      <div className="rec-preview-caption">
+      <div className="rec-preview">
         <iframe
           style={{
             borderRadius: "2rem 0 2rem 2rem",
-            borderColor: "#111111",
+            borderColor: "ffffff",
           }}
           className="queued-iframe"
           src={props.info.url}
-          width="70%"
+          width="90%"
           height="450"
           frameBorder="1"
           allowtransparency="false"

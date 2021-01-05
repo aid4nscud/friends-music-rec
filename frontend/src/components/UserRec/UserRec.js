@@ -56,7 +56,15 @@ export const UserRec = (props) => {
   return (
     <div className="user-rec">
       <div className="profile-card-header">
-        <h3 className="user-rec-likes-label">{"Likes: " + props.likes}</h3>
+        <h3
+          style={{ float: "left", position: "relative", left: "2rem" }}
+          className="user-rec-likes-label"
+        >
+          {"Likes: " + props.likes}
+        </h3>
+        <h3 style={{ float: "right", position: "relative", right: "2rem" }}>
+          Views: 3.7K
+        </h3>
       </div>
       <div className="loading-spinner user-rec-div">
         <iframe
