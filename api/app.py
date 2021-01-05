@@ -158,9 +158,6 @@ def follow_user():
 
     curr_time = time.time()
 
-    follow_notification_object = {
-        'type': 'follow', 'from': user_following['username'], 'time': curr_time}
-
     mystr = "FOLLOWING ARR:"
     print(mystr)
     print(following_arr)
@@ -176,21 +173,51 @@ def follow_user():
                     }
                 }
             )
-            users.update(
-                {"username": user_to_follow['username']},
-                {
+
+            follow_notification_object = {
+                'type': 'follow', 'from': user_following['username'], 'time': curr_time}
+
+            notifications = user_to_follow['notifications']
+            exists = False
+
+            if len(notifications) > 0:
+                for no in notifications:
+
+                    if no['type'] == 'follow':
+
+                        if no['from'] == request.json['userFollowing']:
+                            exists = True
+                            break
+
+            if exists == False:
+
+                users.update(
+                    {"username": user_to_follow['username']},
+                    {
+                        '$push': {
+                            'followers': user_following['username'],
+                            'notifications': follow_notification_object
+                        }
+                    }
+                )
+
+                return {'success': 'success'}
+
+            else:
+                users.update({'username': user_to_follow['username']}, {
+                    '$pull': {'notifications': {'type': 'follow', 'from': request.json['userFollowing']}}})
+                users.update({'username': user_to_follow['username']}, {
                     '$push': {
                         'followers': user_following['username'],
                         'notifications': follow_notification_object
                     }
-                }
-            )
+                })
 
-            return {'success': 'success'}
+                return {'success': 'success'}
 
         except Exception as e:
-            print(e)
-            return e
+            print(str(e) + 'is the issue')
+            return {'error': str(e)}
     else:
         print('user allready followeed')
         return {'error': 'user already followed'}
@@ -347,9 +374,9 @@ def like_rec():
 
         if len(notifications) > 0:
             for no in notifications:
-                print(no)
+
                 if no['type'] == 'like':
-                    print(no['type'])
+
                     if no['rec'] == request.json['recToLike']:
                         exists = True
                         break
@@ -364,7 +391,8 @@ def like_rec():
 
         else:
             users.update({'username': user_to_like['username']}, {
-                '$pull': {'notifications': {'rec': request.json['recToLike']}}})
+                '$pull': {'notifications': {'rec': request.json['recToLike'], 'from': request.json['userLiking'
+                                                                                                   ]}}})
             users.update({'username': user_to_like['username']}, {
                 '$push': {'notifications': like_notification_object}})
 

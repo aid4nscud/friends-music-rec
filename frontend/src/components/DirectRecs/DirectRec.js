@@ -1,11 +1,53 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./DirectRec.css";
 
 export const DirectRec = (props) => {
+  const [time, setTime] = useState(null);
+  const [metric, setMetric] = useState("minutes");
+
+  useEffect(() => {
+    let currTime = Date.now() / 1000;
+    let stored_time = props.recInfo.date;
+
+    let time_dif = (currTime - stored_time) / 60;
+
+    if (time_dif > 59) {
+      setMetric("hours");
+      time_dif = Math.round(time_dif / 60);
+      if (time_dif > 23) {
+        time_dif = Math.round(time_dif / 24);
+        setMetric("days");
+        if (time_dif > 7) {
+          time_dif = Math.round(time_dif / 7);
+          setMetric("weeks");
+          if (time_dif > 3) {
+            time_dif = Math.round(time_dif / 4);
+            setMetric("months");
+            if (time_dif > 11) {
+              time_dif = Math.round(time_dif / 12);
+              setMetric("years");
+            } else {
+              setTime(Math.round(time_dif));
+            }
+          } else {
+            setTime(Math.round(time_dif));
+          }
+        } else {
+          setTime(Math.round(time_dif));
+        }
+      } else {
+        setTime(Math.round(time_dif));
+      }
+    } else {
+      setTime(Math.round(time_dif));
+    }
+  }, [props.recInfo]);
+
   return (
     <div className="direct-rec">
       <div>
-        <h1>content</h1>
+        <h2 style={{ color: "black" }}>{" from " + props.recInfo.user}</h2>
+        <p>"Listen to this song when you are big chiefin'"</p>
       </div>
       <iframe
         className="loading-spinner"
@@ -30,7 +72,29 @@ export const DirectRec = (props) => {
         allowtransparency="true"
         allow="encrypted-media"
       />
-      <h2 style={{ color: "black" }}>{" from " + props.recInfo.user}</h2>
+      <div
+        style={{
+          display: "block",
+          width: "100%",
+
+          alignContent: "center",
+          justifyContent: "center",
+          marginBottom: "2rem",
+        }}
+      >
+        <h3
+          style={{
+            float: "left",
+            color: "black",
+
+            position: "relative",
+            left: "2rem",
+            bottom: "0.5rem",
+          }}
+        >
+          {time !== null && time + " " + metric + " ago"}
+        </h3>
+      </div>
     </div>
   );
 };
