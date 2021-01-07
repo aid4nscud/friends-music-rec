@@ -23,18 +23,8 @@ recommendations = db.recommendations
 CLIENT_ID = "c9e32a7a65884148a2a7c88cef4da3fc"
 CLIENT_SECRET = "c3f0bbacf20347d099a7af4792a5699a"
 
-REDIRECT_URI = ''
+# JWT USER AUTHENTICATION - FUNCTIONS BELOW
 
-
-# Spotify API endpoints
-AUTH_URL = 'https://accounts.spotify.com/authorize'
-TOKEN_URL = 'https://accounts.spotify.com/api/token'
-
-
-# AUTHORIZATION FLOW SPOTIFY:
-
-
-# JWT FOR USER AUTHENTICATION - FUNCTIONS BELOW
 
 def encodeAuthToken(user_id):
     try:
@@ -84,8 +74,6 @@ def check_token():
 @app.route('/api/login', methods={'POST'})
 def login():
 
-    # AUTH WITH APP + SPOTIFY
-
     error = ''
     req = request.json
     username = req['username']
@@ -131,6 +119,7 @@ def register():
                 'followers': [],
                 'recs': [],
                 'direct_recs': [],
+                'viewed_recs': [],
                 'notifications': [create_account_notification_object]
             })
             message = 'account succesfully created'
@@ -275,6 +264,7 @@ def create_rec():
                 'user': request.json['user'],
                 'uri': request.json['uri'],
                 'likers': [],
+                'views': 0,
                 'date': curr_time
             })
 
@@ -313,6 +303,9 @@ def create_direct_rec():
     }
 
     try:
+        users.update_one({'username': user}, {
+            '$push': {'direct_recs': direct_rec}})
+
         for r in recipients:
             users.update_one({'username': r}, {
                              '$push': {'direct_recs': direct_rec}})
@@ -430,10 +423,9 @@ def unlike_rec():
 
 # ROUTES TO ACCESS RECOMMENDATIONS DISPLAYED IN THE SECTIONS: "DISCOVER" and "PROFILE" OF APP
 
-        # NEED TO CHANGE THIS: WHY TF IS IT IN THE URL????????
 @app.route('/api/get_discover_recs', methods={"POST"})
 def get_discover_recs():
-    print(request.json['user'])
+
     user = users.find_one({'username': request.json['user']})
     user_following = user['following']
 
@@ -453,6 +445,7 @@ def get_discover_recs():
                 'user': doc['user'],
                 'uri': doc['uri'],
                 'likes':  len(doc['likers']),
+                'views': doc['views'],
                 'liked': liked,
                 'date': doc['date']
             })
@@ -485,6 +478,7 @@ def get_friend_recs():
                 'user': doc['user'],
                 'uri': doc['uri'],
                 'likes': len(doc['likers']),
+                'views': doc['views'],
                 'liked': liked,
                 'date': doc['date']
             })
@@ -521,8 +515,10 @@ def get__user_profile():
             'user': doc['user'],
             'uri': doc['uri'],
             'likes': len(doc['likers']),
+            'views': doc['views'],
             'date': doc['date'],
-            'liked': liked
+            'liked': liked,
+
         })
     recs.reverse()
     # getting user follower/following numbers
@@ -618,19 +614,72 @@ def get_direct_recs():
         arr = user['direct_recs']
         dir_recs = []
         for doc in arr:
-            dir_recs.append({
+            if doc['user'] != username:
+                dir_recs.append({
 
 
-                'song': doc['song'],
-                'artist': doc['artist'],
-                'user': doc['user'],
-                'uri': doc['uri'],
-                'date': doc['date'],
+                    'song': doc['song'],
+                    'artist': doc['artist'],
+                    'user': doc['user'],
+                    'uri': doc['uri'],
+                    'date': doc['date'],
 
-            })
+                })
         dir_recs.reverse()
         return {'recs': dir_recs}
 
     except Exception as e:
         print(e)
+        return {'error': str(e)}
+
+
+@app.route('/api/view_rec', methods={"POST"})
+def view_rec():
+    rec_id = request.json['recId']
+    username = request.json['user']
+    print(rec_id)
+
+    try:
+        recommendations.update(
+            {"_id": ObjectId(rec_id)},
+            {
+                '$inc': {
+                    'views': 1
+                }
+            }
+        )
+        user = users.find_one({'username': username})
+        user_viewed = user['viewed_recs']
+        exists = False
+        for r in user_viewed:
+            if rec_id == r['id']:
+                exists = True
+                break
+
+        print(exists)
+
+        if exists == True:
+
+            users.update_one(
+                {'username': username},
+                {'$inc': {
+                    "viewed_recs.$[elem].count": 1
+
+                }}, False,  array_filters=[{"elem.id":  {'$eq': rec_id}}]
+            )
+
+        if exists == False:
+            users.update(
+                {"username": username},
+                {
+                    '$push': {
+                        'viewed_recs': {'id': rec_id, 'count': 1}
+                    }
+                }
+            )
+
+        return {'success': 'success'}
+
+    except Exception as e:
+        print(str(e))
         return {'error': str(e)}

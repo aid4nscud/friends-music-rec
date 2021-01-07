@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./UserRec.css";
 import { FaMinusCircle } from "react-icons/fa";
+import { HiOutlineEye } from "react-icons/hi";
 
 export const UserRec = (props) => {
   let uri = props.uri;
@@ -62,9 +63,28 @@ export const UserRec = (props) => {
         >
           {"Likes: " + props.likes}
         </h3>
-        <h3 style={{ float: "right", position: "relative", right: "2rem" }}>
-          Views: 3.7K
-        </h3>
+        <div
+          style={{
+            float: "right",
+            position: "relative",
+            right: "2rem",
+          }}
+        >
+          <HiOutlineEye
+            style={{ display: "inline-block", verticalAlign: "middle" }}
+            size="2em"
+            color="white"
+          />
+          <h3
+            style={{
+              display: "inline-block",
+              verticalAlign: "middle",
+              marginLeft: "0.5rem",
+            }}
+          >
+            {props.views}
+          </h3>
+        </div>
       </div>
       <div className="loading-spinner user-rec-div">
         <iframe

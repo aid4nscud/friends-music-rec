@@ -4,6 +4,7 @@ import { ReactComponent as LikedHeart } from "../../assets/liked-heart.svg";
 import { ReactComponent as UnlikedHeart } from "../../assets/unliked-heart.svg";
 import { useParams } from "react-router-dom";
 import { getCookie } from "../../utils/auth";
+import { HiOutlineEye } from "react-icons/hi";
 
 export const SearchedUserRec = (props) => {
   const { user } = useParams();
@@ -98,9 +99,32 @@ export const SearchedUserRec = (props) => {
           allowtransparency="true"
           allow="encrypted-media"
         ></iframe>
-        <h3 style={{ float: "left", position: "relative", left: "2rem" }}>
-          {time !== null && time + " " + metric + " ago"}
-        </h3>
+        <div>
+          {" "}
+          <h3 style={{ float: "left", position: "relative", left: "2rem" }}>
+            {time !== null && time + " " + metric + " ago"}
+          </h3>
+          <div
+            style={{
+              float: "right",
+              position: "relative",
+              right: "2rem",
+            }}
+          >
+            <HiOutlineEye
+              style={{
+                display: "inline-block",
+                verticalAlign: "middle",
+                marginRight: "0.5rem",
+              }}
+              size="2em"
+              color="white"
+            />
+            <h3 style={{ display: "inline-block", verticalAlign: "middle" }}>
+              {props.views}
+            </h3>
+          </div>
+        </div>
       </div>
     </div>
   );

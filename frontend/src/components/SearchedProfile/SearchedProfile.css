@@ -8,8 +8,8 @@
   margin: 1rem;
 }
 
-.welcome-follow h1 {
-  color: black;
+.welcome-follow {
+  display: inline-block;
 }
 
 .searched-profile {
@@ -17,19 +17,16 @@
   height: 90vh;
 }
 
-.welcome-follow {
-  width: 60%;
-  margin: auto;
-  display: block;
-}
-
 .welcome-follow h1 {
+  color: black;
   display: inline-block;
   margin: 1rem;
 }
 
 .welcome-follow button {
   display: inline-block;
+  border-style: solid;
+  border-color: black;
 
   width: 100%;
 }
@@ -64,19 +61,22 @@
 
 .searched-user-social-info {
   display: block;
-  width: 65%;
+  width: 55%;
   height: 4rem;
+  max-height: 4rem;
   margin: auto;
   margin-top: 2rem;
+  margin-bottom: 1rem;
   background-color: rgb(0, 0, 0);
   border-style: solid;
   border-color: white;
 }
 
 .searched-user-social-info li {
-  width: 30%;
+  width: 33%;
   height: 2rem;
-  padding: 1rem;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
   display: inline-block;
   margin: auto;
   color: rgb(255, 255, 255);
@@ -109,4 +109,9 @@
   position: relative;
   margin: 1rem;
   padding-bottom: 1rem;
+}
+
+.searched-profile-header {
+  width: 90%;
+  display: inline-block;
 }

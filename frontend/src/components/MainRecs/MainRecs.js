@@ -8,7 +8,7 @@ import { ActivityFeed } from "../ActivityFeed/ActivityFeed";
 import { FaSearchengin } from "react-icons/fa";
 
 export const MainRecs = (props) => {
-  const [recType, setRecType] = useState(true); //set to null and useeffect hook will set conditionally based on if there are any friendrecs
+  const [recType, setRecType] = useState(false); //set to null and useeffect hook will set conditionally based on if there are any friendrecs
   const [backgroundColor1, setBackgroundColor1] = useState(
     "rgba(0, 0, 0, 0.53)"
   );

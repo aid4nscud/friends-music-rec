@@ -134,7 +134,9 @@ export const QueuedRec = (props) => {
           <FriendSearch createDirectRec={createDirectRec} />
         )}
         {recType === true && (
-          <h2>Recommend to your followers, and anonymously to the world</h2>
+          <h2 style={{ display: "block" }}>
+            Recommend to your followers, and anonymously to the world
+          </h2>
         )}
         {recType === true && (
           <button

@@ -2,7 +2,7 @@
   flex: 1;
   vertical-align: middle;
   min-height: 32rem;
-  border-style: ridge;
+  max-height: 32rem;
 
   align-content: center;
   justify-content: center;
@@ -23,9 +23,9 @@
 
 .toggle-rectype button {
   width: 50%;
-  min-height: 4rem;
+  min-height: 3rem;
   height: 100%;
-  max-height: 4rem;
+  max-height: 3rem;
   display: inline-block;
   padding-top: 1rem;
   padding-bottom: 1rem;
@@ -39,7 +39,7 @@
 
 .toggle-rectype {
   width: 70%;
-  height: 4rem;
+  height: 3rem;
   margin: auto;
   margin-top: 2rem;
   margin-bottom: 2rem;
@@ -56,7 +56,7 @@
   padding: 1rem;
   border-radius: 1rem;
   font-size: large;
-  margin: 1rem;
+  margin: 0.5rem;
 }
 
 .make-rec-button:hover {

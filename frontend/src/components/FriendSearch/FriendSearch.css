@@ -1,13 +1,13 @@
 .mutual-friends-list {
   padding: 0;
-  width: 90%;
+  width: 60%;
   margin: auto;
 
   max-height: 15rem;
   overflow-y: auto;
   overflow-x: hidden;
   border-style: solid;
-  border-color: black;
+  border-color: rgba(0, 0, 0, 0.123);
   text-align: left;
 
   display: block;

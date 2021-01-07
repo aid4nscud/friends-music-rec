@@ -4,6 +4,8 @@ import { getCookie } from "../../utils/auth";
 import "./SearchedProfile.css";
 import { SearchedUserRec } from "./SearchedUserRec";
 
+import { BsLightningFill } from "react-icons/bs";
+
 export const SearchedProfile = (props) => {
   const [userRecs, setUserRecs] = useState(null);
   const [followers, setFollowers] = useState(null);
@@ -139,7 +141,10 @@ export const SearchedProfile = (props) => {
               <div style={{ display: "inline-block" }}>
                 {followed === true ? (
                   <button
-                    style={{ backgroundColor: "#00E0C3", color: "black" }}
+                    style={{
+                      backgroundColor: "#00E0C3",
+                      color: "black",
+                    }}
                     className="searched-user-follow-button"
                     onClick={() => {
                       unfollow(user);
@@ -163,6 +168,21 @@ export const SearchedProfile = (props) => {
                 )}
               </div>
             )}
+          </div>
+          <div style={{ display: "inline-block", marginLeft: "3rem" }}>
+            <BsLightningFill
+              style={{ display: "inline-block", verticalAlign: "middle" }}
+              size="2em"
+              color="red"
+            />{" "}
+            <h3
+              style={{
+                display: "inline-block",
+                verticalAlign: "middle",
+              }}
+            >
+              1232
+            </h3>
           </div>
           <ul className="searched-user-social-info">
             <li style={{ borderRightStyle: "solid", borderColor: "white" }}>
@@ -205,6 +225,7 @@ export const SearchedProfile = (props) => {
                   unlikeRec={unlikeRec}
                   date={rec.date}
                   likes={rec.likes}
+                  views={rec.views}
                   uri={rec.uri}
                   song={rec.song}
                   artist={rec.artist}

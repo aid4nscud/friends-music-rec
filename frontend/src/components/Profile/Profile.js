@@ -3,8 +3,8 @@ import { getCookie } from "../../utils/auth";
 import { UserRec } from "../UserRec/UserRec";
 import "./Profile.css";
 import { MdSettings } from "react-icons/md";
-import auth from "../../utils/auth";
-import { useHistory } from "react-router-dom";
+
+import { BsLightningFill } from "react-icons/bs";
 
 export const Profile = (props) => {
   const [userRecs, setUserRecs] = useState(null);
@@ -12,19 +12,6 @@ export const Profile = (props) => {
   const [render, setRender] = useState(0);
   const [followers, setFollowers] = useState(null);
   const [following, setFollowing] = useState(null);
-
-  document.addEventListener(
-    "play",
-    function (e) {
-      var audios = document.getElementsByTagName("audio");
-      for (var i = 0, len = audios.length; i < len; i++) {
-        if (audios[i] != e.target) {
-          audios[i].pause();
-        }
-      }
-    },
-    true
-  );
 
   useEffect(() => {
     const url = "/api/get_user_profile";
@@ -103,6 +90,21 @@ export const Profile = (props) => {
           >
             <MdSettings size="3em" color="black" />
           </div>
+          <div style={{ display: "inline-block", marginLeft: "3rem" }}>
+            <BsLightningFill
+              style={{ display: "inline-block", verticalAlign: "middle" }}
+              size="2em"
+              color="red"
+            />{" "}
+            <h3
+              style={{
+                display: "inline-block",
+                verticalAlign: "middle",
+              }}
+            >
+              1232
+            </h3>
+          </div>
 
           <ul className="user-social-info">
             <li style={{ borderRightStyle: "solid", borderColor: "white" }}>
@@ -142,10 +144,12 @@ export const Profile = (props) => {
                   setRender={setRender}
                   deleteRec={deleteRec}
                   likes={rec.likes}
+                  views={rec.views}
                   uri={rec.uri}
                   song={rec.song}
                   artist={rec.artist}
                   images={rec.images}
+                  _id={rec._id}
                 />
               );
             })}

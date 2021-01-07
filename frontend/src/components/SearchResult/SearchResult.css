@@ -3,6 +3,7 @@
   text-align: center;
   display: inline-block;
   padding: 1rem;
+  min-height: 23rem;
 
   border-color: rgba(255, 255, 255, 0);
 

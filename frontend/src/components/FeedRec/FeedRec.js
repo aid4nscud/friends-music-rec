@@ -5,6 +5,8 @@ import { GrLinkNext } from "react-icons/gr";
 
 import { useHistory } from "react-router-dom";
 import "./FeedRec.css";
+import { getCookie } from "../../utils/auth";
+import { HiOutlineEye } from "react-icons/hi";
 
 export const FeedRec = (props) => {
   const [time, setTime] = useState(null);
@@ -16,7 +18,7 @@ export const FeedRec = (props) => {
   useEffect(() => {
     if (mounted === false) {
       // UPDATE VIEW COUNT
-
+      sendView(props.recInfo._id);
       setMounted(true);
     }
   }, [props.recInfo]);
@@ -59,6 +61,24 @@ export const FeedRec = (props) => {
     }
   }, [props.recInfo]);
 
+  const sendView = (recId) => {
+    const user = getCookie("user");
+
+    const data = { recId: recId, user: user };
+
+    fetch("/api/view_rec", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+    })
+      .then((res) => res.json())
+      .then((parsed) => {
+        if (parsed["error"]) {
+          alert("error");
+        }
+      });
+  };
+
   return (
     <div className="feed-rec-container">
       <div>
@@ -80,7 +100,7 @@ export const FeedRec = (props) => {
               </h3>
               {props.followButton === "Following" ? (
                 <button
-                  style={{ backgroundColor: "#00E0C3", color: "black" }}
+                  style={{ backgroundColor: "#00e0c3", color: "black" }}
                   className="feed-rec-follow-button"
                   onClick={() => {
                     props.unfollow(props.recInfo.user);
@@ -169,16 +189,26 @@ export const FeedRec = (props) => {
             >
               {time !== null && time + " " + metric + " ago"}
             </h3>
-            <h3
+            <div
               style={{
                 float: "right",
-
                 position: "relative",
                 right: "2rem",
               }}
             >
-              Views: 106K
-            </h3>
+              <HiOutlineEye
+                style={{
+                  display: "inline-block",
+                  verticalAlign: "middle",
+                  marginRight: "0.5rem",
+                }}
+                size="2em"
+                color="white"
+              />
+              <h3 style={{ display: "inline-block", verticalAlign: "middle" }}>
+                {props.recInfo.views}
+              </h3>
+            </div>
           </div>
         </div>
 

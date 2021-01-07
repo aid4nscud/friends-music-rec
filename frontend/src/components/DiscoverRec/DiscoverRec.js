@@ -2,8 +2,11 @@ import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { ReactComponent as LikedHeart } from "../../assets/liked-heart.svg";
 import { ReactComponent as UnlikedHeart } from "../../assets/unliked-heart.svg";
+import { HiOutlineEye } from "react-icons/hi";
+
 import "./DiscoverRec.css";
 import { GrLinkNext } from "react-icons/gr";
+import { getCookie } from "../../utils/auth";
 
 export const DiscoverRec = (props) => {
   const [likes, setLikes] = useState(0);
@@ -20,7 +23,7 @@ export const DiscoverRec = (props) => {
 
   useEffect(() => {
     if (mounted === false) {
-      // UPDATE VIEW COUNT
+      sendView(props.recInfo._id);
       setMounted(true);
     }
   }, [props.recInfo]);
@@ -63,6 +66,24 @@ export const DiscoverRec = (props) => {
       setTime(time_dif);
     }
   }, [props.recInfo]);
+
+  const sendView = (recId) => {
+    const user = getCookie("user");
+
+    const data = { recId: recId, user: user };
+
+    fetch("/api/view_rec", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+    })
+      .then((res) => res.json())
+      .then((parsed) => {
+        if (parsed["error"]) {
+          alert("error");
+        }
+      });
+  };
 
   return (
     <div className="container-div">
@@ -175,15 +196,28 @@ export const DiscoverRec = (props) => {
           >
             {time !== null && time + " " + metric + " ago"}
           </h3>
-          <h3
+          <div
             style={{
               float: "right",
               position: "relative",
               right: "2rem",
             }}
           >
-            Views: 23k
-          </h3>
+            <HiOutlineEye
+              style={{ display: "inline-block", verticalAlign: "middle" }}
+              size="2em"
+              color="white"
+            />
+            <h3
+              style={{
+                display: "inline-block",
+                verticalAlign: "middle",
+                marginLeft: "0.5rem",
+              }}
+            >
+              {props.recInfo.views}
+            </h3>
+          </div>
         </div>
       </div>
       {props.nextRec && (
