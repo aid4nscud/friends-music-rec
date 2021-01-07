@@ -90,8 +90,8 @@ export const SearchedUserRec = (props) => {
         >
           <BsLightningFill
             style={{ display: "inline-block", verticalAlign: "middle" }}
-            size="2em"
-            color="red"
+            size="1.5em"
+            color="#F70C76"
           />
           <h3
             style={{

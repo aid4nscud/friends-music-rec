@@ -45,8 +45,36 @@ export const DirectRec = (props) => {
 
   return (
     <div className="direct-rec">
-      <div>
-        <h2 style={{ color: "black" }}>{" from " + props.recInfo.user}</h2>
+      <div
+        style={{
+          alignContent: "center",
+          justifyContent: "center",
+          height: "6rem",
+        }}
+      >
+        <h3
+          style={{
+            color: "black",
+            display: "inline-block",
+            verticalAlign: "middle",
+            padding: "0rem",
+          }}
+        >
+          from{" "}
+          <span
+            style={{
+              fontSize: "larger",
+              display: "inline-block",
+              verticalAlign: "middle",
+              margin: "0",
+              marginLeft: "1rem",
+              marginRight: "2rem",
+            }}
+            className="span-user"
+          >
+            {props.recInfo.user}
+          </span>
+        </h3>
         <p>"Listen to this song when you are big chiefin'"</p>
       </div>
       <iframe
@@ -76,10 +104,10 @@ export const DirectRec = (props) => {
         style={{
           display: "block",
           width: "100%",
+          height: "3rem",
 
           alignContent: "center",
           justifyContent: "center",
-          marginBottom: "2rem",
         }}
       >
         <h3
@@ -89,7 +117,6 @@ export const DirectRec = (props) => {
 
             position: "relative",
             left: "2rem",
-            bottom: "0.5rem",
           }}
         >
           {time !== null && time + " " + metric + " ago"}

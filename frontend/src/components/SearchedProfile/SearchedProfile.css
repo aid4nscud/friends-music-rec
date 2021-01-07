@@ -85,7 +85,9 @@
 
 .searched-user-follow-button {
   padding: 0.75rem;
-  display: inline-block;
+
+  display: "inline-block";
+  vertical-align: "middle";
 
   border-style: solid;
   border-radius: 0.8rem;
@@ -94,6 +96,7 @@
   border-color: #00e0c3;
   font-size: large;
   text-align: center;
+  margin-left: 1.25rem;
 }
 
 .searched-user-follow-button:hover {

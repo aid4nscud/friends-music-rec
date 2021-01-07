@@ -9,7 +9,7 @@
 .profile {
   width: 100%;
   margin-top: 7rem;
-  height: 95vh;
+  min-height: 95vh;
 }
 
 .profile-header {
@@ -87,20 +87,4 @@
   border-style: solid;
   border-color: black;
   width: 60%;
-}
-.profile-popup-arrow {
-  color: rgb(255, 255, 255);
-}
-[role="tooltip"].popup-content {
-  position: fixed;
-  margin: auto;
-
-  box-shadow: rgba(0, 0, 0, 0.16) 0px 0px 3px;
-}
-
-.profile-popup-overlay {
-  background: rgba(0, 0, 0, 0.5);
-}
-[data-popup="tooltip"].popup-overlay {
-  background: transparent;
 }

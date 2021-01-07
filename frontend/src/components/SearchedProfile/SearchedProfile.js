@@ -133,7 +133,7 @@ export const SearchedProfile = (props) => {
       {user && (
         <div className="searched-profile-header">
           <div className="welcome-follow">
-            <h1>
+            <h1 style={{ display: "inline-block", verticalAlign: "middle" }}>
               Welcome to <span className="span-user">{user + "'s"}</span>{" "}
               profile
             </h1>
@@ -142,7 +142,7 @@ export const SearchedProfile = (props) => {
                 {followed === true ? (
                   <button
                     style={{
-                      backgroundColor: "#00E0C3",
+                      backgroundColor: "#00e0c3",
                       color: "black",
                     }}
                     className="searched-user-follow-button"
@@ -169,11 +169,26 @@ export const SearchedProfile = (props) => {
               </div>
             )}
           </div>
-          <div style={{ display: "inline-block", marginLeft: "3rem" }}>
+
+          <div
+            style={{
+              display: "inline-block",
+
+              display: "inline-block",
+              verticalAlign: "middle",
+              marginLeft: "5rem",
+              background: "black",
+
+              alignContent: "center",
+              justifyContent: "center",
+              padding: "0.5rem",
+              borderRadius: "3rem",
+            }}
+          >
             <BsLightningFill
               style={{ display: "inline-block", verticalAlign: "middle" }}
               size="2em"
-              color="red"
+              color="#F70C76"
             />{" "}
             <h3
               style={{

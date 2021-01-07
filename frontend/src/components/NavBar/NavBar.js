@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import "./NavBar.css";
 import { ReactComponent as ProfileIcon } from "../../assets/profile-icon.svg";
 import { ReactComponent as ListenIcon } from "../../assets/headphones.svg";
-import { ReactComponent as DiscoverIcon } from "../../assets/discover-icon.svg";
+import { ReactComponent as CreateIcon } from "../../assets/discover-icon.svg";
 
 export const NavBar = (props) => {
   const baseURL = "localhost:3000/";
@@ -59,7 +59,6 @@ export const NavBar = (props) => {
           style={{
             display: "inline-block",
             verticalAlign: "middle",
-           
           }}
         >
           <h3
@@ -72,7 +71,7 @@ export const NavBar = (props) => {
           >
             CREATE
           </h3>
-          <DiscoverIcon
+          <CreateIcon
             style={{
               display: "inline-block",
               verticalAlign: "middle",

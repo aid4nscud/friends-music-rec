@@ -73,12 +73,24 @@ export const Profile = (props) => {
     <div className="profile">
       {user && (
         <div className="profile-header">
-          <h1 style={{ color: "black", fontSize: "2rem" }}>
+          <h1
+            style={{
+              color: "black",
+              fontSize: "2rem",
+              display: "inline-block",
+              verticalAlign: "middle",
+            }}
+          >
             Welcome to your profile, <span className="span-user">{user}</span>
           </h1>
 
           <div
-            style={{ display: "inline-block", verticalAlign: "middle" }}
+            style={{
+              display: "inline-block",
+              verticalAlign: "middle",
+              alignContent: "center",
+              justifyContent: "center",
+            }}
             className="settings-icon"
             onClick={() => {
               if (props.popup !== "edit-profile") {
@@ -88,13 +100,29 @@ export const Profile = (props) => {
               }
             }}
           >
-            <MdSettings size="3em" color="black" />
+            <MdSettings size="4em" color="black" />
           </div>
-          <div style={{ display: "inline-block", marginLeft: "3rem" }}>
+          <div
+            style={{
+              display: "inline-block",
+              verticalAlign: "middle",
+              marginLeft: "5rem",
+              background: "black",
+
+              alignContent: "center",
+              justifyContent: "center",
+              padding: "0.5rem",
+              borderRadius: "3rem",
+            }}
+          >
             <BsLightningFill
-              style={{ display: "inline-block", verticalAlign: "middle" }}
+              style={{
+                display: "inline-block",
+                verticalAlign: "middle",
+                width: "35%",
+              }}
               size="2em"
-              color="red"
+              color="#F70C76"
             />{" "}
             <h3
               style={{
@@ -106,7 +134,7 @@ export const Profile = (props) => {
             </h3>
           </div>
 
-          <ul className="user-social-info">
+          <ul style={{ borderRadius: "1rem" }} className="user-social-info">
             <li style={{ borderRightStyle: "solid", borderColor: "white" }}>
               {followers === null ? "Followers: 0" : "Followers: " + followers}
             </li>
