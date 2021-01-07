@@ -1,5 +1,5 @@
 
-## The goal of this project is to create a MVP for an application that can allow users to recommend their favorite songs, and discover new music to and from their friends and other unknown users. 
+## MVP for social music recommendation app 
 
 
 Users will have a profile that is made up of their song recommendations (with associated information for each one). 
