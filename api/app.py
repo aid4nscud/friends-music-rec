@@ -299,6 +299,7 @@ def create_direct_rec():
         'user': user,
         'uri': request.json['uri'],
         'date': curr_time,
+        'caption': request.json['caption'],
         'action': None,
     }
 
@@ -623,6 +624,7 @@ def get_direct_recs():
                     'user': doc['user'],
                     'uri': doc['uri'],
                     'date': doc['date'],
+                    'caption': doc['caption']
 
                 })
         dir_recs.reverse()

@@ -13,6 +13,7 @@ export const SearchedUserRec = (props) => {
   const [likes, setLikes] = useState(0);
   const [time, setTime] = useState(null);
   const [metric, setMetric] = useState("minutes");
+  const [justNow, setJustNow] = useState(false);
   let uri = props.uri;
   let uriCode = uri.substr(14);
 
@@ -23,6 +24,10 @@ export const SearchedUserRec = (props) => {
     let stored_time = props.date;
 
     let time_dif = (currTime - stored_time) / 60;
+
+    if (time_dif < 2) {
+      setJustNow(true);
+    }
 
     if (time_dif > 59) {
       setMetric("hours");
@@ -124,7 +129,7 @@ export const SearchedUserRec = (props) => {
         <div>
           {" "}
           <h3 style={{ float: "left", position: "relative", left: "2rem" }}>
-            {time !== null && time + " " + metric + " ago"}
+            {justNow === false ? time + " " + metric + " ago" : "just now"}
           </h3>
           <div
             style={{

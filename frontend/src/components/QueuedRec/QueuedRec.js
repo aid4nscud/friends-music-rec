@@ -11,6 +11,7 @@ export const QueuedRec = (props) => {
   const [color1, setColor1] = useState("white");
   const [backgroundColor2, setBackgroundColor2] = useState("white");
   const [color2, setColor2] = useState("rgba(0, 0, 0, 0.53)");
+  const [caption, setCaption] = useState(null);
 
   useEffect(() => {
     if (recType === true) {
@@ -52,7 +53,7 @@ export const QueuedRec = (props) => {
       });
   };
 
-  const createDirectRec = (friends, caption) => {
+  const createDirectRec = (friends) => {
     const recommender = getCookie("user");
 
     const directRec = {
@@ -98,6 +99,19 @@ export const QueuedRec = (props) => {
           allowtransparency="false"
           allow="encrypted-media"
         ></iframe>
+        {recType === false && (
+          <div>
+            <h3 style={{ color: "black", display: "inline-block" }}>Caption</h3>
+            <input
+              style={{ margin: "1rem" }}
+              value={caption}
+              placeholder="Add a short comment"
+              onChange={(e) => {
+                setCaption(e.target.value);
+              }}
+            />
+          </div>
+        )}
       </div>
 
       <div className="make-rec-options">

@@ -2,37 +2,12 @@ import React, { useState, useEffect } from "react";
 import "./Discover.css";
 import { DiscoverRec } from "../DiscoverRec/DiscoverRec";
 import { getCookie } from "../../utils/auth";
-import { SearchUser } from "../SearchUser/SearchUser";
 
 export const Discover = (props) => {
   const [index, setIndex] = useState(0);
-  const [recs, setRecs] = useState(null);
   const [followButton, setFollowButton] = useState("Follow");
   const [render, setRender] = useState(0);
   const [liked, setLiked] = useState(null);
-  const [loaded, setLoaded] = useState(false);
-
-  useEffect(() => {
-    if (loaded === false) {
-      const data = { user: getCookie("user") };
-      if (data["user"] !== null) {
-        const url = "/api/get_discover_recs";
-        fetch(url, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(data),
-        })
-          .then((res) => res.json())
-          .then((parsedJSON) => {
-            if (parsedJSON["recs"].length > 0) {
-              console.log(parsedJSON["recs"]);
-              setRecs(parsedJSON["recs"]);
-              setLoaded(true);
-            }
-          });
-      }
-    }
-  }, []);
 
   const unfollow = (userToUnfollow) => {
     const userUnfollowing = getCookie("user");
@@ -75,10 +50,10 @@ export const Discover = (props) => {
   };
 
   const nextRec = () => {
-    if (index !== recs.length - 1) {
+    if (index !== props.recs.length - 1) {
       setIndex(index + 1);
       setFollowButton("Follow");
-    } else if (index == recs.length - 1 && recs.length > 1) {
+    } else if (index == props.recs.length - 1 && props.recs.length > 1) {
       setIndex(0);
       setFollowButton("Follow");
       setLiked(false);
@@ -130,7 +105,7 @@ export const Discover = (props) => {
   return (
     <div className="discover">
       <div style={{ display: "inline-block" }} className="rec-section">
-        {recs === null ? (
+        {props.recs.length < 1 ? (
           <h1
             style={{ color: "black", marginTop: "8rem" }}
             className="container-div"
@@ -139,14 +114,14 @@ export const Discover = (props) => {
           </h1>
         ) : (
           <div>
-            {recs !== null && (
+            {props.recs.length > 0 && (
               <div>
-                {recs.length > 1 ? (
+                {props.recs.length > 1 ? (
                   <DiscoverRec
                     render={render}
                     setRender={setRender}
                     unlikeRec={unlikeRec}
-                    recInfo={recs[index]}
+                    recInfo={props.recs[index]}
                     spotifyToken={props.spotifyToken}
                     setSpotifyToken={props.setSpotifyToken}
                     like={likeRec}
@@ -159,7 +134,7 @@ export const Discover = (props) => {
                 ) : (
                   <DiscoverRec
                     unlikeRec={unlikeRec}
-                    recInfo={recs[index]}
+                    recInfo={props.recs[index]}
                     spotifyToken={props.spotifyToken}
                     setSpotifyToken={props.setSpotifyToken}
                     like={likeRec}

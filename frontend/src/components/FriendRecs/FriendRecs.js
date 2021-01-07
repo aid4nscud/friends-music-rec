@@ -1,5 +1,5 @@
 import React from "react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { getCookie } from "../../utils/auth";
 import { FeedRec } from "../FeedRec/FeedRec";
 import { SearchUser } from "../SearchUser/SearchUser";
@@ -7,78 +7,10 @@ import { DirectRecs } from "../DirectRecs/DirectRecs";
 import "./FriendRecs.css";
 
 export const FriendRecs = (props) => {
-  const [recs, setRecs] = useState(null);
   const [index, setIndex] = useState(0);
   const [followButton, setFollowButton] = useState("Following");
   const [render, setRender] = useState(0);
-  const [directRecs, setDirectRecs] = useState(null);
   const [directRecsTog, setDirectRecsTog] = useState(false);
-
-  useEffect(() => {
-    const user = getCookie("user");
-
-    if (user !== null) {
-      const url = "/api/get_friend_recs";
-      const data = { user: user };
-      fetch(url, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
-      })
-        .then((res) => res.json())
-        .then((parsedJSON) => {
-          if (parsedJSON["recs"].length > 0) {
-            props.setRecs(true);
-            setRecs(parsedJSON["recs"]);
-            props.setRecType(true);
-          } else {
-            setRecs(false);
-          }
-        });
-    } else {
-      const url = "/api/get_friend_recs";
-      const data = { user: getCookie("user") };
-      fetch(url, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
-      })
-        .then((res) => res.json())
-        .then((parsedJSON) => {
-          if (parsedJSON["recs"].length > 0) {
-            props.setRecs(true);
-            setRecs(parsedJSON["recs"]);
-            props.setRecType(true);
-          } else {
-            setRecs(false);
-          }
-        });
-    }
-  }, [render]);
-
-  useEffect(() => {
-    const url = "/api/get_direct_recs";
-    const user = getCookie("user");
-
-    const data = {
-      user: user,
-    };
-
-    fetch(url, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data),
-    })
-      .then((res) => res.json())
-      .then((parsed) => {
-        if (parsed["recs"]) {
-          setDirectRecs(parsed["recs"]);
-        }
-        if (parsed["error"]) {
-          alert(parsed["error"]);
-        }
-      });
-  }, [render]);
 
   const follow = (userToFollow) => {
     const userFollowing = getCookie("user");
@@ -131,7 +63,7 @@ export const FriendRecs = (props) => {
     setFollowButton("Following");
   };
   const nextRec = () => {
-    return index === recs.length - 1 ? nextErr() : nextSuccess();
+    return index === props.recs.length - 1 ? nextErr() : nextSuccess();
   };
 
   function likeRec(recToLike) {
@@ -171,70 +103,72 @@ export const FriendRecs = (props) => {
 
   return (
     <div>
-      {recs !== null && recs.length > 0 ? (
-        <div>
-          {directRecs !== null && directRecs.length > 0 && (
-            <div
-              className="friend-recs-toggle"
-              onClick={() => {
-                directRecsTog === true
-                  ? setDirectRecsTog(false)
-                  : setDirectRecsTog(true);
-              }}
-            >
-              {directRecsTog === false ? (
-                <div className="direct-recommendations-tog">
-                  <h3 className="tog-label">Direct</h3>
-                  <div className="direct-recs-num">
-                    <b style={{ alignSelf: "center" }}>{directRecs.length}</b>
-                  </div>
+      <div>
+        {props.directRecs !== null && props.directRecs.length > 0 && (
+          <div
+            className="friend-recs-toggle"
+            onClick={() => {
+              directRecsTog === true
+                ? setDirectRecsTog(false)
+                : setDirectRecsTog(true);
+            }}
+          >
+            {directRecsTog === false ? (
+              <div className="direct-recommendations-tog">
+                <h3 className="tog-label">Direct</h3>
+                <div className="direct-recs-num">
+                  <b style={{ alignSelf: "center" }}>
+                    {props.directRecs.length}
+                  </b>
                 </div>
-              ) : (
-                <div className="friend-recommendations-tog">
-                  <h3 className="tog-label">Friend Recs</h3>
-                </div>
-              )}
-            </div>
-          )}
-          {directRecsTog === false ? (
-            <div>
-              {recs !== null && recs.length > 1 ? (
-                <FeedRec
-                  render={render}
-                  setRender={setRender}
-                  unlikeRec={unlikeRec}
-                  recInfo={recs[index]}
-                  likeRec={likeRec}
-                  nextRec={nextRec}
-                  unfollow={unfollow}
-                  follow={follow}
-                  followButton={followButton}
-                />
-              ) : (
-                <FeedRec
-                  render={render}
-                  setRender={setRender}
-                  unlikeRec={unlikeRec}
-                  recInfo={recs[index]}
-                  likeRec={likeRec}
-                  unfollow={unfollow}
-                  follow={follow}
-                  followButton={followButton}
-                />
-              )}
-            </div>
-          ) : (
-            <DirectRecs recs={directRecs} />
-          )}
-        </div>
-      ) : (
-        <div style={{ marginTop: "2rem" }}>
-          <h2 style={{ color: "black" }}>
-            You aren't following anyone yet, search profiles or explore!
-          </h2>
-          <SearchUser />
-        </div>
-      )}
+              </div>
+            ) : (
+              <div className="friend-recommendations-tog">
+                <h3 className="tog-label">Friend Recs</h3>
+              </div>
+            )}
+          </div>
+        )}
+        {directRecsTog === false ? (
+          <div>
+            {props.feedRecs === null && (
+              <div style={{ marginTop: "3rem" }}>
+                <h2 style={{ color: "black" }}>
+                  You aren't following anyone yet, search profiles or explore!
+                </h2>
+                <SearchUser />
+              </div>
+            )}
+            {props.feedRecs !== null && props.feedRecs.length > 1 && (
+              <FeedRec
+                render={render}
+                setRender={setRender}
+                unlikeRec={unlikeRec}
+                recInfo={props.feedRecs[index]}
+                likeRec={likeRec}
+                nextRec={nextRec}
+                unfollow={unfollow}
+                follow={follow}
+                followButton={followButton}
+              />
+            )}
+            {props.feedRecs !== null && props.feedRecs.length === 0 && (
+              <FeedRec
+                render={render}
+                setRender={setRender}
+                unlikeRec={unlikeRec}
+                recInfo={props.feedRecs[index]}
+                likeRec={likeRec}
+                unfollow={unfollow}
+                follow={follow}
+                followButton={followButton}
+              />
+            )}
+          </div>
+        ) : (
+          <DirectRecs recs={props.directRecs} />
+        )}
+      </div>
     </div>
   );
 };

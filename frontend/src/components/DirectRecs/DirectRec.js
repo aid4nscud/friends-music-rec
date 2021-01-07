@@ -4,12 +4,18 @@ import "./DirectRec.css";
 export const DirectRec = (props) => {
   const [time, setTime] = useState(null);
   const [metric, setMetric] = useState("minutes");
+  const [action, setAction] = useState(null);
+  const [justNow, setJustNow] = useState(false);
 
   useEffect(() => {
+    setAction(null);
     let currTime = Date.now() / 1000;
     let stored_time = props.recInfo.date;
 
     let time_dif = (currTime - stored_time) / 60;
+    if (time_dif < 2) {
+      setJustNow(true);
+    }
 
     if (time_dif > 59) {
       setMetric("hours");
@@ -50,32 +56,85 @@ export const DirectRec = (props) => {
           alignContent: "center",
           justifyContent: "center",
           height: "6rem",
+          width: "100%",
         }}
       >
-        <h3
+        <div
           style={{
-            color: "black",
             display: "inline-block",
             verticalAlign: "middle",
             padding: "0rem",
+            width: "60%",
           }}
         >
-          from{" "}
-          <span
+          <h3
             style={{
-              fontSize: "larger",
+              color: "black",
               display: "inline-block",
               verticalAlign: "middle",
-              margin: "0",
-              marginLeft: "1rem",
-              marginRight: "2rem",
+              padding: "0rem",
             }}
-            className="span-user"
           >
-            {props.recInfo.user}
-          </span>
-        </h3>
-        <p>"Listen to this song when you are big chiefin'"</p>
+            from{" "}
+            <span
+              style={{
+                fontSize: "larger",
+                display: "inline-block",
+                verticalAlign: "middle",
+                margin: "0",
+                marginLeft: "1rem",
+                marginRight: "2rem",
+              }}
+              className="span-user"
+            >
+              {props.recInfo.user}
+            </span>
+          </h3>
+          <b>{'"' + props.recInfo.caption + '"'}"</b>
+        </div>
+
+        {action === null ? (
+          <div
+            style={{
+              display: "inline-block",
+              verticalAlign: "middle",
+              marginLeft: "2rem",
+              width: "20%",
+            }}
+          >
+            <button
+              value="like"
+              onClick={(e) => {
+                let ac = e.target.value + "d";
+                setAction(ac);
+              }}
+              style={{ padding: "0.5rem" }}
+            >
+              Like
+            </button>
+            <button
+              value="dislike"
+              onClick={(e) => {
+                let ac = e.target.value + "d";
+                setAction(ac);
+              }}
+              style={{ padding: "0.5rem", marginLeft: "1rem" }}
+            >
+              Dislike
+            </button>
+          </div>
+        ) : (
+          <div
+            style={{
+              display: "inline-block",
+              verticalAlign: "middle",
+              marginLeft: "2rem",
+              width: "20%",
+            }}
+          >
+            <h2 style={{ color: "black" }}>{action}</h2>
+          </div>
+        )}
       </div>
       <iframe
         className="loading-spinner"
@@ -119,7 +178,7 @@ export const DirectRec = (props) => {
             left: "2rem",
           }}
         >
-          {time !== null && time + " " + metric + " ago"}
+          {justNow === false ? time + " " + metric + " ago" : "just now"}
         </h3>
       </div>
     </div>

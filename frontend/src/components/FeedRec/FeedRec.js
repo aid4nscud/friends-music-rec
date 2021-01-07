@@ -12,10 +12,12 @@ export const FeedRec = (props) => {
   const [time, setTime] = useState(null);
   const [metric, setMetric] = useState("minutes");
   const [mounted, setMounted] = useState(false);
+  const [justNow, setJustNow] = useState(false);
 
   const history = useHistory();
 
   useEffect(() => {
+    console.log(props.recInfo);
     if (mounted === false) {
       // UPDATE VIEW COUNT
       sendView(props.recInfo._id);
@@ -28,6 +30,10 @@ export const FeedRec = (props) => {
     let stored_time = props.recInfo.date;
 
     let time_dif = (currTime - stored_time) / 60;
+
+    if (time_dif < 2) {
+      setJustNow(true);
+    }
 
     if (time_dif > 59) {
       setMetric("hours");
@@ -187,7 +193,7 @@ export const FeedRec = (props) => {
                 left: "2rem",
               }}
             >
-              {time !== null && time + " " + metric + " ago"}
+              {justNow === false ? time + " " + metric + " ago" : "just now"}
             </h3>
             <div
               style={{
