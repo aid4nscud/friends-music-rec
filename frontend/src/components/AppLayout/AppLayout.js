@@ -7,6 +7,7 @@ import { NavBar } from "../NavBar/NavBar";
 import "./AppLayout.css";
 import { SearchedProfile } from "../SearchedProfile/SearchedProfile";
 import { MainRecs } from "../MainRecs/MainRecs";
+import { AiOutlineCloseCircle } from "react-icons/ai";
 
 import { EditProfile } from "../EditProfile/EditProfile";
 
@@ -38,9 +39,48 @@ export const AppLayout = (props) => {
         {popup === "edit-profile" && (
           <div
             className="popup"
-            style={{ width: "50%", top: "10%", left: "25%", minHeight: "80vh" }}
+            style={{
+              width: "30%",
+              top: "15%",
+              bottom: "15%",
+              left: "35%",
+              minHeight: "40vh",
+              maxHeight: "40vh",
+              margin: "auto",
+            }}
           >
-            <EditProfile setPopup={setPopup} />
+            {popup !== null && (
+              <div
+                style={{
+                  display: "block",
+                  width: "100%",
+                  height: "10%",
+                  alignContent: "center",
+                  justifyContent: "center",
+                }}
+                className="popup-close-button"
+                style={{
+                  display: "block",
+                  position: "relative",
+                }}
+                onClick={() => {
+                  setPopup(null);
+                }}
+              >
+                <AiOutlineCloseCircle size="3em" color="black" />
+              </div>
+            )}
+            <div
+              style={{
+                display: "block",
+                width: "100%",
+                height: "50%",
+                alignContent: "center",
+                justifyContent: "center",
+              }}
+            >
+              <EditProfile setPopup={setPopup} />
+            </div>
           </div>
         )}
 

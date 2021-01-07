@@ -225,9 +225,6 @@ export const SearchedProfile = (props) => {
             className="searched-profile-song-recommendations"
           >
             <h2 className="searched-profile-recs-label">
-              <span style={{ fontSize: "large" }} className="span-user">
-                {user + "'s"}
-              </span>
               Song Recommendations
             </h2>
           </div>
