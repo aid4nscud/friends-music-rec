@@ -27,14 +27,13 @@ Users will have a profile that is made up of their song recommendations (with as
 
 TODO:
 
-- Turn DiscoverRec and FeedRec into class components in order to use ComponentWillMount to track views.
+- Add score
 
-- Add caption functionality to DirectRec. Add like, dislike functionality as well
+- Add direct rec features
 
 - Add logo, title, footer, favicon, etc...
 
 
-OPTIONAL/UNDECIDED
-
--Spotify Auth Flow
+NOT SURE:
+  -Spotify Auth Flow
 
