@@ -5,6 +5,7 @@ import { ReactComponent as UnlikedHeart } from "../../assets/unliked-heart.svg";
 import { useParams } from "react-router-dom";
 import { getCookie } from "../../utils/auth";
 import { HiOutlineEye } from "react-icons/hi";
+import { BsLightningFill } from "react-icons/bs";
 
 export const SearchedUserRec = (props) => {
   const { user } = useParams();
@@ -81,6 +82,27 @@ export const SearchedUserRec = (props) => {
         <h3 className="searched-rec-likes-label">
           {"Likes: " + (likes + props.likes)}
         </h3>
+        <div
+          style={{
+            display: "inline-block",
+            verticalAlign: "middle",
+          }}
+        >
+          <BsLightningFill
+            style={{ display: "inline-block", verticalAlign: "middle" }}
+            size="2em"
+            color="red"
+          />
+          <h3
+            style={{
+              display: "inline-block",
+              verticalAlign: "middle",
+              marginLeft: "0.5rem",
+            }}
+          >
+            315k
+          </h3>
+        </div>
       </div>
       <div className="loading-spinner searched-user-rec-div">
         <iframe
@@ -107,20 +129,23 @@ export const SearchedUserRec = (props) => {
           <div
             style={{
               float: "right",
+
               position: "relative",
               right: "2rem",
             }}
           >
             <HiOutlineEye
-              style={{
-                display: "inline-block",
-                verticalAlign: "middle",
-                marginRight: "0.5rem",
-              }}
+              style={{ display: "inline-block", verticalAlign: "middle" }}
               size="2em"
               color="white"
             />
-            <h3 style={{ display: "inline-block", verticalAlign: "middle" }}>
+            <h3
+              style={{
+                display: "inline-block",
+                verticalAlign: "middle",
+                marginLeft: "0.5rem",
+              }}
+            >
               {props.views}
             </h3>
           </div>

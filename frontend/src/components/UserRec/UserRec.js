@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./UserRec.css";
 import { FaMinusCircle } from "react-icons/fa";
 import { HiOutlineEye } from "react-icons/hi";
+import { BsLightningFill } from "react-icons/bs";
 
 export const UserRec = (props) => {
   let uri = props.uri;
@@ -57,17 +58,47 @@ export const UserRec = (props) => {
   return (
     <div className="user-rec">
       <div className="profile-card-header">
-        <h3
-          style={{ float: "left", position: "relative", left: "2rem" }}
-          className="user-rec-likes-label"
-        >
-          {"Likes: " + props.likes}
-        </h3>
         <div
           style={{
-            float: "right",
+            display: "inline-block",
+            verticalAlign: "middle",
             position: "relative",
-            right: "2rem",
+            left: "1rem",
+            width: "32%",
+          }}
+        >
+          <h3 className="user-rec-likes-label">{"Likes: " + props.likes}</h3>
+        </div>
+        <div
+          style={{
+            display: "inline-block",
+            verticalAlign: "middle",
+
+            width: "32%",
+          }}
+        >
+          <BsLightningFill
+            style={{ display: "inline-block", verticalAlign: "middle" }}
+            size="2em"
+            color="red"
+          />
+          <h3
+            style={{
+              display: "inline-block",
+              verticalAlign: "middle",
+              marginLeft: "0.5rem",
+            }}
+          >
+            315k
+          </h3>
+        </div>
+        <div
+          style={{
+            display: "inline-block",
+            verticalAlign: "middle",
+            width: "32%",
+            position: "relative",
+            right: "1rem",
           }}
         >
           <HiOutlineEye
