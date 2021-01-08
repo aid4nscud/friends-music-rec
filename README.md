@@ -1,5 +1,5 @@
 
-## The goal of this project is to create a MVP for an application that can allow users to recommend their favorite songs, and discover new music to and from their friends and other unknown users. 
+## MVP for social music recommendation app 
 
 
 Users will have a profile that is made up of their song recommendations (with associated information for each one). 
@@ -27,9 +27,15 @@ Users will have a profile that is made up of their song recommendations (with as
 
 TODO:
 
-- Add score
+- Add score calculation in backend
 
-- Add direct rec features
+- Direct Rec
+  - Sending Side: Choose recipients, make caption --> Rec will show up under 'Direct Recs' section of profile.
+  
+  - Each direct rec will show recipients and have icons representing the recipients 'viewed' and  'liked' status. (if they have viewed or liked, there will be an   icon, but if not, there will be nothing
+  
+  - Receiving Side: Direct Recs will show the recommender, the caption, and a like button. view will be tracked for sender to see when it is seen
+  
 
 - Add logo, title, footer, favicon, etc...
 
