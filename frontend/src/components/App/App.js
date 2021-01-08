@@ -19,6 +19,9 @@ function App() {
           path="/"
           render={() => {
             const authed = auth.isAuthenticated();
+            if ((getCookie("user"), getCookie("token") !== null)) {
+              history.push("/app/listen");
+            }
             if (authed === true) {
               history.push("/app/listen");
             } else {

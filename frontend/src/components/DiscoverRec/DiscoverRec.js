@@ -149,7 +149,7 @@ export const DiscoverRec = (props) => {
                     onClick={() => {
                       props.unfollow(props.recInfo.user);
                     }}
-                    style={{ backgroundColor: "#00E0C3", color: "black" }}
+                    style={{ backgroundColor: "#F70C76" }}
                     className="discover-rec-follow-button"
                   >
                     <b>{props.followButton}</b>

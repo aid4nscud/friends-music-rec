@@ -142,8 +142,7 @@ export const SearchedProfile = (props) => {
                 {followed === true ? (
                   <button
                     style={{
-                      backgroundColor: "#00e0c3",
-                      color: "black",
+                      backgroundColor: "#F70C76",
                     }}
                     className="searched-user-follow-button"
                     onClick={() => {
@@ -217,14 +216,21 @@ export const SearchedProfile = (props) => {
         <div className="searched-profile-recs-container">
           <div
             style={{
-              width: "65%",
+              width: "80%",
               margin: "auto",
               marginTop: "2rem",
-              display: "block",
+              display: "flex",
             }}
             className="searched-profile-song-recommendations"
           >
-            <h2 className="searched-profile-recs-label">
+            <h2
+              style={{
+                color: "black",
+                alignSelf: "flex-start",
+                marginLeft: "2rem",
+              }}
+              className="searched-profile-recs-label"
+            >
               Song Recommendations
             </h2>
           </div>

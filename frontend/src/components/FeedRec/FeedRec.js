@@ -106,7 +106,7 @@ export const FeedRec = (props) => {
               </h3>
               {props.followButton === "Following" ? (
                 <button
-                  style={{ backgroundColor: "#00e0c3", color: "black" }}
+                  style={{ backgroundColor: "#F70C76" }}
                   className="feed-rec-follow-button"
                   onClick={() => {
                     props.unfollow(props.recInfo.user);

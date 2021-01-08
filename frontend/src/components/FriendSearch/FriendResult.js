@@ -6,7 +6,7 @@ export const FriendResult = (props) => {
   const [backgroundColor, setBackgroundColor] = useState("white");
   useEffect(() => {
     if (added === true) {
-      setBackgroundColor(" rgba(12, 224, 247, 0.404)");
+      setBackgroundColor("#f70c766e");
     } else {
       setBackgroundColor("white");
     }

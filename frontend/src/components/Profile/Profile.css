@@ -29,7 +29,40 @@
 
   display: grid;
   grid-template-columns: 33% 33% 33%;
-  margin-top: 3rem;
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  min-height: 20rem;
+  max-height: 40rem;
+  overflow-x: hidden;
+  overflow-y: auto;
+  white-space: nowrap;
+  border-style: dashed;
+  border-top-style: hidden;
+  border-bottom-style: hidden;
+  border-color: black;
+  border-width: thick;
+  border-radius: 2rem;
+  background: rgb(0, 0, 0);
+  background: linear-gradient(
+    0deg,
+    rgba(0, 0, 0, 0) 0%,
+    rgba(0, 0, 0, 0.25) 6%,
+    rgba(0, 0, 0, 0.5) 25%,
+    rgba(0, 0, 0, 0.5) 75%,
+    rgba(0, 0, 0, 0.25) 94%,
+    rgba(0, 0, 0, 0) 100%
+  );
+}
+
+.dir-recs {
+  width: 80%;
+  margin: auto;
+
+  display: grid;
+  grid-template-columns: 33% 33% 33%;
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
   text-align: center;
   min-height: 20rem;
   max-height: 40rem;
@@ -87,4 +120,40 @@
   border-style: solid;
   border-color: black;
   width: 60%;
+}
+
+.user-dir-rec {
+  width: 95%;
+  display: inline-block;
+  margin: 1rem;
+
+  background-color: #000000;
+  border-radius: 10% 10% 10% 10%;
+}
+
+.profile-dir-card-header {
+  display: inline-block;
+  width: 100%;
+}
+
+.profile-dir-card-header button {
+  width: 50%;
+}
+
+.user-dir-rec iframe {
+  width: 100%;
+  position: relative;
+
+  display: block;
+  margin: auto;
+  border-radius: 10% 0 10% 10%;
+  border-style: hidden;
+  border-color: #000000;
+  background-image: none;
+}
+
+.user-dir-rec-likes-label {
+  float: right;
+  position: relative;
+  right: 2rem;
 }

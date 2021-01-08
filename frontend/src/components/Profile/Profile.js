@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { getCookie } from "../../utils/auth";
 import { UserRec } from "../UserRec/UserRec";
+import { UserDirRec } from "../UserDirRec/UserDirRec";
 import "./Profile.css";
 import { MdSettings } from "react-icons/md";
 
@@ -8,6 +9,7 @@ import { BsLightningFill } from "react-icons/bs";
 
 export const Profile = (props) => {
   const [userRecs, setUserRecs] = useState(null);
+  const [dirRecs, setDirRecs] = useState(null);
   const [user, setUser] = useState(getCookie("user"));
   const [render, setRender] = useState(0);
   const [followers, setFollowers] = useState(null);
@@ -38,6 +40,9 @@ export const Profile = (props) => {
           setUserRecs(null);
           setFollowers(parsedJSON["num_followers"]);
           setFollowing(parsedJSON["num_following"]);
+        }
+        if (parsedJSON["dir_recs"].length > 0) {
+          setDirRecs(parsedJSON["dir_recs"]);
         }
       });
   }, [render]);
@@ -152,15 +157,21 @@ export const Profile = (props) => {
         <div className="profile-recs-container">
           <div
             style={{
-              width: "65%",
+              width: "80%",
               margin: "auto",
-              display: "block",
-              position: "relative",
-              left: "2rem",
+              display: "flex",
             }}
             className="your-song-recommendations"
           >
-            <h2 style={{ color: "black" }}>Your Song Recommendations</h2>
+            <h2
+              style={{
+                color: "black",
+                alignSelf: "flex-start",
+                marginLeft: "2rem",
+              }}
+            >
+              Your Song Recommendations
+            </h2>
           </div>
 
           <div className="profile-recs">
@@ -200,6 +211,45 @@ export const Profile = (props) => {
               </span>
               hasn't recommended any songs yet :(
             </h3>
+          </div>
+        </div>
+      )}
+      {dirRecs !== null && dirRecs.length > 0 && (
+        <div className="profile-dir-recs-container">
+          <div
+            style={{
+              width: "80%",
+              margin: "auto",
+              display: "flex",
+            }}
+            className="your-dir-song-recommendations"
+          >
+            <h2
+              style={{
+                color: "black",
+                alignSelf: "flex-start",
+                marginLeft: "2rem",
+              }}
+            >
+              Your Direct Recommendations
+            </h2>
+          </div>
+
+          <div className="dir-recs">
+            {dirRecs.map((rec) => {
+              const recInfo = {
+                date: rec.date,
+                song: rec.song,
+                artist: rec.artist,
+                user: rec.user,
+                uri: rec.uri,
+                date: rec.date,
+                caption: rec.caption,
+                action: rec.action,
+                recipients: rec.recipients,
+              };
+              return <UserDirRec recInfo={recInfo} />;
+            })}
           </div>
         </div>
       )}

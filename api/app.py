@@ -301,6 +301,7 @@ def create_direct_rec():
         'date': curr_time,
         'caption': request.json['caption'],
         'action': None,
+        'recipients': recipients,
     }
 
     try:
@@ -424,10 +425,53 @@ def unlike_rec():
 
 # ROUTES TO ACCESS RECOMMENDATIONS DISPLAYED IN THE SECTIONS: "DISCOVER" and "PROFILE" OF APP
 
-@app.route('/api/get_discover_recs', methods={"POST"})
-def get_discover_recs():
 
-    user = users.find_one({'username': request.json['user']})
+@app.route('/api/get_main_recs', methods={"POST"})
+def get_main_recs():
+    username = request.json['user']
+    try:
+        dir_recs = get_direct_recs(username)  # obj
+
+        disc_recs = get_discover_recs(username)  # obj
+
+        friend_recs = get_friend_recs(username)  # obj
+
+        return {'dir_recs': dir_recs['dir_recs'], 'disc_recs': disc_recs['disc_recs'], 'friend_recs': friend_recs['friend_recs']}
+    except Exception as e:
+        print(str(e))
+        return {'error': str(e)}
+
+
+def get_direct_recs(user):
+    username = user
+    try:
+        user = users.find_one({'username': username})
+        arr = user['direct_recs']
+        dir_recs = []
+        for doc in arr:
+            if doc['user'] != username:
+                dir_recs.append({
+
+
+                    'song': doc['song'],
+                    'artist': doc['artist'],
+                    'user': doc['user'],
+                    'uri': doc['uri'],
+                    'date': doc['date'],
+                    'caption': doc['caption']
+
+                })
+        dir_recs.reverse()
+        return {'dir_recs': dir_recs}
+
+    except Exception as e:
+        print(e)
+        return {'error': str(e)}
+
+
+def get_discover_recs(user_var):
+
+    user = users.find_one({'username': user_var})
     user_following = user['following']
 
     recs = []
@@ -453,13 +497,12 @@ def get_discover_recs():
 
     recs.reverse()
 
-    return {'recs': recs}
+    return {'disc_recs': recs}
 
 
-@app.route('/api/get_friend_recs', methods={"POST"})
-def get_friend_recs():
+def get_friend_recs(user_var):
 
-    username = request.json['user']
+    username = user_var
 
     user = users.find_one({'username': username})
 
@@ -486,7 +529,7 @@ def get_friend_recs():
 
     recs.reverse()
 
-    return {'recs': recs}
+    return {'friend_recs': recs}
 
 
 @app.route('/api/get_user_profile', methods={"POST"})
@@ -522,6 +565,23 @@ def get__user_profile():
 
         })
     recs.reverse()
+    dir_arr = users.find({'username': request.json['user']})
+
+    dir_recs = []
+    for doc in dir_arr:
+        for rec in doc['direct_recs']:
+            if rec['user'] == request.json['requestingUser']:
+
+                dir_recs.append({
+                    'song': rec['song'],
+                    'artist': rec['artist'],
+                    'user': rec['user'],
+                    'uri': rec['uri'],
+                    'date': rec['date'],
+                    'caption': rec['caption'],
+                    'action': rec['action'],
+                    'recipients': rec['recipients'],
+                })
     # getting user follower/following numbers
 
     num_followers = len(username['followers'])
@@ -531,13 +591,11 @@ def get__user_profile():
 
     if(requesting_user['username'] in username['followers']):
         followed = True
-        return {'recs': recs, 'num_followers': num_followers, 'num_following': num_following, 'followed': followed}
+        return {'recs': recs, 'dir_recs': dir_recs, 'num_followers': num_followers, 'num_following': num_following, 'followed': followed}
 
     elif(requesting_user['username'] == username['username']):
         followed = False
-        return {'recs': recs, 'num_followers': num_followers, 'num_following': num_following, 'followed': followed}
-
-    return {'recs': recs, 'num_followers': num_followers, 'num_following': num_following, 'followed': followed}
+        return {'recs': recs, 'dir_recs': dir_recs, 'num_followers': num_followers, 'num_following': num_following, 'followed': followed}
 
 
 @app.route('/api/search_user', methods={"POST"})
@@ -602,34 +660,6 @@ def get_notifications():
         notifications = list(user['notifications'])
         notifications.reverse()
         return {'notifications': notifications}
-    except Exception as e:
-        print(e)
-        return {'error': str(e)}
-
-
-@app.route('/api/get_direct_recs', methods={"POST"})
-def get_direct_recs():
-    username = request.json['user']
-    try:
-        user = users.find_one({'username': username})
-        arr = user['direct_recs']
-        dir_recs = []
-        for doc in arr:
-            if doc['user'] != username:
-                dir_recs.append({
-
-
-                    'song': doc['song'],
-                    'artist': doc['artist'],
-                    'user': doc['user'],
-                    'uri': doc['uri'],
-                    'date': doc['date'],
-                    'caption': doc['caption']
-
-                })
-        dir_recs.reverse()
-        return {'recs': dir_recs}
-
     except Exception as e:
         print(e)
         return {'error': str(e)}

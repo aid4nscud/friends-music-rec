@@ -152,7 +152,7 @@ export const FriendRecs = (props) => {
                 followButton={followButton}
               />
             )}
-            {props.feedRecs !== null && props.feedRecs.length === 0 && (
+            {props.feedRecs !== null && props.feedRecs.length === 1 && (
               <FeedRec
                 render={render}
                 setRender={setRender}

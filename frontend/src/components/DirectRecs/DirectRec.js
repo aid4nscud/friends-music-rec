@@ -61,18 +61,16 @@ export const DirectRec = (props) => {
       >
         <div
           style={{
-            display: "inline-block",
+            display: "flex",
             verticalAlign: "middle",
             padding: "0rem",
-            width: "60%",
+            width: "100%",
           }}
         >
           <h3
             style={{
               color: "black",
-              display: "inline-block",
-              verticalAlign: "middle",
-              padding: "0rem",
+              flex: "0.5",
             }}
           >
             from{" "}
@@ -80,7 +78,7 @@ export const DirectRec = (props) => {
               style={{
                 fontSize: "larger",
                 display: "inline-block",
-                verticalAlign: "middle",
+
                 margin: "0",
                 marginLeft: "1rem",
                 marginRight: "2rem",
@@ -90,51 +88,21 @@ export const DirectRec = (props) => {
               {props.recInfo.user}
             </span>
           </h3>
-          <b>{'"' + props.recInfo.caption + '"'}"</b>
-        </div>
+          <div
+            style={{
+              flex: "1",
+              display: "flex",
 
-        {action === null ? (
-          <div
-            style={{
-              display: "inline-block",
-              verticalAlign: "middle",
-              marginLeft: "2rem",
-              width: "20%",
+              justifyContent: "center",
+              alignContent: "center",
             }}
           >
-            <button
-              value="like"
-              onClick={(e) => {
-                let ac = e.target.value + "d";
-                setAction(ac);
-              }}
-              style={{ padding: "0.5rem" }}
-            >
-              Like
-            </button>
-            <button
-              value="dislike"
-              onClick={(e) => {
-                let ac = e.target.value + "d";
-                setAction(ac);
-              }}
-              style={{ padding: "0.5rem", marginLeft: "1rem" }}
-            >
-              Dislike
-            </button>
+            {" "}
+            <p style={{ alignSelf: "center" }}>
+              {'"' + props.recInfo.caption + '"'}
+            </p>
           </div>
-        ) : (
-          <div
-            style={{
-              display: "inline-block",
-              verticalAlign: "middle",
-              marginLeft: "2rem",
-              width: "20%",
-            }}
-          >
-            <h2 style={{ color: "black" }}>{action}</h2>
-          </div>
-        )}
+        </div>
       </div>
       <iframe
         className="loading-spinner"
@@ -163,7 +131,7 @@ export const DirectRec = (props) => {
         style={{
           display: "block",
           width: "100%",
-          height: "3rem",
+          height: "4rem",
 
           alignContent: "center",
           justifyContent: "center",
@@ -173,6 +141,7 @@ export const DirectRec = (props) => {
           style={{
             float: "left",
             color: "black",
+            alignSelf: "center",
 
             position: "relative",
             left: "2rem",

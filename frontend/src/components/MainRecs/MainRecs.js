@@ -26,8 +26,9 @@ export const MainRecs = (props) => {
   useEffect(() => {
     const user = getCookie("user");
 
-    const url = "/api/get_friend_recs";
+    const url = "/api/get_main_recs";
     const data = { user: user };
+
     fetch(url, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -35,48 +36,20 @@ export const MainRecs = (props) => {
     })
       .then((res) => res.json())
       .then((parsed) => {
-        if (parsed["recs"].length > 0) {
-          setFeedRecs(parsed["recs"]);
-        } else {
-          setFeedRecs(null);
-        }
-      });
+        if (!parsed["error"]) {
+          if (parsed["dir_recs"].length > 0) {
+            setDirectRecs(parsed["dir_recs"]);
+          } else {
+            setDirectRecs(null);
+          }
 
-    const url2 = "/api/get_direct_recs";
+          if (parsed["friend_recs"]) {
+            setFeedRecs(parsed["friend_recs"]);
+          }
 
-    const data2 = {
-      user: user,
-    };
-
-    fetch(url2, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data2),
-    })
-      .then((res) => res.json())
-      .then((parsed) => {
-        if (parsed["recs"].length > 0) {
-          setDirectRecs(parsed["recs"]);
-        } else {
-          setDirectRecs(null);
-        }
-
-        if (parsed["error"]) {
-          alert(parsed["error"]);
-        }
-      });
-
-    const url3 = "/api/get_discover_recs";
-    fetch(url3, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data2),
-    })
-      .then((res) => res.json())
-      .then((parsedJSON) => {
-        if (parsedJSON["recs"]) {
-          console.log(parsedJSON["recs"]);
-          setDiscoverRecs(parsedJSON["recs"]);
+          if (parsed["disc_recs"]) {
+            setDiscoverRecs(parsed["disc_recs"]);
+          }
         }
       });
   }, [recType]);

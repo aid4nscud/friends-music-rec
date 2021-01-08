@@ -12,6 +12,7 @@ export const QueuedRec = (props) => {
   const [backgroundColor2, setBackgroundColor2] = useState("white");
   const [color2, setColor2] = useState("rgba(0, 0, 0, 0.53)");
   const [caption, setCaption] = useState(null);
+  const [message, setMessage] = useState(null);
 
   useEffect(() => {
     if (recType === true) {
@@ -62,7 +63,7 @@ export const QueuedRec = (props) => {
       user: recommender,
       uri: props.info.uri,
       recipients: friends,
-      caption: caption,
+      caption: caption.substring(0, 60),
     };
 
     fetch("/api/create_direct_rec", {
@@ -107,9 +108,20 @@ export const QueuedRec = (props) => {
               value={caption}
               placeholder="Add a short comment"
               onChange={(e) => {
-                setCaption(e.target.value);
+                if (caption === null) {
+                  setCaption(e.target.value);
+                } else {
+                  if (caption.length > 60) {
+                    setCaption(e.target.value);
+                    setMessage("caption is too long");
+                  } else {
+                    setCaption(e.target.value);
+                    setMessage(null);
+                  }
+                }
               }}
             />
+            {message !== null && <h3 style={{ color: "red" }}>{message}</h3>}
           </div>
         )}
       </div>
