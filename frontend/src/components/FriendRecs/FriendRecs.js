@@ -63,7 +63,7 @@ export const FriendRecs = (props) => {
     setFollowButton("Following");
   };
   const nextRec = () => {
-    return index === props.recs.length - 1 ? nextErr() : nextSuccess();
+    return index === props.feedRecs.length - 1 ? nextErr() : nextSuccess();
   };
 
   function likeRec(recToLike) {
@@ -131,14 +131,15 @@ export const FriendRecs = (props) => {
         )}
         {directRecsTog === false ? (
           <div>
-            {props.feedRecs === null && (
-              <div style={{ marginTop: "3rem" }}>
-                <h2 style={{ color: "black" }}>
-                  You aren't following anyone yet, search profiles or explore!
-                </h2>
-                <SearchUser />
-              </div>
-            )}
+            {props.feedRecs === null ||
+              (props.feedRecs.length === 0 && (
+                <div style={{ marginTop: "3rem" }}>
+                  <h2 style={{ color: "black" }}>
+                    You aren't following anyone yet, search profiles or explore!
+                  </h2>
+                  <SearchUser />
+                </div>
+              ))}
             {props.feedRecs !== null && props.feedRecs.length > 1 && (
               <FeedRec
                 render={render}
@@ -152,6 +153,7 @@ export const FriendRecs = (props) => {
                 followButton={followButton}
               />
             )}
+
             {props.feedRecs !== null && props.feedRecs.length === 1 && (
               <FeedRec
                 render={render}

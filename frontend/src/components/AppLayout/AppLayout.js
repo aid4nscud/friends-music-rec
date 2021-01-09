@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react";
 import { SearchRec } from "../SearchRec/SearchRec";
 import { Switch, Route, Redirect, useHistory } from "react-router-dom";
 import { Profile } from "../Profile/Profile";
-import { AuthRoute } from "../AuthRoute";
+import { getCookie, clearCookies } from "../../utils/auth";
+import auth from "../../utils/auth";
 import { NavBar } from "../NavBar/NavBar";
 import "./AppLayout.css";
 import { SearchedProfile } from "../SearchedProfile/SearchedProfile";
@@ -14,6 +15,50 @@ import { EditProfile } from "../EditProfile/EditProfile";
 export const AppLayout = (props) => {
   const [spotifyToken, setSpotifyToken] = useState(null);
   const [popup, setPopup] = useState(null);
+
+  const decode = async () => {
+    const token = getCookie("token");
+    const user = getCookie("user");
+
+    let authedFunc = async () => {
+      let authVar = await fetch("/auth_decode", {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+        method: "GET",
+      })
+        .then((res) => res.json())
+        .then((parsed) => {
+          if (parsed["error"]) {
+            auth.setAuthenticated(false);
+            clearCookies();
+            return <Redirect to="/" />;
+          }
+          if (parsed["user"]) {
+            if (user === null && getCookie("user") === null) {
+              const cookie =
+                "user=" +
+                parsed["user"] +
+                "; max-age=" +
+                30 * 24 * 60 * 60 +
+                "; SameSite=Strict;";
+              document.cookie = cookie;
+            }
+
+            auth.setAuthenticated(true);
+          } else {
+            auth.setAuthenticated(false);
+            clearCookies();
+
+            return <Redirect to="/" />;
+          }
+        });
+
+      return authVar;
+    };
+
+    authedFunc();
+  };
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -85,7 +130,7 @@ export const AppLayout = (props) => {
         )}
 
         <Switch>
-          <AuthRoute
+          <Route
             exact
             path="/app/listen"
             component={MainRecs}
@@ -93,19 +138,13 @@ export const AppLayout = (props) => {
             setSpotifyToken={setSpotifyToken}
           />
 
-          <AuthRoute
+          <Route
             exact
             path="/app/me"
-            component={Profile}
-            popup={popup}
-            setPopup={setPopup}
+            render={() => <Profile popup={popup} setPopup={setPopup} />}
           />
 
-          <AuthRoute
-            exact
-            path="/app/profile/:user"
-            component={SearchedProfile}
-          />
+          <Route exact path="/app/profile/:user" component={SearchedProfile} />
           <Route path="*">
             <Redirect to="/" />
           </Route>

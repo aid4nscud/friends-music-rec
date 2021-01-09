@@ -2,7 +2,7 @@ import React from "react";
 
 import { Redirect, Route, Switch, useHistory } from "react-router-dom";
 import "./App.css";
-import auth, { getCookie } from "../../utils/auth";
+import auth, { clearCookies, getCookie } from "../../utils/auth";
 import { Login } from "../Login/Login.js";
 import { AuthRoute } from "../AuthRoute";
 import { AppLayout } from "../AppLayout/AppLayout.js";
@@ -19,11 +19,19 @@ function App() {
           path="/"
           render={() => {
             const authed = auth.isAuthenticated();
-            if ((getCookie("user"), getCookie("token") !== null)) {
-              history.push("/app/listen");
-            }
+
             if (authed === true) {
               history.push("/app/listen");
+            } else if (
+              getCookie("user") !== null &&
+              getCookie("token") !== null
+            ) {
+              console.log(document.cookie);
+
+              history.push("/app/listen");
+            } else if (authed === false) {
+              clearCookies();
+              return <Login />;
             } else {
               return <Login />;
             }

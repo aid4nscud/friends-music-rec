@@ -11,6 +11,7 @@ export const EditProfile = (props) => {
         <button
           className="logout-button"
           onClick={() => {
+            clearCookies();
             auth.logout(() => {
               history.push("/");
             });

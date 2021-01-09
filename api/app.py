@@ -293,6 +293,11 @@ def create_direct_rec():
 
     curr_time = time.time()
 
+    obj = []
+
+    for r in recipients:
+        obj.append({'user': r, 'viewed': False, 'liked': False})
+
     direct_rec = {
         'song': request.json['song'],
         'artist': request.json['artist'],
@@ -300,7 +305,7 @@ def create_direct_rec():
         'uri': request.json['uri'],
         'date': curr_time,
         'caption': request.json['caption'],
-        'action': None,
+        'responses': obj,
         'recipients': recipients,
     }
 
@@ -436,7 +441,7 @@ def get_main_recs():
 
         friend_recs = get_friend_recs(username)  # obj
 
-        return {'dir_recs': dir_recs['dir_recs'], 'disc_recs': disc_recs['disc_recs'], 'friend_recs': friend_recs['friend_recs']}
+        return {'dir_recs': dir_recs, 'disc_recs': disc_recs, 'friend_recs': friend_recs}
     except Exception as e:
         print(str(e))
         return {'error': str(e)}
@@ -448,21 +453,28 @@ def get_direct_recs(user):
         user = users.find_one({'username': username})
         arr = user['direct_recs']
         dir_recs = []
-        for doc in arr:
-            if doc['user'] != username:
-                dir_recs.append({
+        if len(arr) > 0:
+
+            for doc in arr:
+                if doc['user'] != username:
+                    dir_recs.append({
 
 
-                    'song': doc['song'],
-                    'artist': doc['artist'],
-                    'user': doc['user'],
-                    'uri': doc['uri'],
-                    'date': doc['date'],
-                    'caption': doc['caption']
+                        'song': doc['song'],
+                        'artist': doc['artist'],
+                        'user': doc['user'],
+                        'uri': doc['uri'],
+                        'date': doc['date'],
+                        'caption': doc['caption'],
 
-                })
-        dir_recs.reverse()
-        return {'dir_recs': dir_recs}
+
+
+                    })
+            dir_recs.reverse()
+            return dir_recs
+
+        else:
+            return dir_recs
 
     except Exception as e:
         print(e)
@@ -497,7 +509,7 @@ def get_discover_recs(user_var):
 
     recs.reverse()
 
-    return {'disc_recs': recs}
+    return recs
 
 
 def get_friend_recs(user_var):
@@ -508,31 +520,37 @@ def get_friend_recs(user_var):
 
     user_following = user['following']
     recs = []
-    for doc in recommendations.find():
-        if(doc['user'] != user['username'] and doc['user'] in user_following):
-            liked = False
+    arr = recommendations.find()
 
-            if(user['username'] in doc['likers']):
-                liked = True
+    if arr.count() > 0:
 
-            recs.append({
-                '_id': str(doc['_id']),
-                'song': doc['song'],
-                'artist': doc['artist'],
-                'user': doc['user'],
-                'uri': doc['uri'],
-                'likes': len(doc['likers']),
-                'views': doc['views'],
-                'liked': liked,
-                'date': doc['date']
-            })
+        for doc in arr:
+            if(doc['user'] != user['username'] and doc['user'] in user_following):
+                liked = False
 
-    recs.reverse()
+                if(user['username'] in doc['likers']):
+                    liked = True
 
-    return {'friend_recs': recs}
+                recs.append({
+                    '_id': str(doc['_id']),
+                    'song': doc['song'],
+                    'artist': doc['artist'],
+                    'user': doc['user'],
+                    'uri': doc['uri'],
+                    'likes': len(doc['likers']),
+                    'views': doc['views'],
+                    'liked': liked,
+                    'date': doc['date']
+                })
+
+        recs.reverse()
+
+        return recs
+    else:
+        return recs
 
 
-@app.route('/api/get_user_profile', methods={"POST"})
+@ app.route('/api/get_user_profile', methods={"POST"})
 def get__user_profile():
 
     # declaring user who is searching the profile
@@ -579,8 +597,8 @@ def get__user_profile():
                     'uri': rec['uri'],
                     'date': rec['date'],
                     'caption': rec['caption'],
-                    'action': rec['action'],
                     'recipients': rec['recipients'],
+
                 })
     # getting user follower/following numbers
 
@@ -598,7 +616,7 @@ def get__user_profile():
         return {'recs': recs, 'dir_recs': dir_recs, 'num_followers': num_followers, 'num_following': num_following, 'followed': followed}
 
 
-@app.route('/api/search_user', methods={"POST"})
+@ app.route('/api/search_user', methods={"POST"})
 def search_user():
     try:
         user = request.json['user']
@@ -630,7 +648,7 @@ def search_user():
         return {'error': 'error'}
 
 
-@app.route('/api/get_friends', methods={"POST"})
+@ app.route('/api/get_friends', methods={"POST"})
 def get_friends():
 
     username = request.json['user']
@@ -649,7 +667,7 @@ def get_friends():
     return {'friends': list(mutual)}
 
 
-@app.route('/api/get_notifications', methods={"POST"})
+@ app.route('/api/get_notifications', methods={"POST"})
 def get_notifications():
 
     username = request.json['user']
@@ -665,7 +683,7 @@ def get_notifications():
         return {'error': str(e)}
 
 
-@app.route('/api/view_rec', methods={"POST"})
+@ app.route('/api/view_rec', methods={"POST"})
 def view_rec():
     rec_id = request.json['recId']
     username = request.json['user']
@@ -714,4 +732,25 @@ def view_rec():
 
     except Exception as e:
         print(str(e))
+        return {'error': str(e)}
+
+
+@app.route('/api/view_dir_rec', methods={"POST"})
+def view_dir():
+    targ_username = request.json['targUser']
+    reqUsername = request.json['reqUser']
+    rec_id = request.json['recId']
+
+    try:
+
+        users.update_one(
+            {'username': targ_username},
+            {'$set': {
+                "direct_recs.$[elem].$[ele].viewed": True
+
+            }}, False,  array_filters=[{"elem.id":  {'$eq': rec_id}, "ele.recip": {'$eq': reqUsername}}]
+        )
+
+        return {'success': 'success'}
+    except Exception as e:
         return {'error': str(e)}

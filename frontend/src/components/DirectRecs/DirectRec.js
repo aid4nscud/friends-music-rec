@@ -1,14 +1,20 @@
 import React, { useEffect, useState } from "react";
+import { getCookie } from "../../utils/auth";
 import "./DirectRec.css";
 
 export const DirectRec = (props) => {
   const [time, setTime] = useState(null);
   const [metric, setMetric] = useState("minutes");
-  const [action, setAction] = useState(null);
   const [justNow, setJustNow] = useState(false);
 
   useEffect(() => {
-    setAction(null);
+    if (props.recInfo.viewed === false) {
+      // UPDATE VIEW COUNT
+      viewDir(props.recInfo._id, props.recInfo.user);
+    }
+  }, [props.recInfo.viewed]);
+
+  useEffect(() => {
     let currTime = Date.now() / 1000;
     let stored_time = props.recInfo.date;
 
@@ -48,6 +54,24 @@ export const DirectRec = (props) => {
       setTime(Math.round(time_dif));
     }
   }, [props.recInfo]);
+
+  const viewDir = (recId, recommender) => {
+    const user = getCookie("user");
+
+    const data = { recId: recId, targUser: recommender, reqUser: user };
+
+    fetch("/api/view__dir_rec", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+    })
+      .then((res) => res.json())
+      .then((parsed) => {
+        if (parsed["error"]) {
+          alert("error");
+        }
+      });
+  };
 
   return (
     <div className="direct-rec">

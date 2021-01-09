@@ -23,7 +23,7 @@ export const FeedRec = (props) => {
       sendView(props.recInfo._id);
       setMounted(true);
     }
-  }, [props.recInfo]);
+  }, [props.recInfo._id]);
 
   useEffect(() => {
     let currTime = Date.now() / 1000;
