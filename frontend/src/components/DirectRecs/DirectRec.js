@@ -1,11 +1,25 @@
 import React, { useEffect, useState } from "react";
 import { getCookie } from "../../utils/auth";
 import "./DirectRec.css";
+import { ReactComponent as LikedHeart } from "../../assets/liked-heart.svg";
+import { ReactComponent as UnlikedHeart } from "../../assets/unliked-heart.svg";
 
 export const DirectRec = (props) => {
   const [time, setTime] = useState(null);
   const [metric, setMetric] = useState("minutes");
   const [justNow, setJustNow] = useState(false);
+  const [placeholderLiked, setPlaceholderLiked] = useState(false);
+  const [liked, setLiked] = useState(null);
+
+  useEffect(() => {
+    setPlaceholderLiked(false);
+    let user = getCookie("user");
+    let responses = props.recInfo.responses;
+    console.log(responses);
+    let liked = responses[user].liked;
+    alert(liked);
+    setLiked(liked);
+  }, [props.recInfo]);
 
   useEffect(() => {
     // UPDATE VIEW COUNT
@@ -71,8 +85,29 @@ export const DirectRec = (props) => {
       });
   };
 
+  const likeDir = (recDate, recommender) => {
+    const user = getCookie("user");
+
+    const data = { recDate: recDate, targUser: recommender, reqUser: user };
+
+    fetch("/api/like_dir_rec", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+    })
+      .then((res) => res.json())
+      .then((parsed) => {
+        if (parsed["error"]) {
+          alert("error");
+        }
+      });
+  };
+
   return (
-    <div className="direct-rec">
+    <div
+      style={{ overflowX: "hidden", overflowY: "hidden" }}
+      className="direct-rec"
+    >
       <div
         style={{
           alignContent: "center",
@@ -92,7 +127,7 @@ export const DirectRec = (props) => {
           <h3
             style={{
               color: "black",
-              flex: "0.5",
+              flex: "1",
             }}
           >
             from{" "}
@@ -124,6 +159,31 @@ export const DirectRec = (props) => {
               {'"' + props.recInfo.caption + '"'}
             </p>
           </div>
+          {liked !== null && (
+            <div
+              style={{
+                flex: "1",
+                display: "flex",
+                background: "black",
+
+                justifyContent: "center",
+                alignContent: "center",
+              }}
+              onClick={() => {
+                if (liked === false) {
+                  likeDir(props.recInfo.date, props.recInfo.user);
+
+                  setPlaceholderLiked(true);
+                }
+              }}
+            >
+              {liked === true || placeholderLiked === true ? (
+                <LikedHeart style={{ alignSelf: "center" }} />
+              ) : (
+                <UnlikedHeart style={{ alignSelf: "center" }} />
+              )}
+            </div>
+          )}
         </div>
       </div>
       <iframe

@@ -91,6 +91,7 @@ export const UserDirRec = (props) => {
               let responses = props.recInfo.responses;
 
               let viewed = responses[user].viewed;
+              let liked = responses[user].liked;
 
               return (
                 <div>
@@ -166,6 +167,17 @@ export const UserDirRec = (props) => {
                       {" "}
                       :{" "}
                     </h3>
+                    {liked === true && (
+                      <GiCheckMark
+                        style={{
+                          display: "inline-block",
+                          verticalAlign: "middle",
+                          marginRight: "1rem",
+                        }}
+                        size="1.5em"
+                        color="#f70c76"
+                      />
+                    )}
                   </div>
                 </div>
               );

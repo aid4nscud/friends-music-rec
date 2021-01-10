@@ -451,15 +451,18 @@ def get_main_recs():
 
 def get_direct_recs(user):
     username = user
+
     try:
         user = users.find_one({'username': username})
+        print(user)
         arr = user['direct_recs']
+
         dir_recs = []
         if len(arr) > 0:
 
             for doc in arr:
                 if doc['user'] != username:
-                    dir_recs.append({
+                    obj = {
 
 
                         'song': doc['song'],
@@ -468,10 +471,13 @@ def get_direct_recs(user):
                         'uri': doc['uri'],
                         'date': doc['date'],
                         'caption': doc['caption'],
+                        'responses': doc['responses']
 
 
 
-                    })
+                    }
+
+                    dir_recs.append(obj)
             dir_recs.reverse()
             return dir_recs
 
@@ -757,6 +763,36 @@ def view_dir():
             if rec['date'] == rec_date:
 
                 rec['responses'][reqUsername]['viewed'] = True
+
+        print(userObj)
+
+        users.update({'username': targ_username}, userObj)
+
+        return {'success': 'success'}
+    except Exception as e:
+        print(str(e))
+        return {'error': str(e)}
+
+
+@app.route('/api/like_dir_rec', methods={"POST"})
+def like_dir():
+    targ_username = request.json['targUser']
+    reqUsername = request.json['reqUser']
+    rec_date = request.json['recDate']
+
+    try:
+        user = users.find_one({'username': targ_username})
+
+        userObj = dumps(user)
+        userObj = loads(userObj)
+
+        print(userObj)
+
+        for rec in userObj['direct_recs']:
+
+            if rec['date'] == rec_date:
+
+                rec['responses'][reqUsername]['liked'] = True
 
         print(userObj)
 
