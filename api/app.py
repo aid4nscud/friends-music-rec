@@ -8,6 +8,8 @@ import jwt
 import string
 import secrets
 import array
+from bson.json_util import dumps, loads
+from types import SimpleNamespace
 alphabet = string.ascii_letters + string.digits
 password = 'bruh'
 
@@ -293,10 +295,10 @@ def create_direct_rec():
 
     curr_time = time.time()
 
-    obj = []
+    obj = {}
 
     for r in recipients:
-        obj.append({'user': r, 'viewed': False, 'liked': False})
+        obj[r] = {'viewed': False, 'liked': False}
 
     direct_rec = {
         'song': request.json['song'],
@@ -323,7 +325,7 @@ def create_direct_rec():
         return {'error': str(e)}
 
 
-@app.route('/api/delete_rec', methods={"POST"})
+@ app.route('/api/delete_rec', methods={"POST"})
 def delete_rec():
 
     try:
@@ -550,7 +552,7 @@ def get_friend_recs(user_var):
         return recs
 
 
-@ app.route('/api/get_user_profile', methods={"POST"})
+@app.route('/api/get_user_profile', methods={"POST"})
 def get__user_profile():
 
     # declaring user who is searching the profile
@@ -597,6 +599,7 @@ def get__user_profile():
                     'uri': rec['uri'],
                     'date': rec['date'],
                     'caption': rec['caption'],
+                    'responses': rec['responses'],
                     'recipients': rec['recipients'],
 
                 })
@@ -739,18 +742,27 @@ def view_rec():
 def view_dir():
     targ_username = request.json['targUser']
     reqUsername = request.json['reqUser']
-    rec_id = request.json['recId']
+    rec_date = request.json['recDate']
 
     try:
+        user = users.find_one({'username': targ_username})
 
-        users.update_one(
-            {'username': targ_username},
-            {'$set': {
-                "direct_recs.$[elem].$[ele].viewed": True
+        userObj = dumps(user)
+        userObj = loads(userObj)
 
-            }}, False,  array_filters=[{"elem.id":  {'$eq': rec_id}, "ele.recip": {'$eq': reqUsername}}]
-        )
+        print(userObj)
+
+        for rec in userObj['direct_recs']:
+
+            if rec['date'] == rec_date:
+
+                rec['responses'][reqUsername]['viewed'] = True
+
+        print(userObj)
+
+        users.update({'username': targ_username}, userObj)
 
         return {'success': 'success'}
     except Exception as e:
+        print(str(e))
         return {'error': str(e)}

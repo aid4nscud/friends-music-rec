@@ -8,10 +8,8 @@ export const DirectRec = (props) => {
   const [justNow, setJustNow] = useState(false);
 
   useEffect(() => {
-    if (props.recInfo.viewed === false) {
-      // UPDATE VIEW COUNT
-      viewDir(props.recInfo._id, props.recInfo.user);
-    }
+    // UPDATE VIEW COUNT
+    viewDir(props.recInfo.date, props.recInfo.user);
   }, [props.recInfo.viewed]);
 
   useEffect(() => {
@@ -55,12 +53,12 @@ export const DirectRec = (props) => {
     }
   }, [props.recInfo]);
 
-  const viewDir = (recId, recommender) => {
+  const viewDir = (recDate, recommender) => {
     const user = getCookie("user");
 
-    const data = { recId: recId, targUser: recommender, reqUser: user };
+    const data = { recDate: recDate, targUser: recommender, reqUser: user };
 
-    fetch("/api/view__dir_rec", {
+    fetch("/api/view_dir_rec", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),

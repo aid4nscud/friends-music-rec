@@ -22,14 +22,16 @@ function App() {
 
             if (authed === true) {
               history.push("/app/listen");
-            } else if (
-              getCookie("user") !== null &&
-              getCookie("token") !== null
-            ) {
-              console.log(document.cookie);
+            }
+            // else if (
+            //   getCookie("user") !== null &&
+            //   getCookie("token") !== null
+            // ) {
+            //   console.log(document.cookie);
 
-              history.push("/app/listen");
-            } else if (authed === false) {
+            //   history.push("/app/listen");
+            // }
+            else if (authed === false) {
               clearCookies();
               return <Login />;
             } else {

@@ -247,6 +247,7 @@ export const Profile = (props) => {
                 caption: rec.caption,
                 action: rec.action,
                 recipients: rec.recipients,
+                responses: rec.responses,
               };
               return <UserDirRec recInfo={recInfo} />;
             })}

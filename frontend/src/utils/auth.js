@@ -10,8 +10,9 @@ export const getCookie = (name) => {
 };
 
 export const clearCookies = () => {
-  document.cookie = "user=;expires=Thu, 21 Sep 1979 00:00:01 GMT;";
-  document.cookie = "token=;expires=Thu, 21 Sep 1979 00:00:01 GMT;";
+  document.cookie = "user= ;expires=Thu, 21 Sep 1979 00:00:01 GMT;path=/;";
+  document.cookie = "token= ;expires=Thu, 21 Sep 1979 00:00:01 GMT;path=/;";
+
   console.log(document.cookie);
 };
 
@@ -28,7 +29,7 @@ class Auth {
   logout(cb) {
     clearCookies();
 
-    this.authenticated = false;
+    this.setAuthenticated(false);
 
     cb();
   }

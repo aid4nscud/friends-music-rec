@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from "react";
 import "./UserDirRec.css";
+import { HiOutlineEye } from "react-icons/hi";
+import { GiCheckMark } from "react-icons/gi";
+import { AiOutlineHeart } from "react-icons/ai";
 
 export const UserDirRec = (props) => {
   let uri = props.recInfo.uri;
@@ -77,36 +80,93 @@ export const UserDirRec = (props) => {
                   marginBottom: "1rem",
                 }}
               >
-                Less Info
+                Hide Details
               </button>
             </div>
           </div>
 
           <div>
-            {props.recInfo.recipients.map((r) => {
+            {props.recInfo.recipients.map((name) => {
+              let user = name.toString();
+              let responses = props.recInfo.responses;
+
+              let viewed = responses[user].viewed;
+
               return (
                 <div>
                   <h2
                     style={{
                       color: "#f70c76",
                       display: "inline-block",
+                      verticalAlign: "middle",
                       marginRight: "2rem",
                     }}
                   >
-                    {r}
+                    {name}
                   </h2>
-                  <h4
+                  <div
                     style={{
                       color: "white",
                       display: "inline-block",
                       marginRight: "2rem",
                     }}
                   >
-                    {"Viewed: "}
-                  </h4>
-                  <h4 style={{ color: "white", display: "inline-block" }}>
-                    {"Liked: "}
-                  </h4>
+                    <HiOutlineEye
+                      style={{
+                        display: "inline-block",
+                        verticalAlign: "middle",
+                      }}
+                      size="2em"
+                      color="white"
+                    />
+                    <h3
+                      style={{
+                        display: "inline-block",
+                        verticalAlign: "middle",
+                        marginRight: "1rem",
+                      }}
+                    >
+                      {" "}
+                      :{" "}
+                    </h3>
+                    {viewed === true && (
+                      <GiCheckMark
+                        style={{
+                          display: "inline-block",
+                          verticalAlign: "middle",
+                          marginRight: "1rem",
+                        }}
+                        size="1.5em"
+                        color="#f70c76"
+                      />
+                    )}
+                  </div>
+                  <div
+                    style={{
+                      color: "white",
+                      display: "inline-block",
+                      verticalAlign: "middle",
+                    }}
+                  >
+                    <AiOutlineHeart
+                      style={{
+                        display: "inline-block",
+                        verticalAlign: "middle",
+                      }}
+                      size="2em"
+                      color="white"
+                    />
+                    <h3
+                      style={{
+                        display: "inline-block",
+                        verticalAlign: "middle",
+                        marginRight: "1rem",
+                      }}
+                    >
+                      {" "}
+                      :{" "}
+                    </h3>
+                  </div>
                 </div>
               );
             })}
@@ -177,7 +237,7 @@ export const UserDirRec = (props) => {
                 borderRadius: "1rem",
               }}
             >
-              More Info
+              Show Details
             </button>
           </div>
 
