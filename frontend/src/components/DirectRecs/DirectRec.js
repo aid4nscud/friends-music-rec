@@ -17,7 +17,7 @@ export const DirectRec = (props) => {
     let responses = props.recInfo.responses;
     console.log(responses);
     let liked = responses[user].liked;
-    alert(liked);
+
     setLiked(liked);
   }, [props.recInfo]);
 

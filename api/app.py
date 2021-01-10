@@ -454,7 +454,7 @@ def get_direct_recs(user):
 
     try:
         user = users.find_one({'username': username})
-        print(user)
+
         arr = user['direct_recs']
 
         dir_recs = []
@@ -753,20 +753,31 @@ def view_dir():
     try:
         user = users.find_one({'username': targ_username})
 
-        userObj = dumps(user)
-        userObj = loads(userObj)
+        holder1 = user['direct_recs']
 
-        print(userObj)
-
-        for rec in userObj['direct_recs']:
+        for rec in holder1:
 
             if rec['date'] == rec_date:
 
                 rec['responses'][reqUsername]['viewed'] = True
 
-        print(userObj)
+        users.update({'username': targ_username}, {
+                     '$set': {'direct_recs': holder1}})
 
-        users.update({'username': targ_username}, userObj)
+        action_user = users.find_one({'username': reqUsername})
+
+        holder2 = action_user['direct_recs']
+        print(holder2)
+
+        for rec in holder2:
+
+            if rec['date'] == rec_date:
+
+                rec['responses'][reqUsername]['viewed'] = True
+        print(holder2)
+
+        users.update({'username': reqUsername}, {
+                     '$set': {'direct_recs': holder2}})
 
         return {'success': 'success'}
     except Exception as e:
@@ -783,20 +794,29 @@ def like_dir():
     try:
         user = users.find_one({'username': targ_username})
 
-        userObj = dumps(user)
-        userObj = loads(userObj)
+        holder1 = user['direct_recs']
 
-        print(userObj)
-
-        for rec in userObj['direct_recs']:
+        for rec in holder1:
 
             if rec['date'] == rec_date:
 
                 rec['responses'][reqUsername]['liked'] = True
 
-        print(userObj)
+        users.update({'username': targ_username}, {
+                     '$set': {'direct_recs': holder1}})
 
-        users.update({'username': targ_username}, userObj)
+        action_user = users.find_one({'username': reqUsername})
+
+        holder2 = action_user['direct_recs']
+
+        for rec in holder2:
+
+            if rec['date'] == rec_date:
+
+                rec['responses'][reqUsername]['liked'] = True
+
+        users.update({'username': reqUsername}, {
+                     '$set': {'direct_recs': holder2}})
 
         return {'success': 'success'}
     except Exception as e:
