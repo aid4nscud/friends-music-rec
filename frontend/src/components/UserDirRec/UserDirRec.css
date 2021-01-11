@@ -29,3 +29,7 @@
   border-color: #000000;
   background-image: none;
 }
+
+.toggle-user-dir-card:hover {
+  transform: scale(1.1);
+}

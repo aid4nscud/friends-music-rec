@@ -1,5 +1,5 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { getCookie } from "../../utils/auth";
 import { FeedRec } from "../FeedRec/FeedRec";
 import { SearchUser } from "../SearchUser/SearchUser";
@@ -11,6 +11,27 @@ export const FriendRecs = (props) => {
   const [followButton, setFollowButton] = useState("Following");
   const [render, setRender] = useState(0);
   const [directRecsTog, setDirectRecsTog] = useState(false);
+
+  const [backgroundColor1, setBackgroundColor1] = useState(
+    "rgba(0, 0, 0, 0.53)"
+  );
+  const [color1, setColor1] = useState("black");
+  const [backgroundColor2, setBackgroundColor2] = useState("white");
+  const [color2, setColor2] = useState("rgba(0, 0, 0, 0.53)");
+
+  useEffect(() => {
+    if (directRecsTog === true) {
+      setBackgroundColor1("white");
+      setColor1("black");
+      setBackgroundColor2("rgba(0, 0, 0, 0.53)");
+      setColor2("white");
+    } else {
+      setBackgroundColor1("rgba(0, 0, 0, 0.53)");
+      setColor1("white");
+      setBackgroundColor2("white");
+      setColor2("black");
+    }
+  }, [directRecsTog]);
 
   const follow = (userToFollow) => {
     const userFollowing = getCookie("user");
@@ -105,30 +126,82 @@ export const FriendRecs = (props) => {
     <div>
       <div>
         {props.directRecs !== null && props.directRecs.length > 0 && (
-          <div
-            className="friend-recs-toggle"
-            onClick={() => {
-              directRecsTog === true
-                ? setDirectRecsTog(false)
-                : setDirectRecsTog(true);
-            }}
-          >
-            {directRecsTog === false ? (
-              <div className="direct-recommendations-tog">
-                <h3 className="tog-label">Direct</h3>
-                <div className="direct-recs-num">
-                  <b style={{ alignSelf: "center" }}>
-                    {props.directRecs.length}
-                  </b>
-                </div>
+          <div style={{ width: "30%", display: "flex" }}>
+            <ul className="toggle-dir">
+              <div
+                id="tog-dir1"
+                className="tog-dir"
+                style={{
+                  backgroundColor: backgroundColor2,
+
+                  borderTopLeftRadius: "1.3rem",
+                  borderBottomLeftRadius: "1.3rem",
+                  flex: "1",
+
+                  padding: "0.75rem",
+                  borderStyle: "hidden",
+                }}
+                onClick={() => {
+                  setDirectRecsTog(false);
+                }}
+              >
+                <h3
+                  style={{
+                    color: color2,
+                    alignSelf: "center",
+                    height: "100%",
+                    padding: "0",
+                  }}
+                >
+                  Friends
+                </h3>
               </div>
-            ) : (
-              <div className="friend-recommendations-tog">
-                <h3 className="tog-label">Friend Recs</h3>
+              <div
+                id="tog-dir2"
+                className="tog-dir"
+                style={{
+                  backgroundColor: backgroundColor1,
+
+                  flex: "1",
+
+                  padding: "0.75rem",
+                  borderTopRightRadius: "1.3rem",
+                  borderBottomRightRadius: "1.3rem",
+                  borderStyle: "hidden",
+                }}
+                onClick={() => {
+                  setDirectRecsTog(true);
+                }}
+              >
+                <h3 style={{ color: color1, height: "100%", padding: "0" }}>
+                  Direct
+                </h3>
               </div>
+            </ul>
+            {directRecsTog === false && (
+              <span
+                style={{
+                  flex: "0.1",
+
+                  height: "1.25rem",
+
+                  display: "inline-block",
+                  verticalAlign: "middle",
+                  backgroundColor: "#f70c76",
+                  position: "relative",
+                  bottom: "3rem",
+                  right: "3rem",
+                  borderRadius: "60%",
+                  color: "white",
+                  alignContent: "center",
+                }}
+              >
+                {props.directRecs.length < 10 ? props.directRecs.length : "10+"}
+              </span>
             )}
           </div>
         )}
+
         {directRecsTog === false ? (
           <div>
             {props.feedRecs === null ||

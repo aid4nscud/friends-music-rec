@@ -126,7 +126,7 @@ export const DirectRec = (props) => {
         >
           <h3
             style={{
-              color: "black",
+              color: "white",
               flex: "1",
             }}
           >
@@ -155,7 +155,7 @@ export const DirectRec = (props) => {
             }}
           >
             {" "}
-            <p style={{ alignSelf: "center" }}>
+            <p style={{ alignSelf: "center", color: "white" }}>
               {'"' + props.recInfo.caption + '"'}
             </p>
           </div>
@@ -222,7 +222,7 @@ export const DirectRec = (props) => {
         <h3
           style={{
             float: "left",
-            color: "black",
+            color: "white",
             alignSelf: "center",
 
             position: "relative",

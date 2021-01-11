@@ -9,36 +9,36 @@
   display: flex;
 }
 
-.friend-recs-toggle {
+.toggle-dir {
   margin: 1rem;
 
   border-style: solid;
-  width: 20%;
+  width: 75%;
+  background-color: rgba(0, 0, 0, 0);
 
   margin-bottom: 0.5rem;
   margin-top: -2rem;
   display: flex;
-  flex-direction: column;
+  flex: 1;
+
   align-content: center;
   justify-content: center;
   border-radius: 2rem;
   overflow-x: hidden;
-  background-color: rgb(255, 255, 255);
+  overflow-y: hidden;
+
+  padding-inline-start: 0px;
 }
 
-.direct-recommendations-tog {
-  display: flex;
+.tog-dir {
   flex: 1;
-  align-content: center;
-  justify-content: center;
-}
-
-.friend-recs-toggle:hover {
-  transform: scale(1.1);
-}
-
-.tog-label {
-  flex: 1;
+  width: 50%;
+  display: inline-block;
   vertical-align: middle;
-  color: black;
+  border-style: none;
+  height: 100%;
+}
+
+.tog-dir:focus {
+  outline: none;
 }
