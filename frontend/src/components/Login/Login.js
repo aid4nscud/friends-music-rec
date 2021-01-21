@@ -2,14 +2,14 @@ import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import auth from "../../utils/auth";
 import "./Login.css";
-import image from "../../assets/login-jukebox-picture.jpg";
+
 import { Register } from "../Register/Register";
 
 export const Login = (props) => {
   const [username, setUsername] = useState(null);
   const [password, setPassword] = useState(null);
   const [warning, setWarning] = useState(null);
-  const [register, setRegister] = useState(false)
+  const [register, setRegister] = useState(false);
   const history = useHistory();
 
   const login = async (username, password) => {
@@ -44,7 +44,7 @@ export const Login = (props) => {
             document.cookie = cookie2;
           }
           // const url  = parsed.url
-auth.setAuthenticated(true)
+          auth.setAuthenticated(true);
           auth.login(() => {
             history.push("/app/listen");
           });
@@ -58,7 +58,7 @@ auth.setAuthenticated(true)
     <div className="container">
       <div className="main-message">DON'T KEEP GOOD MUSIC A SECRET</div>
       <div className="login-image">
-        <img style={{borderRadius:'2rem'}}alt="skateboarder" src={image}></img>
+        <h2>LOGIN MY G</h2>
       </div>
       {register === true ? (
         <Register setRegister={setRegister} />
@@ -91,15 +91,18 @@ auth.setAuthenticated(true)
               type="password"
               value={password}
             ></input>
-            <button  className='login-page-button' type="submit"> Login </button>
+            <button className="login-page-button" type="submit">
+              {" "}
+              Login{" "}
+            </button>
           </form>
           {warning && <h3 className="warning">{warning}</h3>}
           <div className="sign-up">
-            <h2 style={{color:'black'}}>Don't have an account yet?</h2>
-            <button className='login-page-button'
+            <h2 style={{ color: "black" }}>Don't have an account yet?</h2>
+            <button
+              className="login-page-button"
               onClick={() => {
                 setRegister(true);
-                
               }}
             >
               Sign up!

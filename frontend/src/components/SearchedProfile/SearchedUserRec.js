@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./SearchedUserRec.css";
-import { ReactComponent as LikedHeart } from "../../assets/liked-heart.svg";
-import { ReactComponent as UnlikedHeart } from "../../assets/unliked-heart.svg";
+
 import { useParams } from "react-router-dom";
 import { getCookie } from "../../utils/auth";
 import { HiOutlineEye } from "react-icons/hi";
@@ -80,7 +79,7 @@ export const SearchedUserRec = (props) => {
               }
             }}
           >
-            {liked === true ? <LikedHeart /> : <UnlikedHeart />}
+            {liked === true ? <h2>Like</h2> : <h2>LIKED</h2>}
           </div>
         )}
 

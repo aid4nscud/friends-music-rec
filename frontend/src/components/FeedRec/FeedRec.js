@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { ReactComponent as LikedHeart } from "../../assets/liked-heart.svg";
-import { ReactComponent as UnlikedHeart } from "../../assets/unliked-heart.svg";
+
 import { GrLinkNext } from "react-icons/gr";
 
 import { useHistory } from "react-router-dom";
@@ -141,11 +140,7 @@ export const FeedRec = (props) => {
                   }
                 }}
               >
-                {props.recInfo.liked === true ? (
-                  <LikedHeart />
-                ) : (
-                  <UnlikedHeart />
-                )}
+                {props.recInfo.liked === true ? <h2>Like</h2> : <h2>LIKED</h2>}
               </div>
 
               <h3 className="feed-likes-label">

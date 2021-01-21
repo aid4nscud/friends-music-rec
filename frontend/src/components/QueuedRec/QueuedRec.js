@@ -36,6 +36,7 @@ export const QueuedRec = (props) => {
       artist: props.info.artist,
       user: recommender,
       uri: props.info.uri,
+      images: props.info.images,
     };
     fetch("/api/create_rec", {
       method: "POST",

@@ -267,7 +267,9 @@ def create_rec():
                 'uri': request.json['uri'],
                 'likers': [],
                 'views': 0,
-                'date': curr_time
+                'date': curr_time,
+                'images': request.json['images'
+                                       ],
             })
 
             users.update(
@@ -443,6 +445,7 @@ def get_main_recs():
 
         friend_recs = get_friend_recs(username)  # obj
 
+        print(disc_recs)
         return {'dir_recs': dir_recs, 'disc_recs': disc_recs, 'friend_recs': friend_recs}
     except Exception as e:
         print(str(e))
@@ -495,29 +498,35 @@ def get_discover_recs(user_var):
     user_following = user['following']
 
     recs = []
-    for doc in recommendations.find():
-        if(doc['user'] != user['username'] and doc['user'] not in user_following):
+    try:
+        for doc in recommendations.find():
+            if(doc['user'] != user['username'] and doc['user'] not in user_following):
 
-            liked = False
+                liked = False
 
-            if(user['username'] in doc['likers']):
-                liked = True
+                if(user['username'] in doc['likers']):
+                    liked = True
+                    print('IMAGES!!!!')
+                    print(doc['images'])
 
-            recs.append({
-                '_id': str(doc['_id']),
-                'song': doc['song'],
-                'artist': doc['artist'],
-                'user': doc['user'],
-                'uri': doc['uri'],
-                'likes':  len(doc['likers']),
-                'views': doc['views'],
-                'liked': liked,
-                'date': doc['date']
-            })
+                recs.append({
+                    '_id': str(doc['_id']),
+                    'song': doc['song'],
+                    'artist': doc['artist'],
+                    'user': doc['user'],
+                    'uri': doc['uri'],
+                    'likes':  len(doc['likers']),
+                    'views': doc['views'],
+                    'liked': liked,
+                    'date': doc['date'],
+                    'images': doc['images'],
+                })
 
-    recs.reverse()
+        recs.reverse()
 
-    return recs
+        return recs
+    except Exception as e:
+        print(str(e))
 
 
 def get_friend_recs(user_var):

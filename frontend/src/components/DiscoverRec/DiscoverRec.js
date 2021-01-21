@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
-import { ReactComponent as LikedHeart } from "../../assets/liked-heart.svg";
-import { ReactComponent as UnlikedHeart } from "../../assets/unliked-heart.svg";
+
 import { HiOutlineEye } from "react-icons/hi";
 
 import "./DiscoverRec.css";
@@ -108,9 +107,9 @@ export const DiscoverRec = (props) => {
               }}
             >
               {props.recInfo.liked === true || placeholderLiked === true ? (
-                <LikedHeart />
+                <h2>Like</h2>
               ) : (
-                <UnlikedHeart />
+                <h2>LIKED</h2>
               )}
             </div>
           )}
