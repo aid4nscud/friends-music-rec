@@ -557,7 +557,8 @@ def get_friend_recs(user_var):
                     'likes': len(doc['likers']),
                     'views': doc['views'],
                     'liked': liked,
-                    'date': doc['date']
+                    'date': doc['date'],
+                    'images': doc['images']
                 })
 
         recs.reverse()
@@ -570,68 +571,77 @@ def get_friend_recs(user_var):
 @app.route('/api/get_user_profile', methods={"POST"})
 def get__user_profile():
 
-    # declaring user who is searching the profile
-    requesting_user = request.json['requestingUser']
-    requesting_user = users.find_one({'username': requesting_user})
+    try:
+        # declaring user who is searching the profile
+        requesting_user = request.json['requestingUser']
+        requesting_user = users.find_one({'username': requesting_user})
 
-    # declaring user that is being searched
-    username = request.json['user']
-    username = users.find_one({'username': username})
+        # declaring user that is being searched
+        username = request.json['user']
+        username = users.find_one({'username': username})
 
-    # searching db for searched user's recommendations
-    recs = []
-    arr = recommendations.find({'user': username['username']})
-    for doc in arr:
+        # searching db for searched user's recommendations
+        recs = []
+        arr = recommendations.find({'user': username['username']})
+        if(arr.count() > 0):
+            for doc in arr:
 
-        liked = False
-        if(requesting_user['username'] in doc['likers']):
-            liked = True
+                liked = False
+                if(requesting_user['username'] in doc['likers']):
+                    liked = True
 
-        recs.append({
-            '_id': str(doc['_id']),
-            'song': doc['song'],
-            'artist': doc['artist'],
-            'user': doc['user'],
-            'uri': doc['uri'],
-            'likes': len(doc['likers']),
-            'views': doc['views'],
-            'date': doc['date'],
-            'liked': liked,
-
-        })
-    recs.reverse()
-    dir_arr = users.find({'username': request.json['user']})
-
-    dir_recs = []
-    for doc in dir_arr:
-        for rec in doc['direct_recs']:
-            if rec['user'] == request.json['requestingUser']:
-
-                dir_recs.append({
-                    'song': rec['song'],
-                    'artist': rec['artist'],
-                    'user': rec['user'],
-                    'uri': rec['uri'],
-                    'date': rec['date'],
-                    'caption': rec['caption'],
-                    'responses': rec['responses'],
-                    'recipients': rec['recipients'],
+                recs.append({
+                    '_id': str(doc['_id']),
+                    'song': doc['song'],
+                    'artist': doc['artist'],
+                    'user': doc['user'],
+                    'uri': doc['uri'],
+                    'likes': len(doc['likers']),
+                    'views': doc['views'],
+                    'date': doc['date'],
+                    'liked': liked,
 
                 })
-    # getting user follower/following numbers
+        recs.reverse()
+        dir_arr = users.find({'username': request.json['user']})
 
-    num_followers = len(username['followers'])
-    num_following = len(username['following'])
+        dir_recs = []
+        if(dir_arr.count() > 0):
+            for doc in dir_arr:
+                for rec in doc['direct_recs']:
+                    if rec['user'] == request.json['requestingUser']:
 
-    followed = False
+                        dir_recs.append({
+                            'song': rec['song'],
+                            'artist': rec['artist'],
+                            'user': rec['user'],
+                            'uri': rec['uri'],
+                            'date': rec['date'],
+                            'caption': rec['caption'],
+                            'responses': rec['responses'],
+                            'recipients': rec['recipients'],
 
-    if(requesting_user['username'] in username['followers']):
-        followed = True
-        return {'recs': recs, 'dir_recs': dir_recs, 'num_followers': num_followers, 'num_following': num_following, 'followed': followed}
+                        })
+        # getting user follower/following numbers
 
-    elif(requesting_user['username'] == username['username']):
+        num_followers = len(username['followers'])
+        num_following = len(username['following'])
+
         followed = False
-        return {'recs': recs, 'dir_recs': dir_recs, 'num_followers': num_followers, 'num_following': num_following, 'followed': followed}
+
+        if(requesting_user['username'] in username['followers']):
+            followed = True
+            return {'recs': recs, 'dir_recs': dir_recs, 'num_followers': num_followers, 'num_following': num_following, 'followed': followed}
+
+        elif(requesting_user['username'] == username['username']):
+            followed = False
+
+            return {'recs': recs, 'dir_recs': dir_recs, 'num_followers': num_followers, 'num_following': num_following, 'followed': followed}
+
+        else:
+            return {'recs': recs, 'dir_recs': dir_recs, 'num_followers': num_followers, 'num_following': num_following, 'followed': followed}
+    except Exception as e:
+        print(str(e))
 
 
 @ app.route('/api/search_user', methods={"POST"})
