@@ -600,6 +600,7 @@ def get__user_profile():
                     'views': doc['views'],
                     'date': doc['date'],
                     'liked': liked,
+                    'images': doc['images']
 
                 })
         recs.reverse()
