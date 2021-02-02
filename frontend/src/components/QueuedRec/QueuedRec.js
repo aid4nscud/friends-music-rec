@@ -65,6 +65,7 @@ export const QueuedRec = (props) => {
       uri: props.info.uri,
       recipients: friends,
       caption: caption.substring(0, 60),
+      images: props.info.images,
     };
 
     fetch("/api/create_direct_rec", {

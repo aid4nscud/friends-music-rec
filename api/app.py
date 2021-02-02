@@ -311,6 +311,7 @@ def create_direct_rec():
         'caption': request.json['caption'],
         'responses': obj,
         'recipients': recipients,
+        'images': request.json['images']
     }
 
     try:
@@ -621,6 +622,7 @@ def get__user_profile():
                             'caption': rec['caption'],
                             'responses': rec['responses'],
                             'recipients': rec['recipients'],
+                            'images': rec['images']
 
                         })
         # getting user follower/following numbers
