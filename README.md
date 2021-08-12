@@ -1,5 +1,5 @@
 
-## MVP for social music recommendation app 
+## social music recommendation app 
 
 
 Users will have a profile that is made up of their song recommendations (with associated information for each one). 
