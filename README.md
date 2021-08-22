@@ -1,8 +1,8 @@
 
-## social music recommendation app 
+## friends music recommendation app 
 
 
-Users will have a profile that is made up of their song recommendations (with associated information for each one). 
+Users have a profile that is made up of their song recommendations (with associated information for each one). 
              - Views
              - Likes
              - Score that evaluates how well the song recommendation is received
@@ -31,9 +31,6 @@ TODO:
 
 - Make the process of recommending look cleaner + make direct rec look better
 
-- Add logo, title, footer, favicon, etc...
+- Add logo, title, footer, favicon, other design etc...
 
-
-NOT SURE:
-  -Spotify Auth Flow
 
